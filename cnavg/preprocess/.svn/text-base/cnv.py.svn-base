@@ -1,0 +1,57 @@
+#!/usr/bin/env python
+
+import sys
+import cnavg.basics.coords as coords
+from breakend import Breakend
+
+################################################
+## CNV
+################################################
+
+class CNV(coords.Region):
+        def __init__(self, chr, start, finish, val, name, softStart=None, softFinish=None):
+		super(CNV, self).__init__(chr, start, finish)
+                self.val = list(val)
+		self.softStart = softStart
+		self.softFinish = softFinish
+		self.startCap = None
+		self.finishCap = None
+		self.name = str(name)
+
+        def __str__(self):
+		if self.softStart is None or self.softFinish is None:
+			return "[%s] %s:%i-%i=%s" % (self.name, self.chr, self.start, self.finish, str(self.val))
+		else:
+			return "[%s] %s:%i/%li-%i/%li=%s" % (self.name, self.chr, self.start, self.softStart, self.softFinish, self.finish, str(self.val))
+
+	def addStartCap(self, graph):
+		self.startCap = Breakend(self.chr, self.start, True, self.name + ":start", finish=self.softStart)
+		self.startCap.createPartner(graph)
+		assert self.val >= 0
+		self.startCap.segment = self.val
+		graph.addBreakend(self.startCap)
+
+	def addFinishCap(self, graph):
+		if self.softFinish is not None:
+			self.finishCap = Breakend(self.chr, self.softFinish, False, self.name + ":finish", finish=self.finish)
+		else:
+			self.finishCap = Breakend(self.chr, self.finish - 1, False, self.name + ":finish", finish=self.finish)
+		self.finishCap.createPartner(graph)
+		assert self.val >= 0
+		self.finishCap.segment = self.val
+		graph.addBreakend(self.finishCap)
+
+	def validate(self):
+		super(CNV, self).validate()
+		if self.softStart is not None:
+			assert self.softStart >= self.start
+			assert self.softStart <= self.finish
+		if self.softFinish is not None:
+			assert self.softFinish >= self.start
+			assert self.softFinish <= self.finish
+		if self.softStart is not None and self.softFinish is not None:
+			assert self.softFinish >= self.softStart
+		return True
+
+	def ploidy(self):
+		return len(self.val)

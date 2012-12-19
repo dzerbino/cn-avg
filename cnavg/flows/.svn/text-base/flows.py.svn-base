@@ -1,0 +1,60 @@
+#!/usr/bin/env python
+
+import copy
+
+from cnavg.flows.cycle import Cycle
+
+#############################################
+## Event 
+#############################################
+class Event(object):
+	#############################################
+	## Basic
+	#############################################
+	def __init__(self, cycle):
+		self.cycle = cycle 
+		self.ratio = min(1, abs(self.cycle.value))
+
+	def __copy__(self):
+		return Event(copy.copy(self.cycle))
+
+	#############################################
+	## Stats
+	#############################################
+	def length(self):
+		return len(self.cycle)
+
+	def validate(self):
+		if len(self.cycle) == 0:
+			print self
+		assert self.cycle.validate()
+		return True
+
+	def getCNVs(self, hash, graph):
+		return self.cycle.getCNVs(hash, self, graph)
+	
+	def setRatio(self, value):
+		self.cycle.setRatio(value)
+		self.ratio = min(1, abs(self.cycle.value))
+
+	#############################################
+	## Display
+	#############################################
+	def __str__(self):
+		return "\n".join(["EVENT %f %i" % (self.ratio, id(self)), str(self.cycle)])
+
+	def dot(self):
+		return "\n".join(["digraph G {","\trankdir=LR",self.cycle.dot(),"}"])
+
+	def braneyText(self, historyID, netID, cycleID, ordering, complexity):
+		return self.cycle.braneyText(historyID, netID, cycleID, ordering.depth[self], complexity)
+
+	def simplifyStubsAndTrivials(self, cactus):
+		cycle = self.cycle.simplifyStubsAndTrivials(cactus)
+		if cycle is not None:
+			return Event(cycle)
+		else:
+			return None
+
+	def doesNotContainNodes(self, nodes):
+		return self.cycle.doesNotContainNodes(nodes)

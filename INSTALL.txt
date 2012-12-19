@@ -1,0 +1,33 @@
+Prerequisites:
+
+- DNAcopy package from BioConductor/R
+source("http://bioconductor.org/biocLite.R")
+biocLite("DNAcopy")
+	* R
+	* BioConductor
+
+- graphlab library
+	* Mercurial
+	* BOOST
+	* OPENMP
+	* MPI
+	Make it all, and add the gabp exectuable on you path.
+
+- Python libraries
+pip install numpy rpy2 pyvcf pybedtools
+
+- cactus library
+git clone git://github.com/benedictpaten/sonLib.git
+git clone git://github.com/benedictpaten/cactus.git
+
+For the automated pipeline:
+git clone git://github.com/benedictpaten/jobTree.git
+- bedGraphToBigWig
+
+Procedure:
+	make
+	make install
+	point PYTHONPATH to this directory (test: 'import cnavg')
+	
+To re-generate documation:
+epydoc cnavg --graph all -o doc --no-private

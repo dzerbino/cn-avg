@@ -1,0 +1,79 @@
+#!/usr/bin/env python
+
+import sys
+import subprocess
+import tempfile
+import os
+import os.path
+from cnavg.preprocess.cnv import CNV
+
+chromosomeNames = map(lambda X: "chr" + X, map(str, range(1, 23)) + ['X', 'Y'])
+
+################################################
+## Conversion functions for input
+################################################
+
+def writeCBSLine(index, chrom, pos, val, file):
+	# 'Cause CBS has hard coded chromosome names... 
+	if chrom[:3] == "chr":
+		chrom = chrom[3:]
+	file.write("%i\t%s\t%i\t%f\n" % (index, chrom, pos, val))
+
+def writeCBSInput(chrom, pos, vals, output):
+	file = open(output, "w")
+	file.write("SNP\tChromosome\tPhysicalPosition\tsample1\n")
+	for index in range(len(chrom)):
+		writeCBSLine(index, chrom[index], pos[index], vals[index], file)
+	file.close()
+
+################################################
+## Conversion functions for output
+################################################
+def parseCBSLine(line, chromosomeNames):
+	items = line.strip().split()
+	cnv = CNV(chromosomeNames[int(items[1]) - 1], items[2], items[3], [float(items[5])], "CNV:" + chromosomeNames[int(items[1]) - 1] + ":" + str((int(items[2]) + int(items[3])) / 2))
+	cnv.numMarks = int(items[4])
+	return cnv
+
+def parseCBSFile(input, chromosomeNames):
+	regions = []
+	file2 = open(input)	
+	file2.readline()
+	for line in file2:
+		regions.append(parseCBSLine(line, chromosomeNames))	
+	file2.close()
+	return regions
+
+def uniq(list, elem):
+	if len(list) == 0 or list[-1] != elem:
+		list.append(elem)
+	return list
+
+################################################
+## Master function 
+################################################
+def run(chrom, pos, vals):
+	if not os.path.exists('CBS_OUT'):
+		print 'Running CBS...'
+		file1, input = tempfile.mkstemp(dir='.')
+
+		writeCBSInput(chrom, pos, vals, input)
+		if subprocess.Popen(['cbs.R', input, 'CBS_OUT'], stdout=sys.stdout, stderr=subprocess.STDOUT).wait() != 0:
+		    sys.exit("CBS did not complete")
+		os.remove(input)
+	
+	print 'Reading CBS output...'
+	return parseCBSFile('CBS_OUT', chromosomeNames)
+
+################################################
+## Unit test
+################################################
+
+def main():
+	chrom = ['1', '1', '1', '1']
+	pos = [1000, 2000, 3000, 4000]
+	vals = [1, 1, 1, 2]
+	print "\n".join(map(str, run(chrom, pos, vals)))
+
+if __name__=="__main__":
+	main()
