@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+""" Linear algebra representation of a history """
+
 import overlap
 
 import math
@@ -40,7 +42,6 @@ import debug
 
 import scipy.sparse
 
-""" Linear algebra representation of a history """
 
 ROUNDING_ERROR=1e-10
 """ Amount by which a coefficient is considered to be equal to 0 after linear simplification """ 
@@ -56,16 +57,18 @@ class Mapping(dict):
 	##############################################
 	def _addMatrixEdge(self, IDA, IDB, value):
 		""" The use of the matrix allows for accelerated bond lookups """
-		M = max(IDA, IDB) + 1
-		if M > self.maxNodeID:
-			if self.maxNodeID == 0:
-				self.matrix = np.zeros((M,M))
-			else:
-				self.matrix = np.concatenate((self.matrix, np.zeros((M - self.maxNodeID, self.maxNodeID))), axis=0)
-				self.matrix = np.concatenate((self.matrix, np.zeros((M, M - self.maxNodeID))), axis=1)
-			self.maxNodeID = M
-		self.matrix[IDA, IDB] = value
-		self.matrix[IDB, IDA] = value
+		#M = max(IDA, IDB) + 1
+		#if M > self.maxNodeID:
+		#	# DEBUG
+		#	print M
+		#	if self.maxNodeID == 0:
+		#		self.matrix = np.zeros((M,M))
+		#	else:
+		#		self.matrix = np.concatenate((self.matrix, np.zeros((M - self.maxNodeID, self.maxNodeID))), axis=0)
+		#		self.matrix = np.concatenate((self.matrix, np.zeros((M, M - self.maxNodeID))), axis=1)
+		#	self.maxNodeID = M
+		self.matrix[(IDA, IDB)] = value
+		self.matrix[(IDB, IDA)] = value
 
 	def addEdge(self, A, B, index):
 		""" Add new edge to mapping """
@@ -77,7 +80,7 @@ class Mapping(dict):
 
 	def getBond(self, A, B):
 		""" Return index assigned to bond edge """
-		return self.matrix[A.ID,B.ID]
+		return self.matrix[(A.ID,B.ID)]
 
 	def getEdge(self, A, B, index):
 		""" Return index assigned to edge (-1 => bond, >=0 => indexed segment edge) """
@@ -108,8 +111,8 @@ class Mapping(dict):
 			self.addEdge(tonode, fromnode, index)
 
 	def _prepareNodeMapping(self, node, module):
-		map(lambda N: self._prepareEdgeMapping(N, node), module[node].edges.keys())
-		map(lambda N: self._prepareSegmentEdgeMapping(N, node, module[node].twin), range(len(module.segments[node])))
+		map(lambda N: self._prepareEdgeMapping(N, node), module[node].edges)
+		map(lambda i: self._prepareSegmentEdgeMapping(i, node, module[node].twin), range(len(module.segments[node])))
 
 	def _bondVector_Edge(self, vector, edge):
 		if edge[2] == -1:
@@ -124,8 +127,8 @@ class Mapping(dict):
 		super(Mapping, self).__init__()
 		self.length = 0
 		self.maxNodeID = 0
-		self.matrix = None
-		map(lambda X: self._prepareNodeMapping(X, module), module.nodes())
+		self.matrix = dict()
+		map(lambda X: self._prepareNodeMapping(X, module), module)
 
 	##############################################
 	## Stats

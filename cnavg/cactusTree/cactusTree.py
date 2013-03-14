@@ -30,6 +30,10 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""
+Integrated jobTree pipeline.
+"""
+
 import sys
 import os
 import glob
@@ -54,10 +58,6 @@ from jobTree.scriptTree.stack import Stack
 IDEAL_JOB_RUNTIME = 500
 MEM4G=4290000000
 MEM2G=3000000000
-
-"""
-Integrated jobTree pipeline.
-"""
 
 class MyParser(OptionParser):
 	""" Command line options """
@@ -134,7 +134,7 @@ class SetupPhase(Target):
 class SampleCycles(Target):
     """ Sampler: normalizes the cactus graph randomly, then performs MCMC search through possible histories. """
     def __init__(self, options, index):
-    	Target.__init__(self, time=600, memory=MEM2G)
+    	Target.__init__(self, time=600, memory=MEM4G)
 	self.options = options
 	self.index = str(index)
 

@@ -30,6 +30,10 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""
+Flattening history so that they are no longer split by net
+"""
+
 import copy
 
 from constrained import ConstrainedHistory
@@ -38,10 +42,6 @@ from cnavg.flows.edge import Edge
 from cnavg.flows.cycle import Cycle
 from cnavg.flows.flows import Event
 from cnavg.history.history import History
-
-"""
-Definition of flattened histories
-"""
 
 def flattenGraph(cactusHistory):
 	""" Returns a flattened copy of the CactusHistory """

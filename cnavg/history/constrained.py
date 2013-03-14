@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+""" Computing and detecting rearrangment costs plus any discrepancy in a history """
+
 import math
 import random
 import scheduled
@@ -37,7 +39,6 @@ import numpy as np
 
 import debug
 
-""" Computing and detecting rearrangment costs plus any discrepancy in a history """
 
 def _originalComponents_Node(data, node, module):
 	if node.orientation:
@@ -210,12 +211,11 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 	## Correct errors in scheduling
 	######################################
 	def childErrors(self, event):
-		# NOTE: 0.1 is criteria for keeping an event in the default pipeline
 		badBoys = [X for X in self.children[event] if X.ratio > event.ratio]
 		if len(badBoys) > 0:
 			return badBoys
-		if (not debug.DEBUG) and sum(X.ratio for X in self.children[event] if X.ratio >= 0.1) > event.ratio:
-			return [min(filter(lambda X: X.ratio >= 0.1, self.children[event]), key=lambda X: X.ratio)]
+		if (not debug.DEBUG) and sum(X.ratio for X in self.children[event] if X.ratio >= debug.RATIO_CUTOFF) > event.ratio:
+			return [min(filter(lambda X: X.ratio >= debug.RATIO_CUTOFF, self.children[event]), key=lambda X: X.ratio)]
 		elif sum(X.ratio for X in self.children[event]) > event.ratio:
 			return [min(self.children[event], key=lambda X: X.ratio)]
 		else:
@@ -228,11 +228,10 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 			return []
 
 	def schedulingErrors(self):
-		# NOTE: 0.1 is criteria for keeping an event in the default pipeline
 		if debug.DEBUG:
 			return self.rootErrors() + sum(map(self.childErrors, (X for X in self.children.keys())), []) 
 		else:
-			return self.rootErrors() + sum(map(self.childErrors, (X for X in self.children.keys() if X.ratio > 0.1)), []) 
+			return self.rootErrors() + sum(map(self.childErrors, (X for X in self.children.keys() if X.ratio > debug.RATIO_CUTOFF)), []) 
 
 	def correctSchedulingError(self, event):
 		parent = self.parent[event]
@@ -270,9 +269,10 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 				selfEdge = 0
 
 			# Propagate component
+			ancestralNeighbours = set(X for X in nodeFlow.edges if previousBonds[netHistory.mappings.getBond(node, X)])
+			o = max(len(ancestralNeighbours) - 1, 0)
 			oldNeighbours = set(X for X in nodeFlow.edges if X.ID not in visited and previousBonds[netHistory.mappings.getBond(node, X)])
 			a = len(oldNeighbours)
-			o = max(a - 1, 0)
 			newNeighbours = set(X for X in nodeFlow.edges if X.ID not in visited and createdBonds[netHistory.mappings.getBond(node, X)])
 			neighbours = list(oldNeighbours | newNeighbours)
 			newEdges = len(neighbours)
@@ -290,7 +290,7 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 			else:
 				componentLoops = int(math.ceil((edges - len(componentNodes) + 1)*0.5))
 
-			#print 'COMPLEXITY', ancestralEdges, componentLoops, overlaps, max(ancestralEdges - 1 + componentLoops - overlaps, 0)
+			#print 'COMPLEXITY2', ancestralEdges, edges, len(componentNodes), componentLoops, overlaps, max(ancestralEdges - 1 + componentLoops - overlaps, 0)
 			return visited | componentNodes, cost + max(ancestralEdges - 1 + componentLoops - overlaps, 0)
 
 	def countComponents(self, cycle, netHistory, previousBonds, createdBonds):
@@ -308,7 +308,7 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 		while len(queue) > 0:
 			event, previousVector = queue.pop(0)
 
-			if (not debug.DEBUG) and event.ratio < 0.1:
+			if (not debug.DEBUG) and event.ratio < debug.RATIO_CUTOFF:
 				continue
 
 			if event in netHistory.eventIndex:
@@ -323,11 +323,44 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 				segmentErrors = (eventVector != 0) & segment & (previousVector <= 0) 
 				bondDestructions = (eventVector != 0) & bond & (newVector > 0)
 				total += cost + 2 * np.sum(segmentErrors | bondDestructions)
-				#print 'COMPLEXITY', n, C, L, O, np.sum(segmentErrors | bondDestructions), max(n - C + L - O + 2 * np.sum(segmentErrors | bondDestructions), 0) 
+				#print 'COMPLEXITY', len(event.cycle), cost, np.sum(segmentErrors | bondDestructions), max(cost + 2 * np.sum(segmentErrors | bondDestructions), 0) 
 			else:
 				newVector = previousVector
 			queue.extend((X, newVector) for X in self.children[event])
 		return total
+
+	def errorCost_Net(self, net):
+		netHistory = self.netHistories[net]
+		originalVector = netHistory.originalVector()
+		bond = netHistory.bondIndices()
+		segment = (bond == False)
+		queue = [(X, originalVector) for X in self.roots]
+		total = 0
+
+		# I wish I could do this in proper recursion FP style, but Python is not very good with deep recursions
+		while len(queue) > 0:
+			event, previousVector = queue.pop(0)
+
+			if (not debug.DEBUG) and event.ratio < debug.RATIO_CUTOFF:
+				continue
+
+			if event in netHistory.eventIndex:
+				if event.cycle.value > 0:
+					eventVector = -netHistory.eventVector(event) 
+				else:
+					eventVector = netHistory.eventVector(event) 
+				newVector = previousVector + eventVector
+				previousBonds = bond & (previousVector < 0)
+				segmentErrors = (eventVector != 0) & segment & (previousVector <= 0) 
+				bondDestructions = (eventVector != 0) & bond & (newVector > 0)
+				total += 2 * np.sum(segmentErrors | bondDestructions)
+			else:
+				newVector = previousVector
+			queue.extend((X, newVector) for X in self.children[event])
+		return total
+
+	def errorCost(self):
+		return sum(map(self.errorCost_Net, self.netHistories))
 
 	def rearrangementCost(self):
 		# Yeah I know, ugly side effect, but avoids re-computing stuff.

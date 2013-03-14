@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""CNV data holder"""
+
 import sys
 import cnavg.basics.coords as coords
 from breakend import Breakend
@@ -39,6 +41,7 @@ from breakend import Breakend
 ################################################
 
 class CNV(coords.Region):
+	""" CNV data holder"""
         def __init__(self, chr, start, finish, val, name, softStart=None, softFinish=None):
 		super(CNV, self).__init__(chr, start, finish)
                 self.val = list(val)

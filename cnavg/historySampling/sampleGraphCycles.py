@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Sampling through histories at the global level"""
+
 import cnavg.avg.graph as avg
 import cnavg.cactus.graph as cactus
 import cnavg.cactusSampling.sampling as normalizedCactus
@@ -136,7 +138,7 @@ def chooseNewHistory(history, temperature, depth=0, index=0):
 	if newHistory is None:
 		return None
 	elif MCTest(newHistory.rearrangementCost(), history.rearrangementCost(), temperature):
-		print 'HISTORY ', index, depth, newHistory.rearrangementCost(), time.asctime()
+		print 'HISTORY ', index, depth, len(history.parent), newHistory.rearrangementCost(), newHistory.errorCost(), time.asctime()
 		# Memory optimization trick -> Frees unused matrices and overlap tables
 		history.embalmDeadHistories(newHistory)
 		return newHistory
@@ -146,7 +148,7 @@ def chooseNewHistory(history, temperature, depth=0, index=0):
 
 MINHISTORY = None
 
-def addNewHistory(histories, index, file=None, stats=None, braney=None):
+def addNewHistory(histories, index, file=None, stats=None, braney=None, tree=None):
 	# Just do not process if run time > TIMER_LENGTH
 	global TIMER_END
 	if time.time() > TIMER_END:
@@ -159,6 +161,8 @@ def addNewHistory(histories, index, file=None, stats=None, braney=None):
 		stats.write("%s\n" % newHistory.stats())
 	if braney is not None:
 		braney.write("%s\n" % cnavg.history.ordered.prettify(newHistory, index))
+	if tree is not None:
+		tree.write("%s\n" % newHistory.newick())
 	if file is None: 
 		histories.append(newHistory)
 		return histories 
@@ -175,11 +179,11 @@ def addNewHistory(histories, index, file=None, stats=None, braney=None):
 ## Master function
 ########################################
 
-def sample(cactusHistory, size, file=None, stats=None, braney=None):
+def sample(cactusHistory, size, file=None, stats=None, braney=None, tree=None):
 	print 'Sampling history space of Cactus graph'
 	global TIMER_END
 	TIMER_END = time.time() + TIMER_LENGTH
-	res = reduce(lambda X, Y: addNewHistory(X, Y, file, stats, braney), range(size), [cactusHistory])
+	res = reduce(lambda X, Y: addNewHistory(X, Y, file, stats, braney, tree), range(size), [cactusHistory])
 	if file is not None:
 		pickle.dump(res[0], file)
 	return res

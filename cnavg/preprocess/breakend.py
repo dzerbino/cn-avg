@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""VCF style representation of breakend data"""
+
 import sys
 import cnavg.basics.coords as coords
 
@@ -140,16 +142,11 @@ class Breakend(coords.OrientedRegion):
 			self.mate = mate 
 			self.mates[index] = mate
 
-			assert len(mate.remoteChr) == len(mate.mates)
-			assert len(mate.remoteOrientation) == len(mate.mates)
-			assert len(mate.remoteStart) == len(mate.mates)
-			assert len(mate.remoteFinish) == len(mate.mates)
 			remoteIndex = filter(lambda X: mate.remoteChr[X] == self.chr and mate.remoteOrientation[X] == self.orientation and mate.remoteStart[X] < self.finish and mate.remoteFinish[X] > self.start, range(len(mate.mates)))
 			assert len(remoteIndex) < 2
 			if len(remoteIndex) == 1:
-				remoteIndex = remoteIndex[0]
-				mate.mates[remoteIndex] = self
-				mate.adjacency_cov[remoteIndex] = self.adjacency_cov[index]
+				mate.mates[remoteIndex[0]] = self
+				mate.adjacency_cov[remoteIndex[0]] = self.adjacency_cov[index]
 			else:
 				mate.mates.append(self)
 				mate.remoteChr.append(self.chr)
@@ -174,7 +171,7 @@ class Breakend(coords.OrientedRegion):
 		if self.partner is None:
 			self.createPartner(breakendGraph)
 
-		for counter in range(len(self.remoteChr)):
+		for counter in range(len(self.mates)):
 			if self.mates[counter] is None:
 				self.createMate(counter, breakendGraph)
 
@@ -186,10 +183,6 @@ class Breakend(coords.OrientedRegion):
 		self.node = graph.createNode(self.chr, self.start, self.orientation, name=self.ID)
 
 	def connectNode(self, graph):
-		if self > self.partner:
-			assert self.node > self.partner.node
-		else:
-			assert self.node < self.partner.node
 		graph.createAdjacency(self.node, self.partner.node)
 		if self.node < self.partner.node:
 			graph.addLiftedEdge(self.node, self.partner.node, self.adjacency_cov[0])

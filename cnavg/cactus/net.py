@@ -30,17 +30,17 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Definition of Net, ie a set of 3-edge connected groups"""
+
 import copy
 
 from cnavg.cactus.chain import Chain
-
-"""Definition of Net"""
 
 ###########################################
 ## Net structure 
 ###########################################
 class Net(object):
-	"""A net in a cactus graph, i.e. a set of 3-edge connected blocks"""
+	"""A net in a cactus graph, i.e. a set of 3-edge connected groups"""
 	def __init__(self, iter):
 		self.groups = frozenset(iter)
 
@@ -61,40 +61,6 @@ class Net(object):
 		""" Bed string representation of the segments spanned by the net """
 		nodes = sorted(self.nodes())
 		return "\t".join(map(str, [nodes[0].chr, nodes[0].pos, nodes[-1].pos]))
-
-	"""
-	def computeBiConnectedComponents(self, blocks, visited, count, dfn, low, stack, father):
-		visited.add(self)
-		dfn[self] = count + 1
-		low[self] = count + 1
-		chains = []
-
-		for net2, block in blocks[self]:
-			if net2 == self:
-				visited.add(block)
-				chain = Chain([block])
-				chains.append(chain)
-				continue
-				
-			if block not in visited:
-				visited.add(block)
-				stack.append(block)
-
-			if net2 not in visited:
-				father[net2] = self 
-				chains += net2.computeBiConnectedComponents(blocks, visited, count + 1, dfn, low, stack, father)
-				if low[net2] >= dfn[self]:
-					chain = Chain()
-					while len(stack) > 0 and (len(chain) == 0 or chain[-1] != block):
-						chain.append(stack.pop(-1))
-					chains.append(chain)
-				low[self] = min(low[self], low[net2])
-
-			elif net2 != father[self]:
-				low[self] = min([low[self], dfn[net2]])
-
-		return chains
-	"""
 
 	def __add__(self, other):
 		return Net(self.groups | other.groups)

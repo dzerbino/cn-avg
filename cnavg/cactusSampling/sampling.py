@@ -30,13 +30,13 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Cactus graph normalization, ie ensuring the flow is constant across all blocks in a chain"""
+
 import sys
 import cnavg.avg.graph as avg
 import cnavg.cactus.graph as cactus
 import random
 import math
-
-"""Cactus graph normalization, i.e. the flow must be constant across all blocks in a chain"""
 
 def randomChoice(vector):
 	if len(vector) == 0:

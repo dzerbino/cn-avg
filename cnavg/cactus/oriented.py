@@ -30,10 +30,10 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Definition of OrientedCactus, where nets and chains are organized into a bi-partite tree"""
+
 import cnavg.avg.graph as avg
 import graph as cactus
-
-"""Definition of OrientedCactus"""
 
 ###########################################
 ## Oriented Cactus 

@@ -1,14 +1,14 @@
 10
 
 dir
-10980
+11326
 svn+ssh://dzerbino@hgwdev.cse.ucsc.edu/projects/compbio/svnroot/hausslerlab/cn-avg/src/3way
 svn+ssh://dzerbino@hgwdev.cse.ucsc.edu/projects/compbio/svnroot
 
 
 
-2011-08-28T16:46:31.668358Z
-9274
+2012-12-19T01:05:25.181229Z
+10983
 dzerbino
 
 
@@ -62,14 +62,14 @@ dzerbino
 
 Makefile
 file
+11327
 
 
 
-
-2012-12-19T01:10:34.000000Z
-e79e06213a09e0e9c092ef9313319399
-2011-08-28T16:46:31.668358Z
-9274
+2013-02-13T19:16:10.000000Z
+cfd8a205865a867f9e9afe13a473380b
+2013-03-12T19:55:54.938634Z
+11327
 dzerbino
 
 
@@ -92,5 +92,5 @@ dzerbino
 
 
 
-262
+286
 

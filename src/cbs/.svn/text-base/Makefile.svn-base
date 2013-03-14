@@ -1,7 +1,7 @@
-default: ../../bin/cbs.R ../../lib/common.R
+default: ${BIN_DIR}/cbs.R ${LIB_DIR}/common.R
 
-../../bin/cbs.R: cbs.R
-	cp cbs.R ../../bin
+${BIN_DIR}/cbs.R: cbs.R
+	cp cbs.R ${BIN_DIR} 
 
-../../lib/common.R: common.R
-	cp common.R ../../lib
+${LIB_DIR}/common.R: common.R
+	cp common.R ${LIB_DIR}

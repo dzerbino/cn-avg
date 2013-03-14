@@ -30,6 +30,10 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""
+Definition of the Node object
+"""
+
 import sys
 import copy
 import random
@@ -40,10 +44,6 @@ try:
     import cPickle 
 except ImportError:
     import pickle as cPickle
-
-"""
-Definition of the Node object
-"""
 
 class Node(coords.OrientedPosition):
 	"""

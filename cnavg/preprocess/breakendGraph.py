@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Handling a collection of breakends"""
+
 import sys
 import vcf
 import cnavg.avg.graph as avg
@@ -39,27 +41,32 @@ import cnavg.avg.graph as avg
 #########################################################
 
 class BreakendGraph(list):
+	""" A collection of breakends organized into a graph """
 	def validate(self):
 		assert all(map(lambda X: X.validate(), self))
 
 	def searchBreakend(self, region):
+		""" Search for breakend which covers a given region """ 
 		return filter(lambda X: X == region, self)
 
-	def smallerNodes(self, region):
+	def _smallerNodes(self, region):
 		return filter(lambda X: X < region, self)
 
-	def insertionPoint(self, region):
-		return len(self.smallerNodes(region))
+	def _insertionPoint(self, region):
+		return len(self._smallerNodes(region))
 
 	def addBreakend(self, breakend):
+		""" Insert breakend """
 		breakend.validate()
-		self.insert(self.insertionPoint(breakend), breakend)
+		self.insert(self._insertionPoint(breakend), breakend)
 
 	#########################################################
 	## Consolidating missing labels
 	#########################################################
 
-	def consolidateEmptyBreakend(self, breakend):
+	def _consolidateEmptyBreakend(self, breakend):
+		breakend.consolidateEmptyBreakend(self)
+
 		if breakend.partner is None:
 			breakend.createPartner(self)
 
@@ -67,8 +74,9 @@ class BreakendGraph(list):
 			breakend.createMates(self)
 
 	def consolidate(self):
+		""" Ensuring all breakends in the graph have a mate and a partner """
 		print "\tConsolidating breakends"
-		map(lambda X: X.consolidateEmptyBreakend(self), self)
+		map(lambda X: self._consolidateEmptyBreakend(X), self)
 
 	#########################################################
 	## Merging CNV info 
@@ -132,7 +140,7 @@ class BreakendGraph(list):
 	## Convert to graph
 	#########################################################
 
-	def closeChromosome(self, chr, graph, chromosomeLength):
+	def _closeChromosome(self, chr, graph, chromosomeLength):
 		chrBreakends = sorted(filter(lambda x: x.chr == chr and x.orientation == False, self), key = lambda X: X.node)
 		if len(chrBreakends) == 0:
 			return
@@ -167,7 +175,7 @@ class BreakendGraph(list):
 
 		map(lambda X: X.attachNode(graph), self)
 		map(lambda X: X.connectNode(graph), self)
-		map(lambda X: self.closeChromosome(X, graph, self.lengths[X]), self.lengths)
+		map(lambda X: self._closeChromosome(X, graph, self.lengths[X]), self.lengths)
 
 		return graph
 

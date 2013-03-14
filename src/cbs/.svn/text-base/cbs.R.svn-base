@@ -101,7 +101,7 @@ run.cbs<-function(cn, column.index=-1, array.names, nPerm, alpha, libdir=NULL){
 
 main<-function(){
 	args <- commandArgs(trailingOnly=TRUE)
-	gpCBS(args[1], args[2], libdir='~/.local/lib/R/')	
+	gpCBS(args[1], args[2], libdir='/inside/home/dzerbino/.local/lib/R/')	
 }
 
 main()

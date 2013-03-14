@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Cycle traversal underlying an alternating flow"""
+
 import copy
 
 from cnavg.flows.edge import Edge
@@ -134,8 +136,8 @@ class Cycle(list):
 	def dot(self):
 		return "\n".join(X.dot() for X in self)
 
-	def braneyText(self, historyID, netID, cycleID, order, complexity):
-		return "\n".join(self[X].braneyText(historyID, netID, cycleID, X, order, complexity) for X in range(len(self)))
+	def braneyText(self, historyID, netID, cycleID, order, complexity, ptr):
+		return "\n".join(self[X].braneyText(historyID, netID, cycleID, X, order, complexity, ptr) for X in range(len(self)))
 
 	def simplifyStubsAndTrivials(self, cactus):
 		nodes = [X.start for X in self]

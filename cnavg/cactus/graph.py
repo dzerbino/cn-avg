@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Definition of Cactus graphs"""
+
 import cnavg.avg.graph as avg
 import copy
 import threeWay.components
@@ -39,7 +41,6 @@ from cnavg.cactus.block import Block
 from cnavg.cactus.chain import Chain
 from cnavg.cactus.net import Net
 
-"""Definition of Cactus graphs"""
 		
 def _updateMapping(mapping, pair):
 	A, B, block = pair

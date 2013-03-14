@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Definition of sequence graphs"""
+
 import sys
 import copy
 import random
@@ -45,7 +47,6 @@ except ImportError:
 ###############################################
 ## Sequence graph
 ###############################################
-"""Definition of Graph"""
 
 class Graph(dict):
 	"""A sequence graph"""

@@ -30,6 +30,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Flow history"""
 import copy
 
 from cnavg.flows.flows import Event
@@ -289,7 +290,7 @@ class CactusHistory(object):
 		return median(sum((X.eventLengths() for X in self.netHistories.values()),[]))
 
 	def stats(self):
-		return "\t".join(map(str, [self.rearrangementCost(), self.length(), self.medianLength(), self.maxLength()]))
+		return "\t".join(map(str, [self.rearrangementCost(), self.errorCost(), self.length(), self.medianLength(), self.maxLength()]))
 
 	def dot(self):
 		""" GraphViz representation """

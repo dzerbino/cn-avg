@@ -31,4 +31,5 @@
 #!/usr/bin/env python
 
 DEBUG=False
+RATIO_CUTOFF=0.1
 PLOIDY = 2

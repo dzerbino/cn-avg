@@ -30,6 +30,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Keeping track of the tree of events in a history"""
 import sys
 import copy
 
@@ -233,22 +234,25 @@ class ScheduledHistory(history.CactusHistory):
 		return "\n".join([super(ScheduledHistory, self).__str__(), self.descentTreeString()])
 
 	#################################
+	## Newick
+	#################################
+	def newick_remainderLeaf(self, event):
+		return "%i:%f" % (id(event), event.ratio - sum(X.ratio for X in self.children[event]))
+
+	def newick_node(self, event):
+		fork = "(" + ",".join([self.newick_node(child) for child in self.children[event]] + [self.newick_remainderLeaf(event)]) + ")"
+		if self.parent[event] is None:
+			length = str(1 - event.ratio)
+		else:
+			length = str(self.parent[event].ratio - event.ratio)
+		return fork + ":" + length
+
+	def newick(self):
+		return "\n".join("(" + ",".join(self.newick_node(event) for event in self.roots) + ");")
+		
+	#################################
 	## Validate
 	#################################
-	def debug(self):
-		for event in self.parent:
-			parent = self.parent[event]
-			while parent is not None:
-				if parent not in self.ancestors[event]:
-					print self.descentTreeString()
-					print id(event), id(parent)
-					parent = self.parent[event]
-					while parent is not None:
-						print 'PARENT', id(parent)
-						parent = self.parent[parent]
-					assert False
-				parent = self.parent[parent]
-
 	def validateEvent(self, history, event):
 		if event is None:
 			return True

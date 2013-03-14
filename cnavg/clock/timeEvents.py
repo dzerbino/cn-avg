@@ -30,8 +30,11 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+""" Merging the SNV and CNV data"""
+
 import vcf
 import random
+import cnavg.history.debug
 
 from cnavg.basics.coords import Position
 from cnavg.clock.EM import EM
@@ -154,7 +157,6 @@ def newicks(cactusHistory, priors):
 ########################################
 
 def timeEvents(cactusHistory, snvs):
-	# DEBUG
 	blocks = [B for C in cactusHistory.cactus.chains for B in C if B.ploidy(cactusHistory.cactus)]
 	blockTrees = createBlockTrees(cactusHistory, blocks)
 	blockSNVs = assignSNVs(blocks, snvs)
@@ -184,7 +186,7 @@ def main():
 	print 'Cleaning up graph'
 	FH = flattened.flattenGraph(H)
 	S = FH.simplifyStubsAndTrivials()
-	F = S.removeLowRatioEvents(0.1)
+	F = S.removeLowRatioEvents(debug.RATIO_CUTOFF)
 	print 'Reading VCF'
 	snvs = readVCFFile(sys.argv[2])
 	print 'Timing events'

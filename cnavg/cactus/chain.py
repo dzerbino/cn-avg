@@ -30,11 +30,11 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Definition of Chain, a simple cycle of blocks within a cactus graph"""
+
 import cnavg.avg.graph as avg
 import copy
 import threeWay.components
-
-"""Definition of Chain"""
 
 ###########################################
 ## Chain structure 

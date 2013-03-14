@@ -30,9 +30,12 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
-import math
+"""Representing the molecular tree underlying the clonal tree"""
 
+import math
 import rpy2
+import cnavg.history.debug
+
 from rpy2.robjects import IntVector
 from rpy2.robjects import FloatVector
 from numpy import array
@@ -383,7 +386,7 @@ def main():
 		
 	FH = flattened.flattenGraph(H)
 	S = FH.simplifyStubsAndTrivials()
-	F = S.removeLowRatioEvents(0.1)
+	F = S.removeLowRatioEvents(debug.RATIO_CUTOFF)
 
 	if len(sys.argv) == 1:
 		print F

@@ -1,3 +1,4 @@
+#! /inside/home/bjrice/python-2.7.2/python
 # Copyright (c) 2012, Daniel Zerbino
 # All rights reserved.
 # 
@@ -28,7 +29,6 @@
 # STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
 # IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-#! /inside/home/bjrice/python-2.7.2/python
 
 ################################################################################
 # Author: Brandon Rice (bjrice@ucsc.edu)
@@ -43,41 +43,51 @@ def main():
     # Parse analysis files & collect stats
     genes = parse_analyses( args.analysis_files )
 
-    # Merge gene values and print to stdout
-    print "\n".join(map(print_gene, genes))
+    # Print header 
+    print '# region\tdup_per_history\tmean_dup_pos\tmean_dup_value\t' + \
+          'del_per_history\tmean_del_pos\tmean_del_value\t' + \
+          '[gene:prop_shared_cycles:distance]'
 
-def print_gene( gene ):
+    # Merge print to stdout
+    print "\n".join(map(print_gene, genes.items()))
+
+def print_gene( pair ):
+    gene, data = pair
     out_list = [gene]
 
-    for values in genes[gene][:6]:
+    for values in data[:6]:
         out_list.append( str( sum( values ) / len( values ) ) )
 
-    out_list.extend( genes[gene][6] )
+    out_list.extend( data[6] )
 
     return '\t'.join(out_list)
 
-def parse_analyses( analysis_files ):
-    genes = {}
-    for file in analysis_files:
-        for line in open( file, 'r' ):
-            # Skip header
-            if line.startswith('#'): continue
+def parse_line(genes, line):
+    # Skip header
+    if line.startswith('#'):
+	return genes
 
-            line_list = line.rstrip().split('\t')
+    line_list = line.rstrip().split('\t')
 
-            # Initialize this gene's entry if it doens't already exist
-            if not line_list[0] in genes:
-                genes[line_list[0]] = [[] for i in range(6)]
-                genes[line_list[0]].append( set() )
+    # Initialize this gene's entry if it doens't already exist
+    if not line_list[0] in genes:
+	genes[line_list[0]] = [[] for i in range(6)]
+	genes[line_list[0]].append( set() )
 
-            # Add values to list
-            for i in range(6):
-                genes[ line_list[0] ][i].append( float(line_list[i+1]) )
+    # Add values to list
+    for i in range(6):
+	genes[ line_list[0] ][i].append( float(line_list[i+1]) )
 
-            # Add cycle-sharing genes to set
-            genes[ line_list[0] ][6].update( line_list[7:] )
+    # Add cycle-sharing genes to set
+    genes[ line_list[0] ][6] |= line_list[7:] 
 
     return genes
+
+def parse_file(genes, file):
+    return reduce(parse_line, open(file), genes)
+
+def parse_analyses( analysis_files ):
+    return reduce(parse_file, analysis_files, dict())
 
 def parse_args():
     ''' Parses & returns command-line arguments '''

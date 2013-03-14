@@ -1,3 +1,3 @@
 ../../bin/3way: 3way.c
-	gcc 3way.c -g -I/Users/cbseuser/utils/sonLib/lib/ -I/Users/cbseuser/utils/cactus/externalTools/threeEdgeConnected/inc/ /Users/cbseuser/utils/sonLib/lib/sonLib.a /Users/cbseuser/utils/cactus/lib/3EdgeConnected.a -o 3way
+	gcc 3way.c -g -I/inside/home/dzerbino/utils/sonLib/lib/ -I/inside/home/dzerbino/utils/cactus/externalTools/threeEdgeConnected/inc/ /inside/home/dzerbino/utils/sonLib/lib/sonLib.a /inside/home/dzerbino/utils/sonLib/lib/3EdgeConnected.a -o 3way
 	mv 3way ../../bin

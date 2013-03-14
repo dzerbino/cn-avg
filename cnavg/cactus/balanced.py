@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Balancing of the flows in a Cactus graph"""
+
 import sys
 import cnavg.avg.graph as avg
 import cnavg.avg.gabp.gabp as gabp
@@ -43,9 +45,6 @@ SEG_FACTOR = FUDGE_FACTOR / 10
 EDGE_FACTOR = FUDGE_FACTOR * 10
 MAX_NOISE = 1e3
 MIN_NOISE = 1e-3
-
-"""Balancing of the flows in a Cactus graph"""
-
 ##############################################
 ## Mapping of flow elements onto integer IDs 
 ##############################################

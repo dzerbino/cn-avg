@@ -30,6 +30,10 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""
+Expectation Maximisation timing of the SNVs wrt CNVs
+"""
+
 import sys 
 import random
 import math

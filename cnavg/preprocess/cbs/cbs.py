@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Wrapper around CBS"""
+
 import sys
 import subprocess
 import tempfile
@@ -38,62 +40,60 @@ import os.path
 from cnavg.preprocess.cnv import CNV
 
 chromosomeNames = map(lambda X: "chr" + X, map(str, range(1, 23)) + ['X', 'Y'])
+""" The names of the chromosomes, in the order that CBS expects them """
 
 ################################################
 ## Conversion functions for input
 ################################################
 
-def writeCBSLine(index, chrom, pos, val, file):
+def _writeCBSLine(index, chrom, pos, val, file):
 	# 'Cause CBS has hard coded chromosome names... 
 	if chrom[:3] == "chr":
 		chrom = chrom[3:]
 	file.write("%i\t%s\t%i\t%f\n" % (index, chrom, pos, val))
 
-def writeCBSInput(chrom, pos, vals, output):
+def _writeCBSInput(chrom, pos, vals, output):
 	file = open(output, "w")
 	file.write("SNP\tChromosome\tPhysicalPosition\tsample1\n")
 	for index in range(len(chrom)):
-		writeCBSLine(index, chrom[index], pos[index], vals[index], file)
+		_writeCBSLine(index, chrom[index], pos[index], vals[index], file)
 	file.close()
 
 ################################################
 ## Conversion functions for output
 ################################################
-def parseCBSLine(line, chromosomeNames):
+def _parseCBSLine(line, chromosomeNames):
 	items = line.strip().split()
 	cnv = CNV(chromosomeNames[int(items[1]) - 1], items[2], items[3], [float(items[5])], "CNV:" + chromosomeNames[int(items[1]) - 1] + ":" + str((int(items[2]) + int(items[3])) / 2))
 	cnv.numMarks = int(items[4])
 	return cnv
 
-def parseCBSFile(input, chromosomeNames):
+def _parseCBSFile(input, chromosomeNames):
 	regions = []
 	file2 = open(input)	
 	file2.readline()
 	for line in file2:
-		regions.append(parseCBSLine(line, chromosomeNames))	
+		regions.append(_parseCBSLine(line, chromosomeNames))	
 	file2.close()
 	return regions
-
-def uniq(list, elem):
-	if len(list) == 0 or list[-1] != elem:
-		list.append(elem)
-	return list
 
 ################################################
 ## Master function 
 ################################################
 def run(chrom, pos, vals):
+	""" Run CBS on three vectors of data: chromosome, position, value"""
 	if not os.path.exists('CBS_OUT'):
 		print 'Running CBS...'
 		file1, input = tempfile.mkstemp(dir='.')
+		os.close(file1)
 
-		writeCBSInput(chrom, pos, vals, input)
+		_writeCBSInput(chrom, pos, vals, input)
 		if subprocess.Popen(['cbs.R', input, 'CBS_OUT'], stdout=sys.stdout, stderr=subprocess.STDOUT).wait() != 0:
 		    sys.exit("CBS did not complete")
 		os.remove(input)
 	
 	print 'Reading CBS output...'
-	return parseCBSFile('CBS_OUT', chromosomeNames)
+	return _parseCBSFile('CBS_OUT', chromosomeNames)
 
 ################################################
 ## Unit test

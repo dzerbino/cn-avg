@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Parsing BamBam output"""
+
 import sys
 import re
 import os
@@ -300,9 +302,11 @@ def parse(bbfiles, breaksfile, lengthsfile, snpsfiles=None):
 	breakends = removeNonChromosomalBreakpoints(breakends, lengths)
 	breakends.consolidate()
 	breakends.lengths = lengths
+	print "Found %i breakends" % len(breakends) 
 
 	# CNV data
 	cnvs = segmentCNVs(parseCNVData(bbfiles))
+	print "Found %i cnv regions" % len(cnvs) 
 
 	# Quick normalization
 	meanCov = sum(sum(X.val) * X.length() for X in cnvs) * READLENGTH / float(sum(X.length() for X in cnvs))

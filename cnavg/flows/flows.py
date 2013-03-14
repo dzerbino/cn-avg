@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Net flow change between two genomes"""
+
 import copy
 
 from cnavg.flows.cycle import Cycle
@@ -77,7 +79,7 @@ class Event(object):
 		return "\n".join(["digraph G {","\trankdir=LR",self.cycle.dot(),"}"])
 
 	def braneyText(self, historyID, netID, cycleID, ordering, complexity):
-		return self.cycle.braneyText(historyID, netID, cycleID, ordering.depth[self], complexity)
+		return self.cycle.braneyText(historyID, netID, cycleID, ordering.depth[self], complexity, id(self))
 
 	def simplifyStubsAndTrivials(self, cactus):
 		cycle = self.cycle.simplifyStubsAndTrivials(cactus)

@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Sampling histories at the local level"""
+
 import sys
 import random
 import math

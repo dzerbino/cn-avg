@@ -1,3 +1,4 @@
+#! /inside/home/bjrice/python-2.7.2/python
 # Copyright (c) 2012, Daniel Zerbino
 # All rights reserved.
 # 
@@ -28,7 +29,6 @@
 # STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
 # IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-#! /inside/home/bjrice/python-2.7.2/python
 
 ################################################################################
 # Author: Brandon Rice (bjrice@ucsc.edu)
@@ -289,7 +289,7 @@ class Segment:
         self.cycle_id = int( line_list[6] )
         self.edge_id = int( line_list[7] )
         self.temporal_pos = int( line_list[8] )
-        self.history_complexity = int( line_list[9] )
+        self.history_complexity = int(float( line_list[9] ))
 
 class Adjacency:
     def __init__( self, adjacency_line ):
@@ -307,7 +307,7 @@ class Adjacency:
         self.cycle_id = int( line_list[10] )
         self.edge_id = int( line_list[11] )
         self.temporal_pos = int( line_list[12] )
-        self.history_complexity = int( line_list[13] )
+        self.history_complexity = int(float( line_list[13] ))
 
 class History:
     def __init__( self, id, complexity ):

@@ -30,12 +30,12 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""History with arbitrary linear ordering, for display purposes"""
+
 from cnavg.history.scheduled import ScheduledHistory
 from cnavg.basics.partialOrderSet import PartialOrderSet
 import cnavg.history.flattened
 import debug
-
-""" Definition of ordered history """
 
 class OrderedHistory(ScheduledHistory):
 	""" History with arbitrary linear ordering compatible with tree structure """
@@ -45,7 +45,7 @@ class OrderedHistory(ScheduledHistory):
 		self.copy(cactusHistory)
 		self.ordering = PartialOrderSet(X for X in self.parent)
 		for event in self.parent:
-			if self.parent[event] is not None and (debug.DEBUG or event.ratio > 0.1): 
+			if self.parent[event] is not None and (debug.DEBUG or event.ratio > debug.RATIO_CUTOFF): 
 				assert self.ordering.addConstraint(self.parent[event], event)
 	
 	def _braneyText(self, ID, cost=None):
@@ -59,7 +59,7 @@ def prettify(H, i=0):
 	c = H.rearrangementCost()
 	FH = cnavg.history.flattened.flattenGraph(H)
 	S = FH.simplifyStubsAndTrivials()
-	F = S.removeLowRatioEvents(0.1)
+	F = S.removeLowRatioEvents(debug.RATIO_CUTOFF)
 	O = OrderedHistory(F)
 	return O._braneyText(i,c)
 

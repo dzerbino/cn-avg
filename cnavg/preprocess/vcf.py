@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Read VCF files"""
+
 import sys
 import re
 import vcf
@@ -41,7 +43,7 @@ import breakendGraph
 ## Parsing the chromosome lengths
 ###############################################
 
-def parseChromLengths(file):
+def _parseChromLengths(file):
 	res = dict()
 	for line in open(file):
 		items = line.strip().split()
@@ -53,7 +55,7 @@ def parseChromLengths(file):
 ## Parsing the VCF file
 ###############################################
 
-def parseVCFBreakend(breakends, record):
+def _parseVCFBreakend(breakends, record):
 	if record.FILTER != 'PASS':
 		return breakends
 
@@ -85,34 +87,35 @@ def parseVCFBreakend(breakends, record):
 	breakends[breakend.ID] = breakend
 	return breakends
 
-def parseVCFFile(vcffile):
-	return reduce(parseVCFBreakend, vcf.Reader(open(vcffile)), dict())
+def _parseVCFFile(vcffile):
+	return reduce(_parseVCFBreakend, vcf.Reader(open(vcffile)), dict())
 
 ########################################################
 ## Replace name by pointers
 ########################################################
 
-def ConsolidateBreakend(breakend, breakends):
+def _ConsolidateBreakend(breakend, breakends):
 	if breakend.partner is not None:
 		breakend.partner = breakends[breakend.partner] 
 
 	if breakend.mates is not None:
 		breakend.mates = map(lambda X: breakends[X], breakend.mates) 
 
-def AlignPointers(breakends):
-	map(lambda X: ConsolidateBreakend(breakends[X], breakends), breakends)
+def _AlignPointers(breakends):
+	map(lambda X: _ConsolidateBreakend(breakends[X], breakends), breakends)
 
 ########################################################
 ## Master function
 ########################################################
 
 def parse(vcffile, lengthsFile):
-	breakends = dict()
-	AlignPointers(breakends)
+	"""Produce breakend graph from VCF file"""
+	breakends = _parseVCFFile(vcffile)
+	_AlignPointers(breakends)
 	graph = breakendGraph.BreakendGraph(sorted(breakends.values()))
 	graph.consolidate()
 	graph.validate()
-	graph.lengths = parseChromLengths(lengthsFile)
+	graph.lengths = _parseChromLengths(lengthsFile)
 	return graph
 
 ########################################################

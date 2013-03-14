@@ -30,11 +30,12 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Produces random evolutionary histories"""
+
 import sys
 import random
 import cnavg.avg.graph
 
-"""Produces random evolutionary histories"""
 
 BRANCHPROB = 0.1
 """ Probability that a branch point occurs at a given node """

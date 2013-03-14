@@ -30,15 +30,15 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""
+Definition of NodeFlow, a static node's dynamic context within a graph
+"""
+
 import sys
 import copy
 import random
 
 from cnavg.avg.node import Node
-
-"""
-Definition of NodeFlow
-"""
 
 class NodeFlow(object):
 	"""

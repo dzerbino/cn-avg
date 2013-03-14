@@ -1,13 +1,10 @@
-default: ../bin/3way ../bin/cbs ../bin/cn-avg.py ../bin/cn-avg-stats.py ../bin/braneyConversion.py ../bin/cactusTree.py ../bin/cn-avg-testor.py
+default: ../bin/3way ../bin/cbs ../bin/cn-avg.py ../bin/cn-avg-stats.py ../bin/braneyConversion.py ../bin/cn-avg-testor.py
 
 ../bin/cn-avg.py: cn-avg.py
 	cp cn-avg.py ../bin
 
 ../bin/cn-avg-testor.py: cn-avg-testor.py
 	cp cn-avg-testor.py ../bin
-
-../bin/cactusTree.py: cactusTree.py
-	cp ../cnavg/cactusTree/cactusTree.py ../bin
 
 ../bin/cn-avg-stats.py: cn-avg-stats.py
 	cp cn-avg-stats.py ../bin

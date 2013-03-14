@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Definition of module around nets"""
+
 import sys
 import cnavg.avg.graph as avg
 from cnavg.avg.node import StubNode
@@ -39,8 +41,6 @@ import cnavg.cactusSampling.sampling as normalized
 import cnavg.cactus.balanced as balanced
 import copy
 
-
-"""Definition of Module"""
 
 class Module(avg.Graph):
 	"""Sequence graph associated to a Cactus net"""

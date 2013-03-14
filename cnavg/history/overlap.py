@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""History with look up table to speed up the search for overlapping flow changes"""
+
 import copy
 import random
 
@@ -201,11 +203,10 @@ class OverlapHistory(history.History):
 
 		events = adjacencyTable.keys()
 		if len(events) > 1:
-			# NOTE 0.1 Magic number = criteria to select events at end of pipeline
 			if debug.DEBUG:
 				candidateBs = filter(lambda X: X not in self.untouchables, events)
 			else:
-				candidateBs = filter(lambda X: X not in self.untouchables and X.ratio > 0.1, events)
+				candidateBs = filter(lambda X: X not in self.untouchables and X.ratio > debug.RATIO_CUTOFF, events)
 			if len(candidateBs) > 0:
 				B = random.choice(candidateBs)
 				A = random.choice(filter(lambda X: X != B, events))
@@ -238,7 +239,7 @@ class OverlapHistory(history.History):
 			if debug.DEBUG:
 				return sum(max(len(filter(lambda X: X not in self.untouchables, self.overlapTable[X].keys())) - 1, 0) for X in self.overlapTable if X[0].chr != "None" or X[1].chr != "None" ) / float(len(self.overlapTable))
 			else:
-				return sum(max(len(filter(lambda X: X not in self.untouchables and X.ratio > 0.1, self.overlapTable[X].keys())) - 1, 0) for X in self.overlapTable if X[0].chr != "None" or X[1].chr != "None" ) / float(len(self.overlapTable))
+				return sum(max(len(filter(lambda X: X not in self.untouchables and X.ratio > debug.RATIO_CUTOFF, self.overlapTable[X].keys())) - 1, 0) for X in self.overlapTable if X[0].chr != "None" or X[1].chr != "None" ) / float(len(self.overlapTable))
 		else:
 			return 0
 

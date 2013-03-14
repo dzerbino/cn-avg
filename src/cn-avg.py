@@ -1,9 +1,6 @@
+#!/usr/bin/env python
 # Copyright (c) 2012, Daniel Zerbino
 # All rights reserved.
-# 
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions are
-# met:
 # 
 # (1) Redistributions of source code must retain the above copyright
 # notice, this list of conditions and the following disclaimer. 
@@ -28,7 +25,6 @@
 # STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
 # IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-#!/usr/bin/env python
 
 import sys
 import os
@@ -143,14 +139,17 @@ def main():
 		#pickle.dump(H, pickle_file)
 		braney_file = gzip.open("HISTORIES_%i.braney" % options.index, "w")
 		braney_file.write("%s\n" % prettify(H))
+		tree_file = open("HISTORY_TREES_%li" % options.index, "w")
+		tree_file.write("%s\n" % H.newick())
 
 		# Sampling
-		SH = sampleGraphCycles.sample(H, options.size, pickle_file, stats_file, braney_file)
+		SH = sampleGraphCycles.sample(H, options.size, pickle_file, stats_file, braney_file, tree_file)
 
 		# Cleaning up
 		stats_file.close()
 		pickle_file.close()
 		braney_file.close()
+		tree_file.close()
 
 		## Removing temp file
 		if os.path.exists("STATE_%i" % options.index):

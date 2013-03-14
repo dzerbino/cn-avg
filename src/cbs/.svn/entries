@@ -1,14 +1,14 @@
 10
 
 dir
-10980
+11326
 svn+ssh://dzerbino@hgwdev.cse.ucsc.edu/projects/compbio/svnroot/hausslerlab/cn-avg/src/cbs
 svn+ssh://dzerbino@hgwdev.cse.ucsc.edu/projects/compbio/svnroot
 
 
 
-2011-08-15T03:15:54.160866Z
-9248
+2012-12-19T01:05:25.181229Z
+10983
 dzerbino
 
 
@@ -28,14 +28,14 @@ a8237c23-d22b-0410-ac1a-db40f18c2caa
 
 cbs.R
 file
+11327
 
 
 
-
-2011-07-29T20:11:42.000000Z
-2c3d14931a2ae988bb30a116a0fe4fc4
-2011-07-13T21:16:08.475607Z
-9142
+2013-01-16T19:47:41.000000Z
+625b83207d5a7002689cf861d4aeb7f9
+2013-03-12T19:55:54.938634Z
+11327
 dzerbino
 has-props
 
@@ -58,7 +58,7 @@ has-props
 
 
 
-2950
+2970
 
 common.R
 file
@@ -100,10 +100,10 @@ file
 
 
 
-2012-12-19T01:10:34.000000Z
-e7fef952bc60327c6a221fd67b499b25
-2011-08-15T03:15:54.160866Z
-9248
+2013-03-12T19:55:20.000000Z
+a118a0ebdf4523d3526ec51fc4de153c
+2012-12-19T01:05:25.181229Z
+10983
 dzerbino
 
 
@@ -126,5 +126,5 @@ dzerbino
 
 
 
-141
+148
 

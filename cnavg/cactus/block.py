@@ -30,14 +30,14 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Definition of Block, ie a segment edge in a cactus graph"""
+
 import cnavg.avg.graph as avg
 import copy
 import threeWay.components
 
 from cnavg.cactus.group import Group
  
-"""Definition of Block"""
-
 ###########################################
 ## Block structure 
 ###########################################

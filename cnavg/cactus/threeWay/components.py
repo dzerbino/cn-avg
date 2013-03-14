@@ -30,12 +30,12 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Wrapper for the threeWay executable"""
+
 import sys
 import subprocess
 import tempfile
 import os
-
-"""Wrapper for the threeWay executable"""
 
 ###########################################
 ## Input 
@@ -86,6 +86,8 @@ def compute(connections):
 	if subprocess.Popen(['3way', input, output], stdout=sys.stdout, stderr=subprocess.STDOUT).wait() != 0:
 	    sys.exit("3way did not complete")
 	print "Done"
+	os.close(file1)
+	os.close(file2)
 	os.remove(input)
 	
 	return parse3WayOutput(output)

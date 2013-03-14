@@ -30,11 +30,13 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Smooth out brute CNV calls"""
+
 import sys
 import cbs.cbs as cbs
 from cnv import CNV
 
-def mergeCNVs_Forward(A, B):
+def _mergeCNVs_Forward(A, B):
 	for i in range(A.ploidy()):
 		A.val[i] = (A.val[i] * A.length() + B.val[i] * B.length() / 2) / (A.length() + B.length() / 2)
 	assert A.val > 0
@@ -48,7 +50,7 @@ def mergeCNVs_Forward(A, B):
 		A.softFinish = B.start
 	A.numMarks += B.numMarks / 2
 
-def mergeCNVs_Backward(A, B):
+def _mergeCNVs_Backward(A, B):
 	for i in range(A.ploidy()):
 		B.val[i] = (A.val[i] * A.length() / 2 + B.val[i] * B.length()) / (A.length() / 2 + B.length())
 	assert B.val > 0
@@ -63,7 +65,7 @@ def mergeCNVs_Backward(A, B):
 		B.softFinish = A.finish
 	B.numMarks += A.numMarks / 2
 
-def filterCNVs(cnvs):
+def _filterCNVs(cnvs):
 	filtered = []
 	for index in range(len(cnvs)):
 		cnv = cnvs[index]
@@ -73,27 +75,28 @@ def filterCNVs(cnvs):
 			else:
 				valsA = 0
 			valsB = sum(cnv.val)
-			if len(filtered) > 0 and filtered[-1].chr == cnv.chr and filtered[-1].ploidy() == cnv.ploidy() and valsB > 0 and valsA / float(valsB) > 0.5 and valsA / float(valsB) < 2:
-				mergeCNVs_Forward(filtered[-1], cnv)
+			#if len(filtered) > 0 and filtered[-1].chr == cnv.chr and filtered[-1].ploidy() == cnv.ploidy() and valsB > 0 and valsA / float(valsB) > 0.5 and valsA / float(valsB) < 2:
+			if len(filtered) > 0 and filtered[-1].chr == cnv.chr:
+				_mergeCNVs_Forward(filtered[-1], cnv)
 			else:
 				filtered += [cnv]
 
 			if index + 1 < len(cnvs) and cnvs[index+1].chr == cnv.chr and cnv.ploidy() == cnvs[index+1].ploidy():
-				mergeCNVs_Backward(cnv, cnvs[index+1])
+				_mergeCNVs_Backward(cnv, cnvs[index+1])
 		else:
 			filtered += [cnv]
 	return filtered
 
-def glueCNV(cnvs, index):
+def _glueCNV(cnvs, index):
 	prev = cnvs[index-1]
 	cnv = cnvs[index]
 	if prev.chr == cnv.chr and prev.finish < cnv.start and prev.finish > cnv.start - 50:
 		prev.finish = cnv.start
 
-def glueCNVs(cnvs):
-	map(lambda X: glueCNV(cnvs, X), range(1, len(cnvs))) 
+def _glueCNVs(cnvs):
+	map(lambda X: _glueCNV(cnvs, X), range(1, len(cnvs))) 
 
-def computeBorderMargins(segments, sortedCNVs):
+def _computeBorderMargins(segments, sortedCNVs):
 	print "Computing CNV border margins"
 	cnvindex = 0
 	for segment in segments:
@@ -139,32 +142,27 @@ def computeBorderMargins(segments, sortedCNVs):
 
 	return segments
 
-def uniq(list, elem):
-	if len(list) == 0 or list[-1] != elem:
-		list.append(elem)
-	return list
-
 ###########################################
 ## Master function
 ###########################################
 
-def median(X):
+def _median(X):
 	return (X.start + X.finish)/2
 
 def segmentCNVs(cnvs):
 	print "Segmentation of CNV data"
 	sortedCNVs = sorted(cnvs)	
-	glueCNVs(sortedCNVs)
+	_glueCNVs(sortedCNVs)
 
 	chrom = [X.chr for X in sortedCNVs]
-	pos = map(median, sortedCNVs)
+	pos = map(_median, sortedCNVs)
 	vals = [X.val[0] for X in sortedCNVs]
 
 	cbsCNVS = cbs.run(chrom, pos, vals)
 	sortedCBSCNVs = sorted(cbsCNVS)
-	filtered = filterCNVs(sortedCBSCNVs)
+	filtered = _filterCNVs(sortedCBSCNVs)
 
-	return computeBorderMargins(filtered, sortedCNVs)
+	return _computeBorderMargins(filtered, sortedCNVs)
 	
 ###########################################
 ## Unit test

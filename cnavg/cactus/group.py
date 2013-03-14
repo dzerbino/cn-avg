@@ -30,10 +30,10 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Definition of Group, a connected component of bonds"""
+
 import cnavg.avg.graph as avg
 import copy
-
-"""Definition of Group"""
 
 ###########################################
 ## Group structure 

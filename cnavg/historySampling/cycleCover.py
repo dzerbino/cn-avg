@@ -30,6 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #!/usr/bin/env python
 
+"""Producing an initial flow history underlying a metagenomic net flow change"""
+
 import random
 import copy
 from cnavg.flows.edge import Edge
@@ -89,24 +91,6 @@ def closePseudoTelomeres(module, history):
 		return reduce(closePseudoTelomere, range(segmentCount), (module, history))
 
 #############################################
-## Setting min flow
-#############################################
-
-def minNodeFlow(node, cactus):
-	vals = filter(lambda X: X > 0, map(abs, cactus[node].edges.values() + cactus.segments[node]))
-	if len(vals) == 0:
-		return -1
-	else:
-		return min(vals)
-
-def minCactusFlow(cactus):
-	vals = filter(lambda X: X > 0, (minNodeFlow(X, cactus) for X in cactus.nodes()))
-	if len(vals) == 0:
-		return 0
-	else:
-		return min(vals)
-
-#############################################
 ## Pre-compute signed node adjacencies
 #############################################
 
@@ -119,13 +103,9 @@ def realValue(adjacency, module):
 		return -module.segments[adjacency[0]][adjacency[3]]
 
 def nodePairAdjacency(node, nodeB, module):
-	assert node is not None
-	assert nodeB is not None
 	return (node, nodeB, module[node].edges[nodeB], -1)
 
 def nodePairSegment(node, index, module):
-	assert node is not None
-	assert module[node].twin is not None
 	return (node, module[node].twin, -module.segments[node][index], index)
 
 def nodeAdjacencies(node, module):
