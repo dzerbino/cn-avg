@@ -39,7 +39,6 @@ import numpy as np
 
 import debug
 
-
 def _originalComponents_Node(data, node, module):
 	if node.orientation:
 		return data
@@ -300,9 +299,14 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 		netHistory = self.netHistories[net]
 		originalVector = netHistory.originalVector()
 		bond = netHistory.bondIndices()
-		segment = (bond == False)
+		# DEBUG
+		#segment = (bond == False)
+		segment = netHistory.segmentIndices()
+		# END OF DEBUG
 		queue = [(X, originalVector) for X in self.roots]
 		total = 0
+
+		print netHistory.mappings
 
 		# I wish I could do this in proper recursion FP style, but Python is not very good with deep recursions
 		while len(queue) > 0:
@@ -310,12 +314,15 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 
 			if (not debug.DEBUG) and event.ratio < debug.RATIO_CUTOFF:
 				continue
+			print '>>>>>>'
+			print previousVector
 
 			if event in netHistory.eventIndex:
 				if event.cycle.value > 0:
 					eventVector = -netHistory.eventVector(event) 
 				else:
 					eventVector = netHistory.eventVector(event) 
+				print eventVector
 				newVector = previousVector + eventVector
 				previousBonds = bond & (previousVector < 0)
 				createdBonds = bond & (newVector < 0) & (previousVector >= 0)
@@ -323,7 +330,8 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 				segmentErrors = (eventVector != 0) & segment & (previousVector <= 0) 
 				bondDestructions = (eventVector != 0) & bond & (newVector > 0)
 				total += cost + 2 * np.sum(segmentErrors | bondDestructions)
-				#print 'COMPLEXITY', len(event.cycle), cost, np.sum(segmentErrors | bondDestructions), max(cost + 2 * np.sum(segmentErrors | bondDestructions), 0) 
+				print np.argmax(bondDestructions)
+				print 'COMPLEXITY', len(event.cycle), cost, np.sum(segmentErrors), np.sum(bondDestructions), np.sum(segmentErrors | bondDestructions), max(cost + 2 * np.sum(segmentErrors | bondDestructions), 0) 
 			else:
 				newVector = previousVector
 			queue.extend((X, newVector) for X in self.children[event])
@@ -333,7 +341,10 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 		netHistory = self.netHistories[net]
 		originalVector = netHistory.originalVector()
 		bond = netHistory.bondIndices()
-		segment = (bond == False)
+		# DEBUG
+		#segment = (bond == False)
+		segment = netHistory.segmentIndices()
+		# END OF DEBUG
 		queue = [(X, originalVector) for X in self.roots]
 		total = 0
 

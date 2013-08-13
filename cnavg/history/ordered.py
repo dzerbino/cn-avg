@@ -37,6 +37,7 @@ from cnavg.basics.partialOrderSet import PartialOrderSet
 import cnavg.history.flattened
 import debug
 
+
 class OrderedHistory(ScheduledHistory):
 	""" History with arbitrary linear ordering compatible with tree structure """
 
@@ -48,11 +49,10 @@ class OrderedHistory(ScheduledHistory):
 			if self.parent[event] is not None and (debug.DEBUG or event.ratio > debug.RATIO_CUTOFF): 
 				assert self.ordering.addConstraint(self.parent[event], event)
 	
-	def _braneyText(self, ID, cost=None):
-		nets = self.netHistories.keys()
+	def braneyText(self, ID, cost=None):
 		if cost is None:
 			cost = self.rearrangementCost()
-		return "\n".join(self.netHistories[nets[X]].braneyText(ID, X, self.ordering, cost) for X in range(len(nets)) if self.netHistories[nets[X]] is not None and len(self.netHistories[nets[X]].events) - len(self.netHistories[nets[X]].untouchables) > 0)
+		return "\n".join(filter(lambda X: len(X) > 0, (X[1].braneyText(ID, X[0], self.ordering, cost) for X in enumerate(self.netHistories.values()))))
 
 def prettify(H, i=0):
 	""" Transform CactusHistory into BraneyText """
@@ -61,7 +61,7 @@ def prettify(H, i=0):
 	S = FH.simplifyStubsAndTrivials()
 	F = S.removeLowRatioEvents(debug.RATIO_CUTOFF)
 	O = OrderedHistory(F)
-	return O._braneyText(i,c)
+	return O.braneyText(i,c)
 
 def main():
 	if len(sys.argv) > 1:

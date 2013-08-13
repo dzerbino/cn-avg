@@ -38,10 +38,7 @@ import sys
 import random
 import math
 import numpy as np
-import rpy2
-from rpy2.robjects import FloatVector
-from rpy2.robjects import IntVector
-dchisq = rpy2.robjects.r.dchisq
+import scipy.stats
 
 from operator import mul
 
@@ -84,9 +81,6 @@ def generateSliceTreeOptions(likelihoods):
 
 def chiSquare(X, Y):
 	return sum((X - Y) * (X - Y) / np.maximum(Y, MIN_PROB))
-
-def chiSquareTest(X, Y, snvCount):
-	return dchisq(FloatVector([snvCount * chiSquare(X, Y)]), IntVector([len(X)-1]))[0]
 
 def mean(V):
 	return sum(V) / len(V)
@@ -232,10 +226,8 @@ def EM(likelihoods, events, blockSNVs):
 	for X in res:
 		for Y in res:
 			if Y is not X:
-				#print chiSquareTest(X[0], Y[0], snvCount)
-				#print "\n".join(map(lambda X: "\t".join(map(str, X)), zip(X[0], Y[0])))
-				print "COR", rpy2.robjects.r.cor(FloatVector(np.log(X[0])), FloatVector(np.log(Y[0])))[0]
-				print "LOG", rpy2.robjects.r.cor(FloatVector(X[0]), FloatVector(Y[0]))[0]
+				print "COR", scipy.stats.cor(np.log(X[0]), np.log(Y[0]))
+				print "LOG", scipy.stats.cor(X[0], Y[0])
 	assert False
 
 ########################################

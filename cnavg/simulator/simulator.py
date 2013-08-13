@@ -36,8 +36,16 @@ import sys
 import random
 import cnavg.avg.graph
 
+import cnavg.cactus.graph as cactus
+import cnavg.cactus.oriented as oriented 
+import cnavg.historySampling.cycleCover as cycleCover
+import cnavg.history.euclidian as euclidian
+import cnavg.history.constrained as constrained
 
-BRANCHPROB = 0.1
+
+# DEBUG
+#BRANCHPROB = 0.1
+BRANCHPROB = 0
 """ Probability that a branch point occurs at a given node """
 
 class HistoryBranch(object):
@@ -336,6 +344,8 @@ class WeightedHistory(History):
 def _addChildBranch(branch):
 	choice = random.random()
 	start = random.randrange(len(branch.genome))
+	# DEBUG
+	choice = 0
 
 	if len(branch.genome) > 1 and choice < 0.7:
 		length = random.randrange(1, len(branch.genome))
@@ -407,12 +417,17 @@ class RandomWeightedHistory(RandomHistory):
 ## Unit test
 #########################################
 def main():
-	history = RandomWeightedHistory(5, 3)
-	avg = history.avg()
+	history = RandomWeightedHistory(3, 1)
+	G = history.avg()
+	C = cactus.Cactus(G)
+	O = oriented.OrientedCactus(C)
+	H = cycleCover.initialHistory(O)
+	print C
 	print history
-	print history.cost()
-	print avg
 	print history.dot()
+	print history.cost()
+	print H
+	print H.rearrangementCost()
 
 if __name__ == '__main__':
 	main()

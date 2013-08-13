@@ -34,12 +34,11 @@
 
 import sys
 import cnavg.avg.graph as avg
-import cnavg.avg.gabp.gabp as gabp
+import cnavg.basics.leastSquares as leastSquares
 import numpy as np
 import graph as cactus
 import cnavg.cactusSampling.sampling as normalized
 
-TOL = 1e2
 FUDGE_FACTOR = 1
 SEG_FACTOR = FUDGE_FACTOR / 10
 EDGE_FACTOR = FUDGE_FACTOR * 10
@@ -360,9 +359,8 @@ class BalancedCactus(cactus.Cactus):
 		problem.estimatedValues = initialEstimates(graph, mapping)
 		problem.estimatePrecisions = initialPrecisions(graph, mapping)
 		problem = prepareGraphProblem(graph, mapping, problem)
-		values, precisions = gabp.runGaBP(TOL, problem.matrix, problem.constraints, problem.constraintPrecisions, problem.estimatedValues, problem.estimatePrecisions)
+		values = leastSquares.solve([0 for X in problem.estimatedValues], problem.estimatePrecisions, problem.matrix, problem.constraints, problem.constraintPrecisions)
 		updateGraph(self, values, mapping)
-		computeOffsets(self)
 		correctIncongruities(self)
 
 	##############################################

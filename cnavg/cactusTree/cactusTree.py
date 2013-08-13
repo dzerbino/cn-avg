@@ -56,6 +56,7 @@ from jobTree.scriptTree.target import Target
 from jobTree.scriptTree.stack import Stack
 
 IDEAL_JOB_RUNTIME = 500
+MEM6G=6290000000
 MEM4G=4290000000
 MEM2G=3000000000
 
@@ -122,7 +123,7 @@ def buildGraph(options):
 class SetupPhase(Target):
     """ Beginning of pipeline, builds cactus, launches parallel samplers """
     def __init__(self, options):
-        Target.__init__(self, time=10, memory = MEM2G)
+        Target.__init__(self, time=10, memory = MEM6G)
 	self.options = options
         
     def run(self):
@@ -161,6 +162,8 @@ class Reduce(Target):
 			input = gzip.open(file)
 			for line in input:
 				items = line.strip().split()
+				if len(items) == 0:
+					continue
 				if items[0] == "A" and items[13] == score:
 					if items[8] != lastID or file != lastFile:
 						counter += 1
@@ -198,9 +201,9 @@ class Process(Target):
 
 	os.chdir(self.options.tracks)
 	logger.debug(os.path.basename(self.options.bam))
-	if os.path.exists(os.path.basename(self.options.bam) + ".bai"):
+	if os.path.lexists(os.path.basename(self.options.bam) + ".bai"):
 		os.remove(os.path.basename(self.options.bam) + ".bai")
-	if os.path.exists(os.path.basename(self.options.bam)):
+	if os.path.lexists(os.path.basename(self.options.bam)):
 		os.remove(os.path.basename(self.options.bam))
 	do("ln -s %s" % self.options.bam)
 	do("ln -s %s.bai" % self.options.bam)

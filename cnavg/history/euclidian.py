@@ -42,6 +42,7 @@ import debug
 
 import scipy.sparse
 
+from cnavg.avg.node import StubNode
 
 ROUNDING_ERROR=1e-10
 """ Amount by which a coefficient is considered to be equal to 0 after linear simplification """ 
@@ -57,16 +58,6 @@ class Mapping(dict):
 	##############################################
 	def _addMatrixEdge(self, IDA, IDB, value):
 		""" The use of the matrix allows for accelerated bond lookups """
-		#M = max(IDA, IDB) + 1
-		#if M > self.maxNodeID:
-		#	# DEBUG
-		#	print M
-		#	if self.maxNodeID == 0:
-		#		self.matrix = np.zeros((M,M))
-		#	else:
-		#		self.matrix = np.concatenate((self.matrix, np.zeros((M - self.maxNodeID, self.maxNodeID))), axis=0)
-		#		self.matrix = np.concatenate((self.matrix, np.zeros((M, M - self.maxNodeID))), axis=1)
-		#	self.maxNodeID = M
 		self.matrix[(IDA, IDB)] = value
 		self.matrix[(IDB, IDA)] = value
 
@@ -123,6 +114,17 @@ class Mapping(dict):
 		""" Returns a vector which determines which indices correspond to bonds """
 		return reduce(lambda V,E: self._bondVector_Edge(V, E), self, self.falseVector())
 
+	# DEBUG
+	def _segmentVector_Edge(self, vector, edge):
+		if edge[2] >= 0 and (edge[0].chr != 'None' or edge[1].chr != 'None'):
+			vector[self[edge]] = True
+		return vector
+
+	def _segmentVector(self):
+		""" Returns a vector which determines which indices correspond to segments """
+		return reduce(lambda V,E: self._segmentVector_Edge(V, E), self, self.falseVector())
+	# END OF DEBUG
+
 	def __init__(self, module):
 		super(Mapping, self).__init__()
 		self.length = 0
@@ -146,10 +148,7 @@ class Mapping(dict):
 	##############################################
 
 	def _updateVector(self, vector, edge, ratio):
-		if edge.value * ratio > 0:
-			vector[self.getEdge(edge.start, edge.finish, edge.index)] += 1
-		else:
-			vector[self.getEdge(edge.start, edge.finish, edge.index)] -= 1
+		vector[self.getEdge(edge.start, edge.finish, edge.index)] += int(round(edge.value / ratio))
 		return vector
 
 	def vector(self, cycle):
@@ -270,6 +269,10 @@ class EuclidianHistory(overlap.OverlapHistory):
 		""" Returns vector which indicates which indices correspond to bond edges """
 		return self.mappings._bondVector()
 
+	def segmentIndices(self):
+		""" Returns vector which indicates which indices correspond to segment edges """
+		return self.mappings._segmentVector()
+
 	#########################################
 	## Linear algebra
 	#########################################
@@ -294,7 +297,7 @@ class EuclidianHistory(overlap.OverlapHistory):
 
         def _imposeNewRatios(self, oldRatios, ratios, cactusHistory):
         	# Correct values
-                map(lambda X: X[0].cycle.setRatio(X[1]), zip(self.events, ratios))
+                map(lambda X: X[0].setRatio(X[1]), zip(self.events, ratios))
 
                 # Filter values
                 badeggs = filter(lambda X: abs(X.cycle.value) <= ROUNDING_ERROR, self.events)
@@ -369,7 +372,7 @@ class EuclidianHistory(overlap.OverlapHistory):
 
 	def _isTriangular(self, matrix):
 		assert np.sum(np.tril(matrix, k=-1)) < 1e-5
-		return True	
+		return True
 
 	def _isLinearlyIndependent(self):
 		n = len(self.events)

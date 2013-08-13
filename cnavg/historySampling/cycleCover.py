@@ -352,13 +352,6 @@ def pickOutCycles(module, history):
 		if event is not None:
 			if len(history.events) % 100 == 0:
 				print 'CYCLE', len(history.events)
-			if len(history.events) > 10000:
-				print module
-				print history.events[-1]
-				edge = minimumEdge(module) 
-				print edge
-				print edge.value
-				assert False
 			history.absorbEvent(event)
 		event, newModule = pickOutCycle(module)
 	return history
@@ -387,8 +380,7 @@ def seedHistory(cactusHistory, net, cnvs):
 	MC = copy.copy(M)
 	MC, H1 = closePseudoTelomeres(MC, H)
 	H2 = pickOutCycles(MC, H1)
-	H3 = highFlowHistory(H2, cactusHistory, net)
-	return H3
+	return highFlowHistory(H2, cactusHistory, net)
 
 ########################################
 ## Finding an initial cactus graph history
@@ -418,11 +410,10 @@ def main():
 	C = cactus.Cactus(G)
 	N = normalized.NormalizedCactus(C)
 	O = oriented.OrientedCactus(N)
-	print O
-	print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
 	H = initialHistory(O)
 	print H
 	H.validate()
+	print H.rearrangementCost()
 
 if __name__ == "__main__":
 	import cnavg.cactus.graph as cactus

@@ -246,8 +246,22 @@ class OverlapHistory(history.History):
 	###########################################
 	## Validation
 	###########################################
-	def _validateSegment(self, node):
+	def _untouchablesUntouched_index(self, node, index):
 		twin = self.module[node].twin
+		edgeIndex = (min(twin, node), max(twin, node), index)
+		if edgeIndex not in self.overlapTable:
+			return True
+		assert len(self.overlapTable[edgeIndex].keys()) <= 1
+		if len(self.overlapTable[edgeIndex].keys()) == 1:
+			assert self.overlapTable[edgeIndex].keys()[0] in self.untouchables
+		return True
+
+	def _untouchablesUntouched(self):
+		if len(self.module.pseudotelomeres) > 0:
+			assert all(self._untouchablesUntouched_index(PT, X) for PT in self.module.pseudotelomeres for X in range(len(self.module.segments[PT])))
+		return True
+
+	def _validateSegments(self):
 		for aIndex in self.overlapTable:
 			edgeTable = self.overlapTable[aIndex]
 			node, twin, index = aIndex
@@ -279,7 +293,9 @@ class OverlapHistory(history.History):
 			assert len(self.overlapTable[aIndex].keys()) == 1
 
 	def validate(self):
-		assert all(self._validateSegment(X) for X in self.module)
+		super(OverlapHistory, self).validate()
+		assert self._validateSegments()
+		assert self._untouchablesUntouched()
 		for x in self.module.pseudotelomeres:
 			self._validateInheritedCycles(x)
 		return True

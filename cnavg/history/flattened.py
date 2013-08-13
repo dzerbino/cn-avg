@@ -43,11 +43,24 @@ from cnavg.flows.cycle import Cycle
 from cnavg.flows.flows import Event
 from cnavg.history.history import History
 
+import cnavg.avg.graph as avg
+import cnavg.cactus.graph as cactus
+import cnavg.cactus.balanced as balanced
+import cnavg.cactusSampling.sampling as normalized
+import cnavg.avg.balanced as balancedAVG
+import cnavg.cactus.oriented as oriented
+import cnavg.historySampling.cycleCover as cycleCover
+
 def flattenGraph(cactusHistory):
 	""" Returns a flattened copy of the CactusHistory """
 	new = FlattenedHistory(cactusHistory.cactus)
 	new.copy(cactusHistory)
+	oldHistories = new.netHistories.values()
 	new.netHistories = new._unifyCactusHistory()
+	for history in oldHistories:
+		for event in history.events:
+			if _pseudotelomeric(event, history.module) or _telomeric(event, history.module):
+				new.popEvent(event)
 	return new
 
 def _telomeric(event, module):
@@ -197,8 +210,9 @@ class FlattenedHistory(ConstrainedHistory):
 		module = history.module
 		new = History(module)
 		for event in history.events:
-			if not _pseudotelomeric(event, module) and not _telomeric(event, module):
+			if not _pseudotelomeric(event, module):
 				newEvent = self._unifyEvent(event)
+				newEvent.setRatio(event.cycle[0].value)
 				self.slideIn_Event(event, newEvent)
 				self.popEvent(event)
 				new.absorbEvent(newEvent)
@@ -208,3 +222,21 @@ class FlattenedHistory(ConstrainedHistory):
 	def _unifyCactusHistory(self):
 		""" Return flattened versions of the history's events """
 		return dict((net, self._unifyNet(net)) for net in self.cactus.nets)
+
+def main():
+	graph = avg.randomNearEulerianGraph(10)
+	C = cactus.Cactus(graph)
+	NC = normalized.NormalizedCactus(C)
+	BC = balanced.BalancedCactus(NC)
+	OC = oriented.OrientedCactus(BC)
+	H = cycleCover.initialHistory(OC)
+	H.validate()
+	print H
+	c = H.rearrangementCost()
+	FH = flattenGraph(H)
+	print FH
+	print FH.cactus.telomeres
+	FH.validate()
+
+if __name__ == "__main__":
+	main()

@@ -35,6 +35,7 @@
 import sys
 import re
 import os
+import numpy as np
 
 from cnavg.basics.coords import Position
 from breakend import Breakend
@@ -42,9 +43,6 @@ from cnv import CNV
 from breakendGraph import BreakendGraph
 from segmentCNVs import segmentCNVs
 import cbs.cbs
-
-import rpy2.robjects
-from rpy2.robjects import IntVector
 
 READLENGTH = 50
 BUFFER_LENGTH = 1000
@@ -231,23 +229,16 @@ def getAlleleFrequencies_Line(results, line, cnvsByChrom, offsets):
 def getAlleleFrequencies_File(results, file, cnvsByChrom, offsets):
 	return reduce(lambda r,l: getAlleleFrequencies_Line(r, l, cnvsByChrom, offsets), open(file), results)
 
-rpy2.robjects.r('''
-	F <- function(X, Y, variance) { 
-		A = c(X[1:(length(X)/2)], Y[(length(X)/2 + 1):length(X)])
-		B = c(Y[1:(length(X)/2)], X[(length(X)/2 + 1):length(X)])
-		C = A + B
-		var(A[C > 0]/C[C > 0])
-	}
-	''')
+def varianceRatios(X, Y):
+	A = np.array(X[:(len(X)/2)], Y[len(X)/2:])
+	B = np.array(Y[:(len(X)/2)], X[len(X)/2:])
+	C = A + B
+	return numpy.var(A[C > 0]/C[C > 0])
 	
 def tTest(X, Y, variance):
 	if len(X) < 2:
 		return False
-	# Index 0 is to pull out the value from its list wrapper
-	try:
-		return rpy2.robjects.r.F(IntVector(X),IntVector(Y))[0] > 1.5 * variance
-	except rpy2.rinterface.RRuntimeError:
-		return False
+	return ratioVariance(X,Y) > 1.5 * variance
 
 def splitPhases(cnv, results, variance):
 	values = results[cnv]

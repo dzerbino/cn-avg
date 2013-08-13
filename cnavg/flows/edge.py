@@ -100,7 +100,7 @@ class Edge(object):
 				return str(self.finish) + '\n\t%s -> %s [color=red, label="DUP:%f"]' % (self.finish.ID, self.start.ID, -self.value)
 
 
-	def braneyText(self, historyID, netID, cycleID, edgeIndex, order, complexity, ptr):
+	def braneyText(self, historyID, netID, cycleID, edgeIndex, order, complexity, ptr, prevalence):
 		if self.start.orientation:
 			startOString = '+'
 		else:
@@ -112,13 +112,13 @@ class Edge(object):
 			finishOString = '-'
 
 		if self.index == -1:
-			str1 = "\t".join(['A', self.start.chr, str(self.start.pos), startOString, self.finish.chr, str(self.finish.pos), finishOString, str(self.value), str(historyID), str(netID), str(cycleID), str(edgeIndex), str(order), str(complexity), str(ptr)])
-			str2 = "\t".join(['A', self.finish.chr, str(self.finish.pos), finishOString, self.start.chr, str(self.start.pos), startOString, str(self.value), str(historyID), str(netID), str(cycleID), str(edgeIndex), str(order), str(complexity), str(ptr)])
+			str1 = "\t".join(map(str, ['A', self.start.chr, self.start.pos, startOString, self.finish.chr, self.finish.pos, finishOString, self.value, prevalence, historyID, netID, cycleID, edgeIndex, order, complexity, ptr]))
+			str2 = "\t".join(map(str, ['A', self.finish.chr, self.finish.pos, finishOString, self.start.chr, self.start.pos, startOString, self.value, prevalence, historyID, netID, cycleID, edgeIndex, order, complexity, ptr]))
 			return "\n".join([str1, str2])
 		else:
 			start = min(self.start.pos, self.finish.pos)
 			finish = max(self.start.pos, self.finish.pos)
-			return "\t".join([self.start.chr, str(start), str(finish), str(self.value), str(historyID), str(netID), str(cycleID), str(edgeIndex), str(order), str(complexity), str(ptr)])
+			return "\t".join(map(str, [self.start.chr, start, finish, self.value, prevalence, historyID, netID, cycleID, edgeIndex, order, complexity, ptr]))
 
 	def doesNotContainNodes(self, nodes):
 		return self.start not in nodes and self.finish not in nodes

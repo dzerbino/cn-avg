@@ -237,18 +237,27 @@ class ScheduledHistory(history.CactusHistory):
 	## Newick
 	#################################
 	def newick_remainderLeaf(self, event):
-		return "%i:%f" % (id(event), event.ratio - sum(X.ratio for X in self.children[event]))
+		return "%i:%f" % (id(event), event.ratio)
 
 	def newick_node(self, event):
-		fork = "(" + ",".join([self.newick_node(child) for child in self.children[event]] + [self.newick_remainderLeaf(event)]) + ")"
+		if len(self.children[event]) > 0:
+			fork = "(" + ",".join([self.newick_node(child) for child in self.children[event]] + [self.newick_remainderLeaf(event)]) + ")"
+		else:
+			fork = "(" + ",".join([self.newick_remainderLeaf(event), "n" + self.newick_remainderLeaf(event)]) + ")"
+
 		if self.parent[event] is None:
 			length = str(1 - event.ratio)
 		else:
 			length = str(self.parent[event].ratio - event.ratio)
-		return fork + ":" + length
+
+		return ":".join([fork, length])
 
 	def newick(self):
-		return "\n".join("(" + ",".join(self.newick_node(event) for event in self.roots) + ");")
+		if len(self.roots) == 1:
+			return self.newick_node(list(self.roots)[0]) + ";"
+		elif len(self.roots) > 1:
+			return "(" + ",".join([self.newick_node(event) for event in self.roots]) + ");"
+
 		
 	#################################
 	## Validate
@@ -257,7 +266,7 @@ class ScheduledHistory(history.CactusHistory):
 		if event is None:
 			return True
 		if event not in self.parent:
-			assert event in history.untouchables
+			assert event in history.untouchables, id(event)
 			return True
 
 		return True

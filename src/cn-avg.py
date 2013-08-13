@@ -45,6 +45,9 @@ import cnavg.cactus.oriented as oriented
 import cnavg.cactus.balanced as balancedCactus
 import cnavg.historySampling.cycleCover as cycleCover
 import cnavg.historySampling.sampleGraphCycles as sampleGraphCycles
+import cnavg.history.flattened as flattened
+import cnavg.history.ordered as ordered
+import cnavg.history.debug as debug
 from cnavg.history.ordered import prettify
 
 def _parseOptions():
@@ -131,6 +134,11 @@ def main():
 
 		# Moving into historical space
 		H = cycleCover.initialHistory(OC)
+		c = H.rearrangementCost()
+		FH = flattened.flattenGraph(H)
+		S = FH.simplifyStubsAndTrivials()
+		F = S.removeLowRatioEvents(debug.RATIO_CUTOFF)
+		O = ordered.OrderedHistory(F)
 
 		# Preparing file for progressive write
 		stats_file = open("HISTORY_STATS_%li" % options.index, "w")
@@ -138,9 +146,9 @@ def main():
 		pickle_file = open('HISTORIES_%i' % options.index, "wb")
 		#pickle.dump(H, pickle_file)
 		braney_file = gzip.open("HISTORIES_%i.braney" % options.index, "w")
-		braney_file.write("%s\n" % prettify(H))
+		braney_file.write("%s\n" % O.braneyText(0, c))
 		tree_file = open("HISTORY_TREES_%li" % options.index, "w")
-		tree_file.write("%s\n" % H.newick())
+		tree_file.write("%s\n" % O.newick())
 
 		# Sampling
 		SH = sampleGraphCycles.sample(H, options.size, pickle_file, stats_file, braney_file, tree_file)

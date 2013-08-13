@@ -45,7 +45,9 @@ import copy
 import time
 import cPickle as pickle
 
-import cnavg.history.ordered
+import cnavg.history.ordered as ordered
+import cnavg.history.flattened as flattened
+import cnavg.history.debug as debug
 
 TEMPERATURE = 1
 DIRECT_CUT = 0
@@ -157,12 +159,21 @@ def addNewHistory(histories, index, file=None, stats=None, braney=None, tree=Non
 	# Generate new history from the last one
 	global TEMPERATURE
 	newHistory = chooseNewHistory(histories[-1], TEMPERATURE, depth=1, index=index)
+
+	c = newHistory.rearrangementCost()
+	FH = flattened.flattenGraph(newHistory)
+	S = FH.simplifyStubsAndTrivials()
+	F = S.removeLowRatioEvents(debug.RATIO_CUTOFF)
+	O = ordered.OrderedHistory(F)
+
 	if stats is not None:
 		stats.write("%s\n" % newHistory.stats())
 	if braney is not None:
-		braney.write("%s\n" % cnavg.history.ordered.prettify(newHistory, index))
+		# The + 1 takes into account the fact that history 0 is the one created initially,
+		# the MCMC histories start at index 1
+		braney.write("%s\n" % O.braneyText(index + 1, c))
 	if tree is not None:
-		tree.write("%s\n" % newHistory.newick())
+		tree.write("%s\n" % O.newick())
 	if file is None: 
 		histories.append(newHistory)
 		return histories 
@@ -183,6 +194,7 @@ def sample(cactusHistory, size, file=None, stats=None, braney=None, tree=None):
 	print 'Sampling history space of Cactus graph'
 	global TIMER_END
 	TIMER_END = time.time() + TIMER_LENGTH
+	print 'HISTORY ', 0, 0, len(cactusHistory.parent), cactusHistory.rearrangementCost(), cactusHistory.errorCost(), time.asctime()
 	res = reduce(lambda X, Y: addNewHistory(X, Y, file, stats, braney, tree), range(size), [cactusHistory])
 	if file is not None:
 		pickle.dump(res[0], file)

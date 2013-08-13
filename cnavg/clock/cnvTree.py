@@ -33,16 +33,13 @@
 """Representing the molecular tree underlying the clonal tree"""
 
 import math
-import rpy2
 import cnavg.history.debug
 
-from rpy2.robjects import IntVector
-from rpy2.robjects import FloatVector
 from numpy import array
 from numpy import ones
+import scipy.stats.poisson as poisson
 
 PARAMETER = float(50)
-dpois = rpy2.robjects.r.dpois
 
 ###################################################
 ## Copy number change
@@ -283,7 +280,7 @@ class CNVTree(object):
 
 	# Poisson likelihoods (R function then numpy array)
 	def conditionedLikelihoods(self, cnvNode, slice, sliceTree, counts, totals):
-		return array(dpois(counts, self.expectedCoverages(cnvNode, slice, sliceTree, totals)))
+		return poisson.cdf(counts, self.expectedCoverages(cnvNode, slice, sliceTree, totals))
 	
 	def segregatingLikelihood(self, vals):
 		# TODO The likelihood function of a segregating SNP could be refined
@@ -321,7 +318,7 @@ class CNVTree(object):
 
 	def defaultLikelihoods_SNV(self, timing, counts, totals):
 		if timing is None:
-			return array(dpois(counts, FloatVector(totals)))
+			return poisson.cdf(counts, totals)
 		else:
 			return array(dpois(counts, FloatVector(timing.ratio * totals)))
 

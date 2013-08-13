@@ -106,26 +106,10 @@ class History(object):
 		assert all(event == self.events[self.eventIndex[event]] for event in self.events)
 		return True
 
-	def _untouchablesUntouched_index(self, node, index):
-		twin = self.module[node].twin
-		edgeIndex = (min(twin, node), max(twin, node), index)
-		if edgeIndex not in self.overlapTable:
-			return True
-		assert len(self.overlapTable[edgeIndex].keys()) <= 1
-		if len(self.overlapTable[edgeIndex].keys()) == 1:
-			assert self.overlapTable[edgeIndex].keys()[0] in self.untouchables
-		return True
-
-	def _untouchablesUntouched(self):
-		if len(self.module.pseudotelomeres) > 0:
-			assert all(self._untouchablesUntouched_index(PT, X) for PT in self.module.pseudotelomeres for X in range(len(self.module.segments[PT])))
-		return True
-
 	def validate(self):
 		""" Validation function """
 		assert self._numberingIsCorrect()
 		assert all(map(Event.validate, self.events))
-		assert self._untouchablesUntouched()
 		return True
 		
 	#############################################
@@ -163,7 +147,7 @@ class History(object):
 
 	def braneyText(self, historyID, netID, ordering, complexity):
 		""" Braney representation """
-		return "\n".join(self.events[X].braneyText(historyID, netID, str(X), ordering, complexity) for X in range(len(self.events)) if self.events[X] not in self.untouchables)
+		return "\n".join(X[1].braneyText(historyID, netID, str(X[0]), ordering, complexity) for X in enumerate(set(self.events) - set(self.untouchables)))
 
 	def simplifyStubsAndTrivials(self, cactusHistory):
 		new = History(self.module)
@@ -267,7 +251,38 @@ class CactusHistory(object):
 		print self.complexity
 		return self.complexity
 
+	def _validateSegmentsLong(self, module, node):
+		twin = module[node].twin
+		pair = set([node, twin])
+
+		# Ignore stubs
+		if node not in self.cactus:
+			return True
+
+		if self.cactus.chains2Nets[self.cactus.nodeChain(node)] is not None and len(self.cactus.chains2Nets[self.cactus.nodeChain(node)]) > 0:
+			return True
+
+		if node in module.telomeres or node in module.pseudotelomeres:
+			return True
+
+		for haplotype in range(len(module.segments[node])):
+			edges = [edge for history in self.netHistories.values() for event in history.events for edge in event.cycle if set([edge.start, edge.finish]) == pair and edge.index == haplotype]
+			total = sum(edge.value for edge in edges) 
+
+			if abs(total + module.segments[node][haplotype]) > 1e-1:
+				#print self.module
+				#print self
+				print node, twin, haplotype
+				print total
+				print len(edges)
+				print [edge.value for edge in edges]
+				print [id(edge) for edge in edges]
+				print module.segments[node][haplotype]
+				assert False
+		return True
+
 	def validate(self):
+		assert all(self._validateSegmentsLong(history.module, node) for history in self.netHistories.values() for node in history.module) 
 		assert all(X.validate() for X in self.netHistories.values())
 		return True
 
@@ -284,7 +299,7 @@ class CactusHistory(object):
 	## Display
 	#############################################
 	def __str__(self):
-		return '\n'.join(['CACTUSHISTORY'] + map(History.__str__, self.netHistories.values()))
+		return '\n'.join(['CACTUSHISTORY'] + map(str, self.netHistories.values()))
 
 	def medianLength(self):
 		return median(sum((X.eventLengths() for X in self.netHistories.values()),[]))
@@ -316,4 +331,3 @@ class CactusHistory(object):
 			for event in new.netHistories[net].selectForRegion(nodes):
 				new.pop(self.netHistories[net], event)
 		return new
-

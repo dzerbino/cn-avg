@@ -33,6 +33,7 @@
 """Net flow change between two genomes"""
 
 import copy
+import math
 
 from cnavg.flows.cycle import Cycle
 
@@ -45,7 +46,7 @@ class Event(object):
 	#############################################
 	def __init__(self, cycle):
 		self.cycle = cycle 
-		self.ratio = min(1, abs(self.cycle.value))
+		self.ratio = abs(self.cycle.value) / math.ceil(abs(self.cycle.value))
 
 	def __copy__(self):
 		return Event(copy.copy(self.cycle))
@@ -67,7 +68,7 @@ class Event(object):
 	
 	def setRatio(self, value):
 		self.cycle.setRatio(value)
-		self.ratio = min(1, abs(self.cycle.value))
+		self.ratio = abs(self.cycle.value) / math.ceil(abs(self.cycle.value))
 
 	#############################################
 	## Display
@@ -79,7 +80,7 @@ class Event(object):
 		return "\n".join(["digraph G {","\trankdir=LR",self.cycle.dot(),"}"])
 
 	def braneyText(self, historyID, netID, cycleID, ordering, complexity):
-		return self.cycle.braneyText(historyID, netID, cycleID, ordering.depth[self], complexity, id(self))
+		return self.cycle.braneyText(historyID, netID, cycleID, ordering.depth[self], complexity, id(self), self.ratio)
 
 	def simplifyStubsAndTrivials(self, cactus):
 		cycle = self.cycle.simplifyStubsAndTrivials(cactus)
