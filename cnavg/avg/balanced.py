@@ -221,44 +221,6 @@ def prepareGraphProblem(graph, mapping, problem):
 	return reduce(lambda P, N: prepareNodeProblem(P, N, graph, mapping), graph.nodes(), problem)
 
 ##############################################
-## Debugging option
-##############################################
-def copyCatResolution(graph):
-	"""Direct resolution of the problem using linear algebra"""
-	mapping = prepareGraphMapping(graph)
-	problem = LPProblem(mapping.size)
-	problem.estimatedValues = initialEstimates(graph, mapping)
-	problem.estimatePrecisions = initialPrecisions(graph, mapping)
-	problem = prepareGraphProblem(graph, mapping, problem)
-
-	A = problem.matrix
-	y = problem.constraints
-	sigma_y = problem.constraintPrecisions
-	x = [0 for X in problem.estimatedValues]
-	sigma_x = problem.estimatePrecisions
-	MU = np.hstack([np.diag(sigma_y), A])
-	ML = np.hstack([A.T, np.diag(sigma_x)])
-	M = np.vstack([MU, ML])
-	res = np.linalg.solve(M, np.concatenate((y,x)))
-	return res[len(y):], mapping
-
-##############################################
-## Debugging option number 2
-##############################################
-def copyCatResolution2(graph):
-	"""Direct resolution of the problem using weighted least squares algorithm"""
-	"""See http://en.wikipedia.org/wiki/Least_squares#Weighted_least_squares"""
-	mapping = prepareGraphMapping(graph)
-	problem = LPProblem(mapping.size)
-	problem.estimatedValues = initialEstimates(graph, mapping)
-	problem.estimatePrecisions = initialPrecisions(graph, mapping)
-	problem = prepareGraphProblem(graph, mapping, problem)
-
-	x = [0 for X in problem.estimatedValues]
-	res = leastSquares.solve(x, problem.estimatePrecisions, problem.matrix, problem.constraints, problem.constraintPrecisions)
-	return res, mapping
-
-##############################################
 ## Master function
 ##############################################
 
@@ -266,22 +228,19 @@ class BalancedAVG(avg.Graph):
 	"""A sequence graph characterised by balanced flow (i.e. the Laplacian of the conjugate flow is null)"""
 	def __init__(self, graph):
 		self.copy(graph)
-		values, mappings = copyCatResolution2(graph)
-		self.updateGraph(values, mappings)
+		mapping = prepareGraphMapping(graph)
+		problem = LPProblem(mapping.size)
+		problem.estimatedValues = initialEstimates(graph, mapping)
+		problem.estimatePrecisions = initialPrecisions(graph, mapping)
+		problem = prepareGraphProblem(graph, mapping, problem)
+
+		x = [0 for X in problem.estimatedValues]
+		corrections = leastSquares.solve(x, problem.estimatePrecisions, problem.matrix, problem.constraints, problem.constraintPrecisions)
+		# Relic of GaBP routine
+		#corrections, precisions = gabp.run(TOL, problem.matrix, problem.constraints, problem.constraintPrecisions, [0 for X in problem.estimatedValues], problem.estimatePrecisions)
+		self.updateGraph(corrections, mapping)
 		self.correctIncongruities()
 		return
-
-		#print 'Gaussian Belief propagation resolution of flow'
-		#mapping = prepareGraphMapping(self)
-		#problem = LPProblem(mapping.size)
-		#problem.estimatedValues = initialEstimates(self, mapping)
-		#problem.estimatePrecisions = initialPrecisions(self, mapping)
-		#problem = prepareGraphProblem(self, mapping, problem)
-
-		#values, precisions = gabp.run(TOL, problem.matrix, problem.constraints, problem.constraintPrecisions, [0 for X in problem.estimatedValues], problem.estimatePrecisions)
-		#self.updateGraph(values, mapping)
-
-		#self.correctIncongruities()
 
 	##############################################
 	## Creating a graph image of the flow solution

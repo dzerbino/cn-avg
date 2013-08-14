@@ -169,7 +169,7 @@ class ScheduledHistory(history.CactusHistory):
 		super(ScheduledHistory, self).pop(history, event)
 		self.popEvent(event)
 
-	def getAncestors(self, history, event):
+	def getTopEvent(self, history, event):
 		if event in history.untouchables:
 			index = history.untouchables[event]
 			topChain = self.cactus.headChain[history.module.net] 
@@ -177,9 +177,12 @@ class ScheduledHistory(history.CactusHistory):
 			topHistory = self.netHistories[topNet]
 
 			topEdge, topEvent = self.chainCNVs[topChain][index]
-			return self.getAncestors(topHistory, topEvent)
+			return self.getTopEvent(topHistory, topEvent)
 		else:
-			return self.ancestors[event] 
+			return event
+
+	def getAncestors(self, history, event):
+		return self.ancestors[self.getTopEvent(history, event)]
 
 	def slideIn_Event(self, oldEvent, newEvent):
 		if oldEvent in self.parent:

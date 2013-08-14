@@ -35,7 +35,7 @@
 import sys
 import re
 import os
-import numpy as np
+import numpy
 
 from cnavg.basics.coords import Position
 from breakend import Breakend
@@ -229,9 +229,9 @@ def getAlleleFrequencies_Line(results, line, cnvsByChrom, offsets):
 def getAlleleFrequencies_File(results, file, cnvsByChrom, offsets):
 	return reduce(lambda r,l: getAlleleFrequencies_Line(r, l, cnvsByChrom, offsets), open(file), results)
 
-def varianceRatios(X, Y):
-	A = np.array(X[:(len(X)/2)], Y[len(X)/2:])
-	B = np.array(Y[:(len(X)/2)], X[len(X)/2:])
+def ratioVariance(X, Y):
+	A = numpy.array(X[:(len(X)/2)] + Y[len(X)/2:])
+	B = numpy.array(Y[:(len(X)/2)] + X[len(X)/2:])
 	C = A + B
 	return numpy.var(A[C > 0]/C[C > 0])
 	

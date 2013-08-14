@@ -110,12 +110,14 @@ class Cactus(avg.Graph):
 	##########################################
 	## Output
 	##########################################
-	def __str__(self):
+	def dot(self):
 		""" GraphViz output """
 		return "\n".join(['digraph G {'] 
 				 + map(str, sorted(self.values()))
 				 + map(lambda X: X[1].dot(X[0]), enumerate(self.nets))
 				 + ['}'])
+	def __str__(self):
+		return self.dot()
 
 	def netStats(self):
 		""" String of stats on nets """

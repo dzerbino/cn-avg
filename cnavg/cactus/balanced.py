@@ -38,6 +38,7 @@ import cnavg.basics.leastSquares as leastSquares
 import numpy as np
 import graph as cactus
 import cnavg.cactusSampling.sampling as normalized
+import cnavg.history.debug as debug
 
 FUDGE_FACTOR = 1
 SEG_FACTOR = FUDGE_FACTOR / 10
@@ -281,6 +282,13 @@ def correctInsufficientEdges(node, graph):
 def correctIncongruities(graph):
 	map(lambda X: correctIncongruity(X, graph), graph.nodes())
 	map(lambda X: correctInsufficientEdges(X, graph), graph.nodes())
+	# Ideally, I'd like the following conditions to be fully fulfilled, but I did not 
+	# find an algorithm for that. Edge cases suggest it is impossible to do so
+	# without changing the segment flow values, and this entails linear programming
+	#for node in graph:
+	#	assert sum(graph[node].segment) >= sum(graph[node].edges.values())
+	#for node in graph:
+	#	assert all(sum(graph[node].edges.values()[1:] > 0)
 
 ##############################################
 ## Metric
@@ -316,29 +324,28 @@ def segmentLengths(graph):
 def meanOffset(graph):
 	return sum(weightedSegmentOffsets(graph)) / sum(segmentLengths(graph))
 
-def offsetAncestral(val, mean, ploidy):
-	return (val / mean *  ploidy - 1) * 2 / ploidy
+def ancestralEdgeOffset(val, mean, ploidy):
+	return (val / mean *  ploidy - 1) * debug.PLOIDY / ploidy
 
-def offsetNovel(val, mean, ploidy):
-	return (val / mean ) * 2
+def novelEdgeOffset(val, mean, ploidy):
+	return max(0, (val / mean ) * debug.PLOIDY)
 
-def edgeOffset(nodeFlow, dest, mean):
+def bondOffset(nodeFlow, dest, mean):
 	if dest == nodeFlow.partner:
-		return offsetAncestral(nodeFlow.edges[dest], mean, 1)
+		return ancestralEdgeOffset(nodeFlow.edges[dest], mean, 1)
 	else:
-		return offsetNovel(nodeFlow.edges[dest], mean, 1)
+		return novelEdgeOffset(nodeFlow.edges[dest], mean, 1)
 
-def segmentOffset(nodeFlow, index, mean, ploidy):
+def segmentOffset(nodeFlow, value, mean, ploidy):
 	if nodeFlow.node.chr is not None:
-		return offsetAncestral(nodeFlow.segment[index], mean, ploidy)
+		return ancestralEdgeOffset(value, mean, ploidy)
 	else:
-		return offsetNovel(nodeFlow.segment[index], mean, ploidy)
+		return novelEdgeOffset(value, mean, ploidy)
 	
 
 def computeNodeOffsets(nodeFlow, mean):
-	for index in range(len(nodeFlow.segment)):
-		nodeFlow.segment[index] = segmentOffset(nodeFlow, index, mean, len(nodeFlow.segment))
-	nodeFlow.edges = dict(map(lambda X: (X, edgeOffset(nodeFlow, X, mean)), nodeFlow.edges))
+	nodeFlow.segment = [segmentOffset(nodeFlow, value, mean, len(nodeFlow.segment)) for value in nodeFlow.segment]
+	nodeFlow.edges = dict(map(lambda X: (X, bondOffset(nodeFlow, X, mean)), nodeFlow.edges))
 
 def computeOffsets(graph):
 	mean = meanOffset(graph)
@@ -351,7 +358,7 @@ def computeOffsets(graph):
 class BalancedCactus(cactus.Cactus):
 	"""Cactus graph with balanced copy number flow"""
 	def __init__(self, graph):
-		print 'Gaussian Belief propagation resolution of flow in Cactus'
+		print 'Balancing flow in Cactus'
 		assert type(graph) is normalized.NormalizedCactus
 		self.copy(graph)
 		mapping = prepareGraphMapping(graph)
@@ -361,6 +368,7 @@ class BalancedCactus(cactus.Cactus):
 		problem = prepareGraphProblem(graph, mapping, problem)
 		values = leastSquares.solve([0 for X in problem.estimatedValues], problem.estimatePrecisions, problem.matrix, problem.constraints, problem.constraintPrecisions)
 		updateGraph(self, values, mapping)
+		computeOffsets(self)
 		correctIncongruities(self)
 
 	##############################################

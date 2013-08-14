@@ -35,6 +35,7 @@
 import sys
 import random
 import cnavg.avg.graph
+import cnavg.history.debug as debug
 
 import cnavg.cactus.graph as cactus
 import cnavg.cactus.oriented as oriented 
@@ -345,7 +346,7 @@ def _addChildBranch(branch):
 	choice = random.random()
 	start = random.randrange(len(branch.genome))
 	# DEBUG
-	choice = 0
+	choice = .85
 
 	if len(branch.genome) > 1 and choice < 0.7:
 		length = random.randrange(1, len(branch.genome))
@@ -364,6 +365,8 @@ def _addChildBranch(branch):
 			length = len(branch.genome) - 1
 		if length == 0:
 			length = 1
+		# DEBUG
+		length = 1
 		Deletion(branch, start, length)
 	else:
 		Identity(branch)
@@ -417,6 +420,8 @@ class RandomWeightedHistory(RandomHistory):
 ## Unit test
 #########################################
 def main():
+	debug.DEBUG = True
+	debug.PLOIDY = 1
 	history = RandomWeightedHistory(3, 1)
 	G = history.avg()
 	C = cactus.Cactus(G)
@@ -428,6 +433,8 @@ def main():
 	print history.cost()
 	print H
 	print H.rearrangementCost()
+	for NH in H.netHistories.values():
+		print NH.dot()
 
 if __name__ == '__main__':
 	main()

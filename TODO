@@ -3,4 +3,3 @@ Side effect history complexity... necessary for avoiding costly recalculations
 Simplify embalm function to free up Garbage Collection
 Inconsistent use of flow or conjugate flow
 Fully remove self overlaps in overlap search
-Replace GABP by weighted least squares resolution

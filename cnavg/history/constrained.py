@@ -39,72 +39,6 @@ import numpy as np
 
 import debug
 
-def _originalComponents_Node(data, node, module):
-	if node.orientation:
-		return data
-	else:
-		partner = module[node].partner
-		if partner is node:
-			return data
-
-		componentLoops, nodeComponents = data
-		newComponent = frozenset([node, partner])
-		componentLoops[newComponent] = 0
-		nodeComponents[node] = newComponent
-		nodeComponents[partner] = newComponent
-		return componentLoops, nodeComponents
-
-def _originalComponents(module):
-	return reduce(lambda X,Y: _originalComponents_Node(X, Y, module), module, (dict(), dict()))
-
-def undoComponent_Node(data, node):
-	componentLoops, nodeComponents = data
-	if node in nodeComponents:
-		component = nodeComponents[node]
-		print 'DELETING', len(component), "\t".join(str(X.ID) for X in component)
-		for node2 in component:
-			del nodeComponents[node2]
-		if component in componentLoops:
-			del componentLoops[component]
-	return componentLoops, nodeComponents
-
-def undoComponents_Edge(data, edge):
-	return reduce(undoComponent_Node, edge.nodes(), data)
-
-def expandComponent(data, node, netHistory, activeBonds, createdBonds):
-	component, L = data
-	component.add(node)
-	nodeFlow = netHistory.module[node]
-
-	# Check for self loop
-	if nodeFlow.selfLoops and createdBonds[netHistory.mappings.getBond(node, node)]:
-		loops = 1
-	else:
-		loops = 0
-
-	# Propagate component
-	neighbours = [X for X in nodeFlow.edges if X not in component and activeBonds[netHistory.mappings.getBond(node, X)]]
-	return reduce(lambda X, Y: expandComponent(X, Y, netHistory, activeBonds, createdBonds), neighbours, (component, L + loops))
-
-def redoComponents_Node(data, node, netHistory, activeBonds, createdBonds):
-	componentLoops, nodeComponents = data
-	if node not in nodeComponents:
-		component, loops = expandComponent((set(), 0), node, netHistory, activeBonds, createdBonds)
-		if len(component) > 1 or loops > 0:
-			print 'NEW', len(component)
-			component = frozenset(component)
-			componentLoops[component] = int(math.ceil(loops*0.5))
-			for node2 in component:
-				nodeComponents[node2] = component
-	return componentLoops, nodeComponents
-
-def redoComponents_Edge(data, edge, netHistory, activeBonds, createdBonds):
-	return reduce(lambda X, Y: redoComponents_Node(X, Y, netHistory, activeBonds, createdBonds), edge.nodes(), data)
-
-def updateComponents(netHistory, activeBonds, createdBonds, cycle, data):
-	data = reduce(undoComponents_Edge, cycle, data)
-	return reduce(lambda X, Y: redoComponents_Edge(X, Y, netHistory, activeBonds, createdBonds), cycle, data)
-
 class ConstrainedHistory(scheduled.ScheduledHistory):
 	######################################
 	## Basic
@@ -302,11 +236,16 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 		# DEBUG
 		#segment = (bond == False)
 		segment = netHistory.segmentIndices()
+		real = (netHistory.stubIndices() == False)
 		# END OF DEBUG
 		queue = [(X, originalVector) for X in self.roots]
 		total = 0
 
-		print netHistory.mappings
+		#print netHistory.mappings
+		#print netHistory.module
+		#print len(netHistory.untouchables)
+
+		localEvents = dict((self.getTopEvent(netHistory, event), event) for event in netHistory.events)
 
 		# I wish I could do this in proper recursion FP style, but Python is not very good with deep recursions
 		while len(queue) > 0:
@@ -314,24 +253,26 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 
 			if (not debug.DEBUG) and event.ratio < debug.RATIO_CUTOFF:
 				continue
-			print '>>>>>>'
-			print previousVector
+			#print '>>>>>>'
+			#print previousVector
 
-			if event in netHistory.eventIndex:
-				if event.cycle.value > 0:
-					eventVector = -netHistory.eventVector(event) 
+			if event in localEvents:
+				localEvent = localEvents[event]
+				if localEvent.cycle.value > 0:
+					eventVector = -netHistory.eventVector(localEvent) 
 				else:
-					eventVector = netHistory.eventVector(event) 
-				print eventVector
+					eventVector = netHistory.eventVector(localEvent) 
+				#print eventVector
 				newVector = previousVector + eventVector
+				#print newVector
 				previousBonds = bond & (previousVector < 0)
 				createdBonds = bond & (newVector < 0) & (previousVector >= 0)
-				cost = self.countComponents(event.cycle, netHistory, previousBonds, createdBonds)
-				segmentErrors = (eventVector != 0) & segment & (previousVector <= 0) 
-				bondDestructions = (eventVector != 0) & bond & (newVector > 0)
+				cost = self.countComponents(localEvent.cycle, netHistory, previousBonds, createdBonds)
+				segmentErrors = (eventVector != 0) & segment & ((previousVector == 0) | ((previousVector >= 0) & (newVector < 0)))
+				bondDestructions = (eventVector != 0) & bond & ((previousVector <= 0) & (newVector > 0))
 				total += cost + 2 * np.sum(segmentErrors | bondDestructions)
-				print np.argmax(bondDestructions)
-				print 'COMPLEXITY', len(event.cycle), cost, np.sum(segmentErrors), np.sum(bondDestructions), np.sum(segmentErrors | bondDestructions), max(cost + 2 * np.sum(segmentErrors | bondDestructions), 0) 
+				#print map(str, netHistory.mappings.reverseLookup(np.argmax(bondDestructions))), np.argmax(bondDestructions), newVector[np.argmax(bondDestructions)], newVector[np.argmax(bondDestructions)] > 0, bondDestructions[np.argmax(bondDestructions)]
+				#print 'COMPLEXITY', len(localEvent.cycle), cost, np.sum(segmentErrors), np.sum(bondDestructions), np.sum(segmentErrors | bondDestructions), max(cost + 2 * np.sum(segmentErrors | bondDestructions), 0) , np.sum(bond & (eventVector != 0))
 			else:
 				newVector = previousVector
 			queue.extend((X, newVector) for X in self.children[event])
@@ -344,9 +285,12 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 		# DEBUG
 		#segment = (bond == False)
 		segment = netHistory.segmentIndices()
+		real = (netHistory.stubIndices() == False)
 		# END OF DEBUG
 		queue = [(X, originalVector) for X in self.roots]
 		total = 0
+
+		localEvents = dict((self.getTopEvent(netHistory, event), event) for event in netHistory.events)
 
 		# I wish I could do this in proper recursion FP style, but Python is not very good with deep recursions
 		while len(queue) > 0:
@@ -355,15 +299,16 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 			if (not debug.DEBUG) and event.ratio < debug.RATIO_CUTOFF:
 				continue
 
-			if event in netHistory.eventIndex:
-				if event.cycle.value > 0:
-					eventVector = -netHistory.eventVector(event) 
+			if event in localEvents:
+				localEvent = localEvents[event]
+				if localEvent.cycle.value > 0:
+					eventVector = -netHistory.eventVector(localEvent) 
 				else:
-					eventVector = netHistory.eventVector(event) 
+					eventVector = netHistory.eventVector(localEvent) 
 				newVector = previousVector + eventVector
 				previousBonds = bond & (previousVector < 0)
-				segmentErrors = (eventVector != 0) & segment & (previousVector <= 0) 
-				bondDestructions = (eventVector != 0) & bond & (newVector > 0)
+				segmentErrors = (eventVector != 0) & segment & ((previousVector == 0) | ((previousVector >= 0) & (newVector < 0)))
+				bondDestructions = (eventVector != 0) & bond & ((previousVector <= 0) & (newVector > 0))
 				total += 2 * np.sum(segmentErrors | bondDestructions)
 			else:
 				newVector = previousVector

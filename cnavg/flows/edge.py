@@ -65,7 +65,7 @@ class Edge(object):
 		return Edge(self.finish, self.start, self.value, self.index)
 
 	def getCNVs(self, hash, event, graph):
-		if self.index != -1 and graph.nodeBlock[self.start] is not None:
+		if self.index != -1 and self.start.chr != 'None' and graph.nodeBlock[self.start] is not None:
 			chain = graph.blockChain[graph.nodeBlock[self.start]]
 			if chain in hash:
 				hash[chain].append((self, event))

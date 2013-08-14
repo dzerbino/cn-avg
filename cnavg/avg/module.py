@@ -79,8 +79,8 @@ class Module(avg.Graph):
 					self.addLiftedEdge(node, self.stub, excess)
 
 		stubFlow = sum(self[self.stub].edges.values())
-		self.addLiftedEdge(self.stub, self.stub, -stubFlow/2)
-		self.createModuleSegment(self.stub, self.stub,[0])
+		self.createModuleSegment(self.stub, self.stub,[stubFlow/2])
+		assert self.balanced()
 
 	def copy(self, other):
 		""" Copy data onto other instance """
@@ -143,14 +143,14 @@ class Module(avg.Graph):
 			self.changeSegment(nodeA, values)
 
 	def changeModuleSegment(self, nodeA, nodeB, value, index):
-		self.segments[nodeA][index] -= value
-		self.segments[nodeB][index] -= value
+		self.segments[nodeA][index] += value
+		self.segments[nodeB][index] += value
 
 	def removeEdgeFlow(self, edge):
 		if edge.index == -1:
 			self.changeLiftedEdge(edge.start, edge.finish, -edge.value)
 		else:
-			self.changeModuleSegment(edge.start, edge.finish, -edge.value, edge.index)
+			self.changeModuleSegment(edge.start, edge.finish, edge.value, edge.index)
 
 	def addNetEnd(self, node, graph):
 		self.addNode(node)
@@ -195,7 +195,10 @@ class Module(avg.Graph):
 
 	def nodeFlow(self, node):
 		""" Flow imbalance around a given node """
-		return sum(self[node].edges.values()) - sum(self.segments[node])
+		if self[node].twin != node:
+			return sum(self[node].edges.values()) - sum(self.segments[node])
+		else:
+			return sum(self[node].edges.values()) - 2 * sum(self.segments[node])
 
 	def nodeBalanced(self, node):
 		""" Check whether flow is balanced (approximately) around a given node """

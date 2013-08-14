@@ -183,7 +183,7 @@ class FlattenedHistory(ConstrainedHistory):
 
 	def _extendEdge(self, edge):
 		""" Return edge or equivalent path through subordinate nets """
-		if edge.index == -1:
+		if edge.index == -1 or edge.start.chr == 'None':
 			# Simple adjacency
 			return [edge]
 		elif edge.start in self.netHistories[self.cactus.nodeNet(edge.start)].module.pseudotelomeres:

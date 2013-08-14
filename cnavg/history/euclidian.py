@@ -56,18 +56,21 @@ class Mapping(dict):
 	##############################################
 	## Basic functionalities
 	##############################################
-	def _addMatrixEdge(self, IDA, IDB, value):
+	def length(self):
+		return len(self.keys)
+
+	def _addMatrixEdge(self, IDA, IDB):
 		""" The use of the matrix allows for accelerated bond lookups """
-		self.matrix[(IDA, IDB)] = value
-		self.matrix[(IDB, IDA)] = value
+		self.matrix[(IDA, IDB)] = self.length()
+		self.matrix[(IDB, IDA)] = self.length()
 
 	def addEdge(self, A, B, index):
 		""" Add new edge to mapping """
-		self[(A,B,index)] = self.length
-		self[(B,A,index)] = self.length
+		self[(A,B,index)] = self.length()
+		self[(B,A,index)] = self.length()
 		if index == -1:
-			self._addMatrixEdge(A.ID, B.ID, self.length)
-		self.length += 1
+			self._addMatrixEdge(A.ID, B.ID)
+		self.keys.append((A,B,index))
 
 	def getBond(self, A, B):
 		""" Return index assigned to bond edge """
@@ -79,11 +82,14 @@ class Mapping(dict):
 			return self[(A,B,index)]
 		except KeyError:
 			self.addEdge(A, B, index)
-			return self.length - 1
+			return self.length() - 1
+
+	def reverseLookup(self, value):
+		return self.keys[value]
 
 	def nullVector(self):
 		""" Returns a vector of 0 of the same length as the dimension of the module """
-		return np.zeros(self.length)
+		return np.zeros(self.length())
 
 	def falseVector(self):
 		""" Returns a vector of False of the same length as the dimension of the module """
@@ -116,20 +122,29 @@ class Mapping(dict):
 
 	# DEBUG
 	def _segmentVector_Edge(self, vector, edge):
-		if edge[2] >= 0 and (edge[0].chr != 'None' or edge[1].chr != 'None'):
+		if edge[2] >= 0:
 			vector[self[edge]] = True
 		return vector
 
 	def _segmentVector(self):
 		""" Returns a vector which determines which indices correspond to segments """
 		return reduce(lambda V,E: self._segmentVector_Edge(V, E), self, self.falseVector())
+
+	def _stubVector_Edge(self, vector, edge):
+		if edge[0].chr == 'None' and edge[1].chr == 'None':
+			vector[self[edge]] = True
+		return vector
+
+	def _stubVector(self):
+		""" Returns a vector which determines which indices correspond to stub-stub edges"""
+		return reduce(lambda V,E: self._stubVector_Edge(V, E), self, self.falseVector())
 	# END OF DEBUG
 
 	def __init__(self, module):
 		super(Mapping, self).__init__()
-		self.length = 0
 		self.maxNodeID = 0
 		self.matrix = dict()
+		self.keys = []
 		map(lambda X: self._prepareNodeMapping(X, module), module)
 
 	##############################################
@@ -190,7 +205,7 @@ class Mapping(dict):
 
 	def _overlapMatrix(self, module):
 		""" Returns a matrix with a row for each bond, a column for each edge, and 1 if the edge is an incident bond edge """
-		return reduce(lambda M, N: self._overlapMatrix_Node(M, N, module), enumerate(module.keys()), scipy.sparse.lil_matrix((len(module), self.length))).tocsr()
+		return reduce(lambda M, N: self._overlapMatrix_Node(M, N, module), enumerate(module.keys()), scipy.sparse.lil_matrix((len(module), self.length()))).tocsr()
 
 ##############################################
 ## Linear Algebra shorthands
@@ -259,8 +274,8 @@ class EuclidianHistory(overlap.OverlapHistory):
 	def eventVector(self, event):
 		""" Returns the vector assigned to an event Cycle """
 		## If new dimensions were added to the mapping
-		if self.mappings.length > np.size(self.vectors, 0):
-			newDims = self.mappings.length - np.size(self.vectors, 0)
+		if self.mappings.length() > np.size(self.vectors, 0):
+			newDims = self.mappings.length() - np.size(self.vectors, 0)
 			self.vectors = np.concatenate((self.vectors, np.zeros((newDims, np.size(self.vectors, axis=1)))), axis=0)
 			self.q_base = np.concatenate((self.q_base, np.zeros((newDims, np.size(self.vectors, axis=1)))), axis=0)
 		return self.vectors[:,self.eventIndex[event]]
@@ -272,6 +287,10 @@ class EuclidianHistory(overlap.OverlapHistory):
 	def segmentIndices(self):
 		""" Returns vector which indicates which indices correspond to segment edges """
 		return self.mappings._segmentVector()
+
+	def stubIndices(self):
+		""" Returns vector which indicates which indices correspond to stub-stub edges """
+		return self.mappings._stubVector()
 
 	#########################################
 	## Linear algebra
@@ -295,13 +314,13 @@ class EuclidianHistory(overlap.OverlapHistory):
 	def _ratios(self):
 		return np.array([X.cycle.value for X in self.events])
 
-        def _imposeNewRatios(self, oldRatios, ratios, cactusHistory):
-        	# Correct values
-                map(lambda X: X[0].setRatio(X[1]), zip(self.events, ratios))
-
-                # Filter values
-                badeggs = filter(lambda X: abs(X.cycle.value) <= ROUNDING_ERROR, self.events)
-		indexes = [self.eventIndex[X] for X in badeggs]
+        def _imposeNewRatios(self, ratios, cactusHistory):
+		badeggs = []
+		for event, ratio in zip(self.events, ratios):
+			if abs(ratio) <= ROUNDING_ERROR:
+				badeggs.append(event)
+			else:
+				event.setRatio(ratio)
 
                 for X in badeggs:
                 	cactusHistory.pop(self, X)
@@ -350,7 +369,7 @@ class EuclidianHistory(overlap.OverlapHistory):
 			maxRho = -rhos[lameDuckIndex]
 			corrections = weights / maxRho
 			newRatios = ratios + corrections
-			self._imposeNewRatios(ratios, newRatios, cactusHistory)
+			self._imposeNewRatios(newRatios, cactusHistory)
 		else:
 			## Independent vectors, congratulations!
 			normal = _normalized(residual)
