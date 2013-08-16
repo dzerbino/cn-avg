@@ -106,15 +106,15 @@ def splitCycles(cycleA, indexA, cycleB, indexB, stub):
 		shortCut.append(Edge(stub, stub, 0))
 	shortCut.append(Edge(stub, cycleA[0].start, 0))
 
-	cycleAPrime = Event(Cycle(cycleA[:a1] + shortCut, cycleA.value))
-	cycleBPrime = Event(Cycle(cycleB[:a2] + shortCut, cycleB.value))
+	cycleAPrime = Event(Cycle(cycleA[:a1] + shortCut, cycleA[0].value))
+	cycleBPrime = Event(Cycle(cycleB[:a2] + shortCut, cycleB[0].value))
 	newCycles = [cycleAPrime, cycleBPrime]
 
 	# Note: a1 and a2 have the same parity because a1 + len(shortCut) and a2 + len(shortCut) both even numbers. 
 	if a1 % 2 == 0: 
-		residue = cycleB.value + cycleA.value
+		residue = cycleB[0].value + cycleA[0].value
 	else:
-		residue = -(cycleB.value + cycleA.value)
+		residue = -(cycleB[0].value + cycleA[0].value)
 	if abs(residue) > ROUNDING_ERROR:
 		newCycles.append(Event(Cycle(cycleA[a1:] + shortCut.reverse(), residue)))
 	return newCycles
@@ -130,9 +130,9 @@ def mergeCycles(cycleA, indexA, cycleB, indexB):
 	a1, a2 = getStartOfRepeat(cycleA, 0, 0, cycleB, 0, 0) 
 
 	merged = Event(Cycle(cycleA[:a1]) + Cycle(cycleB[:a2]).reverse())
-	merged.setRatio(cycleA.value)
+	merged.setRatio(cycleA[0].value)
 
-	residue = cycleB.value + cycleA.value
+	residue = cycleB[0].value + cycleA[0].value
 	if abs(residue) > ROUNDING_ERROR:
 		return [merged, Event(Cycle(cycleB, residue))]
 	else:

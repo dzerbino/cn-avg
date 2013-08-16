@@ -53,13 +53,6 @@ class Cycle(list):
 
 		if value is not None:
 			self.setRatio(value)
-		elif len(self) > 0:
-			self.value = self[0].value
-		else:
-			self.value = None
-		if self.value == None:
-			print self
-			assert False
 
 	def __copy__(self):
 		return Cycle(copy.copy(X) for X in self)
@@ -84,7 +77,7 @@ class Cycle(list):
 		return self.startAt(hit, conserve=True)
 
 	def __add__(self, other):
-		return Cycle(list(self) + list(other), self.value)
+		return Cycle(list(self) + list(other), self[0].value)
 
 	def setRatio(self, ratio):
 		for index in range(len(self)):
@@ -92,7 +85,6 @@ class Cycle(list):
 				self[index].value = ratio
 			else:
 				self[index].value = -ratio
-		self.value = ratio
 
 	###########################################
 	## Stats
@@ -131,7 +123,7 @@ class Cycle(list):
 	###########################################
 
 	def __str__(self):
-		return "\n".join(["CYCLE " + str(self.value) + " " + str(len(self))] + [X.shortString() for X in self])
+		return "\n".join(["CYCLE " + str(self[0].value) + " " + str(len(self))] + [X.shortString() for X in self])
 
 	def dot(self):
 		return "\n".join(X.dot() for X in self)

@@ -72,14 +72,12 @@ def closePseudoTelomere(data, index):
 	module, history = data
 	PT = random.choice(list(module.pseudotelomeres))
 	twin = module[PT].twin
-	edge1 = Edge(PT, twin, -module.segments[PT][index], index)
-	edge2 = Edge(twin, module[twin].partner, module.segments[PT][index], -1)
+	edge1 = Edge(PT, twin, module[PT].segment[index], index)
 	module.removeEdgeFlow(edge1)
+	edge2 = Edge(twin, module[twin].partner, -edge1.value, -1)
 	module.removeEdgeFlow(edge2)
 	module, edges = extractPseudoTelomereCycle(module, [edge1, edge2])
-	cycle = Cycle(edges)
-	event = Event(cycle)
-	history.absorbEvent(event)
+	history.absorbEvent(Event(Cycle(edges)))
 	return module, history
 
 def closePseudoTelomeres(module, history):
@@ -87,7 +85,7 @@ def closePseudoTelomeres(module, history):
 		return module, history
 	else:
 		pseudotelomere = random.choice(list(module.pseudotelomeres))
-		segmentCount = len(module.segments[pseudotelomere])
+		segmentCount = len(module[pseudotelomere].segment)
 		return reduce(closePseudoTelomere, range(segmentCount), (module, history))
 
 #############################################
@@ -100,17 +98,18 @@ def realValue(adjacency, module):
 	if adjacency[3] == -1:
 		return module[adjacency[0]].edges[adjacency[1]]
 	else:
-		return -module.segments[adjacency[0]][adjacency[3]]
+		return -module[adjacency[0]].segment[adjacency[3]]
 
 def nodePairAdjacency(node, nodeB, module):
-	return (node, nodeB, module[node].edges[nodeB], -1)
+	# Conjugate flow!
+	return (node, nodeB, -module[node].edges[nodeB], -1)
 
 def nodePairSegment(node, index, module):
-	return (node, module[node].twin, -module.segments[node][index], index)
+	return (node, module[node].twin, module[node].segment[index], index)
 
 def nodeAdjacencies(node, module):
 	adjacencies = [nodePairAdjacency(node, X, module) for X in module[node].edges]
-	segments = [nodePairSegment(node, X, module) for X in range(len(module.segments[node]))]
+	segments = [nodePairSegment(node, X, module) for X in range(len(module[node].segment))]
 	return adjacencies + segments
 
 def computeNodeAdjacencies(module):
@@ -312,11 +311,11 @@ def signf(val):
 		return -1
 
 def extendCycle(cycle, module, distances, sign, missingEdges=None):
-	edgeData = chooseNextNode(cycle[-1].finish, module, distances, signf(cycle.value * sign), sign > 0, missingEdges)
+	edgeData = chooseNextNode(cycle[-1].finish, module, distances, signf(cycle[0].value * sign), sign > 0, missingEdges)
 	if edgeData is None or abs(realValue(edgeData,module)) <= MIN_FLOW:
 		return None, module
 	edge = Edge(edgeData[0], edgeData[1], edgeData[2], edgeData[3])
-	edge.value = cycle.value * sign
+	edge.value = cycle[0].value * sign
 	module.removeEdgeFlow(edge)
 	cycle.append(edge)
 

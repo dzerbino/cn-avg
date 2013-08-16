@@ -233,17 +233,9 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 		netHistory = self.netHistories[net]
 		originalVector = netHistory.originalVector()
 		bond = netHistory.bondIndices()
-		# DEBUG
-		#segment = (bond == False)
-		segment = netHistory.segmentIndices()
-		real = (netHistory.stubIndices() == False)
-		# END OF DEBUG
+		segment = np.logical_not(bond)
 		queue = [(X, originalVector) for X in self.roots]
 		total = 0
-
-		#print netHistory.mappings
-		#print netHistory.module
-		#print len(netHistory.untouchables)
 
 		localEvents = dict((self.getTopEvent(netHistory, event), event) for event in netHistory.events)
 
@@ -253,25 +245,17 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 
 			if (not debug.DEBUG) and event.ratio < debug.RATIO_CUTOFF:
 				continue
-			#print '>>>>>>'
-			#print previousVector
 
 			if event in localEvents:
 				localEvent = localEvents[event]
-				if localEvent.cycle.value > 0:
-					eventVector = -netHistory.eventVector(localEvent) 
-				else:
-					eventVector = netHistory.eventVector(localEvent) 
-				#print eventVector
+				eventVector = netHistory.eventVector(localEvent) 
 				newVector = previousVector + eventVector
-				#print newVector
 				previousBonds = bond & (previousVector < 0)
 				createdBonds = bond & (newVector < 0) & (previousVector >= 0)
 				cost = self.countComponents(localEvent.cycle, netHistory, previousBonds, createdBonds)
 				segmentErrors = (eventVector != 0) & segment & ((previousVector == 0) | ((previousVector >= 0) & (newVector < 0)))
 				bondDestructions = (eventVector != 0) & bond & ((previousVector <= 0) & (newVector > 0))
 				total += cost + 2 * np.sum(segmentErrors | bondDestructions)
-				#print map(str, netHistory.mappings.reverseLookup(np.argmax(bondDestructions))), np.argmax(bondDestructions), newVector[np.argmax(bondDestructions)], newVector[np.argmax(bondDestructions)] > 0, bondDestructions[np.argmax(bondDestructions)]
 				#print 'COMPLEXITY', len(localEvent.cycle), cost, np.sum(segmentErrors), np.sum(bondDestructions), np.sum(segmentErrors | bondDestructions), max(cost + 2 * np.sum(segmentErrors | bondDestructions), 0) , np.sum(bond & (eventVector != 0))
 			else:
 				newVector = previousVector
@@ -282,11 +266,7 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 		netHistory = self.netHistories[net]
 		originalVector = netHistory.originalVector()
 		bond = netHistory.bondIndices()
-		# DEBUG
-		#segment = (bond == False)
-		segment = netHistory.segmentIndices()
-		real = (netHistory.stubIndices() == False)
-		# END OF DEBUG
+		segment = np.logical_not(bond)
 		queue = [(X, originalVector) for X in self.roots]
 		total = 0
 
@@ -301,12 +281,8 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 
 			if event in localEvents:
 				localEvent = localEvents[event]
-				if localEvent.cycle.value > 0:
-					eventVector = -netHistory.eventVector(localEvent) 
-				else:
-					eventVector = netHistory.eventVector(localEvent) 
+				eventVector = netHistory.eventVector(localEvent) 
 				newVector = previousVector + eventVector
-				previousBonds = bond & (previousVector < 0)
 				segmentErrors = (eventVector != 0) & segment & ((previousVector == 0) | ((previousVector >= 0) & (newVector < 0)))
 				bondDestructions = (eventVector != 0) & bond & ((previousVector <= 0) & (newVector > 0))
 				total += 2 * np.sum(segmentErrors | bondDestructions)

@@ -346,7 +346,7 @@ def _addChildBranch(branch):
 	choice = random.random()
 	start = random.randrange(len(branch.genome))
 	# DEBUG
-	choice = .85
+	choice = .8
 
 	if len(branch.genome) > 1 and choice < 0.7:
 		length = random.randrange(1, len(branch.genome))

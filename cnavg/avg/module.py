@@ -74,12 +74,12 @@ class Module(avg.Graph):
 		self[self.stub].partner = self.stub
 		for node in self.nodes(): 
 			if node != self.stub:
-				excess = sum(self.segments[node]) - sum(self[node].edges.values())
+				excess = sum(self[node].segment) - sum(self[node].edges.values())
 				if excess != 0:
 					self.addLiftedEdge(node, self.stub, excess)
 
 		stubFlow = sum(self[self.stub].edges.values())
-		self.createModuleSegment(self.stub, self.stub,[stubFlow/2])
+		self.createSegment(self.stub, self.stub,[stubFlow/2])
 		assert self.balanced()
 
 	def copy(self, other):
@@ -87,29 +87,11 @@ class Module(avg.Graph):
 		super(Module, self).copy(other)
 		self.pseudotelomeres = copy.copy(other.pseudotelomeres)
 		self.stub = other.stub
-		self.segments = dict()
-		for X in other.segments:
-			self.segments[X] = copy.copy(other.segments[X])
 
 	def __copy__(self):
 		res = Module()
 		res.copy(self)
 		return res
-
-	def segmentNodeString(self, node, index):
-		""" GraphViz output """ 
-		return "\t%s -> %s [style=dashed, color=green, label=%f]" % (node.ID, self[node].twin.ID, -self.segments[node][index])
-
-	def segmentNodeStrings(self, node):
-		""" GraphViz output """ 
-		if self[node].twin is not None and node <= self[node].twin:
-			return map(lambda X: self.segmentNodeString(node, X), range(len(self.segments[node]))) 
-		else:
-			return []
-
-	def segmentStrings(self):
-		""" GraphViz output """ 
-		return sum(map(lambda X: self.segmentNodeStrings(X), self), [])
 
 	def __str__(self):
 		""" GraphViz output """ 
@@ -120,37 +102,17 @@ class Module(avg.Graph):
 				 + ["\t" + str(X.ID) for X in self.telomeres]
 				 + ['node [style=line,color=black]']
 				 + map(str, self.values())
-				 + self.segmentStrings()
 				 + ['}'])
 
 	def __hash__(self):
 		return id(self)
 
-	def addModuleSegment(self, nodeA, values):
-		""" Define segment flows incident onto nodeA """
-		if nodeA not in self.segments:
-			self.segments[nodeA] = values
-		else:
-			self.segments[nodeA].extend(values)
-
-	def createModuleSegment(self, nodeA, nodeB, values):
-		self.addModuleSegment(nodeA, values)
-		if nodeB != nodeA:
-			self.addModuleSegment(nodeB, values)
-		if self[nodeA].twin is None:
-			self.createSegment(nodeA, nodeB, values)
-		else:
-			self.changeSegment(nodeA, values)
-
-	def changeModuleSegment(self, nodeA, nodeB, value, index):
-		self.segments[nodeA][index] += value
-		self.segments[nodeB][index] += value
-
 	def removeEdgeFlow(self, edge):
+		# Conversion from conjugate flow to flow
 		if edge.index == -1:
-			self.changeLiftedEdge(edge.start, edge.finish, -edge.value)
+			self.changeLiftedEdge(edge.start, edge.finish, edge.value)
 		else:
-			self.changeModuleSegment(edge.start, edge.finish, edge.value, edge.index)
+			self.changeSegment(edge.start, edge.index, -edge.value)
 
 	def addNetEnd(self, node, graph):
 		self.addNode(node)
@@ -163,7 +125,6 @@ class Module(avg.Graph):
 
 	def close(self, graph, cnvs):
 		""" Connect pseudotelomeres as virtual twins """
-		self.segments = dict()
 		nodes = filter(lambda X: X.orientation == True, sorted(self.nodes()))
 		if len(nodes) < 1:
 			return
@@ -173,9 +134,7 @@ class Module(avg.Graph):
 			if len(PT) == 2:
 				head = PT[0]
 				next = PT[1]
-				self.createSegment(head, next, [0])
-				self.segments[head] = [-X[0].value for X in cnvs]
-				self.segments[next] = [-X[0].value for X in cnvs]
+				self.createSegment(head, next, [X[0].value for X in cnvs])
 
 			next = nodes.pop(0) 
 			if next in self.telomeres:
@@ -185,27 +144,27 @@ class Module(avg.Graph):
 			for node in nodes:
 				partner = self[node].partner
 				if next.chr == node.chr:
-					self.createModuleSegment(next, partner, graph[next].segment)
+					self.createSegment(next, partner, graph[next].segment)
 				else:
-					self.createModuleSegment(next, chromosomeEnd, graph[next].segment)
+					self.createSegment(next, chromosomeEnd, graph[next].segment)
 					chromosomeEnd = partner
 				next = node
 			if chromosomeEnd is not None:
-				self.createModuleSegment(next, chromosomeEnd, graph[next].segment)
+				self.createSegment(next, chromosomeEnd, graph[next].segment)
 
 	def nodeFlow(self, node):
 		""" Flow imbalance around a given node """
 		if self[node].twin != node:
-			return sum(self[node].edges.values()) - sum(self.segments[node])
+			return sum(self[node].edges.values()) - sum(self[node].segment)
 		else:
-			return sum(self[node].edges.values()) - 2 * sum(self.segments[node])
+			return sum(self[node].edges.values()) - 2 * sum(self[node].segment)
 
 	def nodeBalanced(self, node):
 		""" Check whether flow is balanced (approximately) around a given node """
 		if self.nodeFlow(node) >= 1e-3:
 			print node
 			print sum(self[node].edges.values())
-			print sum(self.segments[node])
+			print sum(self[node].segment)
 		assert abs(self.nodeFlow(node)) < 1e-3
 		return True
 

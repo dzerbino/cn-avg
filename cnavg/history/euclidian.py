@@ -109,7 +109,7 @@ class Mapping(dict):
 
 	def _prepareNodeMapping(self, node, module):
 		map(lambda N: self._prepareEdgeMapping(N, node), module[node].edges)
-		map(lambda i: self._prepareSegmentEdgeMapping(i, node, module[node].twin), range(len(module.segments[node])))
+		map(lambda i: self._prepareSegmentEdgeMapping(i, node, module[node].twin), range(len(module[node].segment)))
 
 	def _bondVector_Edge(self, vector, edge):
 		if edge[2] == -1:
@@ -119,26 +119,6 @@ class Mapping(dict):
 	def _bondVector(self):
 		""" Returns a vector which determines which indices correspond to bonds """
 		return reduce(lambda V,E: self._bondVector_Edge(V, E), self, self.falseVector())
-
-	# DEBUG
-	def _segmentVector_Edge(self, vector, edge):
-		if edge[2] >= 0:
-			vector[self[edge]] = True
-		return vector
-
-	def _segmentVector(self):
-		""" Returns a vector which determines which indices correspond to segments """
-		return reduce(lambda V,E: self._segmentVector_Edge(V, E), self, self.falseVector())
-
-	def _stubVector_Edge(self, vector, edge):
-		if edge[0].chr == 'None' and edge[1].chr == 'None':
-			vector[self[edge]] = True
-		return vector
-
-	def _stubVector(self):
-		""" Returns a vector which determines which indices correspond to stub-stub edges"""
-		return reduce(lambda V,E: self._stubVector_Edge(V, E), self, self.falseVector())
-	# END OF DEBUG
 
 	def __init__(self, module):
 		super(Mapping, self).__init__()
@@ -166,11 +146,11 @@ class Mapping(dict):
 		vector[self.getEdge(edge.start, edge.finish, edge.index)] += int(round(edge.value / ratio))
 		return vector
 
-	def vector(self, cycle):
+	def vector(self, event):
 		""" Returns a vector which corresponds to an Event Cycle """
 		# Record all the edges once in case one of them is new, thus affecting the length of nullVector
-		map(lambda X: self.getEdge(X.start, X.finish, X.index), cycle)
-		return reduce(lambda V,E: self._updateVector(V, E, cycle.value), cycle, self.nullVector())
+		map(lambda X: self.getEdge(X.start, X.finish, X.index), event.cycle)
+		return reduce(lambda V,E: self._updateVector(V, E, event.ratio), event.cycle, self.nullVector())
 
 	##############################################
 	## Producing the vector associated to the original genome flow
@@ -183,6 +163,7 @@ class Mapping(dict):
 			if module[key[0]].twin == key[1]:
 				vector[self[key]] += debug.PLOIDY / module[key[0]].ploidy()
 		else:
+			# Note conjuguate transformation
 			if module[key[0]].partner == key[1] and key[0] is not key[1]:
 				# This assumes homozygocity of the breakends
 				vector[self[key]] -= debug.PLOIDY
@@ -312,7 +293,7 @@ class EuclidianHistory(overlap.OverlapHistory):
 		super(EuclidianHistory, self).pop(event)
 
 	def _ratios(self):
-		return np.array([X.cycle.value for X in self.events])
+		return np.array([X.ratio for X in self.events])
 
         def _imposeNewRatios(self, ratios, cactusHistory):
 		badeggs = []
@@ -330,7 +311,7 @@ class EuclidianHistory(overlap.OverlapHistory):
 	def absorbEvent(self, cactusHistory, event):
 		""" Add event to history """
 		## Represent as Euclidian vector
-		vector = self.mappings.vector(event.cycle)
+		vector = self.mappings.vector(event)
 
 		## If empty matrix
 		if self.vectors is None:

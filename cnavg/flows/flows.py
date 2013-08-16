@@ -46,7 +46,7 @@ class Event(object):
 	#############################################
 	def __init__(self, cycle):
 		self.cycle = cycle 
-		self.ratio = abs(self.cycle.value) / math.ceil(abs(self.cycle.value))
+		self.ratio = abs(self.cycle[0].value) / math.ceil(abs(self.cycle[0].value))
 
 	def __copy__(self):
 		return Event(copy.copy(self.cycle))
@@ -68,7 +68,7 @@ class Event(object):
 	
 	def setRatio(self, value):
 		self.cycle.setRatio(value)
-		self.ratio = abs(self.cycle.value) / math.ceil(abs(self.cycle.value))
+		self.ratio = abs(value) / math.ceil(abs(value))
 
 	#############################################
 	## Display
