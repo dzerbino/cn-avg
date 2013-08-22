@@ -50,10 +50,8 @@ import cnavg.history.flattened as flattened
 import cnavg.history.debug as debug
 
 TEMPERATURE = 1
-DIRECT_CUT = 0
-
 TIMER_END = None
-TIMER_LENGTH = 36000
+MAX_TIMER_LENGTH = 36000 #10 hours
 
 #############################################
 ## Select optimal solutions
@@ -93,8 +91,8 @@ def modifyCactusHistory_Chain(oldhistory, history, chain):
 		modifyCactusHistory_Net(oldhistory, history, net)
 	return history
 
-def modifyCactusHistory_Initiate(oldhistory, history, net, indirect):
-	newLocalHistory = sampleModuleCycles.createNewHistory(history, history.netHistories[net], indirect)
+def modifyCactusHistory_Initiate(oldhistory, history, net):
+	newLocalHistory = sampleModuleCycles.createNewHistory(history, history.netHistories[net])
 	history.update(net, newLocalHistory)
 	history.updateCNVs(net, newLocalHistory)
 	for chain in history.cactus.nets2Chains[net]:
@@ -125,9 +123,9 @@ def chooseNet(history):
 ## MC exploration 
 ########################################
 
-def modifyCactusHistory(history, indirect):
+def modifyCactusHistory(history):
 	if len(history.netHistories) > 0:
-		return modifyCactusHistory_Initiate(history, copy.copy(history), chooseNet(history), indirect)
+		return modifyCactusHistory_Initiate(history, copy.copy(history), chooseNet(history))
 	else:
 		return history
 
@@ -136,7 +134,7 @@ def MCTest(newScore, oldScore, temperature):
 	return newScore <= oldScore or random.random() < math.exp((oldScore - newScore) / temperature)
 
 def chooseNewHistory(history, temperature, depth=0, index=0):
-	newHistory = modifyCactusHistory(history, index > DIRECT_CUT)
+	newHistory = modifyCactusHistory(history)
 	if newHistory is None:
 		return None
 	elif MCTest(newHistory.rearrangementCost(), history.rearrangementCost(), temperature):
@@ -146,19 +144,20 @@ def chooseNewHistory(history, temperature, depth=0, index=0):
 		return newHistory
 	else:
 		print 'REFUSE'
-		return chooseNewHistory(history, temperature * 1.1, depth=depth+1, index=index)
-
-MINHISTORY = None
+		# I toyed with the idea of raising the temperature when too many solutions were refused...
+		# Maybe not a good idea?
+		#return chooseNewHistory(history, temperature * 1.1, depth=depth+1, index=index)
+		return chooseNewHistory(history, temperature, depth=depth+1, index=index)
 
 def addNewHistory(histories, index, file=None, stats=None, braney=None, tree=None):
-	# Just do not process if run time > TIMER_LENGTH
-	global TIMER_END
+	# Just do not process if run time > MAX_TIMER_LENGTH
 	if time.time() > TIMER_END:
 		return histories
 	
 	# Generate new history from the last one
-	global TEMPERATURE
 	newHistory = chooseNewHistory(histories[-1], TEMPERATURE, depth=1, index=index)
+	# DEBUG
+	newHistory.validate()
 
 	c = newHistory.rearrangementCost()
 	FH = flattened.flattenGraph(newHistory)
@@ -180,20 +179,22 @@ def addNewHistory(histories, index, file=None, stats=None, braney=None, tree=Non
 	else:
 		# Really, who need to pickle files when there's a perfectly good zipped braney file next to it?
 		#pickle.dump(newHistory, file)
-		# Cheap trick: only store minimal history
-		global MINHISTORY
-		if MINHISTORY is None or newHistory.rearrangementCost() < MINHISTORY.rearrangementCost():
-			MINHISTORY = newHistory
-		return [newHistory]
+		# Cheap trick: only store minimal and latest histories
+		if c < histories[0].rearrangementCost():
+			return [newHistory]
+		else:
+			return [histories[0], newHistory]
 
 ########################################
 ## Master function
 ########################################
 
 def sample(cactusHistory, size, file=None, stats=None, braney=None, tree=None):
+	# DEBUG
+	cactusHistory.validate()
 	print 'Sampling history space of Cactus graph'
 	global TIMER_END
-	TIMER_END = time.time() + TIMER_LENGTH
+	TIMER_END = time.time() + MAX_TIMER_LENGTH
 	print 'HISTORY ', 0, 0, len(cactusHistory.parent), cactusHistory.rearrangementCost(), cactusHistory.errorCost(), time.asctime()
 	res = reduce(lambda X, Y: addNewHistory(X, Y, file, stats, braney, tree), range(size), [cactusHistory])
 	if file is not None:

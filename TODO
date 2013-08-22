@@ -1,5 +1,6 @@
-Side effect of edge values... necessary for fast Euclidian corrections?
-Side effect history complexity... necessary for avoiding costly recalculations
 Simplify embalm function to free up Garbage Collection
-Inconsistent use of flow or conjugate flow
-Fully remove self overlaps in overlap search
+
+To think about:
+	CycleCover is forceful in creating untouchable cycle... unavoidable?
+	Side effect of edge values... necessary for fast Euclidian corrections?
+	Side effect history complexity... necessary for avoiding costly recalculations?

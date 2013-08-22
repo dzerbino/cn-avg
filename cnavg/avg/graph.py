@@ -104,8 +104,11 @@ class Graph(dict):
 		self.addNode(B)
 		self[A].twin = B
 		self[B].twin = A
-		self[A].segment = list(values)
-		self[B].segment = list(values)
+		if (A is not B):
+			self[A].segment = list(values)
+			self[B].segment = list(values)
+		else:
+			self[A].segment = [2 * X for X in values]
 
 	def createAdjacency(self, A, B):
 		"""Creates a bond edge and declares it ancestral"""

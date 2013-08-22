@@ -1,4 +1,4 @@
-Prerequisites:
+*** Prerequisites:
 
 - DNAcopy package from BioConductor/R
 source("http://bioconductor.org/biocLite.R")
@@ -7,19 +7,20 @@ biocLite("DNAcopy")
 - Python libraries
 pip install pyvcf 
 
-Install Scipy: I suffered many times to install Scipy till
+- Scipy: 
+I suffered many times to install Scipy till
 I discovered Anaconda: http://docs.continuum.io/anaconda/index.html
 I have since lead a happy and productive life.
 
-Cactus library
-- git clone git://github.com/benedictpaten/sonLib.git
-- git clone git://github.com/benedictpaten/cactus.git
+- Cactus library
+git clone git://github.com/benedictpaten/sonLib.git
+git clone git://github.com/benedictpaten/cactus.git
 
-For the automated pipeline:
-- git clone git://github.com/benedictpaten/jobTree.git
-- bedGraphToBigWig
+- For the automated pipeline:
+git clone git://github.com/benedictpaten/jobTree.git
+bedGraphToBigWig
 
-Procedure:
-	make
-	make install
-	point PYTHONPATH to this directory (test: 'import cnavg')
+*** Installation steps:
+make
+make install
+point PYTHONPATH to this directory (test: 'import cnavg')

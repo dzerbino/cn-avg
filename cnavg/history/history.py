@@ -106,8 +106,54 @@ class History(object):
 		assert all(event == self.events[self.eventIndex[event]] for event in self.events)
 		return True
 
+	def _validateSegment(self, node):
+		twin = self.module[node].twin
+		pair = set([node, twin])
+
+		for index in range(len(self.module[node].segment)):
+			edges = [edge for event in self.events for edge in event.cycle if set([edge.start, edge.finish]) == pair and edge.index == index]
+			if twin is node:
+				total = sum(2 * edge.value for edge in edges) 
+			else:
+				total = sum(edge.value for edge in edges) 
+
+			if abs(total - self.module[node].segment[index]) > 1e-1:
+				print self.module
+				print self
+				print node, twin, index
+				print total
+				print len(edges)
+				print [edge.value for edge in edges]
+				print [id(edge) for edge in edges]
+				print self.module[node].segment[index]
+				assert False
+		return True
+
+	def _validateBond(self, node, node2):
+		edges = [edge for event in self.events for edge in event.cycle if set([edge.start, edge.finish]) == set([node, node2]) and edge.index == -1]
+
+		if node is node2:
+			total = 2 * sum(edge.value for edge in edges) 
+		else:
+			total = sum(edge.value for edge in edges) 
+
+		# Conjugate!
+		if abs(total + self.module[node].edges[node2]) > 1e-1:
+			print self.module
+			print self
+			print node, twin, index
+			print total
+			print len(edges)
+			print [edge.value for edge in edges]
+			print [id(edge) for edge in edges]
+			print self.module[node].edges[node2]
+			assert False
+		return True
+
 	def validate(self):
 		""" Validation function """
+		assert all(self._validateSegment(node) for node in self.module)
+		assert all(self._validateBond(node, node2) for node in self.module for node2 in self.module[node].edges)
 		assert self._numberingIsCorrect()
 		assert all(map(Event.validate, self.events))
 		return True
@@ -239,52 +285,16 @@ class CactusHistory(object):
 			X.embalm()
 
 	#############################################
-	## Stats
+	## Validation
 	#############################################
-	def netHistoryCosts(self):
-		return map(lambda X: X.rearrangementCost(), self.netHistories.values())
-
-	def rearrangementCost(self):
-		if self.complexity is None:
-			self.complexity = sum(self.netHistoryCosts())
-		print self
-		print self.complexity
-		return self.complexity
-
-	def _validateSegmentsLong(self, module, node):
-		twin = module[node].twin
-		pair = set([node, twin])
-
-		# Ignore stubs
-		if node not in self.cactus:
-			return True
-
-		if self.cactus.chains2Nets[self.cactus.nodeChain(node)] is not None and len(self.cactus.chains2Nets[self.cactus.nodeChain(node)]) > 0:
-			return True
-
-		if node in module.telomeres or node in module.pseudotelomeres:
-			return True
-
-		for haplotype in range(len(module.segments[node])):
-			edges = [edge for history in self.netHistories.values() for event in history.events for edge in event.cycle if set([edge.start, edge.finish]) == pair and edge.index == haplotype]
-			total = sum(edge.value for edge in edges) 
-
-			if abs(total + module.segments[node][haplotype]) > 1e-1:
-				#print self.module
-				#print self
-				print node, twin, haplotype
-				print total
-				print len(edges)
-				print [edge.value for edge in edges]
-				print [id(edge) for edge in edges]
-				print module.segments[node][haplotype]
-				assert False
-		return True
 
 	def validate(self):
-		assert all(self._validateSegmentsLong(history.module, node) for history in self.netHistories.values() for node in history.module) 
 		assert all(X.validate() for X in self.netHistories.values())
 		return True
+
+	#############################################
+	## Stats
+	#############################################
 
 	def length(self):
 		return sum(X.length() for X in self.netHistories.values())

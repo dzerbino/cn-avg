@@ -40,13 +40,10 @@ from cnavg.flows.flows import Event
 from cnavg.history.history import History
 
 import cnavg.avg.graph as avg
+import cnavg.avg.balanced as balanced
 import cnavg.avg.module as module
 import cnavg.history.euclidian as euclidian
 import cnavg.history.constrained as constrained
-
-import itertools
-from heapq import *
-from types import *
 
 MIN_FLOW=1e-10
 MIN_CYCLE_FLOW=1e-2
@@ -92,13 +89,7 @@ def closePseudoTelomeres(module, history):
 ## Pre-compute signed node adjacencies
 #############################################
 
-nodeAdjacenciesTable = None
-
-def realValue(adjacency, module):
-	if adjacency[3] == -1:
-		return module[adjacency[0]].edges[adjacency[1]]
-	else:
-		return -module[adjacency[0]].segment[adjacency[3]]
+nodeEdgesTable = None
 
 def nodePairAdjacency(node, nodeB, module):
 	# Conjugate flow!
@@ -107,47 +98,47 @@ def nodePairAdjacency(node, nodeB, module):
 def nodePairSegment(node, index, module):
 	return (node, module[node].twin, module[node].segment[index], index)
 
-def nodeAdjacencies(node, module):
+def nodeEdges(node, module):
 	adjacencies = [nodePairAdjacency(node, X, module) for X in module[node].edges]
 	segments = [nodePairSegment(node, X, module) for X in range(len(module[node].segment))]
 	return adjacencies + segments
 
-def computeNodeAdjacencies(module):
-	return dict((X, nodeAdjacencies(X, module)) for X in module.nodes())
+def computeNodeEdges(module):
+	return dict((X, nodeEdges(X, module)) for X in module.nodes())
 
 #############################################
 ## Search for small edge
 #############################################
 
-def positiveNeighbourhood(node, module, missingEdges=None):
-	return filter(lambda X: X[2] > MIN_FLOW and (missingEdges == None or (X[0], X[1], X[3]) not in missingEdges), nodeAdjacenciesTable[node])
+def positiveNeighbourhood(node):
+	return filter(lambda X: X[2] > MIN_FLOW, nodeEdgesTable[node])
 
-def negativeNeighbourhood(node, module, missingEdges=None):
-	return filter(lambda X: X[2] < -MIN_FLOW and (missingEdges == None or (X[0], X[1], X[3]) not in missingEdges), nodeAdjacenciesTable[node])
+def negativeNeighbourhood(node):
+	return filter(lambda X: X[2] < -MIN_FLOW, nodeEdgesTable[node])
 
-def phasedNeighbourhood(node, module, value, missingEdges=None):
+def phasedNeighbourhood(node, value):
 	if value > 0:
-		return [X[1] for X in positiveNeighbourhood(node, module, missingEdges)] 
+		return [X[1] for X in positiveNeighbourhood(node)] 
 	else:
-		return [X[1] for X in negativeNeighbourhood(node, module, missingEdges)] 
+		return [X[1] for X in negativeNeighbourhood(node)] 
 
-def oppositeNeighbourhood(node, module, value, missingEdges=None):
+def oppositeNeighbourhood(node, value):
 	if value > 0:
-		return [X[1] for X in negativeNeighbourhood(node, module, missingEdges)] 
+		return [X[1] for X in negativeNeighbourhood(node)] 
 	else:
-		return [X[1] for X in positiveNeighbourhood(node, module, missingEdges)] 
+		return [X[1] for X in positiveNeighbourhood(node)] 
 
-def adjacencies(module):
-	return sum(nodeAdjacenciesTable.values(), [])
+def adjacencies():
+	return sum(nodeEdgesTable.values(), [])
 
 def minimumEdge(module):
-	hairpins = filter(lambda X: X[0] == X[1], nodeAdjacenciesTable[module.stub])
-	outlets = filter(lambda X: X[0] != X[1] and abs(X[2]) > MIN_FLOW, nodeAdjacenciesTable[module.stub])
+	hairpins = filter(lambda X: X[0] == X[1] and abs(X[2]) > MIN_FLOW, nodeEdgesTable[module.stub])
+	outlets = filter(lambda X: X[0] != X[1] and abs(X[2]) > MIN_FLOW, nodeEdgesTable[module.stub])
 	if len(hairpins) == 1 and len(outlets) == 1:
-		res = outlets[0]
+		res = hairpins[0]
 		return Edge(res[1], res[0], res[2]/2, res[3])
 
-	edges = filter(lambda X: X[0] != X[1] and abs(X[2]) > MIN_FLOW, adjacencies(module))
+	edges = filter(lambda X: X[0] != X[1] and abs(X[2]) > MIN_FLOW, adjacencies())
 	if len(edges) == 0:
 		return None
 	else:
@@ -158,147 +149,63 @@ def minimumEdge(module):
 ## Dijkstra
 #############################################
 
-def add_node(distance, node, counter, count, taskfinder, todo):
-    if count is None:
-	count = counter.next()
-    entry = [distance, count, node]
-    taskfinder[node] = entry 
-    heappush(todo, entry)	
+def dijkstra(origin, value, graph, blockTwin):
+    distances = dict(((node, [-1,-1]) for node in graph))
+    todo = [origin] 
 
-def getNextNode(todo, taskfinder):
-    while len(todo) > 0:
-	distance, count, node = heappop(todo)
-	if count != 0:
-	    del taskfinder[node]
-            return (distance, node)
-    return (None, None)
-
-def redistanceNode(priority, task, taskfinder, todo, counter):
-    entry = taskfinder[task]
-    add_node(priority, task, counter, entry[1], taskfinder, todo)
-    entry[1] = 0
-	
-def computeEvenDistances(origin, value, graph, missingEdges=None):
-    counter = itertools.count(1)
-    distances = dict(((node, -1) for node in graph))
-    status = dict(((node, 0) for node in graph))
-    steps = set()
-    taskfinder = dict()
-    todo = [] 
-    add_node(0, origin, counter, None, taskfinder, todo)
-
-    distances[origin] = 0
-    while len(todo) > 0: 
-	(dist, node) = getNextNode(todo, taskfinder)
-
-	if dist is None:
-	    break
-        status[node] = 2
-
-	for node2 in oppositeNeighbourhood(node, graph, value, missingEdges):
-	    if node2 in steps:
-		    continue
-	    steps.add(node2)
-
-	    for node3 in phasedNeighbourhood(node2, graph, value, missingEdges):
-		    if node3 == origin:
-			    continue
-		    newdist = dist + 1 
-
-		    if status[node3] > 1:
-			continue
-		    elif status[node3] == 1 and newdist < distances[node3]:
-			redistanceNode(newdist, node3, taskfinder, todo, counter)
-			distances[node3] = newdist
-		    elif status[node3] == 0:
-			status[node3] = 1 
-			distances[node3] = newdist 
-			add_node(newdist, node3, counter, None, taskfinder, todo)
-
-    return distances
-
-def computeOddDistances(node, value, graph, missingEdges, blockTwin=False):
-    counter = itertools.count(1)
-    distances = dict(((node, -1) for node in graph))
-    status = dict(((node, 0) for node in graph))
-    steps = set()
-    taskfinder = {}
-    todo = [] 
-
-    steps.add(node)
-    for node2 in oppositeNeighbourhood(node, graph, value, missingEdges):
-	if status[node2] > 0:
-		continue
-	# Quick and dirty trick to prevent the creation of small diploid cycles
-	if blockTwin and node2 == graph[node].twin:
-		continue
-	status[node2] = 1 
-	distances[node2] = 1
-	add_node(1, node2, counter, None, taskfinder, todo)
+    distances[origin][0] = 0
 
     while len(todo) > 0: 
-	(dist, node) = getNextNode(todo, taskfinder)
-	if dist is None:
-	    break
-        status[node] = 2
+	node = todo.pop(0)
+        newdist = distances[node][0] + 1 
 
-	for node2 in phasedNeighbourhood(node, graph, value, missingEdges):
-	    if node2 in steps:
+	for node2 in oppositeNeighbourhood(node, value):
+	    if blockTwin and node == origin and node2 == graph[origin].twin:
+		continue
+	    if distances[node2][1] > -1:
+		continue
+	    distances[node2][1] = newdist;
+
+	    for node3 in phasedNeighbourhood(node2, value):
+		if distances[node3][0] > -1:
 		    continue
-	    steps.add(node2) 
-
-	    for node3 in oppositeNeighbourhood(node2, graph, value, missingEdges):
-		    newdist = dist + 1 
-
-		    if status[node3] > 1:
-			continue
-		    elif status[node3] == 1 and newdist < distances[node3]:
-			redistanceNode(newdist, node3, taskfinder, todo, counter)
-			distances[node3] = newdist
-		    elif status[node3] == 0:
-			status[node3] = 1 
-			distances[node3] = newdist 
-			add_node(newdist, node3, counter, None, taskfinder, todo)
-
+		else:
+		    distances[node3][0] = newdist
+		    todo.append(node3)
 
     return distances
-
-def dijkstra(node, value, graph, missingEdges=None, blockTwin=False):
-    evenDistances = computeEvenDistances(node, value, graph, missingEdges)
-    oddDistances = computeOddDistances(node, value, graph, missingEdges, blockTwin)
-    return dict((X, (evenDistances[X], oddDistances[X])) for X in graph)
 
 #############################################
 ## Heuristic propagation
 #############################################
 
-def signedEdges(node, module, sign, missingEdges=None):
-	return filter(lambda X: X[2] * sign > MIN_FLOW, nodeAdjacenciesTable[node])
+def signedEdges(node, module, sign):
+	return filter(lambda X: X[2] * sign > MIN_FLOW, nodeEdgesTable[node])
 
-def nodeDistances(node, module, distances, sign, phase, missingEdges):
+def nodeDistances(node, module, distances, sign, phase):
 	if phase:
-		return map(lambda X: distances[X[1]][1], signedEdges(node, module, sign, missingEdges))
+		return map(lambda X: distances[X[1]][1], signedEdges(node, module, sign))
 	else:
-		return map(lambda X: distances[X[1]][0], signedEdges(node, module, sign, missingEdges))
+		return map(lambda X: distances[X[1]][0], signedEdges(node, module, sign))
 
-def minDist(node, module, distances, sign, phase, missingEdges=None):
-	candidates = filter(lambda X: X >= 0, nodeDistances(node, module, distances, sign, phase, missingEdges))
+def minDist(node, module, distances, sign, phase):
+	candidates = filter(lambda X: X >= 0, nodeDistances(node, module, distances, sign, phase))
 	if len(candidates) == 0:
 		return None
 	return min(candidates)
 
-def nextNodes(node, module, distances, sign, phase, missingEdges=None):
+def nextNodes(node, module, distances, sign, phase):
 	dist = minDist(node, module, distances, sign, phase)
 	if dist is None:
 		return None
-	edges = signedEdges(node, module, sign, missingEdges)
+	edges = signedEdges(node, module, sign)
 	if phase:
 		return filter(lambda X: distances[X[1]][1] == dist, edges)
 	else:
 		return filter(lambda X: distances[X[1]][0] == dist, edges)
 
-def chooseNextNode(node, module, distances, sign, phase, missingEdges=None):
-	vals = nextNodes(node, module, distances, sign, phase, missingEdges=None)
+def chooseNextNode(node, module, distances, sign, phase):
+	vals = nextNodes(node, module, distances, sign, phase)
 	if vals is None:
 		return None
 	else:
@@ -310,34 +217,35 @@ def signf(val):
 	else:
 		return -1
 
-def extendCycle(cycle, module, distances, sign, missingEdges=None):
-	edgeData = chooseNextNode(cycle[-1].finish, module, distances, signf(cycle[0].value * sign), sign > 0, missingEdges)
-	if edgeData is None or abs(realValue(edgeData,module)) <= MIN_FLOW:
-		return None, module
+def extendCycle(edgeList, module, distances, sign):
+	edgeData = chooseNextNode(edgeList[-1].finish, module, distances, signf(edgeList[0].value * sign), sign > 0)
+	if edgeData is None:
+		return edgeList, module, False
 	edge = Edge(edgeData[0], edgeData[1], edgeData[2], edgeData[3])
-	edge.value = cycle[0].value * sign
+	edge.value = edgeList[0].value * sign
 	module.removeEdgeFlow(edge)
-	cycle.append(edge)
+	edgeList.append(edge)
 
-	if len(cycle) % 2 == 0 and edge.finish == cycle[0].start:	
-		return cycle, module
+	if len(edgeList) % 2 == 0 and edge.finish == edgeList[0].start:	
+		return edgeList, module, True
 	else:
-		return extendCycle(cycle, module, distances, -sign)
+		return extendCycle(edgeList, module, distances, -sign)
 
 def extractCycle(edge, module):
 	module.removeEdgeFlow(edge)
 	distances = dijkstra(edge.start, edge.value, module, blockTwin=(edge.index >= 0))
-	cycle, module = extendCycle(Cycle([edge]), module, distances, -1)
-	if cycle is None:
-		# Failed path lost in approximation (Random search above)
-		return None, module
+	edgeList, module, success = extendCycle([edge], module, distances, -1)
+	if success:
+		return Event(Cycle(edgeList)), module
 	else:
-		# Job succeeded
-		return Event(cycle), module
+		# Undo edits to the module
+		map(module.addEdgeFlow, edgeList[1:])
+		return None, module
+
 
 def pickOutCycle(module):
-	global nodeAdjacenciesTable
-	nodeAdjacenciesTable = computeNodeAdjacencies(module)
+	global nodeEdgesTable
+	nodeEdgesTable = computeNodeEdges(module)
 	edge = minimumEdge(module) 
 	if edge is None:
 		# Job finished
@@ -346,26 +254,28 @@ def pickOutCycle(module):
 		return extractCycle(edge, module)
 
 def pickOutCycles(module, history):
-	event, newModule = pickOutCycle(module)
-	while newModule is not None:
+	while True:
+		event, module = pickOutCycle(module)
 		if event is not None:
 			if len(history.events) % 100 == 0:
 				print 'CYCLE', len(history.events)
 			history.absorbEvent(event)
-		event, newModule = pickOutCycle(module)
-	return history
+		elif module is None:
+			return history
 
 ########################################
 ## Filter out low value cycles
 ########################################
 
 def highFlowHistory(history, cactusHistory, net):
-	res = euclidian.EuclidianHistory(history.module)
+	res = euclidian.EuclidianHistory(copy.copy(history.module))
+	res.module.reset()
 	cactusHistory.update(net, res)
 	events = list(sorted(history.events, key=lambda X: -X.ratio))
 	for event in events:
 		if event.ratio > MIN_CYCLE_FLOW:
 			cactusHistory.absorbEvent(res, event)
+			res.module.addEventFlow(event)
 	cactusHistory.updateCNVs(net, res)
 	return res
 
@@ -406,7 +316,8 @@ def initialHistory(cactus):
 
 def main():
 	G = avg.randomNearEulerianGraph(10)
-	C = cactus.Cactus(G)
+	B = balanced.BalancedAVG(G)
+	C = cactus.Cactus(B)
 	N = normalized.NormalizedCactus(C)
 	O = oriented.OrientedCactus(N)
 	H = initialHistory(O)

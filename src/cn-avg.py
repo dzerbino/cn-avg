@@ -128,7 +128,6 @@ def main():
 			pickle.dump(OC, open('CACTUS_%i' % options.index, "wb"))
 		else:
 			## Picking up from where we started
-			print 'DEBUG'
 			OC = pickle.load(open('CACTUS_%i' % options.index))
 			random.setstate(pickle.load(open("STATE_%i" % options.index)))
 

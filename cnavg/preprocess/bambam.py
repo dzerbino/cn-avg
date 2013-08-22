@@ -148,7 +148,6 @@ def parseCNVLine(items, cnvs):
 	if items[1][:3] != "chr":
 		items[1] = "chr" + items[1]
 	cnvs.append(CNV(items[1], items[2], items[3], [float(items[4])], ""))
-	cnvs[-1].base = int(items[5])
 	return cnvs
 
 def parseBBLine(cnvs, line):
@@ -165,6 +164,28 @@ def parseCNVData(files):
 	print "\tParsing CNV data"
 	assert len(files) > 1
 	return sorted(reduce(parseBBFile, files, []))
+
+#############################################
+## New CNV stuff
+#############################################
+
+def parseNewCNVLine(line):
+	items = line.strip().split()
+	if items[0][:3] != "chr":
+		items[0] = "chr" + items[0]
+	cnvs.append(CNV(items[0], items[1], items[2], [float(items[3])], ""))
+	return cnvs
+
+def parseNewBBFile(file):
+	fh = open(file)
+	res = map(parseNewBBLine, fh)
+	fh.close()
+	return res
+
+def parseNewCNVData(files):
+	print "\tParsing CNV data"
+	assert len(files) > 1
+	return sorted(sum(map(parseNewBBFile, files), []))
 
 #############################################
 ## Adding buffers to replace missing colums

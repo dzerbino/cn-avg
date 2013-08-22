@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Copyright (c) 2012, Daniel Zerbino
 # All rights reserved.
 # 
@@ -28,7 +29,6 @@
 # STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
 # IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-#!/usr/bin/env python
 
 """
 Integrated jobTree pipeline.
@@ -140,7 +140,7 @@ class SampleCycles(Target):
 	self.index = str(index)
 
     def run(self):
-    	do("cn-avg.py -d " + self.options.dir + " -i " + self.index + " -s " + str(self.options.size))
+    	do("cn-avg.py -d " + self.options.dir + " -i " + self.index + " -s " + str(self.options.size), outf="%s/STDOUT_%s" % (self.options.dir, self.index))
 
 class Reduce(Target):
     """ Collects sampled histories and selects optimal ones for a separate file """
@@ -240,7 +240,7 @@ class PrepareBAMBAMGraph(Target):
 class PrepareCBSGraph(Target):
     """ Prepares wiggle file of CBS coverage segments """
     def __init__(self, options):
-    	Target.__init__(self, time=1800, memory=MEM2G)
+    	Target.__init__(self, time=1800, memory=MEM4G)
 	self.options = options
 
     def run(self):
@@ -383,5 +383,5 @@ def main():
 	raise RuntimeError("The jobTree contained %i failed jobs" % i)
 
 if __name__ == '__main__':
-    from cnavg.cactusTree.cactusTree import *
+    from cnavg.jobTree.cactusTree import *
     main()

@@ -171,9 +171,9 @@ def changeEventsInHistory(cactusHistory, history, overlap):
 	addEvents(cactusHistory, history, newEvents)
 	return history
 	
-def createNewHistory(cactusHistory, history, indirect):
+def createNewHistory(cactusHistory, history):
 	history2 = copy.copy(history)
-	overlap = history2.overlap(indirect)
+	overlap = history2.overlap()
 	cactusHistory.slideIn(history, history2)
 	if overlap is None:
 		print 'RESCHEDULE'

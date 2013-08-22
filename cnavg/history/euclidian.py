@@ -70,6 +70,8 @@ class Mapping(dict):
 		self[(B,A,index)] = self.length()
 		if index == -1:
 			self._addMatrixEdge(A.ID, B.ID)
+			if B not in self.module[A].edges:
+				self.module.addLiftedEdge(A, B, 0)
 		self.keys.append((A,B,index))
 
 	def getBond(self, A, B):
@@ -107,25 +109,17 @@ class Mapping(dict):
 		if fromnode <= tonode:
 			self.addEdge(tonode, fromnode, index)
 
-	def _prepareNodeMapping(self, node, module):
-		map(lambda N: self._prepareEdgeMapping(N, node), module[node].edges)
-		map(lambda i: self._prepareSegmentEdgeMapping(i, node, module[node].twin), range(len(module[node].segment)))
-
-	def _bondVector_Edge(self, vector, edge):
-		if edge[2] == -1:
-			vector[self[edge]] = True
-		return vector
-
-	def _bondVector(self):
-		""" Returns a vector which determines which indices correspond to bonds """
-		return reduce(lambda V,E: self._bondVector_Edge(V, E), self, self.falseVector())
+	def _prepareNodeMapping(self, node):
+		map(lambda N: self._prepareEdgeMapping(N, node), self.module[node].edges)
+		map(lambda i: self._prepareSegmentEdgeMapping(i, node, self.module[node].twin), range(len(self.module[node].segment)))
 
 	def __init__(self, module):
 		super(Mapping, self).__init__()
 		self.maxNodeID = 0
 		self.matrix = dict()
 		self.keys = []
-		map(lambda X: self._prepareNodeMapping(X, module), module)
+		self.module = module
+		map(self._prepareNodeMapping, module)
 
 	##############################################
 	## Stats
@@ -160,11 +154,13 @@ class Mapping(dict):
 		if key[0] >= key[1]:
 			return vector
 		if key[2] >= 0:
-			if module[key[0]].twin == key[1]:
+			if key[0] in module.pseudotelomeres:
+				vector[self[key]] += int(math.ceil(abs(module[key[0]].segment[key[2]])))
+			else:
 				vector[self[key]] += debug.PLOIDY / module[key[0]].ploidy()
 		else:
 			# Note conjuguate transformation
-			if module[key[0]].partner == key[1] and key[0] is not key[1]:
+			if module[key[0]].partner == key[1]:
 				# This assumes homozygocity of the breakends
 				vector[self[key]] -= debug.PLOIDY
 		return vector
@@ -174,19 +170,50 @@ class Mapping(dict):
 		return reduce(lambda V,E: self._updateOriginalVector(V, E, module), self, self.nullVector())
 
 	##############################################
-	## Matrix of bonds assigned to each node
+	## Producing the vector associated to bond edges
 	##############################################
-	def _overlapMatrix_Node(self, matrix, indexedNode, module):
-		row, node = indexedNode
-		for other in module[node].edges:
-			if other is not node:
-				column = self.getEdge(node, other, -1)
-				matrix[row, column] = 1
-		return matrix
 
-	def _overlapMatrix(self, module):
-		""" Returns a matrix with a row for each bond, a column for each edge, and 1 if the edge is an incident bond edge """
-		return reduce(lambda M, N: self._overlapMatrix_Node(M, N, module), enumerate(module.keys()), scipy.sparse.lil_matrix((len(module), self.length()))).tocsr()
+	def _bondVector_Edge(self, vector, edge):
+		if edge[2] == -1:
+			vector[self[edge]] = True
+		return vector
+
+	def _bondVector(self):
+		""" Returns a vector which determines which indices correspond to bonds """
+		return reduce(lambda V,E: self._bondVector_Edge(V, E), self, self.falseVector())
+
+	##############################################
+	## Producing the vector associated to the stub segment
+	##############################################
+
+	def _stubVector_Edge(self, vector, edge):
+		if edge[0].chr == 'None' and edge[1].chr == 'None':
+			vector[self[edge]] = True
+		return vector
+
+	def _stubVector(self):
+		""" Returns a vector which determines which indices correspond to stubs """
+		return reduce(lambda V,E: self._stubVector_Edge(V, E), self, self.falseVector())
+
+	##############################################
+	## Producing the vector associated to novel bonds with negative edges
+	##############################################
+
+	def _negativeBondsVector_Edge(self, vector, edge, module):
+		assert edge[0] in module
+		assert edge[1] in module
+		if edge[2] == -1:
+			assert edge[1] in module[edge[0]].edges
+			assert edge[0] in module[edge[1]].edges
+
+		if edge[2] == -1 and module[edge[0]].partner != edge[1] and module[edge[0]].edges[edge[1]] < 0:
+			vector[self[edge]] = True
+		return vector
+
+	def _negativeBondsVector(self, module):
+		""" Returns a vector which determines which indices correspond to negativeBondss """
+		return reduce(lambda V,E: self._negativeBondsVector_Edge(V, E, module), self, self.falseVector())
+
 
 ##############################################
 ## Linear Algebra shorthands
@@ -248,10 +275,6 @@ class EuclidianHistory(overlap.OverlapHistory):
 		""" Returns the genome flow of the original genome in vector notation """
 		return self.mappings._originalVector(self.module)
 
-	def overlapMatrix(self):
-		""" Returns the incidence matrix of nodes x bond edges """
-		return self.mappings._overlapMatrix(self.module)
-
 	def eventVector(self, event):
 		""" Returns the vector assigned to an event Cycle """
 		## If new dimensions were added to the mapping
@@ -272,6 +295,10 @@ class EuclidianHistory(overlap.OverlapHistory):
 	def stubIndices(self):
 		""" Returns vector which indicates which indices correspond to stub-stub edges """
 		return self.mappings._stubVector()
+
+	def negativeBondsIndices(self):
+		""" Returns vector which indicates which indices correspond to negative bond edges """
+		return self.mappings._negativeBondsVector(self.module)
 
 	#########################################
 	## Linear algebra

@@ -1,4 +1,4 @@
-default: ../bin/3way ../bin/cbs ../bin/cn-avg.py ../bin/cn-avg-stats.py ../bin/braneyConversion.py ../bin/cn-avg-testor.py
+default: ../bin/3way ../bin/cbs ../bin/cn-avg.py ../bin/cn-avg-stats.py ../bin/braneyConversion.py ../bin/cn-avg-testor.py ../bin/cactusTree.py
 
 ../bin/cn-avg.py: cn-avg.py
 	cp cn-avg.py ../bin
@@ -17,3 +17,6 @@ default: ../bin/3way ../bin/cbs ../bin/cn-avg.py ../bin/cn-avg-stats.py ../bin/b
 
 ../bin/cbs:
 	cd cbs && make
+
+../bin/cactusTree.py: ../cnavg/jobTree/cactusTree.py
+	cp ../cnavg/jobTree/cactusTree.py ../bin

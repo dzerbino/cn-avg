@@ -60,61 +60,46 @@ class Overlap:
 	def __str__(self):
 		return "%i:%i -> %i:%i" % (self.localEvent, self.localCut, self.remoteEvent, self.remoteCut)
 
-def outAdjacencyOverlaps(eventA, adjacencyOverlapsA, eventB, adjacencyOverlapsB):
-	i = random.randrange(len(adjacencyOverlapsA))
-	j = random.randrange(len(adjacencyOverlapsB))
-	edgeA = eventA.cycle[adjacencyOverlapsA[i]]
-	edgeB = eventB.cycle[adjacencyOverlapsB[j]]
+def edgeOverlap(eventA, edgeOverlapsA, eventB, edgeOverlapsB):
+	i = random.randrange(len(edgeOverlapsA))
+	j = random.randrange(len(edgeOverlapsB))
+	edgeA = eventA.cycle[edgeOverlapsA[i]]
+	edgeB = eventB.cycle[edgeOverlapsB[j]]
 
-	return Overlap(eventA, adjacencyOverlapsA[i], eventB, adjacencyOverlapsB[j])
-
-def selfAdjacencyOverlaps(event, adjacencyOverlaps, stub):
-	if stub:
-		return [(1, Overlap(event, adjacencyOverlaps[i], event, adjacencyOverlaps[j]))
-			for i in range(len(adjacencyOverlaps) - 1)
-			for j in range(i+1, len(adjacencyOverlaps))
-			if event.cycle[adjacencyOverlaps[i]].start == event.cycle[adjacencyOverlaps[j]].start]
-	else:
-		return [(NON_STUB_COEFF, Overlap(event, adjacencyOverlaps[i], event, adjacencyOverlaps[j]))
-			for i in range(len(adjacencyOverlaps) - 1)
-			for j in range(i+1, len(adjacencyOverlaps))
-			if event.cycle[adjacencyOverlaps[i]].start == event.cycle[adjacencyOverlaps[j]].start]
-
-def square(X):
-	return X * X
+	return Overlap(eventA, edgeOverlapsA[i], eventB, edgeOverlapsB[j])
 
 ##########################################
 ## Overlap History
 ##########################################
 
-def adjacencyIndex(edge):
+def edgeKey(edge):
 	return (min(edge.start, edge.finish), max(edge.start, edge.finish), edge.index)
 
 def addEdgeToOverlapTable(overlapTable, edgeIndex, event):
 	edge = event.cycle[edgeIndex]
-	index = adjacencyIndex(edge)
-	if index not in overlapTable:
-	    overlapTable[index] = dict()
-	if event not in overlapTable[index]:
-	    overlapTable[index][event] = []
+	key = edgeKey(edge)
+	if key not in overlapTable:
+	    overlapTable[key] = dict()
+	if event not in overlapTable[key]:
+	    overlapTable[key][event] = []
 
-	overlapTable[index][event].append(edgeIndex)
+	overlapTable[key][event].append(edgeIndex)
 	return overlapTable
 
 def addEventToOverlapTable(overlapTable, event):
 	return reduce(lambda X, Y: addEdgeToOverlapTable(X, Y, event), range(len(event.cycle)), overlapTable)
 
 def removeEdgeFromOverlapTable(overlapTable, edge, event):
-	index = adjacencyIndex(edge)
-	if event in overlapTable[index]:
-	    del overlapTable[index][event]
+	key = edgeKey(edge)
+	if event in overlapTable[key]:
+	    del overlapTable[key][event]
 	return overlapTable
 
 def removeEventCycleFromOverlapTable(overlapTable, event):
 	return reduce(lambda X, Y: removeEdgeFromOverlapTable(X, Y, event), event.cycle, overlapTable)
 
-def copyAdjacencyOverlaps(adjacencyOverlaps, eventsMappings):
-	return dict((eventsMappings[X], copy.copy(adjacencyOverlaps[X])) for X in adjacencyOverlaps)
+def copyEdgeOverlaps(edgeOverlaps, eventsMappings):
+	return dict((eventsMappings[X], copy.copy(edgeOverlaps[X])) for X in edgeOverlaps)
 
 def _findLotteryWinner(target, weightedValues):
 	index = 0
@@ -129,6 +114,9 @@ def _weightedRandomSelection(weightedList):
 	total = sum(X[0] for X in weightedList)
 	target = random.uniform(0, total)
 	return _findLotteryWinner(target, weightedList)
+
+def square(X):
+	return X * X
 
 class OverlapHistory(history.History):
 	###########################################
@@ -146,7 +134,7 @@ class OverlapHistory(history.History):
 	def copy(self, other):
 		super(OverlapHistory, self).copy(other)
 		eventsMapping = dict(zip(other.events, self.events))
-		self.overlapTable = dict((X, copyAdjacencyOverlaps(other.overlapTable[X], eventsMapping)) for X in other.overlapTable)
+		self.overlapTable = dict((X, copyEdgeOverlaps(other.overlapTable[X], eventsMapping)) for X in other.overlapTable)
 
 	def embalm(self):
 		self.overlapTable = None
@@ -155,7 +143,9 @@ class OverlapHistory(history.History):
 	## Output
 	###########################################
 	def _overlapString(self, edge):
-		return str(edge) + "\n" + "\n".join(str(event.cycle[index]) for event in self.overlapTable[edge] for index in self.overlapTable[edge][event])
+		header = ["\t".join(map(str, edge))]
+		lines = [str(event.cycle[index]) for event in self.overlapTable[edge] for index in self.overlapTable[edge][event]]
+		return "\n".join(header + lines)
 
 
 	def _overlapStrings(self):
@@ -182,26 +172,20 @@ class OverlapHistory(history.History):
 	###########################################
 	## Core functionality
 	###########################################
-	# NOTE: this function is the heart of the heurisitic. It decides what gets merged and what gets split
-	def adjacencyOverlaps(self, adjacency, indirect):
+	def edgeOverlaps(self, edge):
 		# Do not take into account overlaps in the stub-stub edge as it represents no material evidence
-		if adjacency[0].chr == "None" and adjacency[1].chr == "None":
+		if edge[0].chr == "None" and edge[1].chr == "None":
 			return []
-		adjacencyTable = self.overlapTable[adjacency]
-		listLengths = [len(adjacencyTable[X]) for X in adjacencyTable]
+		edgeTable = self.overlapTable[edge]
+		listLengths = [len(edgeTable[X]) for X in edgeTable]
 		totalLength = sum(listLengths)
 		totalOverlaps = square(totalLength) - len(listLengths)
 		internalOverlaps = sum(square(X) for X in listLengths) - len(listLengths)
 		externalOverlaps = totalOverlaps - internalOverlaps
 
-		stub = (adjacency[0].chr == "None" or adjacency[1].chr == "None")
+		stub = (edge[0].chr == "None" or edge[1].chr == "None")
 
-		if indirect:
-			selfOverlaps = []
-		else:
-			selfOverlaps = sum(map(lambda X: selfAdjacencyOverlaps(X, adjacencyTable[X], stub), adjacencyTable), [])
-
-		events = adjacencyTable.keys()
+		events = edgeTable.keys()
 		if len(events) > 1:
 			if debug.DEBUG:
 				candidateBs = filter(lambda X: X not in self.untouchables, events)
@@ -211,21 +195,19 @@ class OverlapHistory(history.History):
 				B = random.choice(candidateBs)
 				A = random.choice(filter(lambda X: X != B, events))
 				if stub:
-					overlaps = [(externalOverlaps, outAdjacencyOverlaps(A, adjacencyTable[A], B, adjacencyTable[B]))]
+					return [(externalOverlaps, edgeOverlap(A, edgeTable[A], B, edgeTable[B]))]
 				else:
-					overlaps = [(NON_STUB_COEFF * externalOverlaps, outAdjacencyOverlaps(A, adjacencyTable[A], B, adjacencyTable[B]))]
+					return [(NON_STUB_COEFF * externalOverlaps, edgeOverlap(A, edgeTable[A], B, edgeTable[B]))]
 			else:
-				overlaps = []
+				return []
 		else:
-			overlaps = []
+			return []
 
-		return selfOverlaps + overlaps
+	def overlaps(self):
+		return sum([self.edgeOverlaps(X) for X in self.overlapTable],[])
 
-	def overlaps(self, indirect):
-		return sum([self.adjacencyOverlaps(X, indirect) for X in self.overlapTable],[])
-
-	def overlap(self, indirect):
-		overlaps = self.overlaps(indirect)
+	def overlap(self):
+		overlaps = self.overlaps()
 		if len(overlaps) == 0:
 			return None
 		else:
@@ -258,7 +240,7 @@ class OverlapHistory(history.History):
 
 	def _untouchablesUntouched(self):
 		if len(self.module.pseudotelomeres) > 0:
-			assert all(self._untouchablesUntouched_index(PT, X) for PT in self.module.pseudotelomeres for X in range(len(self.module.segments[PT])))
+			assert all(self._untouchablesUntouched_index(PT, X) for PT in self.module.pseudotelomeres for X in range(len(self.module[PT].segment)))
 		return True
 
 	def _validateSegments(self):
@@ -269,25 +251,25 @@ class OverlapHistory(history.History):
 				continue
 			total = sum(event.cycle[edgeIndex].value for event in edgeTable for edgeIndex in edgeTable[event])
 
-			if total == 0 and abs(self.module.segments[node][index]) > 1e-1:
+			if total == 0 and abs(self.module[node].segment[index]) > 1e-1:
 				#print self.module
 				#print self
 				print node, twin, index
 				print total
-				print self.module.segments[node][index]
-			assert not (total == 0 and abs(self.module.segments[node][index]) > 1e-1)
+				print self.module[node].segment[index]
+			assert not (total == 0 and abs(self.module[node].segment[index]) > 1e-1)
 		return True
 
 	def _validateInheritedCycles(self, node):
 		module = self.module
 		twin = module[node].twin
-		for segment in range(len(self.module.segments[node])):
-			if self.module.segments[node][segment] < 1e-2:
+		for segment in range(len(self.module[node].segment)):
+			if self.module[node].segment[segment] < 1e-2:
 				continue
 			aIndex = (min(node, twin), max(node, twin), segment)
 			if aIndex not in self.overlapTable or len(self.overlapTable[aIndex].keys()) != 1:
 				print self.module
-				print self.module.segments[node][segment]
+				print self.module[node].segment[segment]
 				print self
 				print len(self.overlapTable[aIndex].keys())
 			assert len(self.overlapTable[aIndex].keys()) == 1
