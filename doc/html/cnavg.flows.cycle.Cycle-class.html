@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>cnavg.flows.cycle.Cycle</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="cnavg-module.html">Package&nbsp;cnavg</a> ::
+        <a href="cnavg.flows-module.html">Package&nbsp;flows</a> ::
+        <a href="cnavg.flows.cycle-module.html">Module&nbsp;cycle</a> ::
+        Class&nbsp;Cycle
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="cnavg.flows.cycle.Cycle-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class Cycle</h1><p class="nomargin-top"><span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_cnavg_fl" name="uml_class_diagram_for_cnavg_fl">
+<area shape="rect" id="node1_28" href="cnavg.flows.cycle.Cycle-class.html#__init__" title="x.__init__(...) initializes x; see help(type(x)) for signature" alt="" coords="17,377,307,396"/>
+<area shape="rect" id="node1_29" href="cnavg.flows.cycle.Cycle-class.html#__copy__" title="cnavg.flows.cycle.Cycle.__copy__" alt="" coords="17,396,307,415"/>
+<area shape="rect" id="node1_30" href="cnavg.flows.cycle.Cycle-class.html#__hash__" title="hash(x)" alt="" coords="17,415,307,433"/>
+<area shape="rect" id="node1_31" href="cnavg.flows.cycle.Cycle-class.html#nodes" title="cnavg.flows.cycle.Cycle.nodes" alt="" coords="17,433,307,452"/>
+<area shape="rect" id="node1_32" href="cnavg.flows.cycle.Cycle-class.html#reverse" title="reverse *IN PLACE*" alt="" coords="17,452,307,471"/>
+<area shape="rect" id="node1_33" href="cnavg.flows.cycle.Cycle-class.html#startAt" title="cnavg.flows.cycle.Cycle.startAt" alt="" coords="17,471,307,489"/>
+<area shape="rect" id="node1_34" href="cnavg.flows.cycle.Cycle-class.html#startAtEdge" title="cnavg.flows.cycle.Cycle.startAtEdge" alt="" coords="17,489,307,508"/>
+<area shape="rect" id="node1_35" href="cnavg.flows.cycle.Cycle-class.html#__add__" title="x+y" alt="" coords="17,508,307,527"/>
+<area shape="rect" id="node1_36" href="cnavg.flows.cycle.Cycle-class.html#setRatio" title="cnavg.flows.cycle.Cycle.setRatio" alt="" coords="17,527,307,545"/>
+<area shape="rect" id="node1_37" href="cnavg.flows.cycle.Cycle-class.html#getCNVs" title="cnavg.flows.cycle.Cycle.getCNVs" alt="" coords="17,545,307,564"/>
+<area shape="rect" id="node1_38" href="cnavg.flows.cycle.Cycle-class.html#isClosed" title="cnavg.flows.cycle.Cycle.isClosed" alt="" coords="17,564,307,583"/>
+<area shape="rect" id="node1_39" href="cnavg.flows.cycle.Cycle-class.html#alternates" title="cnavg.flows.cycle.Cycle.alternates" alt="" coords="17,583,307,601"/>
+<area shape="rect" id="node1_40" href="cnavg.flows.cycle.Cycle-class.html#isConnected" title="cnavg.flows.cycle.Cycle.isConnected" alt="" coords="17,601,307,620"/>
+<area shape="rect" id="node1_41" href="cnavg.flows.cycle.Cycle-class.html#doesNotContainNodes" title="cnavg.flows.cycle.Cycle.doesNotContainNodes" alt="" coords="17,639,307,657"/>
+<area shape="rect" id="node1" href="cnavg.flows.cycle.Cycle-class.html" title="cnavg.flows.cycle.Cycle" alt="" coords="5,345,318,663"/>
+<area shape="rect" id="node2_42" href="javascript:void(0);" title="y in x" alt="" coords="24,39,301,57"/>
+<area shape="rect" id="node2_43" href="javascript:void(0);" title="del x[y]" alt="" coords="24,57,301,76"/>
+<area shape="rect" id="node2_44" href="javascript:void(0);" title="del x[i:j]" alt="" coords="24,76,301,95"/>
+<area shape="rect" id="node2_45" href="javascript:void(0);" title="x==y" alt="" coords="24,95,301,113"/>
+<area shape="rect" id="node2_46" href="javascript:void(0);" title="x&gt;=y" alt="" coords="24,113,301,132"/>
+<area shape="rect" id="node2_47" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="24,132,301,151"/>
+<area shape="rect" id="node2_48" href="javascript:void(0);" title="x[y]" alt="" coords="24,151,301,169"/>
+<area shape="rect" id="node2_49" href="javascript:void(0);" title="x[i:j]" alt="" coords="24,169,301,188"/>
+<area shape="rect" id="node2_50" href="javascript:void(0);" title="x&gt;y" alt="" coords="24,188,301,207"/>
+<area shape="rect" id="node2_51" href="javascript:void(0);" title="x+=y" alt="" coords="24,207,301,225"/>
+<area shape="rect" id="node2_52" href="javascript:void(0);" title="x*=y" alt="" coords="24,225,301,244"/>
+<area shape="rect" id="node2_53" href="javascript:void(0);" title="iter(x)" alt="" coords="24,244,301,263"/>
+<area shape="rect" id="node2_54" href="javascript:void(0);" title="x&lt;=y" alt="" coords="24,263,301,281"/>
+<area shape="rect" id="node2_55" href="javascript:void(0);" title="stable sort *IN PLACE*; cmp(x, y) &#45;&gt; &#45;1, 0, 1" alt="" coords="24,300,301,319"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="list() &#45;&gt; new empty list list(iterable) &#45;&gt; new list initialized from iterable&#39;s items" alt="" coords="12,6,313,325"/>
+</map>
+  <img src="uml_class_diagram_for_cnavg_fl.gif" alt='' usemap="#uml_class_diagram_for_cnavg_fl" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Instance Methods</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">new empty list</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.flows.cycle.Cycle-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">iter</span>,
+        <span class="summary-sig-arg">value</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">conserve</span>=<span class="summary-sig-default">False</span>)</span><br />
+      x.__init__(...) initializes x; see help(type(x)) for signature</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__copy__"></a><span class="summary-sig-name">__copy__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.__copy__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.flows.cycle.Cycle-class.html#__hash__" class="summary-sig-name">__hash__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      hash(x)</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.__hash__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="nodes"></a><span class="summary-sig-name">nodes</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.nodes">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.flows.cycle.Cycle-class.html#reverse" class="summary-sig-name">reverse</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      reverse *IN PLACE*</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.reverse">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="startAt"></a><span class="summary-sig-name">startAt</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">index</span>,
+        <span class="summary-sig-arg">conserve</span>=<span class="summary-sig-default">False</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.startAt">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="startAtEdge"></a><span class="summary-sig-name">startAtEdge</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">edge</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.startAtEdge">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.flows.cycle.Cycle-class.html#__add__" class="summary-sig-name">__add__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">other</span>)</span><br />
+      x+y</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.__add__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setRatio"></a><span class="summary-sig-name">setRatio</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ratio</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.setRatio">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getCNVs"></a><span class="summary-sig-name">getCNVs</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">hash</span>,
+        <span class="summary-sig-arg">event</span>,
+        <span class="summary-sig-arg">graph</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.getCNVs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="isClosed"></a><span class="summary-sig-name">isClosed</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.isClosed">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="alternates"></a><span class="summary-sig-name">alternates</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.alternates">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="isConnected"></a><span class="summary-sig-name">isConnected</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.isConnected">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="validate"></a><span class="summary-sig-name">validate</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.validate">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.flows.cycle.Cycle-class.html#__str__" class="summary-sig-name">__str__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      str(x)</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.__str__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="dot"></a><span class="summary-sig-name">dot</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.dot">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="braneyText"></a><span class="summary-sig-name">braneyText</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">historyID</span>,
+        <span class="summary-sig-arg">netID</span>,
+        <span class="summary-sig-arg">cycleID</span>,
+        <span class="summary-sig-arg">order</span>,
+        <span class="summary-sig-arg">complexity</span>,
+        <span class="summary-sig-arg">ptr</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.braneyText">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="simplifyStubsAndTrivials"></a><span class="summary-sig-name">simplifyStubsAndTrivials</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">cactus</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.simplifyStubsAndTrivials">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="doesNotContainNodes"></a><span class="summary-sig-name">doesNotContainNodes</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">nodes</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.doesNotContainNodes">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>list</code></b>:
+      <code>__contains__</code>,
+      <code>__delitem__</code>,
+      <code>__delslice__</code>,
+      <code>__eq__</code>,
+      <code>__ge__</code>,
+      <code>__getattribute__</code>,
+      <code>__getitem__</code>,
+      <code>__getslice__</code>,
+      <code>__gt__</code>,
+      <code>__iadd__</code>,
+      <code>__imul__</code>,
+      <code>__iter__</code>,
+      <code>__le__</code>,
+      <code>__len__</code>,
+      <code>__lt__</code>,
+      <code>__mul__</code>,
+      <code>__ne__</code>,
+      <code>__new__</code>,
+      <code>__repr__</code>,
+      <code>__reversed__</code>,
+      <code>__rmul__</code>,
+      <code>__setitem__</code>,
+      <code>__setslice__</code>,
+      <code>__sizeof__</code>,
+      <code>append</code>,
+      <code>count</code>,
+      <code>extend</code>,
+      <code>index</code>,
+      <code>insert</code>,
+      <code>pop</code>,
+      <code>remove</code>,
+      <code>sort</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__setattr__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Properties</span></td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Method Details</span></td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">iter</span>,
+        <span class="sig-arg">value</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">conserve</span>=<span class="sig-default">False</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+  <dl class="fields">
+    <dt>Returns: new empty list</dt>
+    <dt>Overrides:
+        object.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__hash__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__hash__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Hashing function)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.__hash__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>hash(x)</p>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__hash__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="reverse"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">reverse</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.reverse">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>reverse *IN PLACE*</p>
+  <dl class="fields">
+    <dt>Overrides:
+        list.reverse
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__add__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__add__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">other</span>)</span>
+    <br /><em class="fname">(Addition operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.__add__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>x+y</p>
+  <dl class="fields">
+    <dt>Overrides:
+        list.__add__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__str__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__str__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Informal representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.flows.cycle-pysrc.html#Cycle.__str__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>str(x)</p>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__str__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 12 12:56:39 2013
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

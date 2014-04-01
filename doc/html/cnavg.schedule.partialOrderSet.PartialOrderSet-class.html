@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>cnavg.schedule.partialOrderSet.PartialOrderSet</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="cnavg-module.html">Package&nbsp;cnavg</a> ::
+        <a href="cnavg.schedule-module.html">Package&nbsp;schedule</a> ::
+        <a href="cnavg.schedule.partialOrderSet-module.html">Module&nbsp;partialOrderSet</a> ::
+        Class&nbsp;PartialOrderSet
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class PartialOrderSet</h1><p class="nomargin-top"><span class="codelink"><a href="cnavg.schedule.partialOrderSet-pysrc.html#PartialOrderSet">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_cnavg_sc" name="uml_class_diagram_for_cnavg_sc">
+<area shape="rect" id="node1_7" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#__init__" title="Creates an unconstrained Poset with the elements of iter (if provided)" alt="" coords="17,39,251,57"/>
+<area shape="rect" id="node1_8" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#__copy__" title="cnavg.schedule.partialOrderSet.PartialOrderSet.__copy__" alt="" coords="17,57,251,76"/>
+<area shape="rect" id="node1_9" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#addElement" title="Adds an unconstrained element to the set" alt="" coords="17,76,251,95"/>
+<area shape="rect" id="node1_10" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#pop" title="Removes element from a poset and all the incident constraints" alt="" coords="17,95,251,113"/>
+<area shape="rect" id="node1_11" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#addConstraint" title="Adds an ordering constraint between two elements in the set, updating the &#160;ordering if necessary." alt="" coords="17,113,251,132"/>
+<area shape="rect" id="node1_12" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#removeConstraint" title="Removes an ordering constraint between two elements in the set" alt="" coords="17,132,251,151"/>
+<area shape="rect" id="node1_13" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#validate" title="Validation" alt="" coords="17,151,251,169"/>
+<area shape="rect" id="node1" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html" title="Partially ordered set (poset) with online global ordering of its elements" alt="" coords="5,6,262,175"/>
+</map>
+  <img src="uml_class_diagram_for_cnavg_sc.gif" alt='' usemap="#uml_class_diagram_for_cnavg_sc" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<p>Partially ordered set (poset) with online global ordering of its 
+  elements</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Instance Methods</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">iter</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Creates an unconstrained Poset with the elements of iter (if 
+      provided)</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.schedule.partialOrderSet-pysrc.html#PartialOrderSet.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__copy__"></a><span class="summary-sig-name">__copy__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.schedule.partialOrderSet-pysrc.html#PartialOrderSet.__copy__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="addElement"></a><span class="summary-sig-name">addElement</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">element</span>)</span><br />
+      Adds an unconstrained element to the set</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.schedule.partialOrderSet-pysrc.html#PartialOrderSet.addElement">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="pop"></a><span class="summary-sig-name">pop</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">elem</span>)</span><br />
+      Removes element from a poset and all the incident constraints</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.schedule.partialOrderSet-pysrc.html#PartialOrderSet.pop">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#addConstraint" class="summary-sig-name">addConstraint</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ancestral</span>,
+        <span class="summary-sig-arg">derived</span>)</span><br />
+      Adds an ordering constraint between two elements in the set, updating
+      the ordering if necessary.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.schedule.partialOrderSet-pysrc.html#PartialOrderSet.addConstraint">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="removeConstraint"></a><span class="summary-sig-name">removeConstraint</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">parent</span>,
+        <span class="summary-sig-arg">child</span>)</span><br />
+      Removes an ordering constraint between two elements in the set</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.schedule.partialOrderSet-pysrc.html#PartialOrderSet.removeConstraint">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="validate"></a><span class="summary-sig-name">validate</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Validation</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.schedule.partialOrderSet-pysrc.html#PartialOrderSet.validate">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Properties</span></td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Method Details</span></td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">iter</span>=<span class="sig-default">None</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.schedule.partialOrderSet-pysrc.html#PartialOrderSet.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Creates an unconstrained Poset with the elements of iter (if 
+  provided)</p>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="addConstraint"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">addConstraint</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">ancestral</span>,
+        <span class="sig-arg">derived</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.schedule.partialOrderSet-pysrc.html#PartialOrderSet.addConstraint">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Adds an ordering constraint between two elements in the set, updating 
+  the ordering if necessary. Refuses the addition and returns False if a 
+  contradiction would be created by the addition.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Nov 14 16:31:53 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

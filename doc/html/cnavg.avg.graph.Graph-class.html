@@ -1,0 +1,864 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>cnavg.avg.graph.Graph</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        cnavg ::
+        avg ::
+        graph ::
+        Graph ::
+        Class&nbsp;Graph
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="cnavg.avg.graph.Graph-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class Graph</h1><p class="nomargin-top"><span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_cnavg_av_3" name="uml_class_diagram_for_cnavg_av_3">
+<area shape="rect" id="node1_29" href="cnavg.avg.graph.Graph-class.html#__init__" title="x.__init__(...) initializes x; see help(type(x)) for signature" alt="" coords="424,391,735,409"/>
+<area shape="rect" id="node1_30" href="cnavg.avg.graph.Graph-class.html#nodes" title="Returns list of nodes" alt="" coords="424,409,735,428"/>
+<area shape="rect" id="node1_31" href="cnavg.avg.graph.Graph-class.html#createNode" title="Creates a node and adds it to the graph" alt="" coords="424,428,735,447"/>
+<area shape="rect" id="node1_32" href="cnavg.avg.graph.Graph-class.html#addNode" title="Adds a node to the graph" alt="" coords="424,447,735,465"/>
+<area shape="rect" id="node1_33" href="cnavg.avg.graph.Graph-class.html#addLiftedEdge" title="Creates (if necessary) and increments the flow of a bond edge" alt="" coords="424,465,735,484"/>
+<area shape="rect" id="node1_34" href="cnavg.avg.graph.Graph-class.html#setLiftedEdge" title="Creates (if necessary) and updates the flow of a bond edge" alt="" coords="424,484,735,503"/>
+<area shape="rect" id="node1_35" href="cnavg.avg.graph.Graph-class.html#changeLiftedEdge" title="Increments the flow on a bond edge" alt="" coords="424,503,735,521"/>
+<area shape="rect" id="node1_36" href="cnavg.avg.graph.Graph-class.html#changeSegment" title="Increments the flow of the segment edge incident on the given node" alt="" coords="424,521,735,540"/>
+<area shape="rect" id="node1_37" href="cnavg.avg.graph.Graph-class.html#createSegment" title="Declares a set of homologous segment edges between two nodes and sets their flows" alt="" coords="424,540,735,559"/>
+<area shape="rect" id="node1_38" href="cnavg.avg.graph.Graph-class.html#createAdjacency" title="Creates a bond edge and declares it ancestral" alt="" coords="424,559,735,577"/>
+<area shape="rect" id="node1_39" href="cnavg.avg.graph.Graph-class.html#validateNodeAdjacency" title="Validation function" alt="" coords="424,577,735,596"/>
+<area shape="rect" id="node1_40" href="cnavg.avg.graph.Graph-class.html#validateNodeSegment" title="Validation function" alt="" coords="424,596,735,615"/>
+<area shape="rect" id="node1_41" href="cnavg.avg.graph.Graph-class.html#validateNodeEdge" title="Validation function" alt="" coords="424,615,735,633"/>
+<area shape="rect" id="node1_42" href="cnavg.avg.graph.Graph-class.html#printMinority" title="cnavg.avg.graph.Graph.printMinority" alt="" coords="424,652,735,671"/>
+<area shape="rect" id="node1" href="cnavg.avg.graph.Graph-class.html" title="A sequence graph" alt="" coords="411,358,746,677"/>
+<area shape="rect" id="node2" href="cnavg.cactus.graph.Cactus-class.html" title="A Cactus graph" alt="" coords="327,697,486,735"/>
+<area shape="rect" id="node5" href="cnavg.avg.module.Module-class.html" title="Sequence graph associated to a Cactus net" alt="" coords="516,697,644,735"/>
+<area shape="rect" id="node8" href="cnavg.avg.balanced.BalancedAVG-class.html" title="A sequence graph characterised by balanced flow (i.e." alt="" coords="673,697,849,735"/>
+<area shape="rect" id="node3" href="cnavg.cactus.oriented.OrientedCactus-class.html" title="An oriented cactus, i.e." alt="" coords="5,755,227,794"/>
+<area shape="rect" id="node4" href="cnavg.cactusSampling.sampling.NormalizedCactus-class.html" title="Cactus graph such that the flow is uniform across all blocks in a chain" alt="" coords="257,755,557,794"/>
+<area shape="rect" id="node7" href="cnavg.cactus.balanced.BalancedCactus-class.html" title="Cactus graph with balanced copy number flow" alt="" coords="586,755,819,794"/>
+<area shape="rect" id="node6_43" href="javascript:void(0);" title="hash(x)" alt="" coords="517,31,643,49"/>
+<area shape="rect" id="node6_44" href="javascript:void(0);" title="cmp(x,y)" alt="" coords="517,52,643,71"/>
+<area shape="rect" id="node6_45" href="javascript:void(0);" title="dict.__contains__" alt="" coords="517,71,643,89"/>
+<area shape="rect" id="node6_46" href="javascript:void(0);" title="del x[y]" alt="" coords="517,89,643,108"/>
+<area shape="rect" id="node6_47" href="javascript:void(0);" title="x==y" alt="" coords="517,108,643,127"/>
+<area shape="rect" id="node6_48" href="javascript:void(0);" title="x&gt;=y" alt="" coords="517,127,643,145"/>
+<area shape="rect" id="node6_49" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="517,145,643,164"/>
+<area shape="rect" id="node6_50" href="javascript:void(0);" title="x[y]" alt="" coords="517,164,643,183"/>
+<area shape="rect" id="node6_51" href="javascript:void(0);" title="x&gt;y" alt="" coords="517,183,643,201"/>
+<area shape="rect" id="node6_52" href="javascript:void(0);" title="iter(x)" alt="" coords="517,201,643,220"/>
+<area shape="rect" id="node6_53" href="javascript:void(0);" title="x&lt;=y" alt="" coords="517,220,643,239"/>
+<area shape="rect" id="node6_54" href="javascript:void(0);" title="len(x)" alt="" coords="517,239,643,257"/>
+<area shape="rect" id="node6_55" href="javascript:void(0);" title="x&lt;y" alt="" coords="517,257,643,276"/>
+<area shape="rect" id="node6_56" href="javascript:void(0);" title="x!=y" alt="" coords="517,276,643,295"/>
+<area shape="rect" id="node6_57" href="javascript:void(0);" title="dict.viewvalues" alt="" coords="517,313,643,332"/>
+<area shape="rect" id="node6" href="javascript:void(0);" title="dict() &#45;&gt; new empty dictionary dict(mapping) &#45;&gt; new dictionary initialized from a mapping object&#39;s (key, value) pairs dict(iterable) &#45;&gt; new dictionary initialized as if via: d = {} for k, v in iterable: d[k] = v dict(**kwargs) &#45;&gt; new dictionary initialized with the name=value pairs in the keyword argument list." alt="" coords="505,6,655,338"/>
+</map>
+  <img src="uml_class_diagram_for_cnavg_av_3.gif" alt='' usemap="#uml_class_diagram_for_cnavg_av_3" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<p>A sequence graph</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Instance Methods</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><pre class="literalblock">
+new empty dictionary
+
+</pre></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.avg.graph.Graph-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      x.__init__(...) initializes x; see help(type(x)) for signature</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="nodes"></a><span class="summary-sig-name">nodes</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns list of nodes</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.nodes">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="createNode"></a><span class="summary-sig-name">createNode</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">chr</span>,
+        <span class="summary-sig-arg">pos</span>,
+        <span class="summary-sig-arg">orientation</span>,
+        <span class="summary-sig-arg">name</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Creates a node and adds it to the graph</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.createNode">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="addNode"></a><span class="summary-sig-name">addNode</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">node</span>)</span><br />
+      Adds a node to the graph</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.addNode">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="addLiftedEdge"></a><span class="summary-sig-name">addLiftedEdge</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">A</span>,
+        <span class="summary-sig-arg">B</span>,
+        <span class="summary-sig-arg">value</span>)</span><br />
+      Creates (if necessary) and increments the flow of a bond edge</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.addLiftedEdge">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setLiftedEdge"></a><span class="summary-sig-name">setLiftedEdge</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">A</span>,
+        <span class="summary-sig-arg">B</span>,
+        <span class="summary-sig-arg">value</span>)</span><br />
+      Creates (if necessary) and updates the flow of a bond edge</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.setLiftedEdge">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="changeLiftedEdge"></a><span class="summary-sig-name">changeLiftedEdge</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">A</span>,
+        <span class="summary-sig-arg">B</span>,
+        <span class="summary-sig-arg">value</span>)</span><br />
+      Increments the flow on a bond edge</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.changeLiftedEdge">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="changeSegment"></a><span class="summary-sig-name">changeSegment</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">node</span>,
+        <span class="summary-sig-arg">index</span>,
+        <span class="summary-sig-arg">increment</span>)</span><br />
+      Increments the flow of the segment edge incident on the given node</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.changeSegment">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="createSegment"></a><span class="summary-sig-name">createSegment</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">A</span>,
+        <span class="summary-sig-arg">B</span>,
+        <span class="summary-sig-arg">values</span>)</span><br />
+      Declares a set of homologous segment edges between two nodes and sets
+      their flows</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.createSegment">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="createAdjacency"></a><span class="summary-sig-name">createAdjacency</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">A</span>,
+        <span class="summary-sig-arg">B</span>)</span><br />
+      Creates a bond edge and declares it ancestral</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.createAdjacency">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="validateNodeAdjacency"></a><span class="summary-sig-name">validateNodeAdjacency</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">node</span>)</span><br />
+      Validation function</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.validateNodeAdjacency">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="validateNodeSegment"></a><span class="summary-sig-name">validateNodeSegment</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">node</span>)</span><br />
+      Validation function</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.validateNodeSegment">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="validateNodeEdge"></a><span class="summary-sig-name">validateNodeEdge</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">node</span>,
+        <span class="summary-sig-arg">mate</span>)</span><br />
+      Validation function</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.validateNodeEdge">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="validateNodeEdges"></a><span class="summary-sig-name">validateNodeEdges</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">node</span>)</span><br />
+      Validation function</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.validateNodeEdges">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="validateNode"></a><span class="summary-sig-name">validateNode</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">node</span>)</span><br />
+      Validation function</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.validateNode">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="validate"></a><span class="summary-sig-name">validate</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Validation function</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.validate">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="coverageStats"></a><span class="summary-sig-name">coverageStats</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.coverageStats">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.avg.graph.Graph-class.html#__str__" class="summary-sig-name">__str__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      GraphViz output.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.__str__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__copy__"></a><span class="summary-sig-name">__copy__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.__copy__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">a shallow copy of D</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.avg.graph.Graph-class.html#copy" class="summary-sig-name">copy</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">origin</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.copy">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="twin"></a><span class="summary-sig-name">twin</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">node</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.twin">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="partner"></a><span class="summary-sig-name">partner</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">node</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.partner">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="segment"></a><span class="summary-sig-name">segment</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">node</span>,
+        <span class="summary-sig-arg">index</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.segment">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="edge"></a><span class="summary-sig-name">edge</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">node</span>,
+        <span class="summary-sig-arg">node2</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.edge">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="edges"></a><span class="summary-sig-name">edges</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">node</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.edges">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="balanced"></a><span class="summary-sig-name">balanced</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.balanced">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="segmentLength"></a><span class="summary-sig-name">segmentLength</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">node</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.segmentLength">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="printCNVs"></a><span class="summary-sig-name">printCNVs</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.printCNVs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="printMajority"></a><span class="summary-sig-name">printMajority</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.printMajority">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="printMinority"></a><span class="summary-sig-name">printMinority</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.printMinority">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>dict</code></b>:
+      <code>__cmp__</code>,
+      <code>__contains__</code>,
+      <code>__delitem__</code>,
+      <code>__eq__</code>,
+      <code>__ge__</code>,
+      <code>__getattribute__</code>,
+      <code>__getitem__</code>,
+      <code>__gt__</code>,
+      <code>__iter__</code>,
+      <code>__le__</code>,
+      <code>__len__</code>,
+      <code>__lt__</code>,
+      <code>__ne__</code>,
+      <code>__new__</code>,
+      <code>__repr__</code>,
+      <code>__setitem__</code>,
+      <code>__sizeof__</code>,
+      <code>clear</code>,
+      <code>fromkeys</code>,
+      <code>get</code>,
+      <code>has_key</code>,
+      <code>items</code>,
+      <code>iteritems</code>,
+      <code>iterkeys</code>,
+      <code>itervalues</code>,
+      <code>keys</code>,
+      <code>pop</code>,
+      <code>popitem</code>,
+      <code>setdefault</code>,
+      <code>update</code>,
+      <code>values</code>,
+      <code>viewitems</code>,
+      <code>viewkeys</code>,
+      <code>viewvalues</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__setattr__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Class Variables</span></td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>dict</code></b>:
+      <code>__hash__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Properties</span></td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Method Details</span></td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+  <dl class="fields">
+    <dt>Returns: <pre class="literalblock">
+new empty dictionary
+
+</pre></dt>
+    <dt>Overrides:
+        object.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__str__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__str__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Informal representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.__str__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>GraphViz output.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__str__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="copy"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">copy</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">origin</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.avg.graph-pysrc.html#Graph.copy">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Returns: a shallow copy of D</dt>
+    <dt>Overrides:
+        dict.copy
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 12 12:56:36 2013
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

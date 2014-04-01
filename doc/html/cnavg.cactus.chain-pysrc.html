@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>cnavg.cactus.chain</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="cnavg-module.html">Package&nbsp;cnavg</a> ::
+        <a href="cnavg.cactus-module.html">Package&nbsp;cactus</a> ::
+        Module&nbsp;chain
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="cnavg.cactus.chain-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="cnavg.cactus.chain-module.html">Module cnavg.cactus.chain</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2012, Daniel Zerbino</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># All rights reserved.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># Redistribution and use in source and binary forms, with or without</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># modification, are permitted provided that the following conditions are</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># met:</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># (1) Redistributions of source code must retain the above copyright</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"># notice, this list of conditions and the following disclaimer. </tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"># (2) Redistributions in binary form must reproduce the above copyright</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># notice, this list of conditions and the following disclaimer in</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># the documentation and/or other materials provided with the</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment"># distribution.  </tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-comment"># (3)The name of the author may not be used to</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-comment"># endorse or promote products derived from this software without</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-comment"># specific prior written permission.</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-comment"># THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-comment"># IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-comment"># WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-comment"># DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt class="py-comment"># INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-comment"># (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt class="py-comment"># SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"><tt class="py-comment"># HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"><tt class="py-comment"># STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"><tt class="py-comment"># IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"><tt class="py-comment"># POSSIBILITY OF SUCH DAMAGE.</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/env python</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"><tt class="py-docstring">"""Definition of Chain, a simple cycle of blocks within a cactus graph"""</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Package cnavg=cnavg-module.html"><a title="cnavg" class="py-name" href="#" onclick="return doclink('link-0', 'cnavg', 'link-0');">cnavg</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Package cnavg.avg=cnavg.avg-module.html,Method cnavg.preprocess.breakendGraph.BreakendGraph.avg()=cnavg.preprocess.breakendGraph.BreakendGraph-class.html#avg,Method cnavg.simulator.simulator.WeightedHistory.avg()=cnavg.simulator.simulator.WeightedHistory-class.html#avg"><a title="cnavg.avg
+cnavg.preprocess.breakendGraph.BreakendGraph.avg
+cnavg.simulator.simulator.WeightedHistory.avg" class="py-name" href="#" onclick="return doclink('link-1', 'avg', 'link-1');">avg</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Module cnavg.avg.graph=cnavg.avg.graph-module.html,Module cnavg.cactus.graph=cnavg.cactus.graph-module.html"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-2', 'graph', 'link-2');">graph</a></tt> <tt class="py-keyword">as</tt> <tt id="link-3" class="py-name"><a title="cnavg.avg
+cnavg.preprocess.breakendGraph.BreakendGraph.avg
+cnavg.simulator.simulator.WeightedHistory.avg" class="py-name" href="#" onclick="return doclink('link-3', 'avg', 'link-1');">avg</a></tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-4" class="py-name" targets="Method cnavg.avg.graph.Graph.copy()=cnavg.avg.graph.Graph-class.html#copy,Method cnavg.avg.module.Module.copy()=cnavg.avg.module.Module-class.html#copy,Method cnavg.cactus.graph.Cactus.copy()=cnavg.cactus.graph.Cactus-class.html#copy,Method cnavg.cactus.oriented.OrientedCactus.copy()=cnavg.cactus.oriented.OrientedCactus-class.html#copy,Method cnavg.history.euclidian.EuclidianHistory.copy()=cnavg.history.euclidian.EuclidianHistory-class.html#copy,Method cnavg.history.history.CactusHistory.copy()=cnavg.history.history.CactusHistory-class.html#copy,Method cnavg.history.history.History.copy()=cnavg.history.history.History-class.html#copy,Method cnavg.history.overlap.OverlapHistory.copy()=cnavg.history.overlap.OverlapHistory-class.html#copy,Method cnavg.history.scheduled.ScheduledHistory.copy()=cnavg.history.scheduled.ScheduledHistory-class.html#copy"><a title="cnavg.avg.graph.Graph.copy
+cnavg.avg.module.Module.copy
+cnavg.cactus.graph.Cactus.copy
+cnavg.cactus.oriented.OrientedCactus.copy
+cnavg.history.euclidian.EuclidianHistory.copy
+cnavg.history.history.CactusHistory.copy
+cnavg.history.history.History.copy
+cnavg.history.overlap.OverlapHistory.copy
+cnavg.history.scheduled.ScheduledHistory.copy" class="py-name" href="#" onclick="return doclink('link-4', 'copy', 'link-4');">copy</a></tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-5" class="py-name" targets="Package cnavg.cactus.threeWay=cnavg.cactus.threeWay-module.html"><a title="cnavg.cactus.threeWay" class="py-name" href="#" onclick="return doclink('link-5', 'threeWay', 'link-5');">threeWay</a></tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Module cnavg.cactus.threeWay.components=cnavg.cactus.threeWay.components-module.html"><a title="cnavg.cactus.threeWay.components" class="py-name" href="#" onclick="return doclink('link-6', 'components', 'link-6');">components</a></tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"><tt class="py-comment">###########################################</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line"><tt class="py-comment">## Chain structure </tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"><tt class="py-comment">###########################################</tt> </tt>
+<a name="Chain"></a><div id="Chain-def"><a name="L42"></a><tt class="py-lineno">42</tt> <a class="py-toggle" href="#" id="Chain-toggle" onclick="return toggle('Chain');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cnavg.cactus.chain.Chain-class.html">Chain</a><tt class="py-op">(</tt><tt class="py-base-class">list</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Chain-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="Chain-expanded"><a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">        <tt class="py-docstring">"""A chain in a Cactus graph, i.e. a cycle of blocks which are always found in a consistent order and orientation"""</tt> </tt>
+<a name="Chain.update"></a><div id="Chain.update-def"><a name="L44"></a><tt class="py-lineno">44</tt> <a class="py-toggle" href="#" id="Chain.update-toggle" onclick="return toggle('Chain.update');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactus.chain.Chain-class.html#update">update</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">netA</tt><tt class="py-op">,</tt> <tt class="py-param">netB</tt><tt class="py-op">,</tt> <tt class="py-param">newNet</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Chain.update-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="Chain.update-expanded"><a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">netA</tt> <tt class="py-keyword">or</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">netB</tt><tt class="py-op">:</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method cnavg.basics.partialOrderSet.PartialOrderSet.pop()=cnavg.basics.partialOrderSet.PartialOrderSet-class.html#pop,Method cnavg.history.euclidian.EuclidianHistory.pop()=cnavg.history.euclidian.EuclidianHistory-class.html#pop,Method cnavg.history.history.CactusHistory.pop()=cnavg.history.history.CactusHistory-class.html#pop,Method cnavg.history.history.History.pop()=cnavg.history.history.History-class.html#pop,Method cnavg.history.overlap.OverlapHistory.pop()=cnavg.history.overlap.OverlapHistory-class.html#pop,Method cnavg.history.scheduled.ScheduledHistory.pop()=cnavg.history.scheduled.ScheduledHistory-class.html#pop"><a title="cnavg.basics.partialOrderSet.PartialOrderSet.pop
+cnavg.history.euclidian.EuclidianHistory.pop
+cnavg.history.history.CactusHistory.pop
+cnavg.history.history.History.pop
+cnavg.history.overlap.OverlapHistory.pop
+cnavg.history.scheduled.ScheduledHistory.pop" class="py-name" href="#" onclick="return doclink('link-7', 'pop', 'link-7');">pop</a></tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">insert</tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-name">newNet</tt><tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">                <tt class="py-keyword">elif</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">netA</tt> <tt class="py-keyword">or</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">netB</tt><tt class="py-op">:</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name"><a title="cnavg.basics.partialOrderSet.PartialOrderSet.pop
+cnavg.history.euclidian.EuclidianHistory.pop
+cnavg.history.history.CactusHistory.pop
+cnavg.history.history.History.pop
+cnavg.history.overlap.OverlapHistory.pop
+cnavg.history.scheduled.ScheduledHistory.pop" class="py-name" href="#" onclick="return doclink('link-8', 'pop', 'link-7');">pop</a></tt><tt class="py-op">(</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">newNet</tt><tt class="py-op">)</tt>  </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">self</tt> </tt>
+</div><a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"> </tt>
+<a name="Chain.__str__"></a><div id="Chain.__str__-def"><a name="L53"></a><tt class="py-lineno">53</tt> <a class="py-toggle" href="#" id="Chain.__str__-toggle" onclick="return toggle('Chain.__str__');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactus.chain.Chain-class.html#__str__">__str__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Chain.__str__-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="Chain.__str__-expanded"><a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-string">"\t"</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">str</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line"> </tt>
+<a name="Chain.nodes"></a><div id="Chain.nodes-def"><a name="L56"></a><tt class="py-lineno">56</tt> <a class="py-toggle" href="#" id="Chain.nodes-toggle" onclick="return toggle('Chain.nodes');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactus.chain.Chain-class.html#nodes">nodes</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Chain.nodes-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="Chain.nodes-expanded"><a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">sum</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-name">list</tt><tt class="py-op">(</tt><tt class="py-name">X</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Method cnavg.avg.graph.Graph.nodes()=cnavg.avg.graph.Graph-class.html#nodes,Method cnavg.cactus.chain.Chain.nodes()=cnavg.cactus.chain.Chain-class.html#nodes,Method cnavg.cactus.net.Net.nodes()=cnavg.cactus.net.Net-class.html#nodes,Method cnavg.clock.cnvTree.CNVSliceTree.nodes()=cnavg.clock.cnvTree.CNVSliceTree-class.html#nodes,Method cnavg.flows.cycle.Cycle.nodes()=cnavg.flows.cycle.Cycle-class.html#nodes,Method cnavg.flows.edge.Edge.nodes()=cnavg.flows.edge.Edge-class.html#nodes"><a title="cnavg.avg.graph.Graph.nodes
+cnavg.cactus.chain.Chain.nodes
+cnavg.cactus.net.Net.nodes
+cnavg.clock.cnvTree.CNVSliceTree.nodes
+cnavg.flows.cycle.Cycle.nodes
+cnavg.flows.edge.Edge.nodes" class="py-name" href="#" onclick="return doclink('link-9', 'nodes', 'link-9');">nodes</a></tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"> </tt>
+<a name="Chain.span"></a><div id="Chain.span-def"><a name="L59"></a><tt class="py-lineno">59</tt> <a class="py-toggle" href="#" id="Chain.span-toggle" onclick="return toggle('Chain.span');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactus.chain.Chain-class.html#span">span</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Chain.span-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="Chain.span-expanded"><a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">                <tt id="link-10" class="py-name"><a title="cnavg.avg.graph.Graph.nodes
+cnavg.cactus.chain.Chain.nodes
+cnavg.cactus.net.Net.nodes
+cnavg.clock.cnvTree.CNVSliceTree.nodes
+cnavg.flows.cycle.Cycle.nodes
+cnavg.flows.edge.Edge.nodes" class="py-name" href="#" onclick="return doclink('link-10', 'nodes', 'link-9');">nodes</a></tt> <tt class="py-op">=</tt> <tt class="py-name">sorted</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="cnavg.avg.graph.Graph.nodes
+cnavg.cactus.chain.Chain.nodes
+cnavg.cactus.net.Net.nodes
+cnavg.clock.cnvTree.CNVSliceTree.nodes
+cnavg.flows.cycle.Cycle.nodes
+cnavg.flows.edge.Edge.nodes" class="py-name" href="#" onclick="return doclink('link-11', 'nodes', 'link-9');">nodes</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">                <tt class="py-name">chr</tt> <tt class="py-op">=</tt> <tt id="link-12" class="py-name"><a title="cnavg.avg.graph.Graph.nodes
+cnavg.cactus.chain.Chain.nodes
+cnavg.cactus.net.Net.nodes
+cnavg.clock.cnvTree.CNVSliceTree.nodes
+cnavg.flows.cycle.Cycle.nodes
+cnavg.flows.edge.Edge.nodes" class="py-name" href="#" onclick="return doclink('link-12', 'nodes', 'link-9');">nodes</a></tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">chr</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">                <tt class="py-keyword">assert</tt> <tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-name">X</tt><tt class="py-op">.</tt><tt class="py-name">chr</tt> <tt class="py-op">==</tt> <tt class="py-name">chr</tt> <tt class="py-keyword">for</tt> <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt id="link-13" class="py-name"><a title="cnavg.avg.graph.Graph.nodes
+cnavg.cactus.chain.Chain.nodes
+cnavg.cactus.net.Net.nodes
+cnavg.clock.cnvTree.CNVSliceTree.nodes
+cnavg.flows.cycle.Cycle.nodes
+cnavg.flows.edge.Edge.nodes" class="py-name" href="#" onclick="return doclink('link-13', 'nodes', 'link-9');">nodes</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-string">"\t"</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">str</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-name">chr</tt><tt class="py-op">,</tt> <tt id="link-14" class="py-name"><a title="cnavg.avg.graph.Graph.nodes
+cnavg.cactus.chain.Chain.nodes
+cnavg.cactus.net.Net.nodes
+cnavg.clock.cnvTree.CNVSliceTree.nodes
+cnavg.flows.cycle.Cycle.nodes
+cnavg.flows.edge.Edge.nodes" class="py-name" href="#" onclick="return doclink('link-14', 'nodes', 'link-9');">nodes</a></tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">pos</tt><tt class="py-op">,</tt> <tt id="link-15" class="py-name"><a title="cnavg.avg.graph.Graph.nodes
+cnavg.cactus.chain.Chain.nodes
+cnavg.cactus.net.Net.nodes
+cnavg.clock.cnvTree.CNVSliceTree.nodes
+cnavg.flows.cycle.Cycle.nodes
+cnavg.flows.edge.Edge.nodes" class="py-name" href="#" onclick="return doclink('link-15', 'nodes', 'link-9');">nodes</a></tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">pos</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line"> </tt>
+<a name="Chain.__hash__"></a><div id="Chain.__hash__-def"><a name="L65"></a><tt class="py-lineno">65</tt> <a class="py-toggle" href="#" id="Chain.__hash__-toggle" onclick="return toggle('Chain.__hash__');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactus.chain.Chain-class.html#__hash__">__hash__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Chain.__hash__-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="Chain.__hash__-expanded"><a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">id</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line"> </tt>
+<a name="Chain.lengths"></a><div id="Chain.lengths-def"><a name="L68"></a><tt class="py-lineno">68</tt> <a class="py-toggle" href="#" id="Chain.lengths-toggle" onclick="return toggle('Chain.lengths');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactus.chain.Chain-class.html#lengths">lengths</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Chain.lengths-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="Chain.lengths-expanded"><a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">X</tt><tt class="py-op">:</tt> <tt class="py-name">X</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Method cnavg.basics.coords.Region.length()=cnavg.basics.coords.Region-class.html#length,Method cnavg.cactus.block.Block.length()=cnavg.cactus.block.Block-class.html#length,Method cnavg.cactus.chain.Chain.length()=cnavg.cactus.chain.Chain-class.html#length,Method cnavg.flows.flows.Event.length()=cnavg.flows.flows.Event-class.html#length,Method cnavg.history.history.CactusHistory.length()=cnavg.history.history.CactusHistory-class.html#length,Method cnavg.history.history.History.length()=cnavg.history.history.History-class.html#length"><a title="cnavg.basics.coords.Region.length
+cnavg.cactus.block.Block.length
+cnavg.cactus.chain.Chain.length
+cnavg.flows.flows.Event.length
+cnavg.history.history.CactusHistory.length
+cnavg.history.history.History.length" class="py-name" href="#" onclick="return doclink('link-16', 'length', 'link-16');">length</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line"> </tt>
+<a name="Chain.length"></a><div id="Chain.length-def"><a name="L71"></a><tt class="py-lineno">71</tt> <a class="py-toggle" href="#" id="Chain.length-toggle" onclick="return toggle('Chain.length');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactus.chain.Chain-class.html#length">length</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Chain.length-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="Chain.length-expanded"><a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">sum</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Method cnavg.cactus.chain.Chain.lengths()=cnavg.cactus.chain.Chain-class.html#lengths"><a title="cnavg.cactus.chain.Chain.lengths" class="py-name" href="#" onclick="return doclink('link-17', 'lengths', 'link-17');">lengths</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line"> </tt>
+<a name="Chain.validate"></a><div id="Chain.validate-def"><a name="L74"></a><tt class="py-lineno">74</tt> <a class="py-toggle" href="#" id="Chain.validate-toggle" onclick="return toggle('Chain.validate');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactus.chain.Chain-class.html#validate">validate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">graph</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Chain.validate-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="Chain.validate-expanded"><a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line">                <tt class="py-keyword">assert</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt> </tt>
+<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line">                <tt class="py-keyword">assert</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">1</tt> <tt class="py-keyword">or</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">set</tt><tt class="py-op">(</tt><tt id="link-18" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-18', 'graph', 'link-2');">graph</a></tt><tt class="py-op">.</tt><tt class="py-name">groupNet</tt><tt class="py-op">[</tt><tt id="link-19" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-19', 'graph', 'link-2');">graph</a></tt><tt class="py-op">.</tt><tt class="py-name">nodeGroup</tt><tt class="py-op">[</tt><tt class="py-name">x</tt><tt class="py-op">]</tt><tt class="py-op">]</tt> <tt class="py-keyword">for</tt> <tt class="py-name">x</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="cnavg.avg.graph.Graph.nodes
+cnavg.cactus.chain.Chain.nodes
+cnavg.cactus.net.Net.nodes
+cnavg.clock.cnvTree.CNVSliceTree.nodes
+cnavg.flows.cycle.Cycle.nodes
+cnavg.flows.edge.Edge.nodes" class="py-name" href="#" onclick="return doclink('link-20', 'nodes', 'link-9');">nodes</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">1</tt> </tt>
+<a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line">                <tt class="py-keyword">assert</tt> <tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt id="link-21" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-21', 'graph', 'link-2');">graph</a></tt><tt class="py-op">.</tt><tt class="py-name">blockChain</tt><tt class="py-op">[</tt><tt class="py-name">X</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">self</tt> <tt class="py-keyword">for</tt> <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line">                <tt class="py-keyword">assert</tt> <tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-name">X</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Method cnavg.avg.balanced.BalancedAVG.validate()=cnavg.avg.balanced.BalancedAVG-class.html#validate,Method cnavg.avg.graph.Graph.validate()=cnavg.avg.graph.Graph-class.html#validate,Method cnavg.basics.coords.Region.validate()=cnavg.basics.coords.Region-class.html#validate,Method cnavg.basics.partialOrderSet.PartialOrderSet.validate()=cnavg.basics.partialOrderSet.PartialOrderSet-class.html#validate,Method cnavg.cactus.block.Block.validate()=cnavg.cactus.block.Block-class.html#validate,Method cnavg.cactus.chain.Chain.validate()=cnavg.cactus.chain.Chain-class.html#validate,Method cnavg.cactus.graph.Cactus.validate()=cnavg.cactus.graph.Cactus-class.html#validate,Method cnavg.cactus.group.Group.validate()=cnavg.cactus.group.Group-class.html#validate,Method cnavg.cactus.net.Net.validate()=cnavg.cactus.net.Net-class.html#validate,Method cnavg.flows.cycle.Cycle.validate()=cnavg.flows.cycle.Cycle-class.html#validate,Method cnavg.flows.flows.Event.validate()=cnavg.flows.flows.Event-class.html#validate,Method cnavg.history.euclidian.EuclidianHistory.validate()=cnavg.history.euclidian.EuclidianHistory-class.html#validate,Method cnavg.history.history.CactusHistory.validate()=cnavg.history.history.CactusHistory-class.html#validate,Method cnavg.history.history.History.validate()=cnavg.history.history.History-class.html#validate,Method cnavg.history.overlap.OverlapHistory.validate()=cnavg.history.overlap.OverlapHistory-class.html#validate,Method cnavg.history.scheduled.ScheduledHistory.validate()=cnavg.history.scheduled.ScheduledHistory-class.html#validate,Method cnavg.preprocess.breakend.Breakend.validate()=cnavg.preprocess.breakend.Breakend-class.html#validate,Method cnavg.preprocess.breakendGraph.BreakendGraph.validate()=cnavg.preprocess.breakendGraph.BreakendGraph-class.html#validate,Method cnavg.preprocess.cnv.CNV.validate()=cnavg.preprocess.cnv.CNV-class.html#validate"><a title="cnavg.avg.balanced.BalancedAVG.validate
+cnavg.avg.graph.Graph.validate
+cnavg.basics.coords.Region.validate
+cnavg.basics.partialOrderSet.PartialOrderSet.validate
+cnavg.cactus.block.Block.validate
+cnavg.cactus.chain.Chain.validate
+cnavg.cactus.graph.Cactus.validate
+cnavg.cactus.group.Group.validate
+cnavg.cactus.net.Net.validate
+cnavg.flows.cycle.Cycle.validate
+cnavg.flows.flows.Event.validate
+cnavg.history.euclidian.EuclidianHistory.validate
+cnavg.history.history.CactusHistory.validate
+cnavg.history.history.History.validate
+cnavg.history.overlap.OverlapHistory.validate
+cnavg.history.scheduled.ScheduledHistory.validate
+cnavg.preprocess.breakend.Breakend.validate
+cnavg.preprocess.breakendGraph.BreakendGraph.validate
+cnavg.preprocess.cnv.CNV.validate" class="py-name" href="#" onclick="return doclink('link-22', 'validate', 'link-22');">validate</a></tt><tt class="py-op">(</tt><tt id="link-23" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-23', 'graph', 'link-2');">graph</a></tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">True</tt> </tt>
+</div><a name="L80"></a><tt class="py-lineno">80</tt>  <tt class="py-line"> </tt>
+<a name="Chain.nextNode_block"></a><div id="Chain.nextNode_block-def"><a name="L81"></a><tt class="py-lineno">81</tt> <a class="py-toggle" href="#" id="Chain.nextNode_block-toggle" onclick="return toggle('Chain.nextNode_block');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactus.chain.Chain-class.html#nextNode_block">nextNode_block</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">node</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Chain.nextNode_block-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="Chain.nextNode_block-expanded"><a name="L82"></a><tt class="py-lineno">82</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">filter</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">X</tt><tt class="py-op">:</tt> <tt class="py-name">id</tt><tt class="py-op">(</tt><tt class="py-name">X</tt><tt class="py-op">)</tt> <tt class="py-op">!=</tt> <tt class="py-name">id</tt><tt class="py-op">(</tt><tt id="link-24" class="py-name" targets="Module cnavg.avg.node=cnavg.avg.node-module.html"><a title="cnavg.avg.node" class="py-name" href="#" onclick="return doclink('link-24', 'node', 'link-24');">node</a></tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt id="link-25" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-25', 'graph', 'link-2');">graph</a></tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Method cnavg.cactus.graph.Cactus.nodeNet()=cnavg.cactus.graph.Cactus-class.html#nodeNet"><a title="cnavg.cactus.graph.Cactus.nodeNet" class="py-name" href="#" onclick="return doclink('link-26', 'nodeNet', 'link-26');">nodeNet</a></tt><tt class="py-op">(</tt><tt id="link-27" class="py-name"><a title="cnavg.avg.node" class="py-name" href="#" onclick="return doclink('link-27', 'node', 'link-24');">node</a></tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-28" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-28', 'graph', 'link-2');">graph</a></tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="cnavg.cactus.graph.Cactus.nodeNet" class="py-name" href="#" onclick="return doclink('link-29', 'nodeNet', 'link-26');">nodeNet</a></tt><tt class="py-op">(</tt><tt class="py-name">X</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name"><a title="cnavg.avg.graph.Graph.nodes
+cnavg.cactus.chain.Chain.nodes
+cnavg.cactus.net.Net.nodes
+cnavg.clock.cnvTree.CNVSliceTree.nodes
+cnavg.flows.cycle.Cycle.nodes
+cnavg.flows.edge.Edge.nodes" class="py-name" href="#" onclick="return doclink('link-30', 'nodes', 'link-9');">nodes</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L83"></a><tt class="py-lineno">83</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 12 12:56:43 2013
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

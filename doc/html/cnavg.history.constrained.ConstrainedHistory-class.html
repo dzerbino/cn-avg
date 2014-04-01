@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>cnavg.history.constrained.ConstrainedHistory</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="cnavg-module.html">Package&nbsp;cnavg</a> ::
+        <a href="cnavg.history-module.html">Package&nbsp;history</a> ::
+        <a href="cnavg.history.constrained-module.html">Module&nbsp;constrained</a> ::
+        Class&nbsp;ConstrainedHistory
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="cnavg.history.constrained.ConstrainedHistory-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class ConstrainedHistory</h1><p class="nomargin-top"><span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_cnavg_hi" name="uml_class_diagram_for_cnavg_hi">
+<area shape="rect" id="node1_39" href="cnavg.history.constrained.ConstrainedHistory-class.html#__copy__" title="cnavg.history.constrained.ConstrainedHistory.__copy__" alt="" coords="67,641,397,660"/>
+<area shape="rect" id="node1_40" href="cnavg.history.constrained.ConstrainedHistory-class.html#childInsertionPoints" title="cnavg.history.constrained.ConstrainedHistory.childInsertionPoints" alt="" coords="67,660,397,679"/>
+<area shape="rect" id="node1_41" href="cnavg.history.constrained.ConstrainedHistory-class.html#rootInsertionPoints" title="cnavg.history.constrained.ConstrainedHistory.rootInsertionPoints" alt="" coords="67,679,397,697"/>
+<area shape="rect" id="node1_42" href="cnavg.history.constrained.ConstrainedHistory-class.html#insertionPoints" title="cnavg.history.constrained.ConstrainedHistory.insertionPoints" alt="" coords="67,697,397,716"/>
+<area shape="rect" id="node1_43" href="cnavg.history.constrained.ConstrainedHistory-class.html#childDesperateInsertionPoints" title="cnavg.history.constrained.ConstrainedHistory.childDesperateInsertionPoints" alt="" coords="67,716,397,735"/>
+<area shape="rect" id="node1_44" href="cnavg.history.constrained.ConstrainedHistory-class.html#rootDesperateInsertionPoints" title="cnavg.history.constrained.ConstrainedHistory.rootDesperateInsertionPoints" alt="" coords="67,735,397,753"/>
+<area shape="rect" id="node1_45" href="cnavg.history.constrained.ConstrainedHistory-class.html#desperateInsertionPoints" title="cnavg.history.constrained.ConstrainedHistory.desperateInsertionPoints" alt="" coords="67,753,397,772"/>
+<area shape="rect" id="node1_46" href="cnavg.history.constrained.ConstrainedHistory-class.html#scheduleEvent" title="cnavg.history.constrained.ConstrainedHistory.scheduleEvent" alt="" coords="67,772,397,791"/>
+<area shape="rect" id="node1_47" href="cnavg.history.constrained.ConstrainedHistory-class.html#absorbEvent" title="Add event to local history" alt="" coords="67,791,397,809"/>
+<area shape="rect" id="node1_48" href="cnavg.history.constrained.ConstrainedHistory-class.html#childErrors" title="cnavg.history.constrained.ConstrainedHistory.childErrors" alt="" coords="67,809,397,828"/>
+<area shape="rect" id="node1_49" href="cnavg.history.constrained.ConstrainedHistory-class.html#rootErrors" title="cnavg.history.constrained.ConstrainedHistory.rootErrors" alt="" coords="67,828,397,847"/>
+<area shape="rect" id="node1_50" href="cnavg.history.constrained.ConstrainedHistory-class.html#schedulingErrors" title="cnavg.history.constrained.ConstrainedHistory.schedulingErrors" alt="" coords="67,847,397,865"/>
+<area shape="rect" id="node1_51" href="cnavg.history.constrained.ConstrainedHistory-class.html#correctSchedulingError" title="cnavg.history.constrained.ConstrainedHistory.correctSchedulingError" alt="" coords="67,865,397,884"/>
+<area shape="rect" id="node1_52" href="cnavg.history.constrained.ConstrainedHistory-class.html#rearrangementCost" title="cnavg.history.constrained.ConstrainedHistory.rearrangementCost" alt="" coords="67,903,397,921"/>
+<area shape="rect" id="node1" href="cnavg.history.constrained.ConstrainedHistory-class.html" title="cnavg.history.constrained.ConstrainedHistory" alt="" coords="55,609,409,927"/>
+<area shape="rect" id="node3" href="cnavg.history.flattened.FlattenedHistory-class.html" title="A history where events are not partitioned within nets, instead unified so as to span the whole sequence graph" alt="" coords="138,947,326,986"/>
+<area shape="rect" id="node2_53" href="cnavg.history.scheduled.ScheduledHistory-class.html#__init__" title="x.__init__(...) initializes x; see help(type(x)) for signature" alt="" coords="17,303,447,321"/>
+<area shape="rect" id="node2_54" href="cnavg.history.scheduled.ScheduledHistory-class.html#initialize" title="cnavg.history.scheduled.ScheduledHistory.initialize" alt="" coords="17,321,447,340"/>
+<area shape="rect" id="node2_55" href="cnavg.history.scheduled.ScheduledHistory-class.html#copy" title="cnavg.history.scheduled.ScheduledHistory.copy" alt="" coords="17,340,447,359"/>
+<area shape="rect" id="node2_56" href="cnavg.history.scheduled.ScheduledHistory-class.html#addAncestry" title="cnavg.history.scheduled.ScheduledHistory.addAncestry" alt="" coords="17,359,447,377"/>
+<area shape="rect" id="node2_57" href="cnavg.history.scheduled.ScheduledHistory-class.html#addDescent" title="cnavg.history.scheduled.ScheduledHistory.addDescent" alt="" coords="17,377,447,396"/>
+<area shape="rect" id="node2_58" href="cnavg.history.scheduled.ScheduledHistory-class.html#swapIn" title="cnavg.history.scheduled.ScheduledHistory.swapIn" alt="" coords="17,396,447,415"/>
+<area shape="rect" id="node2_59" href="cnavg.history.scheduled.ScheduledHistory-class.html#swapUnder" title="cnavg.history.scheduled.ScheduledHistory.swapUnder" alt="" coords="17,415,447,433"/>
+<area shape="rect" id="node2_60" href="cnavg.history.scheduled.ScheduledHistory-class.html#rootify" title="cnavg.history.scheduled.ScheduledHistory.rootify" alt="" coords="17,433,447,452"/>
+<area shape="rect" id="node2_61" href="cnavg.history.scheduled.ScheduledHistory-class.html#spacify" title="cnavg.history.scheduled.ScheduledHistory.spacify" alt="" coords="17,452,447,471"/>
+<area shape="rect" id="node2_62" href="cnavg.history.scheduled.ScheduledHistory-class.html#swapOut" title="cnavg.history.scheduled.ScheduledHistory.swapOut" alt="" coords="17,471,447,489"/>
+<area shape="rect" id="node2_63" href="cnavg.history.scheduled.ScheduledHistory-class.html#popEvent" title="cnavg.history.scheduled.ScheduledHistory.popEvent" alt="" coords="17,489,447,508"/>
+<area shape="rect" id="node2_64" href="cnavg.history.scheduled.ScheduledHistory-class.html#popHistory" title="cnavg.history.scheduled.ScheduledHistory.popHistory" alt="" coords="17,508,447,527"/>
+<area shape="rect" id="node2_65" href="cnavg.history.scheduled.ScheduledHistory-class.html#pop" title="Remove event from local history" alt="" coords="17,527,447,545"/>
+<area shape="rect" id="node2_66" href="cnavg.history.scheduled.ScheduledHistory-class.html#validate" title="cnavg.history.scheduled.ScheduledHistory.validate" alt="" coords="17,564,447,583"/>
+<area shape="rect" id="node2" href="cnavg.history.scheduled.ScheduledHistory-class.html" title="cnavg.history.scheduled.ScheduledHistory" alt="" coords="5,270,459,589"/>
+<area shape="rect" id="node4_67" href="cnavg.history.history.CactusHistory-class.html#update" title="Assign local history to a net" alt="" coords="120,39,343,57"/>
+<area shape="rect" id="node4_68" href="cnavg.history.history.CactusHistory-class.html#updateCNVs" title="Update CNVs assigned to a chain given a new history on a given net" alt="" coords="120,57,343,76"/>
+<area shape="rect" id="node4_69" href="cnavg.history.history.CactusHistory-class.html#embalmDeadHistories" title="Embalm histories which do not need to store their data" alt="" coords="120,76,343,95"/>
+<area shape="rect" id="node4_70" href="cnavg.history.history.CactusHistory-class.html#netHistoryCosts" title="cnavg.history.history.CactusHistory.netHistoryCosts" alt="" coords="120,95,343,113"/>
+<area shape="rect" id="node4_71" href="cnavg.history.history.CactusHistory-class.html#length" title="cnavg.history.history.CactusHistory.length" alt="" coords="120,113,343,132"/>
+<area shape="rect" id="node4_72" href="cnavg.history.history.CactusHistory-class.html#maxLength" title="cnavg.history.history.CactusHistory.maxLength" alt="" coords="120,132,343,151"/>
+<area shape="rect" id="node4_73" href="cnavg.history.history.CactusHistory-class.html#medianLength" title="cnavg.history.history.CactusHistory.medianLength" alt="" coords="120,151,343,169"/>
+<area shape="rect" id="node4_74" href="cnavg.history.history.CactusHistory-class.html#dot" title="GraphViz representation" alt="" coords="120,169,343,188"/>
+<area shape="rect" id="node4_75" href="cnavg.history.history.CactusHistory-class.html#removeLowRatioEvents" title="Filter out events which do not pass a ratio cutoff" alt="" coords="120,188,343,207"/>
+<area shape="rect" id="node4_76" href="cnavg.history.history.CactusHistory-class.html#simplifyStubsAndTrivials" title="cnavg.history.history.CactusHistory.simplifyStubsAndTrivials" alt="" coords="120,207,343,225"/>
+<area shape="rect" id="node4_77" href="cnavg.history.history.CactusHistory-class.html#selectForRegion" title="Select events which affect a given region" alt="" coords="120,225,343,244"/>
+<area shape="rect" id="node4" href="cnavg.history.history.CactusHistory-class.html" title="CN&#45;AVG history across an entire Cactus graph" alt="" coords="107,6,354,250"/>
+</map>
+  <img src="uml_class_diagram_for_cnavg_hi.gif" alt='' usemap="#uml_class_diagram_for_cnavg_hi" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Instance Methods</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.history.constrained.ConstrainedHistory-class.html#__copy__" class="summary-sig-name">__copy__</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.__copy__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="childInsertionPoints"></a><span class="summary-sig-name">childInsertionPoints</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>,
+        <span class="summary-sig-arg">new</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.childInsertionPoints">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="rootInsertionPoints"></a><span class="summary-sig-name">rootInsertionPoints</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">new</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.rootInsertionPoints">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="insertionPoints"></a><span class="summary-sig-name">insertionPoints</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.insertionPoints">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="childDesperateInsertionPoints"></a><span class="summary-sig-name">childDesperateInsertionPoints</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>,
+        <span class="summary-sig-arg">new</span>,
+        <span class="summary-sig-arg">parent</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.childDesperateInsertionPoints">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="rootDesperateInsertionPoints"></a><span class="summary-sig-name">rootDesperateInsertionPoints</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">new</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.rootDesperateInsertionPoints">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="desperateInsertionPoints"></a><span class="summary-sig-name">desperateInsertionPoints</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>,
+        <span class="summary-sig-arg">parent</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.desperateInsertionPoints">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="scheduleEvent"></a><span class="summary-sig-name">scheduleEvent</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>,
+        <span class="summary-sig-arg">parent</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.scheduleEvent">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.history.constrained.ConstrainedHistory-class.html#absorbEvent" class="summary-sig-name">absorbEvent</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">history</span>,
+        <span class="summary-sig-arg">event</span>)</span><br />
+      Add event to local history</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.absorbEvent">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="childErrors"></a><span class="summary-sig-name">childErrors</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.childErrors">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="rootErrors"></a><span class="summary-sig-name">rootErrors</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.rootErrors">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="schedulingErrors"></a><span class="summary-sig-name">schedulingErrors</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.schedulingErrors">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="correctSchedulingError"></a><span class="summary-sig-name">correctSchedulingError</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.correctSchedulingError">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="correctSchedulingErrors"></a><span class="summary-sig-name">correctSchedulingErrors</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.correctSchedulingErrors">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="expandComponent"></a><span class="summary-sig-name">expandComponent</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">data</span>,
+        <span class="summary-sig-arg">node</span>,
+        <span class="summary-sig-arg">netHistory</span>,
+        <span class="summary-sig-arg">previousBonds</span>,
+        <span class="summary-sig-arg">createdBonds</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.expandComponent">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="countComponents_Node"></a><span class="summary-sig-name">countComponents_Node</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">data</span>,
+        <span class="summary-sig-arg">node</span>,
+        <span class="summary-sig-arg">netHistory</span>,
+        <span class="summary-sig-arg">previousBonds</span>,
+        <span class="summary-sig-arg">createdBonds</span>,
+        <span class="summary-sig-arg">cycleLength</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.countComponents_Node">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="countComponents"></a><span class="summary-sig-name">countComponents</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">cycle</span>,
+        <span class="summary-sig-arg">netHistory</span>,
+        <span class="summary-sig-arg">previousBonds</span>,
+        <span class="summary-sig-arg">createdBonds</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.countComponents">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="rearrangementCost_Net"></a><span class="summary-sig-name">rearrangementCost_Net</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">net</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.rearrangementCost_Net">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="errorCost_Net"></a><span class="summary-sig-name">errorCost_Net</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">net</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.errorCost_Net">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="errorCost"></a><span class="summary-sig-name">errorCost</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.errorCost">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.history.constrained.ConstrainedHistory-class.html#rearrangementCost" class="summary-sig-name">rearrangementCost</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.rearrangementCost">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html">scheduled.ScheduledHistory</a></code></b>:
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#__init__">__init__</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#__str__">__str__</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#addAncestry">addAncestry</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#addDescent">addDescent</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#copy">copy</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#countForks">countForks</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#descentTreeString">descentTreeString</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#descentTreeString_Branch">descentTreeString_Branch</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#descentTreeString_Event">descentTreeString_Event</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#descentTreeString_Node">descentTreeString_Node</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#forceOrder">forceOrder</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#forks">forks</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#getAncestors">getAncestors</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#initialize">initialize</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#newick">newick</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#newick_node">newick_node</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#newick_remainderLeaf">newick_remainderLeaf</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#pop">pop</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#popEvent">popEvent</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#popHistory">popHistory</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#rootify">rootify</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#slideIn">slideIn</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#slideIn_Event">slideIn_Event</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#spacify">spacify</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#stats">stats</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#swapIn">swapIn</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#swapOut">swapOut</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#swapUnder">swapUnder</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#validate">validate</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#validateEvent">validateEvent</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#validateHistory">validateHistory</a></code>,
+      <code><a href="cnavg.history.scheduled.ScheduledHistory-class.html#validateTree">validateTree</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="cnavg.history.history.CactusHistory-class.html">history.CactusHistory</a></code></b>:
+      <code><a href="cnavg.history.history.CactusHistory-class.html#dot">dot</a></code>,
+      <code><a href="cnavg.history.history.CactusHistory-class.html#embalmDeadHistories">embalmDeadHistories</a></code>,
+      <code><a href="cnavg.history.history.CactusHistory-class.html#length">length</a></code>,
+      <code><a href="cnavg.history.history.CactusHistory-class.html#maxLength">maxLength</a></code>,
+      <code><a href="cnavg.history.history.CactusHistory-class.html#medianLength">medianLength</a></code>,
+      <code><a href="cnavg.history.history.CactusHistory-class.html#netHistoryCosts">netHistoryCosts</a></code>,
+      <code><a href="cnavg.history.history.CactusHistory-class.html#removeLowRatioEvents">removeLowRatioEvents</a></code>,
+      <code><a href="cnavg.history.history.CactusHistory-class.html#selectForRegion">selectForRegion</a></code>,
+      <code><a href="cnavg.history.history.CactusHistory-class.html#simplifyStubsAndTrivials">simplifyStubsAndTrivials</a></code>,
+      <code><a href="cnavg.history.history.CactusHistory-class.html#update">update</a></code>,
+      <code><a href="cnavg.history.history.CactusHistory-class.html#updateCNVs">updateCNVs</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Properties</span></td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Method Details</span></td>
+</tr>
+</table>
+<a name="__copy__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__copy__</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.__copy__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="cnavg.history.history.CactusHistory-class.html#__copy__">history.CactusHistory.__copy__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="absorbEvent"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">absorbEvent</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">history</span>,
+        <span class="sig-arg">event</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.absorbEvent">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Add event to local history</p>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="cnavg.history.history.CactusHistory-class.html#absorbEvent">history.CactusHistory.absorbEvent</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="rearrangementCost"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">rearrangementCost</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.history.constrained-pysrc.html#ConstrainedHistory.rearrangementCost">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="cnavg.history.history.CactusHistory-class.html#rearrangementCost">history.CactusHistory.rearrangementCost</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 12 12:56:40 2013
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>cnavg.preprocess.breakendGraph</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="cnavg-module.html">Package&nbsp;cnavg</a> ::
+        <a href="cnavg.preprocess-module.html">Package&nbsp;preprocess</a> ::
+        Module&nbsp;breakendGraph
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="cnavg.preprocess.breakendGraph-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="cnavg.preprocess.breakendGraph-module.html">Module cnavg.preprocess.breakendGraph</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2012, Daniel Zerbino</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># All rights reserved.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># Redistribution and use in source and binary forms, with or without</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># modification, are permitted provided that the following conditions are</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># met:</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># (1) Redistributions of source code must retain the above copyright</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># notice, this list of conditions and the following disclaimer. </tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># (2) Redistributions in binary form must reproduce the above copyright</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># notice, this list of conditions and the following disclaimer in</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># the documentation and/or other materials provided with the</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># distribution.  </tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment"># (3)The name of the author may not be used to</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># endorse or promote products derived from this software without</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment"># specific prior written permission.</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment"># THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment"># IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"># WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment"># DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"># (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"># SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-comment"># HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment"># STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-comment"># IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-comment"># POSSIBILITY OF SUCH DAMAGE.</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/env python</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-docstring">"""Handling a collection of breakends"""</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module cnavg.preprocess.vcf=cnavg.preprocess.vcf-module.html"><a title="cnavg.preprocess.vcf" class="py-name" href="#" onclick="return doclink('link-0', 'vcf', 'link-0');">vcf</a></tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Package cnavg=cnavg-module.html"><a title="cnavg" class="py-name" href="#" onclick="return doclink('link-1', 'cnavg', 'link-1');">cnavg</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Package cnavg.avg=cnavg.avg-module.html,Method cnavg.preprocess.breakendGraph.BreakendGraph.avg()=cnavg.preprocess.breakendGraph.BreakendGraph-class.html#avg,Method cnavg.simulator.simulator.WeightedHistory.avg()=cnavg.simulator.simulator.WeightedHistory-class.html#avg"><a title="cnavg.avg
+cnavg.preprocess.breakendGraph.BreakendGraph.avg
+cnavg.simulator.simulator.WeightedHistory.avg" class="py-name" href="#" onclick="return doclink('link-2', 'avg', 'link-2');">avg</a></tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Module cnavg.avg.graph=cnavg.avg.graph-module.html,Module cnavg.cactus.graph=cnavg.cactus.graph-module.html"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-3', 'graph', 'link-3');">graph</a></tt> <tt class="py-keyword">as</tt> <tt id="link-4" class="py-name"><a title="cnavg.avg
+cnavg.preprocess.breakendGraph.BreakendGraph.avg
+cnavg.simulator.simulator.WeightedHistory.avg" class="py-name" href="#" onclick="return doclink('link-4', 'avg', 'link-2');">avg</a></tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-comment">#########################################################</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-comment">## Graph Structure</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-comment">#########################################################</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"> </tt>
+<a name="BreakendGraph"></a><div id="BreakendGraph-def"><a name="L43"></a><tt class="py-lineno"> 43</tt> <a class="py-toggle" href="#" id="BreakendGraph-toggle" onclick="return toggle('BreakendGraph');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph.BreakendGraph-class.html">BreakendGraph</a><tt class="py-op">(</tt><tt class="py-base-class">list</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BreakendGraph-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="BreakendGraph-expanded"><a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">        <tt class="py-docstring">""" A collection of breakends organized into a graph """</tt> </tt>
+<a name="BreakendGraph.validate"></a><div id="BreakendGraph.validate-def"><a name="L45"></a><tt class="py-lineno"> 45</tt> <a class="py-toggle" href="#" id="BreakendGraph.validate-toggle" onclick="return toggle('BreakendGraph.validate');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph.BreakendGraph-class.html#validate">validate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BreakendGraph.validate-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="BreakendGraph.validate-expanded"><a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">                <tt class="py-keyword">assert</tt> <tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">X</tt><tt class="py-op">:</tt> <tt class="py-name">X</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Method cnavg.avg.balanced.BalancedAVG.validate()=cnavg.avg.balanced.BalancedAVG-class.html#validate,Method cnavg.avg.graph.Graph.validate()=cnavg.avg.graph.Graph-class.html#validate,Method cnavg.basics.coords.Region.validate()=cnavg.basics.coords.Region-class.html#validate,Method cnavg.basics.partialOrderSet.PartialOrderSet.validate()=cnavg.basics.partialOrderSet.PartialOrderSet-class.html#validate,Method cnavg.cactus.block.Block.validate()=cnavg.cactus.block.Block-class.html#validate,Method cnavg.cactus.chain.Chain.validate()=cnavg.cactus.chain.Chain-class.html#validate,Method cnavg.cactus.graph.Cactus.validate()=cnavg.cactus.graph.Cactus-class.html#validate,Method cnavg.cactus.group.Group.validate()=cnavg.cactus.group.Group-class.html#validate,Method cnavg.cactus.net.Net.validate()=cnavg.cactus.net.Net-class.html#validate,Method cnavg.flows.cycle.Cycle.validate()=cnavg.flows.cycle.Cycle-class.html#validate,Method cnavg.flows.flows.Event.validate()=cnavg.flows.flows.Event-class.html#validate,Method cnavg.history.euclidian.EuclidianHistory.validate()=cnavg.history.euclidian.EuclidianHistory-class.html#validate,Method cnavg.history.history.CactusHistory.validate()=cnavg.history.history.CactusHistory-class.html#validate,Method cnavg.history.history.History.validate()=cnavg.history.history.History-class.html#validate,Method cnavg.history.overlap.OverlapHistory.validate()=cnavg.history.overlap.OverlapHistory-class.html#validate,Method cnavg.history.scheduled.ScheduledHistory.validate()=cnavg.history.scheduled.ScheduledHistory-class.html#validate,Method cnavg.preprocess.breakend.Breakend.validate()=cnavg.preprocess.breakend.Breakend-class.html#validate,Method cnavg.preprocess.breakendGraph.BreakendGraph.validate()=cnavg.preprocess.breakendGraph.BreakendGraph-class.html#validate,Method cnavg.preprocess.cnv.CNV.validate()=cnavg.preprocess.cnv.CNV-class.html#validate"><a title="cnavg.avg.balanced.BalancedAVG.validate
+cnavg.avg.graph.Graph.validate
+cnavg.basics.coords.Region.validate
+cnavg.basics.partialOrderSet.PartialOrderSet.validate
+cnavg.cactus.block.Block.validate
+cnavg.cactus.chain.Chain.validate
+cnavg.cactus.graph.Cactus.validate
+cnavg.cactus.group.Group.validate
+cnavg.cactus.net.Net.validate
+cnavg.flows.cycle.Cycle.validate
+cnavg.flows.flows.Event.validate
+cnavg.history.euclidian.EuclidianHistory.validate
+cnavg.history.history.CactusHistory.validate
+cnavg.history.history.History.validate
+cnavg.history.overlap.OverlapHistory.validate
+cnavg.history.scheduled.ScheduledHistory.validate
+cnavg.preprocess.breakend.Breakend.validate
+cnavg.preprocess.breakendGraph.BreakendGraph.validate
+cnavg.preprocess.cnv.CNV.validate" class="py-name" href="#" onclick="return doclink('link-5', 'validate', 'link-5');">validate</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"> </tt>
+<a name="BreakendGraph.searchBreakend"></a><div id="BreakendGraph.searchBreakend-def"><a name="L48"></a><tt class="py-lineno"> 48</tt> <a class="py-toggle" href="#" id="BreakendGraph.searchBreakend-toggle" onclick="return toggle('BreakendGraph.searchBreakend');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph.BreakendGraph-class.html#searchBreakend">searchBreakend</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">region</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BreakendGraph.searchBreakend-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="BreakendGraph.searchBreakend-expanded"><a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">                <tt class="py-docstring">""" Search for breakend which covers a given region """</tt>  </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">filter</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">X</tt><tt class="py-op">:</tt> <tt class="py-name">X</tt> <tt class="py-op">==</tt> <tt class="py-name">region</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"> </tt>
+<a name="BreakendGraph._smallerNodes"></a><div id="BreakendGraph._smallerNodes-def"><a name="L52"></a><tt class="py-lineno"> 52</tt> <a class="py-toggle" href="#" id="BreakendGraph._smallerNodes-toggle" onclick="return toggle('BreakendGraph._smallerNodes');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph.BreakendGraph-class.html#_smallerNodes">_smallerNodes</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">region</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BreakendGraph._smallerNodes-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="BreakendGraph._smallerNodes-expanded"><a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">filter</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">X</tt><tt class="py-op">:</tt> <tt class="py-name">X</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">region</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"> </tt>
+<a name="BreakendGraph._insertionPoint"></a><div id="BreakendGraph._insertionPoint-def"><a name="L55"></a><tt class="py-lineno"> 55</tt> <a class="py-toggle" href="#" id="BreakendGraph._insertionPoint-toggle" onclick="return toggle('BreakendGraph._insertionPoint');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph.BreakendGraph-class.html#_insertionPoint">_insertionPoint</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">region</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BreakendGraph._insertionPoint-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="BreakendGraph._insertionPoint-expanded"><a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">smallerNodes</tt><tt class="py-op">(</tt><tt class="py-name">region</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"> </tt>
+<a name="BreakendGraph.addBreakend"></a><div id="BreakendGraph.addBreakend-def"><a name="L58"></a><tt class="py-lineno"> 58</tt> <a class="py-toggle" href="#" id="BreakendGraph.addBreakend-toggle" onclick="return toggle('BreakendGraph.addBreakend');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph.BreakendGraph-class.html#addBreakend">addBreakend</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">breakend</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BreakendGraph.addBreakend-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="BreakendGraph.addBreakend-expanded"><a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">                <tt class="py-docstring">""" Insert breakend """</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">                <tt id="link-6" class="py-name" targets="Module cnavg.preprocess.breakend=cnavg.preprocess.breakend-module.html"><a title="cnavg.preprocess.breakend" class="py-name" href="#" onclick="return doclink('link-6', 'breakend', 'link-6');">breakend</a></tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="cnavg.avg.balanced.BalancedAVG.validate
+cnavg.avg.graph.Graph.validate
+cnavg.basics.coords.Region.validate
+cnavg.basics.partialOrderSet.PartialOrderSet.validate
+cnavg.cactus.block.Block.validate
+cnavg.cactus.chain.Chain.validate
+cnavg.cactus.graph.Cactus.validate
+cnavg.cactus.group.Group.validate
+cnavg.cactus.net.Net.validate
+cnavg.flows.cycle.Cycle.validate
+cnavg.flows.flows.Event.validate
+cnavg.history.euclidian.EuclidianHistory.validate
+cnavg.history.history.CactusHistory.validate
+cnavg.history.history.History.validate
+cnavg.history.overlap.OverlapHistory.validate
+cnavg.history.scheduled.ScheduledHistory.validate
+cnavg.preprocess.breakend.Breakend.validate
+cnavg.preprocess.breakendGraph.BreakendGraph.validate
+cnavg.preprocess.cnv.CNV.validate" class="py-name" href="#" onclick="return doclink('link-7', 'validate', 'link-5');">validate</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">insert</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">insertionPoint</tt><tt class="py-op">(</tt><tt id="link-8" class="py-name"><a title="cnavg.preprocess.breakend" class="py-name" href="#" onclick="return doclink('link-8', 'breakend', 'link-6');">breakend</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt id="link-9" class="py-name"><a title="cnavg.preprocess.breakend" class="py-name" href="#" onclick="return doclink('link-9', 'breakend', 'link-6');">breakend</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-comment">#########################################################</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-comment">## Consolidating missing labels</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-comment">#########################################################</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"> </tt>
+<a name="BreakendGraph._consolidateEmptyBreakend"></a><div id="BreakendGraph._consolidateEmptyBreakend-def"><a name="L67"></a><tt class="py-lineno"> 67</tt> <a class="py-toggle" href="#" id="BreakendGraph._consolidateEmptyBreakend-toggle" onclick="return toggle('BreakendGraph._consolidateEmptyBreakend');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph.BreakendGraph-class.html#_consolidateEmptyBreakend">_consolidateEmptyBreakend</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">breakend</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BreakendGraph._consolidateEmptyBreakend-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="BreakendGraph._consolidateEmptyBreakend-expanded"><a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt id="link-10" class="py-name"><a title="cnavg.preprocess.breakend" class="py-name" href="#" onclick="return doclink('link-10', 'breakend', 'link-6');">breakend</a></tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method cnavg.avg.graph.Graph.partner()=cnavg.avg.graph.Graph-class.html#partner"><a title="cnavg.avg.graph.Graph.partner" class="py-name" href="#" onclick="return doclink('link-11', 'partner', 'link-11');">partner</a></tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">                        <tt id="link-12" class="py-name"><a title="cnavg.preprocess.breakend" class="py-name" href="#" onclick="return doclink('link-12', 'breakend', 'link-6');">breakend</a></tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method cnavg.preprocess.breakend.Breakend.createPartner()=cnavg.preprocess.breakend.Breakend-class.html#createPartner"><a title="cnavg.preprocess.breakend.Breakend.createPartner" class="py-name" href="#" onclick="return doclink('link-13', 'createPartner', 'link-13');">createPartner</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt id="link-14" class="py-name"><a title="cnavg.preprocess.breakend" class="py-name" href="#" onclick="return doclink('link-14', 'breakend', 'link-6');">breakend</a></tt><tt class="py-op">.</tt><tt class="py-name">mates</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">                        <tt id="link-15" class="py-name"><a title="cnavg.preprocess.breakend" class="py-name" href="#" onclick="return doclink('link-15', 'breakend', 'link-6');">breakend</a></tt><tt class="py-op">.</tt><tt class="py-name">createMates</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"> </tt>
+<a name="BreakendGraph.consolidate"></a><div id="BreakendGraph.consolidate-def"><a name="L74"></a><tt class="py-lineno"> 74</tt> <a class="py-toggle" href="#" id="BreakendGraph.consolidate-toggle" onclick="return toggle('BreakendGraph.consolidate');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph.BreakendGraph-class.html#consolidate">consolidate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BreakendGraph.consolidate-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="BreakendGraph.consolidate-expanded"><a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">                <tt class="py-docstring">""" Ensuring all breakends in the graph have a mate and a partner """</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"\tConsolidating breakends"</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">                <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">X</tt><tt class="py-op">:</tt> <tt class="py-name">X</tt><tt class="py-op">.</tt><tt class="py-name">_consolidateEmptyBreakend</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-comment">#########################################################</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-comment">## Merging CNV info </tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-comment">#########################################################</tt> </tt>
+<a name="BreakendGraph.assignCap"></a><div id="BreakendGraph.assignCap-def"><a name="L82"></a><tt class="py-lineno"> 82</tt> <a class="py-toggle" href="#" id="BreakendGraph.assignCap-toggle" onclick="return toggle('BreakendGraph.assignCap');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph.BreakendGraph-class.html#assignCap">assignCap</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">cnv</tt><tt class="py-op">,</tt> <tt class="py-param">nodeindex</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BreakendGraph.assignCap-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="BreakendGraph.assignCap-expanded"><a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">nodeindex</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">                        <tt class="py-name">nodeindex</tt> <tt class="py-op">-=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">                <tt class="py-keyword">while</tt> <tt class="py-name">nodeindex</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt id="link-16" class="py-name" targets="Module cnavg.preprocess.cnv=cnavg.preprocess.cnv-module.html"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-16', 'cnv', 'link-16');">cnv</a></tt> <tt class="py-op">&gt;</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">nodeindex</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">                        <tt class="py-name">nodeindex</tt> <tt class="py-op">+=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">                <tt class="py-keyword">while</tt> <tt class="py-name">nodeindex</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt id="link-17" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-17', 'cnv', 'link-16');">cnv</a></tt> <tt class="py-op">==</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">nodeindex</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">                        <tt class="py-keyword">assert</tt> <tt id="link-18" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-18', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">val</tt> <tt class="py-op">&gt;=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">nodeindex</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method cnavg.avg.graph.Graph.segment()=cnavg.avg.graph.Graph-class.html#segment"><a title="cnavg.avg.graph.Graph.segment" class="py-name" href="#" onclick="return doclink('link-19', 'segment', 'link-19');">segment</a></tt> <tt class="py-op">=</tt> <tt id="link-20" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-20', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">val</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">nodeindex</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">start</tt> <tt class="py-op">&lt;=</tt> <tt id="link-21" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-21', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">softStart</tt> <tt class="py-keyword">and</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">nodeindex</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">finish</tt> <tt class="py-op">&gt;=</tt> <tt id="link-22" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-22', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">start</tt><tt class="py-op">:</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">                                <tt class="py-keyword">if</tt> <tt id="link-23" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-23', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">startCap</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt> <tt class="py-keyword">and</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">nodeindex</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">orientation</tt><tt class="py-op">:</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">                                        <tt id="link-24" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-24', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">startCap</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">nodeindex</tt><tt class="py-op">]</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">                                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">                                        <tt class="py-keyword">pass</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">                        <tt class="py-keyword">elif</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">nodeindex</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">start</tt> <tt class="py-op">&lt;=</tt> <tt id="link-25" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-25', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">finish</tt> <tt class="py-keyword">and</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">nodeindex</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">finish</tt> <tt class="py-op">&gt;=</tt> <tt id="link-26" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-26', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">softFinish</tt><tt class="py-op">:</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">                                <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">nodeindex</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">orientation</tt><tt class="py-op">:</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">                                        <tt id="link-27" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-27', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">finishCap</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">nodeindex</tt><tt class="py-op">]</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">                                        <tt class="py-keyword">break</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">                        <tt class="py-name">nodeindex</tt> <tt class="py-op">+=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">                <tt class="py-comment"># Have to assign aritificial breakends</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt id="link-28" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-28', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">startCap</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">                        <tt id="link-29" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-29', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt id="link-30" class="py-name" targets="Method cnavg.preprocess.cnv.CNV.addStartCap()=cnavg.preprocess.cnv.CNV-class.html#addStartCap"><a title="cnavg.preprocess.cnv.CNV.addStartCap" class="py-name" href="#" onclick="return doclink('link-30', 'addStartCap', 'link-30');">addStartCap</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt id="link-31" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-31', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">finishCap</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">                        <tt id="link-32" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-32', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt id="link-33" class="py-name" targets="Method cnavg.preprocess.cnv.CNV.addFinishCap()=cnavg.preprocess.cnv.CNV-class.html#addFinishCap"><a title="cnavg.preprocess.cnv.CNV.addFinishCap" class="py-name" href="#" onclick="return doclink('link-33', 'addFinishCap', 'link-33');">addFinishCap</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">nodeindex</tt> </tt>
+</div><a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"> </tt>
+<a name="BreakendGraph.imposeSegmentFlow"></a><div id="BreakendGraph.imposeSegmentFlow-def"><a name="L111"></a><tt class="py-lineno">111</tt> <a class="py-toggle" href="#" id="BreakendGraph.imposeSegmentFlow-toggle" onclick="return toggle('BreakendGraph.imposeSegmentFlow');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph.BreakendGraph-class.html#imposeSegmentFlow">imposeSegmentFlow</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">cnv</tt><tt class="py-op">,</tt> <tt class="py-param">nodeindex</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BreakendGraph.imposeSegmentFlow-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="BreakendGraph.imposeSegmentFlow-expanded"><a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">                <tt class="py-keyword">while</tt> <tt class="py-name">nodeindex</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">nodeindex</tt><tt class="py-op">]</tt> <tt class="py-op">!=</tt> <tt id="link-34" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-34', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">startCap</tt><tt class="py-op">:</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">                        <tt class="py-name">nodeindex</tt> <tt class="py-op">+=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">                <tt class="py-keyword">while</tt> <tt class="py-name">nodeindex</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">nodeindex</tt><tt class="py-op">]</tt> <tt class="py-op">!=</tt> <tt id="link-35" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-35', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">finishCap</tt><tt class="py-op">:</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">                        <tt class="py-keyword">assert</tt> <tt id="link-36" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-36', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">val</tt> <tt class="py-op">&gt;=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">nodeindex</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-37" class="py-name"><a title="cnavg.avg.graph.Graph.segment" class="py-name" href="#" onclick="return doclink('link-37', 'segment', 'link-19');">segment</a></tt> <tt class="py-op">=</tt> <tt id="link-38" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-38', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">val</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">                        <tt class="py-name">nodeindex</tt> <tt class="py-op">+=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">                <tt class="py-comment"># Last pass for finish cap:</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">                <tt class="py-keyword">assert</tt> <tt id="link-39" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-39', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">val</tt> <tt class="py-op">&gt;=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">                <tt id="link-40" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-40', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">finishCap</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name"><a title="cnavg.avg.graph.Graph.segment" class="py-name" href="#" onclick="return doclink('link-41', 'segment', 'link-19');">segment</a></tt> <tt class="py-op">=</tt> <tt id="link-42" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-42', 'cnv', 'link-16');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">val</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">                <tt class="py-name">nodeindex</tt> <tt class="py-op">+=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">nodeindex</tt> </tt>
+</div><a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"> </tt>
+<a name="BreakendGraph.assignCaps"></a><div id="BreakendGraph.assignCaps-def"><a name="L126"></a><tt class="py-lineno">126</tt> <a class="py-toggle" href="#" id="BreakendGraph.assignCaps-toggle" onclick="return toggle('BreakendGraph.assignCaps');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph.BreakendGraph-class.html#assignCaps">assignCaps</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">cnvs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BreakendGraph.assignCaps-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="BreakendGraph.assignCaps-expanded"><a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">                <tt class="py-name">reduce</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">L</tt><tt class="py-op">,</tt> <tt class="py-name">E</tt><tt class="py-op">:</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-43" class="py-name" targets="Method cnavg.preprocess.breakendGraph.BreakendGraph.assignCap()=cnavg.preprocess.breakendGraph.BreakendGraph-class.html#assignCap"><a title="cnavg.preprocess.breakendGraph.BreakendGraph.assignCap" class="py-name" href="#" onclick="return doclink('link-43', 'assignCap', 'link-43');">assignCap</a></tt><tt class="py-op">(</tt><tt class="py-name">E</tt><tt class="py-op">,</tt> <tt class="py-name">L</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">cnvs</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"> </tt>
+<a name="BreakendGraph.imposeSegmentFlows"></a><div id="BreakendGraph.imposeSegmentFlows-def"><a name="L129"></a><tt class="py-lineno">129</tt> <a class="py-toggle" href="#" id="BreakendGraph.imposeSegmentFlows-toggle" onclick="return toggle('BreakendGraph.imposeSegmentFlows');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph.BreakendGraph-class.html#imposeSegmentFlows">imposeSegmentFlows</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">cnvs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BreakendGraph.imposeSegmentFlows-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="BreakendGraph.imposeSegmentFlows-expanded"><a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">                <tt class="py-name">reduce</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">L</tt><tt class="py-op">,</tt> <tt class="py-name">E</tt><tt class="py-op">:</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name" targets="Method cnavg.preprocess.breakendGraph.BreakendGraph.imposeSegmentFlow()=cnavg.preprocess.breakendGraph.BreakendGraph-class.html#imposeSegmentFlow"><a title="cnavg.preprocess.breakendGraph.BreakendGraph.imposeSegmentFlow" class="py-name" href="#" onclick="return doclink('link-44', 'imposeSegmentFlow', 'link-44');">imposeSegmentFlow</a></tt><tt class="py-op">(</tt><tt class="py-name">E</tt><tt class="py-op">,</tt> <tt class="py-name">L</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">cnvs</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"> </tt>
+<a name="BreakendGraph.incorporateCNVs"></a><div id="BreakendGraph.incorporateCNVs-def"><a name="L132"></a><tt class="py-lineno">132</tt> <a class="py-toggle" href="#" id="BreakendGraph.incorporateCNVs-toggle" onclick="return toggle('BreakendGraph.incorporateCNVs');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph.BreakendGraph-class.html#incorporateCNVs">incorporateCNVs</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">cnvs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BreakendGraph.incorporateCNVs-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="BreakendGraph.incorporateCNVs-expanded"><a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"Mergeing CNVs to breakends"</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-45" class="py-name" targets="Method cnavg.preprocess.breakendGraph.BreakendGraph.assignCaps()=cnavg.preprocess.breakendGraph.BreakendGraph-class.html#assignCaps"><a title="cnavg.preprocess.breakendGraph.BreakendGraph.assignCaps" class="py-name" href="#" onclick="return doclink('link-45', 'assignCaps', 'link-45');">assignCaps</a></tt><tt class="py-op">(</tt><tt class="py-name">cnvs</tt><tt class="py-op">)</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-46" class="py-name" targets="Method cnavg.preprocess.breakendGraph.BreakendGraph.imposeSegmentFlows()=cnavg.preprocess.breakendGraph.BreakendGraph-class.html#imposeSegmentFlows"><a title="cnavg.preprocess.breakendGraph.BreakendGraph.imposeSegmentFlows" class="py-name" href="#" onclick="return doclink('link-46', 'imposeSegmentFlows', 'link-46');">imposeSegmentFlows</a></tt><tt class="py-op">(</tt><tt class="py-name">cnvs</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">        <tt class="py-comment">#########################################################</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-comment">## Convert to graph</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">        <tt class="py-comment">#########################################################</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"> </tt>
+<a name="BreakendGraph._closeChromosome"></a><div id="BreakendGraph._closeChromosome-def"><a name="L141"></a><tt class="py-lineno">141</tt> <a class="py-toggle" href="#" id="BreakendGraph._closeChromosome-toggle" onclick="return toggle('BreakendGraph._closeChromosome');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph.BreakendGraph-class.html#_closeChromosome">_closeChromosome</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">chr</tt><tt class="py-op">,</tt> <tt class="py-param">graph</tt><tt class="py-op">,</tt> <tt class="py-param">chromosomeLength</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BreakendGraph._closeChromosome-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="BreakendGraph._closeChromosome-expanded"><a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">                <tt class="py-name">chrBreakends</tt> <tt class="py-op">=</tt> <tt class="py-name">sorted</tt><tt class="py-op">(</tt><tt class="py-name">filter</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt><tt class="py-op">:</tt> <tt class="py-name">x</tt><tt class="py-op">.</tt><tt class="py-name">chr</tt> <tt class="py-op">==</tt> <tt class="py-name">chr</tt> <tt class="py-keyword">and</tt> <tt class="py-name">x</tt><tt class="py-op">.</tt><tt class="py-name">orientation</tt> <tt class="py-op">==</tt> <tt class="py-name">False</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">key</tt> <tt class="py-op">=</tt> <tt class="py-keyword">lambda</tt> <tt class="py-name">X</tt><tt class="py-op">:</tt> <tt class="py-name">X</tt><tt class="py-op">.</tt><tt id="link-47" class="py-name" targets="Module cnavg.avg.node=cnavg.avg.node-module.html"><a title="cnavg.avg.node" class="py-name" href="#" onclick="return doclink('link-47', 'node', 'link-47');">node</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">chrBreakends</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">                        <tt class="py-keyword">return</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">                <tt class="py-name">telomere1</tt> <tt class="py-op">=</tt> <tt id="link-48" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-48', 'graph', 'link-3');">graph</a></tt><tt class="py-op">.</tt><tt id="link-49" class="py-name" targets="Method cnavg.avg.graph.Graph.createNode()=cnavg.avg.graph.Graph-class.html#createNode"><a title="cnavg.avg.graph.Graph.createNode" class="py-name" href="#" onclick="return doclink('link-49', 'createNode', 'link-49');">createNode</a></tt><tt class="py-op">(</tt><tt class="py-name">chr</tt><tt class="py-op">,</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">True</tt><tt class="py-op">,</tt> <tt class="py-name">name</tt><tt class="py-op">=</tt> <tt class="py-name">chr</tt> <tt class="py-op">+</tt> <tt class="py-string">".5prime"</tt><tt class="py-op">)</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">                <tt class="py-name">telomere2</tt> <tt class="py-op">=</tt> <tt id="link-50" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-50', 'graph', 'link-3');">graph</a></tt><tt class="py-op">.</tt><tt id="link-51" class="py-name"><a title="cnavg.avg.graph.Graph.createNode" class="py-name" href="#" onclick="return doclink('link-51', 'createNode', 'link-49');">createNode</a></tt><tt class="py-op">(</tt><tt class="py-name">chr</tt><tt class="py-op">,</tt> <tt class="py-name">chromosomeLength</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">False</tt><tt class="py-op">,</tt> <tt class="py-name">name</tt> <tt class="py-op">=</tt> <tt class="py-name">chr</tt> <tt class="py-op">+</tt> <tt class="py-string">".3prime"</tt><tt class="py-op">)</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line"> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">                <tt id="link-52" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-52', 'graph', 'link-3');">graph</a></tt><tt class="py-op">.</tt><tt class="py-name">telomeres</tt><tt class="py-op">.</tt><tt id="link-53" class="py-name" targets="Method cnavg.clock.cnvTree.CNVSlice.add()=cnavg.clock.cnvTree.CNVSlice-class.html#add"><a title="cnavg.clock.cnvTree.CNVSlice.add" class="py-name" href="#" onclick="return doclink('link-53', 'add', 'link-53');">add</a></tt><tt class="py-op">(</tt><tt class="py-name">telomere1</tt><tt class="py-op">)</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">                <tt id="link-54" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-54', 'graph', 'link-3');">graph</a></tt><tt class="py-op">.</tt><tt class="py-name">telomeres</tt><tt class="py-op">.</tt><tt id="link-55" class="py-name"><a title="cnavg.clock.cnvTree.CNVSlice.add" class="py-name" href="#" onclick="return doclink('link-55', 'add', 'link-53');">add</a></tt><tt class="py-op">(</tt><tt class="py-name">telomere2</tt><tt class="py-op">)</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">                <tt id="link-56" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-56', 'graph', 'link-3');">graph</a></tt><tt class="py-op">.</tt><tt id="link-57" class="py-name" targets="Method cnavg.avg.graph.Graph.createAdjacency()=cnavg.avg.graph.Graph-class.html#createAdjacency"><a title="cnavg.avg.graph.Graph.createAdjacency" class="py-name" href="#" onclick="return doclink('link-57', 'createAdjacency', 'link-57');">createAdjacency</a></tt><tt class="py-op">(</tt><tt class="py-name">telomere1</tt><tt class="py-op">,</tt> <tt class="py-name">telomere2</tt><tt class="py-op">)</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">                <tt id="link-58" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-58', 'graph', 'link-3');">graph</a></tt><tt class="py-op">.</tt><tt id="link-59" class="py-name" targets="Method cnavg.avg.graph.Graph.addLiftedEdge()=cnavg.avg.graph.Graph-class.html#addLiftedEdge"><a title="cnavg.avg.graph.Graph.addLiftedEdge" class="py-name" href="#" onclick="return doclink('link-59', 'addLiftedEdge', 'link-59');">addLiftedEdge</a></tt><tt class="py-op">(</tt><tt class="py-name">telomere1</tt><tt class="py-op">,</tt> <tt class="py-name">telomere2</tt><tt class="py-op">,</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line"> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">                <tt class="py-keyword">assert</tt> <tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-name">sum</tt><tt class="py-op">(</tt><tt class="py-name">x</tt><tt class="py-op">.</tt><tt id="link-60" class="py-name"><a title="cnavg.avg.graph.Graph.segment" class="py-name" href="#" onclick="return doclink('link-60', 'segment', 'link-19');">segment</a></tt><tt class="py-op">)</tt> <tt class="py-op">&gt;=</tt> <tt class="py-number">0</tt> <tt class="py-keyword">for</tt> <tt class="py-name">x</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">                <tt class="py-keyword">assert</tt> <tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-name">sum</tt><tt class="py-op">(</tt><tt class="py-name">x</tt><tt class="py-op">.</tt><tt id="link-61" class="py-name"><a title="cnavg.avg.graph.Graph.segment" class="py-name" href="#" onclick="return doclink('link-61', 'segment', 'link-19');">segment</a></tt><tt class="py-op">)</tt> <tt class="py-op">&gt;=</tt> <tt class="py-number">0</tt> <tt class="py-keyword">for</tt> <tt class="py-name">x</tt> <tt class="py-keyword">in</tt> <tt class="py-name">chrBreakends</tt><tt class="py-op">)</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">                <tt class="py-name">A</tt> <tt class="py-op">=</tt> <tt class="py-name">chrBreakends</tt><tt class="py-op">.</tt><tt id="link-62" class="py-name" targets="Method cnavg.basics.partialOrderSet.PartialOrderSet.pop()=cnavg.basics.partialOrderSet.PartialOrderSet-class.html#pop,Method cnavg.history.euclidian.EuclidianHistory.pop()=cnavg.history.euclidian.EuclidianHistory-class.html#pop,Method cnavg.history.history.CactusHistory.pop()=cnavg.history.history.CactusHistory-class.html#pop,Method cnavg.history.history.History.pop()=cnavg.history.history.History-class.html#pop,Method cnavg.history.overlap.OverlapHistory.pop()=cnavg.history.overlap.OverlapHistory-class.html#pop,Method cnavg.history.scheduled.ScheduledHistory.pop()=cnavg.history.scheduled.ScheduledHistory-class.html#pop"><a title="cnavg.basics.partialOrderSet.PartialOrderSet.pop
+cnavg.history.euclidian.EuclidianHistory.pop
+cnavg.history.history.CactusHistory.pop
+cnavg.history.history.History.pop
+cnavg.history.overlap.OverlapHistory.pop
+cnavg.history.scheduled.ScheduledHistory.pop" class="py-name" href="#" onclick="return doclink('link-62', 'pop', 'link-62');">pop</a></tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">                <tt id="link-63" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-63', 'graph', 'link-3');">graph</a></tt><tt class="py-op">.</tt><tt id="link-64" class="py-name" targets="Method cnavg.avg.graph.Graph.createSegment()=cnavg.avg.graph.Graph-class.html#createSegment"><a title="cnavg.avg.graph.Graph.createSegment" class="py-name" href="#" onclick="return doclink('link-64', 'createSegment', 'link-64');">createSegment</a></tt><tt class="py-op">(</tt><tt class="py-name">telomere1</tt><tt class="py-op">,</tt> <tt class="py-name">A</tt><tt class="py-op">.</tt><tt id="link-65" class="py-name"><a title="cnavg.avg.node" class="py-name" href="#" onclick="return doclink('link-65', 'node', 'link-47');">node</a></tt><tt class="py-op">,</tt> <tt class="py-name">A</tt><tt class="py-op">.</tt><tt id="link-66" class="py-name"><a title="cnavg.avg.graph.Graph.segment" class="py-name" href="#" onclick="return doclink('link-66', 'segment', 'link-19');">segment</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">                <tt class="py-name">B</tt> <tt class="py-op">=</tt> <tt class="py-name">A</tt><tt class="py-op">.</tt><tt id="link-67" class="py-name"><a title="cnavg.avg.graph.Graph.partner" class="py-name" href="#" onclick="return doclink('link-67', 'partner', 'link-11');">partner</a></tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line"> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">                <tt class="py-keyword">while</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">chrBreakends</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">                        <tt class="py-name">A</tt> <tt class="py-op">=</tt> <tt class="py-name">chrBreakends</tt><tt class="py-op">.</tt><tt id="link-68" class="py-name"><a title="cnavg.basics.partialOrderSet.PartialOrderSet.pop
+cnavg.history.euclidian.EuclidianHistory.pop
+cnavg.history.history.CactusHistory.pop
+cnavg.history.history.History.pop
+cnavg.history.overlap.OverlapHistory.pop
+cnavg.history.scheduled.ScheduledHistory.pop" class="py-name" href="#" onclick="return doclink('link-68', 'pop', 'link-62');">pop</a></tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">                        <tt class="py-keyword">assert</tt> <tt class="py-name">sum</tt><tt class="py-op">(</tt><tt class="py-name">A</tt><tt class="py-op">.</tt><tt id="link-69" class="py-name"><a title="cnavg.avg.graph.Graph.segment" class="py-name" href="#" onclick="return doclink('link-69', 'segment', 'link-19');">segment</a></tt><tt class="py-op">)</tt> <tt class="py-op">&gt;=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">                        <tt id="link-70" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-70', 'graph', 'link-3');">graph</a></tt><tt class="py-op">.</tt><tt id="link-71" class="py-name"><a title="cnavg.avg.graph.Graph.createSegment" class="py-name" href="#" onclick="return doclink('link-71', 'createSegment', 'link-64');">createSegment</a></tt><tt class="py-op">(</tt><tt class="py-name">A</tt><tt class="py-op">.</tt><tt id="link-72" class="py-name"><a title="cnavg.avg.node" class="py-name" href="#" onclick="return doclink('link-72', 'node', 'link-47');">node</a></tt><tt class="py-op">,</tt> <tt class="py-name">B</tt><tt class="py-op">.</tt><tt id="link-73" class="py-name"><a title="cnavg.avg.node" class="py-name" href="#" onclick="return doclink('link-73', 'node', 'link-47');">node</a></tt><tt class="py-op">,</tt> <tt class="py-name">A</tt><tt class="py-op">.</tt><tt id="link-74" class="py-name"><a title="cnavg.avg.graph.Graph.segment" class="py-name" href="#" onclick="return doclink('link-74', 'segment', 'link-19');">segment</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">                        <tt class="py-name">B</tt> <tt class="py-op">=</tt> <tt class="py-name">A</tt><tt class="py-op">.</tt><tt id="link-75" class="py-name"><a title="cnavg.avg.graph.Graph.partner" class="py-name" href="#" onclick="return doclink('link-75', 'partner', 'link-11');">partner</a></tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">                <tt id="link-76" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-76', 'graph', 'link-3');">graph</a></tt><tt class="py-op">.</tt><tt id="link-77" class="py-name"><a title="cnavg.avg.graph.Graph.createSegment" class="py-name" href="#" onclick="return doclink('link-77', 'createSegment', 'link-64');">createSegment</a></tt><tt class="py-op">(</tt><tt class="py-name">telomere2</tt><tt class="py-op">,</tt> <tt class="py-name">B</tt><tt class="py-op">.</tt><tt id="link-78" class="py-name"><a title="cnavg.avg.node" class="py-name" href="#" onclick="return doclink('link-78', 'node', 'link-47');">node</a></tt><tt class="py-op">,</tt> <tt class="py-name">B</tt><tt class="py-op">.</tt><tt id="link-79" class="py-name"><a title="cnavg.avg.graph.Graph.segment" class="py-name" href="#" onclick="return doclink('link-79', 'segment', 'link-19');">segment</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line"> </tt>
+<a name="BreakendGraph.avg"></a><div id="BreakendGraph.avg-def"><a name="L169"></a><tt class="py-lineno">169</tt> <a class="py-toggle" href="#" id="BreakendGraph.avg-toggle" onclick="return toggle('BreakendGraph.avg');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph.BreakendGraph-class.html#avg">avg</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BreakendGraph.avg-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="BreakendGraph.avg-expanded"><a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"Converting to AVG"</tt>  </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">                <tt id="link-80" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-80', 'graph', 'link-3');">graph</a></tt> <tt class="py-op">=</tt> <tt id="link-81" class="py-name"><a title="cnavg.avg
+cnavg.preprocess.breakendGraph.BreakendGraph.avg
+cnavg.simulator.simulator.WeightedHistory.avg" class="py-name" href="#" onclick="return doclink('link-81', 'avg', 'link-2');">avg</a></tt><tt class="py-op">.</tt><tt id="link-82" class="py-name" targets="Class cnavg.avg.graph.Graph=cnavg.avg.graph.Graph-class.html"><a title="cnavg.avg.graph.Graph" class="py-name" href="#" onclick="return doclink('link-82', 'Graph', 'link-82');">Graph</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line"> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">                <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">X</tt><tt class="py-op">:</tt> <tt class="py-name">X</tt><tt class="py-op">.</tt><tt id="link-83" class="py-name" targets="Method cnavg.preprocess.breakend.Breakend.attachNode()=cnavg.preprocess.breakend.Breakend-class.html#attachNode"><a title="cnavg.preprocess.breakend.Breakend.attachNode" class="py-name" href="#" onclick="return doclink('link-83', 'attachNode', 'link-83');">attachNode</a></tt><tt class="py-op">(</tt><tt id="link-84" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-84', 'graph', 'link-3');">graph</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">                <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">X</tt><tt class="py-op">:</tt> <tt class="py-name">X</tt><tt class="py-op">.</tt><tt id="link-85" class="py-name" targets="Method cnavg.preprocess.breakend.Breakend.connectNode()=cnavg.preprocess.breakend.Breakend-class.html#connectNode"><a title="cnavg.preprocess.breakend.Breakend.connectNode" class="py-name" href="#" onclick="return doclink('link-85', 'connectNode', 'link-85');">connectNode</a></tt><tt class="py-op">(</tt><tt id="link-86" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-86', 'graph', 'link-3');">graph</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">                <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">X</tt><tt class="py-op">:</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_closeChromosome</tt><tt class="py-op">(</tt><tt class="py-name">X</tt><tt class="py-op">,</tt> <tt id="link-87" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-87', 'graph', 'link-3');">graph</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-88" class="py-name" targets="Method cnavg.cactus.chain.Chain.lengths()=cnavg.cactus.chain.Chain-class.html#lengths"><a title="cnavg.cactus.chain.Chain.lengths" class="py-name" href="#" onclick="return doclink('link-88', 'lengths', 'link-88');">lengths</a></tt><tt class="py-op">[</tt><tt class="py-name">X</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-89" class="py-name"><a title="cnavg.cactus.chain.Chain.lengths" class="py-name" href="#" onclick="return doclink('link-89', 'lengths', 'link-88');">lengths</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line"> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt id="link-90" class="py-name"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-90', 'graph', 'link-3');">graph</a></tt> </tt>
+</div><a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line"> </tt>
+<a name="BreakendGraph.__str__"></a><div id="BreakendGraph.__str__-def"><a name="L180"></a><tt class="py-lineno">180</tt> <a class="py-toggle" href="#" id="BreakendGraph.__str__-toggle" onclick="return toggle('BreakendGraph.__str__');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph.BreakendGraph-class.html#__str__">__str__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BreakendGraph.__str__-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="BreakendGraph.__str__-expanded"><a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-string">"\n"</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">str</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line"> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line"><tt class="py-comment">########################################################</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line"><tt class="py-comment">## Test function</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line"><tt class="py-comment">########################################################</tt> </tt>
+<a name="main"></a><div id="main-def"><a name="L186"></a><tt class="py-lineno">186</tt> <a class="py-toggle" href="#" id="main-toggle" onclick="return toggle('main');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.breakendGraph-module.html#main">main</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="main-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="main-expanded"><a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">        <tt class="py-name">breakends</tt> <tt class="py-op">=</tt> <tt id="link-91" class="py-name"><a title="cnavg.preprocess.vcf" class="py-name" href="#" onclick="return doclink('link-91', 'vcf', 'link-0');">vcf</a></tt><tt class="py-op">.</tt><tt id="link-92" class="py-name" targets="Function cnavg.preprocess.bambam.parse()=cnavg.preprocess.bambam-module.html#parse,Function cnavg.preprocess.vcf.parse()=cnavg.preprocess.vcf-module.html#parse"><a title="cnavg.preprocess.bambam.parse
+cnavg.preprocess.vcf.parse" class="py-name" href="#" onclick="return doclink('link-92', 'parse', 'link-92');">parse</a></tt><tt class="py-op">(</tt><tt class="py-string">'../data/test.vcf'</tt><tt class="py-op">,</tt> <tt class="py-string">'../data/toto.lengths'</tt><tt class="py-op">)</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-name">breakends</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-name">breakends</tt><tt class="py-op">.</tt><tt id="link-93" class="py-name"><a title="cnavg.avg
+cnavg.preprocess.breakendGraph.BreakendGraph.avg
+cnavg.simulator.simulator.WeightedHistory.avg" class="py-name" href="#" onclick="return doclink('link-93', 'avg', 'link-2');">avg</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">        <tt class="py-name">breakends</tt><tt class="py-op">.</tt><tt id="link-94" class="py-name"><a title="cnavg.avg.balanced.BalancedAVG.validate
+cnavg.avg.graph.Graph.validate
+cnavg.basics.coords.Region.validate
+cnavg.basics.partialOrderSet.PartialOrderSet.validate
+cnavg.cactus.block.Block.validate
+cnavg.cactus.chain.Chain.validate
+cnavg.cactus.graph.Cactus.validate
+cnavg.cactus.group.Group.validate
+cnavg.cactus.net.Net.validate
+cnavg.flows.cycle.Cycle.validate
+cnavg.flows.flows.Event.validate
+cnavg.history.euclidian.EuclidianHistory.validate
+cnavg.history.history.CactusHistory.validate
+cnavg.history.history.History.validate
+cnavg.history.overlap.OverlapHistory.validate
+cnavg.history.scheduled.ScheduledHistory.validate
+cnavg.preprocess.breakend.Breakend.validate
+cnavg.preprocess.breakendGraph.BreakendGraph.validate
+cnavg.preprocess.cnv.CNV.validate" class="py-name" href="#" onclick="return doclink('link-94', 'validate', 'link-5');">validate</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line"> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">"__main__"</tt><tt class="py-op">:</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">        <tt id="link-95" class="py-name" targets="Function cnavg.avg.balanced.main()=cnavg.avg.balanced-module.html#main,Function cnavg.avg.gabp.gabp.main()=cnavg.avg.gabp.gabp-module.html#main,Function cnavg.avg.module.main()=cnavg.avg.module-module.html#main,Function cnavg.cactus.balanced.main()=cnavg.cactus.balanced-module.html#main,Function cnavg.cactus.graph.main()=cnavg.cactus.graph-module.html#main,Function cnavg.cactus.oriented.main()=cnavg.cactus.oriented-module.html#main,Function cnavg.cactus.threeWay.components.main()=cnavg.cactus.threeWay.components-module.html#main,Function cnavg.cactusSampling.sampling.main()=cnavg.cactusSampling.sampling-module.html#main,Function cnavg.cactusTree.cactusTree.main()=cnavg.cactusTree.cactusTree-module.html#main,Function cnavg.clock.EM.main()=cnavg.clock.EM-module.html#main,Function cnavg.clock.cnvTree.main()=cnavg.clock.cnvTree-module.html#main,Function cnavg.clock.timeEvents.main()=cnavg.clock.timeEvents-module.html#main,Function cnavg.flows.unitFlows.main()=cnavg.flows.unitFlows-module.html#main,Function cnavg.history.euclidian.main()=cnavg.history.euclidian-module.html#main,Function cnavg.history.scheduled.main()=cnavg.history.scheduled-module.html#main,Function cnavg.historySampling.cycleCover.main()=cnavg.historySampling.cycleCover-module.html#main,Function cnavg.historySampling.sampleGraphCycles.main()=cnavg.historySampling.sampleGraphCycles-module.html#main,Function cnavg.historySampling.sampleModuleCycles.main()=cnavg.historySampling.sampleModuleCycles-module.html#main,Function cnavg.preprocess.bambam.main()=cnavg.preprocess.bambam-module.html#main,Function cnavg.preprocess.breakendGraph.main()=cnavg.preprocess.breakendGraph-module.html#main,Function cnavg.preprocess.cbs.cbs.main()=cnavg.preprocess.cbs.cbs-module.html#main,Function cnavg.preprocess.discrepancies.main()=cnavg.preprocess.discrepancies-module.html#main,Function cnavg.preprocess.segmentCNVs.main()=cnavg.preprocess.segmentCNVs-module.html#main,Function cnavg.preprocess.vcf.main()=cnavg.preprocess.vcf-module.html#main,Function cnavg.simulator.simulator.main()=cnavg.simulator.simulator-module.html#main"><a title="cnavg.avg.balanced.main
+cnavg.avg.gabp.gabp.main
+cnavg.avg.module.main
+cnavg.cactus.balanced.main
+cnavg.cactus.graph.main
+cnavg.cactus.oriented.main
+cnavg.cactus.threeWay.components.main
+cnavg.cactusSampling.sampling.main
+cnavg.cactusTree.cactusTree.main
+cnavg.clock.EM.main
+cnavg.clock.cnvTree.main
+cnavg.clock.timeEvents.main
+cnavg.flows.unitFlows.main
+cnavg.history.euclidian.main
+cnavg.history.scheduled.main
+cnavg.historySampling.cycleCover.main
+cnavg.historySampling.sampleGraphCycles.main
+cnavg.historySampling.sampleModuleCycles.main
+cnavg.preprocess.bambam.main
+cnavg.preprocess.breakendGraph.main
+cnavg.preprocess.cbs.cbs.main
+cnavg.preprocess.discrepancies.main
+cnavg.preprocess.segmentCNVs.main
+cnavg.preprocess.vcf.main
+cnavg.simulator.simulator.main" class="py-name" href="#" onclick="return doclink('link-95', 'main', 'link-95');">main</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 12 12:56:44 2013
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

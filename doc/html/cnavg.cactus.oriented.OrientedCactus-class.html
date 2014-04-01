@@ -1,0 +1,831 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>cnavg.cactus.oriented.OrientedCactus</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="cnavg-module.html">Package&nbsp;cnavg</a> ::
+        <a href="cnavg.cactus-module.html">Package&nbsp;cactus</a> ::
+        <a href="cnavg.cactus.oriented-module.html">Module&nbsp;oriented</a> ::
+        Class&nbsp;OrientedCactus
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="cnavg.cactus.oriented.OrientedCactus-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class OrientedCactus</h1><p class="nomargin-top"><span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_cnavg_ca_8" name="uml_class_diagram_for_cnavg_ca_8">
+<area shape="rect" id="node1_57" href="cnavg.cactus.oriented.OrientedCactus-class.html#__init__" title="x.__init__(...) initializes x; see help(type(x)) for signature" alt="" coords="105,1068,315,1087"/>
+<area shape="rect" id="node1_58" href="cnavg.cactus.oriented.OrientedCactus-class.html#copy" title="cnavg.cactus.oriented.OrientedCactus.copy" alt="" coords="105,1087,315,1105"/>
+<area shape="rect" id="node1_59" href="cnavg.cactus.oriented.OrientedCactus-class.html#chainTreeString" title="cnavg.cactus.oriented.OrientedCactus.chainTreeString" alt="" coords="105,1105,315,1124"/>
+<area shape="rect" id="node1_60" href="cnavg.cactus.oriented.OrientedCactus-class.html#netTreeString" title="cnavg.cactus.oriented.OrientedCactus.netTreeString" alt="" coords="105,1124,315,1143"/>
+<area shape="rect" id="node1_61" href="cnavg.cactus.oriented.OrientedCactus-class.html#treeString" title="cnavg.cactus.oriented.OrientedCactus.treeString" alt="" coords="105,1143,315,1161"/>
+<area shape="rect" id="node1_62" href="cnavg.cactus.oriented.OrientedCactus-class.html#netSpans" title="cnavg.cactus.oriented.OrientedCactus.netSpans" alt="" coords="105,1161,315,1180"/>
+<area shape="rect" id="node1_63" href="cnavg.cactus.oriented.OrientedCactus-class.html#__str__" title="GraphViz output" alt="" coords="105,1180,315,1199"/>
+<area shape="rect" id="node1_64" href="cnavg.cactus.oriented.OrientedCactus-class.html#maxDepth_Chain" title="cnavg.cactus.oriented.OrientedCactus.maxDepth_Chain" alt="" coords="105,1199,315,1217"/>
+<area shape="rect" id="node1_65" href="cnavg.cactus.oriented.OrientedCactus-class.html#maxDepth_Net" title="cnavg.cactus.oriented.OrientedCactus.maxDepth_Net" alt="" coords="105,1217,315,1236"/>
+<area shape="rect" id="node1_66" href="cnavg.cactus.oriented.OrientedCactus-class.html#maxDepth" title="cnavg.cactus.oriented.OrientedCactus.maxDepth" alt="" coords="105,1236,315,1255"/>
+<area shape="rect" id="node1_67" href="cnavg.cactus.oriented.OrientedCactus-class.html#maxBranches" title="cnavg.cactus.oriented.OrientedCactus.maxBranches" alt="" coords="105,1255,315,1273"/>
+<area shape="rect" id="node1_68" href="cnavg.cactus.oriented.OrientedCactus-class.html#depth_chain" title="cnavg.cactus.oriented.OrientedCactus.depth_chain" alt="" coords="105,1273,315,1292"/>
+<area shape="rect" id="node1_69" href="cnavg.cactus.oriented.OrientedCactus-class.html#depth_net" title="cnavg.cactus.oriented.OrientedCactus.depth_net" alt="" coords="105,1292,315,1311"/>
+<area shape="rect" id="node1_70" href="cnavg.cactus.oriented.OrientedCactus-class.html#orient" title="cnavg.cactus.oriented.OrientedCactus.orient" alt="" coords="105,1329,315,1348"/>
+<area shape="rect" id="node1" href="cnavg.cactus.oriented.OrientedCactus-class.html" title="An oriented cactus, i.e." alt="" coords="93,1035,326,1354"/>
+<area shape="rect" id="node2_71" href="cnavg.cactus.graph.Cactus-class.html#chainSpans" title="Spans of chains" alt="" coords="17,729,404,748"/>
+<area shape="rect" id="node2_72" href="cnavg.cactus.graph.Cactus-class.html#nodeNet" title="Returns the net which contains node" alt="" coords="17,748,404,767"/>
+<area shape="rect" id="node2_73" href="cnavg.cactus.graph.Cactus-class.html#nodeChain" title="Returns the chain which contains the node" alt="" coords="17,767,404,785"/>
+<area shape="rect" id="node2_74" href="cnavg.cactus.graph.Cactus-class.html#expandGroup" title="cnavg.cactus.graph.Cactus.expandGroup" alt="" coords="17,785,404,804"/>
+<area shape="rect" id="node2_75" href="cnavg.cactus.graph.Cactus-class.html#computeGroups" title="cnavg.cactus.graph.Cactus.computeGroups" alt="" coords="17,804,404,823"/>
+<area shape="rect" id="node2_76" href="cnavg.cactus.graph.Cactus-class.html#groupPairs3" title="cnavg.cactus.graph.Cactus.groupPairs3" alt="" coords="17,823,404,841"/>
+<area shape="rect" id="node2_77" href="cnavg.cactus.graph.Cactus-class.html#groupPairs2" title="cnavg.cactus.graph.Cactus.groupPairs2" alt="" coords="17,841,404,860"/>
+<area shape="rect" id="node2_78" href="cnavg.cactus.graph.Cactus-class.html#groupPairs" title="cnavg.cactus.graph.Cactus.groupPairs" alt="" coords="17,860,404,879"/>
+<area shape="rect" id="node2_79" href="cnavg.cactus.graph.Cactus-class.html#computeBlocks" title="cnavg.cactus.graph.Cactus.computeBlocks" alt="" coords="17,879,404,897"/>
+<area shape="rect" id="node2_80" href="cnavg.cactus.graph.Cactus-class.html#telomericGroups" title="cnavg.cactus.graph.Cactus.telomericGroups" alt="" coords="17,897,404,916"/>
+<area shape="rect" id="node2_81" href="cnavg.cactus.graph.Cactus-class.html#computeBasicNets" title="cnavg.cactus.graph.Cactus.computeBasicNets" alt="" coords="17,916,404,935"/>
+<area shape="rect" id="node2_82" href="cnavg.cactus.graph.Cactus-class.html#updateNetGroupGroupMapping" title="cnavg.cactus.graph.Cactus.updateNetGroupGroupMapping" alt="" coords="17,935,404,953"/>
+<area shape="rect" id="node2_83" href="cnavg.cactus.graph.Cactus-class.html#updateNetGroupMapping" title="cnavg.cactus.graph.Cactus.updateNetGroupMapping" alt="" coords="17,953,404,972"/>
+<area shape="rect" id="node2_84" href="cnavg.cactus.graph.Cactus-class.html#validate" title="Validation function" alt="" coords="17,991,404,1009"/>
+<area shape="rect" id="node2" href="cnavg.cactus.graph.Cactus-class.html" title="A Cactus graph" alt="" coords="5,697,416,1015"/>
+<area shape="rect" id="node3_85" href="javascript:void(0);" title="hash(x)" alt="" coords="148,31,273,49"/>
+<area shape="rect" id="node3_86" href="javascript:void(0);" title="cmp(x,y)" alt="" coords="148,52,273,71"/>
+<area shape="rect" id="node3_87" href="javascript:void(0);" title="dict.__contains__" alt="" coords="148,71,273,89"/>
+<area shape="rect" id="node3_88" href="javascript:void(0);" title="del x[y]" alt="" coords="148,89,273,108"/>
+<area shape="rect" id="node3_89" href="javascript:void(0);" title="x==y" alt="" coords="148,108,273,127"/>
+<area shape="rect" id="node3_90" href="javascript:void(0);" title="x&gt;=y" alt="" coords="148,127,273,145"/>
+<area shape="rect" id="node3_91" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="148,145,273,164"/>
+<area shape="rect" id="node3_92" href="javascript:void(0);" title="x[y]" alt="" coords="148,164,273,183"/>
+<area shape="rect" id="node3_93" href="javascript:void(0);" title="x&gt;y" alt="" coords="148,183,273,201"/>
+<area shape="rect" id="node3_94" href="javascript:void(0);" title="iter(x)" alt="" coords="148,201,273,220"/>
+<area shape="rect" id="node3_95" href="javascript:void(0);" title="x&lt;=y" alt="" coords="148,220,273,239"/>
+<area shape="rect" id="node3_96" href="javascript:void(0);" title="len(x)" alt="" coords="148,239,273,257"/>
+<area shape="rect" id="node3_97" href="javascript:void(0);" title="x&lt;y" alt="" coords="148,257,273,276"/>
+<area shape="rect" id="node3_98" href="javascript:void(0);" title="x!=y" alt="" coords="148,276,273,295"/>
+<area shape="rect" id="node3_99" href="javascript:void(0);" title="dict.viewvalues" alt="" coords="148,313,273,332"/>
+<area shape="rect" id="node3" href="javascript:void(0);" title="dict() &#45;&gt; new empty dictionary dict(mapping) &#45;&gt; new dictionary initialized from a mapping object&#39;s (key, value) pairs dict(iterable) &#45;&gt; new dictionary initialized as if via: d = {} for k, v in iterable: d[k] = v dict(**kwargs) &#45;&gt; new dictionary initialized with the name=value pairs in the keyword argument list." alt="" coords="136,6,285,338"/>
+<area shape="rect" id="node4_100" href="cnavg.avg.graph.Graph-class.html#nodes" title="Returns list of nodes" alt="" coords="55,391,365,409"/>
+<area shape="rect" id="node4_101" href="cnavg.avg.graph.Graph-class.html#createNode" title="Creates a node and adds it to the graph" alt="" coords="55,409,365,428"/>
+<area shape="rect" id="node4_102" href="cnavg.avg.graph.Graph-class.html#addNode" title="Adds a node to the graph" alt="" coords="55,428,365,447"/>
+<area shape="rect" id="node4_103" href="cnavg.avg.graph.Graph-class.html#addLiftedEdge" title="Creates (if necessary) and increments the flow of a bond edge" alt="" coords="55,447,365,465"/>
+<area shape="rect" id="node4_104" href="cnavg.avg.graph.Graph-class.html#setLiftedEdge" title="Creates (if necessary) and updates the flow of a bond edge" alt="" coords="55,465,365,484"/>
+<area shape="rect" id="node4_105" href="cnavg.avg.graph.Graph-class.html#changeLiftedEdge" title="Increments the flow on a bond edge" alt="" coords="55,484,365,503"/>
+<area shape="rect" id="node4_106" href="cnavg.avg.graph.Graph-class.html#changeSegment" title="Increments the flow of the segment edge incident on the given node" alt="" coords="55,503,365,521"/>
+<area shape="rect" id="node4_107" href="cnavg.avg.graph.Graph-class.html#createSegment" title="Declares a set of homologous segment edges between two nodes and sets their flows" alt="" coords="55,521,365,540"/>
+<area shape="rect" id="node4_108" href="cnavg.avg.graph.Graph-class.html#createAdjacency" title="Creates a bond edge and declares it ancestral" alt="" coords="55,540,365,559"/>
+<area shape="rect" id="node4_109" href="cnavg.avg.graph.Graph-class.html#validateNodeAdjacency" title="Validation function" alt="" coords="55,559,365,577"/>
+<area shape="rect" id="node4_110" href="cnavg.avg.graph.Graph-class.html#validateNodeSegment" title="Validation function" alt="" coords="55,577,365,596"/>
+<area shape="rect" id="node4_111" href="cnavg.avg.graph.Graph-class.html#validateNodeEdge" title="Validation function" alt="" coords="55,596,365,615"/>
+<area shape="rect" id="node4_112" href="cnavg.avg.graph.Graph-class.html#validateNodeEdges" title="Validation function" alt="" coords="55,615,365,633"/>
+<area shape="rect" id="node4_113" href="cnavg.avg.graph.Graph-class.html#printMinority" title="cnavg.avg.graph.Graph.printMinority" alt="" coords="55,652,365,671"/>
+<area shape="rect" id="node4" href="cnavg.avg.graph.Graph-class.html" title="A sequence graph" alt="" coords="42,358,377,677"/>
+</map>
+  <img src="uml_class_diagram_for_cnavg_ca_8.gif" alt='' usemap="#uml_class_diagram_for_cnavg_ca_8" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<p>An oriented cactus, i.e. a cactus with an overlayed rooted hierarchy 
+  of blocks and nets</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Instance Methods</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><pre class="literalblock">
+new empty dictionary
+
+</pre></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.cactus.oriented.OrientedCactus-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">cactus</span>)</span><br />
+      x.__init__(...) initializes x; see help(type(x)) for signature</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">a shallow copy of D</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.cactus.oriented.OrientedCactus-class.html#copy" class="summary-sig-name">copy</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">other</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.copy">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="chainTreeString"></a><span class="summary-sig-name">chainTreeString</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">chain</span>,
+        <span class="summary-sig-arg">offset</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.chainTreeString">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="netTreeString"></a><span class="summary-sig-name">netTreeString</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">net</span>,
+        <span class="summary-sig-arg">offset</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.netTreeString">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="treeString"></a><span class="summary-sig-name">treeString</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.treeString">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="netSpans"></a><span class="summary-sig-name">netSpans</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.netSpans">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.cactus.oriented.OrientedCactus-class.html#__str__" class="summary-sig-name">__str__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      GraphViz output</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.__str__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="maxDepth_Chain"></a><span class="summary-sig-name">maxDepth_Chain</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">chain</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.maxDepth_Chain">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="maxDepth_Net"></a><span class="summary-sig-name">maxDepth_Net</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">net</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.maxDepth_Net">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="maxDepth"></a><span class="summary-sig-name">maxDepth</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.maxDepth">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="maxBranches"></a><span class="summary-sig-name">maxBranches</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.maxBranches">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="depth_chain"></a><span class="summary-sig-name">depth_chain</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">chain</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.depth_chain">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="depth_net"></a><span class="summary-sig-name">depth_net</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">net</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.depth_net">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="stats"></a><span class="summary-sig-name">stats</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.stats">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="netStats_net"></a><span class="summary-sig-name">netStats_net</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">net</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.netStats_net">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="cnavg.cactus.oriented.OrientedCactus-class.html#netStats" class="summary-sig-name">netStats</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      String of stats on nets</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.netStats">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="updateNetChains_Node"></a><span class="summary-sig-name">updateNetChains_Node</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">netChains</span>,
+        <span class="summary-sig-arg">node</span>,
+        <span class="summary-sig-arg">chain</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.updateNetChains_Node">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="updateNetChains_Block"></a><span class="summary-sig-name">updateNetChains_Block</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">netChains</span>,
+        <span class="summary-sig-arg">block</span>,
+        <span class="summary-sig-arg">chain</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.updateNetChains_Block">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="updateNetChains_Chain"></a><span class="summary-sig-name">updateNetChains_Chain</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">netChains</span>,
+        <span class="summary-sig-arg">chain</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.updateNetChains_Chain">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="computeNetChains"></a><span class="summary-sig-name">computeNetChains</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.computeNetChains">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="propagateNetOrientation"></a><span class="summary-sig-name">propagateNetOrientation</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">net</span>,
+        <span class="summary-sig-arg">parent</span>,
+        <span class="summary-sig-arg">netChains</span>,
+        <span class="summary-sig-arg">trees</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.propagateNetOrientation">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="propagateChainOrientation"></a><span class="summary-sig-name">propagateChainOrientation</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">chain</span>,
+        <span class="summary-sig-arg">parent</span>,
+        <span class="summary-sig-arg">netChains</span>,
+        <span class="summary-sig-arg">trees</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.propagateChainOrientation">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="orient"></a><span class="summary-sig-name">orient</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.orient">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="cnavg.cactus.graph.Cactus-class.html">graph.Cactus</a></code></b>:
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#bridges">bridges</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#chainSpans">chainSpans</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#computeBasicNets">computeBasicNets</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#computeBlocks">computeBlocks</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#computeChains">computeChains</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#computeGroups">computeGroups</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#computeNetBlocks">computeNetBlocks</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#computeNets">computeNets</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#connections">connections</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#convertThreeWayResultLine">convertThreeWayResultLine</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#convertThreeWayResults">convertThreeWayResults</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#expandGroup">expandGroup</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#findRootNet">findRootNet</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#groupPairs">groupPairs</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#groupPairs2">groupPairs2</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#groupPairs3">groupPairs3</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#netConnections">netConnections</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#nodeChain">nodeChain</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#nodeNet">nodeNet</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#removeChainedBlocks">removeChainedBlocks</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#telomericGroups">telomericGroups</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#updateNetGroupGroupMapping">updateNetGroupGroupMapping</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#updateNetGroupMapping">updateNetGroupMapping</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#updateNetMapping">updateNetMapping</a></code>,
+      <code><a href="cnavg.cactus.graph.Cactus-class.html#validate">validate</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="cnavg.avg.graph.Graph-class.html">avg.graph.Graph</a></code></b>:
+      <code><a href="cnavg.avg.graph.Graph-class.html#__copy__">__copy__</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#addLiftedEdge">addLiftedEdge</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#addNode">addNode</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#balanced">balanced</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#changeLiftedEdge">changeLiftedEdge</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#changeSegment">changeSegment</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#coverageStats">coverageStats</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#createAdjacency">createAdjacency</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#createNode">createNode</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#createSegment">createSegment</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#edge">edge</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#edges">edges</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#nodes">nodes</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#partner">partner</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#printCNVs">printCNVs</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#printMajority">printMajority</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#printMinority">printMinority</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#segment">segment</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#segmentLength">segmentLength</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#setLiftedEdge">setLiftedEdge</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#twin">twin</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#validateNode">validateNode</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#validateNodeAdjacency">validateNodeAdjacency</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#validateNodeEdge">validateNodeEdge</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#validateNodeEdges">validateNodeEdges</a></code>,
+      <code><a href="cnavg.avg.graph.Graph-class.html#validateNodeSegment">validateNodeSegment</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>dict</code></b>:
+      <code>__cmp__</code>,
+      <code>__contains__</code>,
+      <code>__delitem__</code>,
+      <code>__eq__</code>,
+      <code>__ge__</code>,
+      <code>__getattribute__</code>,
+      <code>__getitem__</code>,
+      <code>__gt__</code>,
+      <code>__iter__</code>,
+      <code>__le__</code>,
+      <code>__len__</code>,
+      <code>__lt__</code>,
+      <code>__ne__</code>,
+      <code>__new__</code>,
+      <code>__repr__</code>,
+      <code>__setitem__</code>,
+      <code>__sizeof__</code>,
+      <code>clear</code>,
+      <code>fromkeys</code>,
+      <code>get</code>,
+      <code>has_key</code>,
+      <code>items</code>,
+      <code>iteritems</code>,
+      <code>iterkeys</code>,
+      <code>itervalues</code>,
+      <code>keys</code>,
+      <code>pop</code>,
+      <code>popitem</code>,
+      <code>setdefault</code>,
+      <code>update</code>,
+      <code>values</code>,
+      <code>viewitems</code>,
+      <code>viewkeys</code>,
+      <code>viewvalues</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__setattr__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Class Variables</span></td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>dict</code></b>:
+      <code>__hash__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Properties</span></td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Method Details</span></td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">cactus</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+  <dl class="fields">
+    <dt>Returns: <pre class="literalblock">
+new empty dictionary
+
+</pre></dt>
+    <dt>Overrides:
+        object.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="copy"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">copy</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">other</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.copy">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Returns: a shallow copy of D</dt>
+    <dt>Overrides:
+        dict.copy
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__str__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__str__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Informal representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.__str__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>GraphViz output</p>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__str__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="netStats"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">netStats</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="cnavg.cactus.oriented-pysrc.html#OrientedCactus.netStats">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>String of stats on nets</p>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="cnavg.cactus.graph.Cactus-class.html#netStats">graph.Cactus.netStats</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 12 12:56:37 2013
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

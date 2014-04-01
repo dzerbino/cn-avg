@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>cnavg.preprocess.cbs.cbs</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="cnavg-module.html">Package&nbsp;cnavg</a> ::
+        <a href="cnavg.preprocess-module.html">Package&nbsp;preprocess</a> ::
+        <a href="cnavg.preprocess.cbs-module.html">Package&nbsp;cbs</a> ::
+        Module&nbsp;cbs
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="cnavg.preprocess.cbs.cbs-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="cnavg.preprocess.cbs.cbs-module.html">Module cnavg.preprocess.cbs.cbs</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2012, Daniel Zerbino</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># All rights reserved.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># Redistribution and use in source and binary forms, with or without</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># modification, are permitted provided that the following conditions are</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># met:</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># (1) Redistributions of source code must retain the above copyright</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># notice, this list of conditions and the following disclaimer. </tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># (2) Redistributions in binary form must reproduce the above copyright</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># notice, this list of conditions and the following disclaimer in</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># the documentation and/or other materials provided with the</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># distribution.  </tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment"># (3)The name of the author may not be used to</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># endorse or promote products derived from this software without</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment"># specific prior written permission.</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment"># THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment"># IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"># WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment"># DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"># (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"># SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-comment"># HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment"># STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-comment"># IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-comment"># POSSIBILITY OF SUCH DAMAGE.</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/env python</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-docstring">"""Wrapper around CBS"""</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">subprocess</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">tempfile</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package cnavg=cnavg-module.html"><a title="cnavg" class="py-name" href="#" onclick="return doclink('link-0', 'cnavg', 'link-0');">cnavg</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Package cnavg.preprocess=cnavg.preprocess-module.html"><a title="cnavg.preprocess" class="py-name" href="#" onclick="return doclink('link-1', 'preprocess', 'link-1');">preprocess</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Module cnavg.preprocess.cnv=cnavg.preprocess.cnv-module.html"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-2', 'cnv', 'link-2');">cnv</a></tt> <tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Class cnavg.preprocess.cnv.CNV=cnavg.preprocess.cnv.CNV-class.html"><a title="cnavg.preprocess.cnv.CNV" class="py-name" href="#" onclick="return doclink('link-3', 'CNV', 'link-3');">CNV</a></tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt id="link-4" class="py-name" targets="Variable cnavg.preprocess.cbs.cbs.chromosomeNames=cnavg.preprocess.cbs.cbs-module.html#chromosomeNames"><a title="cnavg.preprocess.cbs.cbs.chromosomeNames" class="py-name" href="#" onclick="return doclink('link-4', 'chromosomeNames', 'link-4');">chromosomeNames</a></tt> <tt class="py-op">=</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">X</tt><tt class="py-op">:</tt> <tt class="py-string">"chr"</tt> <tt class="py-op">+</tt> <tt class="py-name">X</tt><tt class="py-op">,</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">str</tt><tt class="py-op">,</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-number">23</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-op">[</tt><tt class="py-string">'X'</tt><tt class="py-op">,</tt> <tt class="py-string">'Y'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-string">""" The names of the chromosomes, in the order that CBS expects them """</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-comment">################################################</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-comment">## Conversion functions for input</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-comment">################################################</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"> </tt>
+<a name="_writeCBSLine"></a><div id="_writeCBSLine-def"><a name="L49"></a><tt class="py-lineno"> 49</tt> <a class="py-toggle" href="#" id="_writeCBSLine-toggle" onclick="return toggle('_writeCBSLine');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.cbs.cbs-module.html#_writeCBSLine">_writeCBSLine</a><tt class="py-op">(</tt><tt class="py-param">index</tt><tt class="py-op">,</tt> <tt class="py-param">chrom</tt><tt class="py-op">,</tt> <tt class="py-param">pos</tt><tt class="py-op">,</tt> <tt class="py-param">val</tt><tt class="py-op">,</tt> <tt class="py-param">file</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_writeCBSLine-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_writeCBSLine-expanded"><a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">        <tt class="py-comment"># 'Cause CBS has hard coded chromosome names... </tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">chrom</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-number">3</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"chr"</tt><tt class="py-op">:</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">                <tt class="py-name">chrom</tt> <tt class="py-op">=</tt> <tt class="py-name">chrom</tt><tt class="py-op">[</tt><tt class="py-number">3</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-string">"%i\t%s\t%i\t%f\n"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">index</tt><tt class="py-op">,</tt> <tt class="py-name">chrom</tt><tt class="py-op">,</tt> <tt class="py-name">pos</tt><tt class="py-op">,</tt> <tt class="py-name">val</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"> </tt>
+<a name="_writeCBSInput"></a><div id="_writeCBSInput-def"><a name="L55"></a><tt class="py-lineno"> 55</tt> <a class="py-toggle" href="#" id="_writeCBSInput-toggle" onclick="return toggle('_writeCBSInput');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.cbs.cbs-module.html#_writeCBSInput">_writeCBSInput</a><tt class="py-op">(</tt><tt class="py-param">chrom</tt><tt class="py-op">,</tt> <tt class="py-param">pos</tt><tt class="py-op">,</tt> <tt class="py-param">vals</tt><tt class="py-op">,</tt> <tt class="py-param">output</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_writeCBSInput-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_writeCBSInput-expanded"><a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">output</tt><tt class="py-op">,</tt> <tt class="py-string">"w"</tt><tt class="py-op">)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-string">"SNP\tChromosome\tPhysicalPosition\tsample1\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">index</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">chrom</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">                <tt class="py-name">_writeCBSLine</tt><tt class="py-op">(</tt><tt class="py-name">index</tt><tt class="py-op">,</tt> <tt class="py-name">chrom</tt><tt class="py-op">[</tt><tt class="py-name">index</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">pos</tt><tt class="py-op">[</tt><tt class="py-name">index</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">vals</tt><tt class="py-op">[</tt><tt class="py-name">index</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">file</tt><tt class="py-op">)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Method cnavg.avg.module.Module.close()=cnavg.avg.module.Module-class.html#close"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-5', 'close', 'link-5');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-comment">################################################</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-comment">## Conversion functions for output</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-comment">################################################</tt> </tt>
+<a name="_parseCBSLine"></a><div id="_parseCBSLine-def"><a name="L65"></a><tt class="py-lineno"> 65</tt> <a class="py-toggle" href="#" id="_parseCBSLine-toggle" onclick="return toggle('_parseCBSLine');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.cbs.cbs-module.html#_parseCBSLine">_parseCBSLine</a><tt class="py-op">(</tt><tt class="py-param">line</tt><tt class="py-op">,</tt> <tt class="py-param">chromosomeNames</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_parseCBSLine-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_parseCBSLine-expanded"><a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-name">items</tt> <tt class="py-op">=</tt> <tt class="py-name">line</tt><tt class="py-op">.</tt><tt class="py-name">strip</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt id="link-6" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-6', 'cnv', 'link-2');">cnv</a></tt> <tt class="py-op">=</tt> <tt id="link-7" class="py-name"><a title="cnavg.preprocess.cnv.CNV" class="py-name" href="#" onclick="return doclink('link-7', 'CNV', 'link-3');">CNV</a></tt><tt class="py-op">(</tt><tt id="link-8" class="py-name"><a title="cnavg.preprocess.cbs.cbs.chromosomeNames" class="py-name" href="#" onclick="return doclink('link-8', 'chromosomeNames', 'link-4');">chromosomeNames</a></tt><tt class="py-op">[</tt><tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">-</tt> <tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">3</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-name">float</tt><tt class="py-op">(</tt><tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">5</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-string">"CNV:"</tt> <tt class="py-op">+</tt> <tt id="link-9" class="py-name"><a title="cnavg.preprocess.cbs.cbs.chromosomeNames" class="py-name" href="#" onclick="return doclink('link-9', 'chromosomeNames', 'link-4');">chromosomeNames</a></tt><tt class="py-op">[</tt><tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">-</tt> <tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">+</tt> <tt class="py-string">":"</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">3</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-op">/</tt> <tt class="py-number">2</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt id="link-10" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-10', 'cnv', 'link-2');">cnv</a></tt><tt class="py-op">.</tt><tt class="py-name">numMarks</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">4</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-11" class="py-name"><a title="cnavg.preprocess.cnv" class="py-name" href="#" onclick="return doclink('link-11', 'cnv', 'link-2');">cnv</a></tt> </tt>
+</div><a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="_parseCBSFile"></a><div id="_parseCBSFile-def"><a name="L71"></a><tt class="py-lineno"> 71</tt> <a class="py-toggle" href="#" id="_parseCBSFile-toggle" onclick="return toggle('_parseCBSFile');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.cbs.cbs-module.html#_parseCBSFile">_parseCBSFile</a><tt class="py-op">(</tt><tt class="py-param">input</tt><tt class="py-op">,</tt> <tt class="py-param">chromosomeNames</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_parseCBSFile-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_parseCBSFile-expanded"><a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-name">regions</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-name">file2</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">input</tt><tt class="py-op">)</tt>      </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-name">file2</tt><tt class="py-op">.</tt><tt class="py-name">readline</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">line</tt> <tt class="py-keyword">in</tt> <tt class="py-name">file2</tt><tt class="py-op">:</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">                <tt class="py-name">regions</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">_parseCBSLine</tt><tt class="py-op">(</tt><tt class="py-name">line</tt><tt class="py-op">,</tt> <tt id="link-12" class="py-name"><a title="cnavg.preprocess.cbs.cbs.chromosomeNames" class="py-name" href="#" onclick="return doclink('link-12', 'chromosomeNames', 'link-4');">chromosomeNames</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt>     </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-name">file2</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-13', 'close', 'link-5');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">regions</tt> </tt>
+</div><a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"><tt class="py-comment">################################################</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"><tt class="py-comment">## Master function </tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"><tt class="py-comment">################################################</tt> </tt>
+<a name="run"></a><div id="run-def"><a name="L83"></a><tt class="py-lineno"> 83</tt> <a class="py-toggle" href="#" id="run-toggle" onclick="return toggle('run');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.cbs.cbs-module.html#run">run</a><tt class="py-op">(</tt><tt class="py-param">chrom</tt><tt class="py-op">,</tt> <tt class="py-param">pos</tt><tt class="py-op">,</tt> <tt class="py-param">vals</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="run-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="run-expanded"><a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-docstring">""" Run CBS on three vectors of data: chromosome, position, value"""</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">exists</tt><tt class="py-op">(</tt><tt class="py-string">'CBS_OUT'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">'Running CBS...'</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">                <tt class="py-name">file1</tt><tt class="py-op">,</tt> <tt class="py-name">input</tt> <tt class="py-op">=</tt> <tt class="py-name">tempfile</tt><tt class="py-op">.</tt><tt class="py-name">mkstemp</tt><tt class="py-op">(</tt><tt class="py-name">dir</tt><tt class="py-op">=</tt><tt class="py-string">'.'</tt><tt class="py-op">)</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">                <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-14', 'close', 'link-5');">close</a></tt><tt class="py-op">(</tt><tt class="py-name">file1</tt><tt class="py-op">)</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">                <tt class="py-name">_writeCBSInput</tt><tt class="py-op">(</tt><tt class="py-name">chrom</tt><tt class="py-op">,</tt> <tt class="py-name">pos</tt><tt class="py-op">,</tt> <tt class="py-name">vals</tt><tt class="py-op">,</tt> <tt class="py-name">input</tt><tt class="py-op">)</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">subprocess</tt><tt class="py-op">.</tt><tt class="py-name">Popen</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-string">'cbs.R'</tt><tt class="py-op">,</tt> <tt class="py-name">input</tt><tt class="py-op">,</tt> <tt class="py-string">'CBS_OUT'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">stdout</tt><tt class="py-op">=</tt><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">stdout</tt><tt class="py-op">,</tt> <tt class="py-name">stderr</tt><tt class="py-op">=</tt><tt class="py-name">subprocess</tt><tt class="py-op">.</tt><tt class="py-name">STDOUT</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">wait</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">                    <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">exit</tt><tt class="py-op">(</tt><tt class="py-string">"CBS did not complete"</tt><tt class="py-op">)</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">                <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Method cnavg.clock.cnvTree.CNVSlice.remove()=cnavg.clock.cnvTree.CNVSlice-class.html#remove"><a title="cnavg.clock.cnvTree.CNVSlice.remove" class="py-name" href="#" onclick="return doclink('link-15', 'remove', 'link-15');">remove</a></tt><tt class="py-op">(</tt><tt class="py-name">input</tt><tt class="py-op">)</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">         </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">'Reading CBS output...'</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">_parseCBSFile</tt><tt class="py-op">(</tt><tt class="py-string">'CBS_OUT'</tt><tt class="py-op">,</tt> <tt id="link-16" class="py-name"><a title="cnavg.preprocess.cbs.cbs.chromosomeNames" class="py-name" href="#" onclick="return doclink('link-16', 'chromosomeNames', 'link-4');">chromosomeNames</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"><tt class="py-comment">################################################</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"><tt class="py-comment">## Unit test</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"><tt class="py-comment">################################################</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"> </tt>
+<a name="main"></a><div id="main-def"><a name="L102"></a><tt class="py-lineno">102</tt> <a class="py-toggle" href="#" id="main-toggle" onclick="return toggle('main');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.preprocess.cbs.cbs-module.html#main">main</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="main-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="main-expanded"><a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-name">chrom</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">'1'</tt><tt class="py-op">,</tt> <tt class="py-string">'1'</tt><tt class="py-op">,</tt> <tt class="py-string">'1'</tt><tt class="py-op">,</tt> <tt class="py-string">'1'</tt><tt class="py-op">]</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-name">pos</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-number">1000</tt><tt class="py-op">,</tt> <tt class="py-number">2000</tt><tt class="py-op">,</tt> <tt class="py-number">3000</tt><tt class="py-op">,</tt> <tt class="py-number">4000</tt><tt class="py-op">]</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-name">vals</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-number">2</tt><tt class="py-op">]</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"\n"</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">str</tt><tt class="py-op">,</tt> <tt id="link-17" class="py-name" targets="Method cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph.run()=cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph-class.html#run,Method cnavg.cactusTree.cactusTree.PrepareBreakendGraph.run()=cnavg.cactusTree.cactusTree.PrepareBreakendGraph-class.html#run,Method cnavg.cactusTree.cactusTree.PrepareCBSGraph.run()=cnavg.cactusTree.cactusTree.PrepareCBSGraph-class.html#run,Method cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs.run()=cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs-class.html#run,Method cnavg.cactusTree.cactusTree.PrepareCycleGraph.run()=cnavg.cactusTree.cactusTree.PrepareCycleGraph-class.html#run,Method cnavg.cactusTree.cactusTree.PrepareIndex.run()=cnavg.cactusTree.cactusTree.PrepareIndex-class.html#run,Method cnavg.cactusTree.cactusTree.Process.run()=cnavg.cactusTree.cactusTree.Process-class.html#run,Method cnavg.cactusTree.cactusTree.Reduce.run()=cnavg.cactusTree.cactusTree.Reduce-class.html#run,Method cnavg.cactusTree.cactusTree.SampleCycles.run()=cnavg.cactusTree.cactusTree.SampleCycles-class.html#run,Method cnavg.cactusTree.cactusTree.SetupPhase.run()=cnavg.cactusTree.cactusTree.SetupPhase-class.html#run,Function cnavg.preprocess.cbs.cbs.run()=cnavg.preprocess.cbs.cbs-module.html#run"><a title="cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph.run
+cnavg.cactusTree.cactusTree.PrepareBreakendGraph.run
+cnavg.cactusTree.cactusTree.PrepareCBSGraph.run
+cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs.run
+cnavg.cactusTree.cactusTree.PrepareCycleGraph.run
+cnavg.cactusTree.cactusTree.PrepareIndex.run
+cnavg.cactusTree.cactusTree.Process.run
+cnavg.cactusTree.cactusTree.Reduce.run
+cnavg.cactusTree.cactusTree.SampleCycles.run
+cnavg.cactusTree.cactusTree.SetupPhase.run
+cnavg.preprocess.cbs.cbs.run" class="py-name" href="#" onclick="return doclink('link-17', 'run', 'link-17');">run</a></tt><tt class="py-op">(</tt><tt class="py-name">chrom</tt><tt class="py-op">,</tt> <tt class="py-name">pos</tt><tt class="py-op">,</tt> <tt class="py-name">vals</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt><tt class="py-op">==</tt><tt class="py-string">"__main__"</tt><tt class="py-op">:</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">        <tt id="link-18" class="py-name" targets="Function cnavg.avg.balanced.main()=cnavg.avg.balanced-module.html#main,Function cnavg.avg.gabp.gabp.main()=cnavg.avg.gabp.gabp-module.html#main,Function cnavg.avg.module.main()=cnavg.avg.module-module.html#main,Function cnavg.cactus.balanced.main()=cnavg.cactus.balanced-module.html#main,Function cnavg.cactus.graph.main()=cnavg.cactus.graph-module.html#main,Function cnavg.cactus.oriented.main()=cnavg.cactus.oriented-module.html#main,Function cnavg.cactus.threeWay.components.main()=cnavg.cactus.threeWay.components-module.html#main,Function cnavg.cactusSampling.sampling.main()=cnavg.cactusSampling.sampling-module.html#main,Function cnavg.cactusTree.cactusTree.main()=cnavg.cactusTree.cactusTree-module.html#main,Function cnavg.clock.EM.main()=cnavg.clock.EM-module.html#main,Function cnavg.clock.cnvTree.main()=cnavg.clock.cnvTree-module.html#main,Function cnavg.clock.timeEvents.main()=cnavg.clock.timeEvents-module.html#main,Function cnavg.flows.unitFlows.main()=cnavg.flows.unitFlows-module.html#main,Function cnavg.history.euclidian.main()=cnavg.history.euclidian-module.html#main,Function cnavg.history.scheduled.main()=cnavg.history.scheduled-module.html#main,Function cnavg.historySampling.cycleCover.main()=cnavg.historySampling.cycleCover-module.html#main,Function cnavg.historySampling.sampleGraphCycles.main()=cnavg.historySampling.sampleGraphCycles-module.html#main,Function cnavg.historySampling.sampleModuleCycles.main()=cnavg.historySampling.sampleModuleCycles-module.html#main,Function cnavg.preprocess.bambam.main()=cnavg.preprocess.bambam-module.html#main,Function cnavg.preprocess.breakendGraph.main()=cnavg.preprocess.breakendGraph-module.html#main,Function cnavg.preprocess.cbs.cbs.main()=cnavg.preprocess.cbs.cbs-module.html#main,Function cnavg.preprocess.discrepancies.main()=cnavg.preprocess.discrepancies-module.html#main,Function cnavg.preprocess.segmentCNVs.main()=cnavg.preprocess.segmentCNVs-module.html#main,Function cnavg.preprocess.vcf.main()=cnavg.preprocess.vcf-module.html#main,Function cnavg.simulator.simulator.main()=cnavg.simulator.simulator-module.html#main"><a title="cnavg.avg.balanced.main
+cnavg.avg.gabp.gabp.main
+cnavg.avg.module.main
+cnavg.cactus.balanced.main
+cnavg.cactus.graph.main
+cnavg.cactus.oriented.main
+cnavg.cactus.threeWay.components.main
+cnavg.cactusSampling.sampling.main
+cnavg.cactusTree.cactusTree.main
+cnavg.clock.EM.main
+cnavg.clock.cnvTree.main
+cnavg.clock.timeEvents.main
+cnavg.flows.unitFlows.main
+cnavg.history.euclidian.main
+cnavg.history.scheduled.main
+cnavg.historySampling.cycleCover.main
+cnavg.historySampling.sampleGraphCycles.main
+cnavg.historySampling.sampleModuleCycles.main
+cnavg.preprocess.bambam.main
+cnavg.preprocess.breakendGraph.main
+cnavg.preprocess.cbs.cbs.main
+cnavg.preprocess.discrepancies.main
+cnavg.preprocess.segmentCNVs.main
+cnavg.preprocess.vcf.main
+cnavg.simulator.simulator.main" class="py-name" href="#" onclick="return doclink('link-18', 'main', 'link-18');">main</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 12 12:56:45 2013
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

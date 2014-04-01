@@ -1,0 +1,1205 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>cnavg.cactusTree.cactusTree</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="cnavg-module.html">Package&nbsp;cnavg</a> ::
+        <a href="cnavg.cactusTree-module.html">Package&nbsp;cactusTree</a> ::
+        Module&nbsp;cactusTree
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="cnavg.cactusTree.cactusTree-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="cnavg.cactusTree.cactusTree-module.html">Module cnavg.cactusTree.cactusTree</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2012, Daniel Zerbino</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># All rights reserved.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># Redistribution and use in source and binary forms, with or without</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># modification, are permitted provided that the following conditions are</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># met:</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># (1) Redistributions of source code must retain the above copyright</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># notice, this list of conditions and the following disclaimer. </tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># (2) Redistributions in binary form must reproduce the above copyright</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># notice, this list of conditions and the following disclaimer in</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># the documentation and/or other materials provided with the</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># distribution.  </tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment"># (3)The name of the author may not be used to</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># endorse or promote products derived from this software without</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment"># specific prior written permission.</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment"># THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment"># IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"># WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment"># DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"># (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"># SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-comment"># HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment"># STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-comment"># IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-comment"># POSSIBILITY OF SUCH DAMAGE.</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/env python</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-docstring">Integrated jobTree pipeline.</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">glob</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">subprocess</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">shutil</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">tempfile</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">cPickle</tt> <tt class="py-keyword">as</tt> <tt class="py-name">pickle</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">gzip</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">tempfile</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">optparse</tt> <tt class="py-keyword">import</tt> <tt class="py-name">OptionParser</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">jobTree</tt><tt class="py-op">.</tt><tt class="py-name">src</tt><tt class="py-op">.</tt><tt class="py-name">bioio</tt> <tt class="py-keyword">import</tt> <tt class="py-name">logger</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">jobTree</tt><tt class="py-op">.</tt><tt class="py-name">src</tt><tt class="py-op">.</tt><tt class="py-name">bioio</tt> <tt class="py-keyword">import</tt> <tt class="py-name">getBasicOptionParser</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">jobTree</tt><tt class="py-op">.</tt><tt class="py-name">src</tt><tt class="py-op">.</tt><tt class="py-name">bioio</tt> <tt class="py-keyword">import</tt> <tt class="py-name">getTempFile</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">jobTree</tt><tt class="py-op">.</tt><tt class="py-name">src</tt><tt class="py-op">.</tt><tt class="py-name">bioio</tt> <tt class="py-keyword">import</tt> <tt class="py-name">getLogLevelString</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">jobTree</tt><tt class="py-op">.</tt><tt class="py-name">src</tt><tt class="py-op">.</tt><tt class="py-name">bioio</tt> <tt class="py-keyword">import</tt> <tt class="py-name">system</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">jobTree</tt><tt class="py-op">.</tt><tt class="py-name">scriptTree</tt><tt class="py-op">.</tt><tt class="py-name">target</tt> <tt class="py-keyword">import</tt> <tt class="py-name">Target</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">jobTree</tt><tt class="py-op">.</tt><tt class="py-name">scriptTree</tt><tt class="py-op">.</tt><tt class="py-name">stack</tt> <tt class="py-keyword">import</tt> <tt class="py-name">Stack</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt id="link-0" class="py-name" targets="Variable cnavg.cactusTree.cactusTree.IDEAL_JOB_RUNTIME=cnavg.cactusTree.cactusTree-module.html#IDEAL_JOB_RUNTIME"><a title="cnavg.cactusTree.cactusTree.IDEAL_JOB_RUNTIME" class="py-name" href="#" onclick="return doclink('link-0', 'IDEAL_JOB_RUNTIME', 'link-0');">IDEAL_JOB_RUNTIME</a></tt> <tt class="py-op">=</tt> <tt class="py-number">500</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt id="link-1" class="py-name" targets="Variable cnavg.cactusTree.cactusTree.MEM4G=cnavg.cactusTree.cactusTree-module.html#MEM4G"><a title="cnavg.cactusTree.cactusTree.MEM4G" class="py-name" href="#" onclick="return doclink('link-1', 'MEM4G', 'link-1');">MEM4G</a></tt><tt class="py-op">=</tt><tt class="py-number">4290000000</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt id="link-2" class="py-name" targets="Variable cnavg.cactusTree.cactusTree.MEM2G=cnavg.cactusTree.cactusTree-module.html#MEM2G"><a title="cnavg.cactusTree.cactusTree.MEM2G" class="py-name" href="#" onclick="return doclink('link-2', 'MEM2G', 'link-2');">MEM2G</a></tt><tt class="py-op">=</tt><tt class="py-number">3000000000</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"> </tt>
+<a name="MyParser"></a><div id="MyParser-def"><a name="L62"></a><tt class="py-lineno"> 62</tt> <a class="py-toggle" href="#" id="MyParser-toggle" onclick="return toggle('MyParser');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.MyParser-class.html">MyParser</a><tt class="py-op">(</tt><tt class="py-base-class">OptionParser</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MyParser-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="MyParser-expanded"><a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-docstring">""" Command line options """</tt> </tt>
+<a name="MyParser.__init__"></a><div id="MyParser.__init__-def"><a name="L64"></a><tt class="py-lineno"> 64</tt> <a class="py-toggle" href="#" id="MyParser.__init__-toggle" onclick="return toggle('MyParser.__init__');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.MyParser-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MyParser.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="MyParser.__init__-expanded"><a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">                <tt class="py-name">OptionParser</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Method cnavg.avg.balanced.BalancedAVG.__init__()=cnavg.avg.balanced.BalancedAVG-class.html#__init__,Method cnavg.avg.balanced.LPProblem.__init__()=cnavg.avg.balanced.LPProblem-class.html#__init__,Method cnavg.avg.balanced.Mapping.__init__()=cnavg.avg.balanced.Mapping-class.html#__init__,Method cnavg.avg.graph.Graph.__init__()=cnavg.avg.graph.Graph-class.html#__init__,Method cnavg.avg.module.Module.__init__()=cnavg.avg.module.Module-class.html#__init__,Method cnavg.avg.node.Node.__init__()=cnavg.avg.node.Node-class.html#__init__,Method cnavg.avg.node.StubNode.__init__()=cnavg.avg.node.StubNode-class.html#__init__,Method cnavg.avg.nodeFlow.NodeFlow.__init__()=cnavg.avg.nodeFlow.NodeFlow-class.html#__init__,Method cnavg.basics.coords.OrientedPosition.__init__()=cnavg.basics.coords.OrientedPosition-class.html#__init__,Method cnavg.basics.coords.OrientedRegion.__init__()=cnavg.basics.coords.OrientedRegion-class.html#__init__,Method cnavg.basics.coords.Position.__init__()=cnavg.basics.coords.Position-class.html#__init__,Method cnavg.basics.coords.Region.__init__()=cnavg.basics.coords.Region-class.html#__init__,Method cnavg.basics.partialOrderSet.PartialOrderSet.__init__()=cnavg.basics.partialOrderSet.PartialOrderSet-class.html#__init__,Method cnavg.cactus.balanced.BalancedCactus.__init__()=cnavg.cactus.balanced.BalancedCactus-class.html#__init__,Method cnavg.cactus.balanced.LPProblem.__init__()=cnavg.cactus.balanced.LPProblem-class.html#__init__,Method cnavg.cactus.balanced.Mapping.__init__()=cnavg.cactus.balanced.Mapping-class.html#__init__,Method cnavg.cactus.block.Block.__init__()=cnavg.cactus.block.Block-class.html#__init__,Method cnavg.cactus.graph.Cactus.__init__()=cnavg.cactus.graph.Cactus-class.html#__init__,Method cnavg.cactus.group.Group.__init__()=cnavg.cactus.group.Group-class.html#__init__,Method cnavg.cactus.net.Net.__init__()=cnavg.cactus.net.Net-class.html#__init__,Method cnavg.cactus.oriented.OrientedCactus.__init__()=cnavg.cactus.oriented.OrientedCactus-class.html#__init__,Method cnavg.cactusSampling.sampling.NormalizedCactus.__init__()=cnavg.cactusSampling.sampling.NormalizedCactus-class.html#__init__,Method cnavg.cactusTree.cactusTree.MyParser.__init__()=cnavg.cactusTree.cactusTree.MyParser-class.html#__init__,Method cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph.__init__()=cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph-class.html#__init__,Method cnavg.cactusTree.cactusTree.PrepareBreakendGraph.__init__()=cnavg.cactusTree.cactusTree.PrepareBreakendGraph-class.html#__init__,Method cnavg.cactusTree.cactusTree.PrepareCBSGraph.__init__()=cnavg.cactusTree.cactusTree.PrepareCBSGraph-class.html#__init__,Method cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs.__init__()=cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs-class.html#__init__,Method cnavg.cactusTree.cactusTree.PrepareCycleGraph.__init__()=cnavg.cactusTree.cactusTree.PrepareCycleGraph-class.html#__init__,Method cnavg.cactusTree.cactusTree.PrepareIndex.__init__()=cnavg.cactusTree.cactusTree.PrepareIndex-class.html#__init__,Method cnavg.cactusTree.cactusTree.Process.__init__()=cnavg.cactusTree.cactusTree.Process-class.html#__init__,Method cnavg.cactusTree.cactusTree.Reduce.__init__()=cnavg.cactusTree.cactusTree.Reduce-class.html#__init__,Method cnavg.cactusTree.cactusTree.SampleCycles.__init__()=cnavg.cactusTree.cactusTree.SampleCycles-class.html#__init__,Method cnavg.cactusTree.cactusTree.SetupPhase.__init__()=cnavg.cactusTree.cactusTree.SetupPhase-class.html#__init__,Method cnavg.clock.cnvTree.CNVNode.__init__()=cnavg.clock.cnvTree.CNVNode-class.html#__init__,Method cnavg.clock.cnvTree.CNVSlice.__init__()=cnavg.clock.cnvTree.CNVSlice-class.html#__init__,Method cnavg.clock.cnvTree.CNVSliceTree.__init__()=cnavg.clock.cnvTree.CNVSliceTree-class.html#__init__,Method cnavg.clock.cnvTree.CNVTree.__init__()=cnavg.clock.cnvTree.CNVTree-class.html#__init__,Method cnavg.clock.timeEvents.SNV.__init__()=cnavg.clock.timeEvents.SNV-class.html#__init__,Method cnavg.flows.cycle.Cycle.__init__()=cnavg.flows.cycle.Cycle-class.html#__init__,Method cnavg.flows.edge.Edge.__init__()=cnavg.flows.edge.Edge-class.html#__init__,Method cnavg.flows.flows.Event.__init__()=cnavg.flows.flows.Event-class.html#__init__,Method cnavg.history.euclidian.EuclidianHistory.__init__()=cnavg.history.euclidian.EuclidianHistory-class.html#__init__,Method cnavg.history.euclidian.Mapping.__init__()=cnavg.history.euclidian.Mapping-class.html#__init__,Method cnavg.history.flattened.FlattenedHistory.__init__()=cnavg.history.flattened.FlattenedHistory-class.html#__init__,Method cnavg.history.history.CactusHistory.__init__()=cnavg.history.history.CactusHistory-class.html#__init__,Method cnavg.history.history.History.__init__()=cnavg.history.history.History-class.html#__init__,Method cnavg.history.ordered.OrderedHistory.__init__()=cnavg.history.ordered.OrderedHistory-class.html#__init__,Method cnavg.history.overlap.Overlap.__init__()=cnavg.history.overlap.Overlap-class.html#__init__,Method cnavg.history.overlap.OverlapHistory.__init__()=cnavg.history.overlap.OverlapHistory-class.html#__init__,Method cnavg.history.scheduled.ScheduledHistory.__init__()=cnavg.history.scheduled.ScheduledHistory-class.html#__init__,Method cnavg.preprocess.breakend.Breakend.__init__()=cnavg.preprocess.breakend.Breakend-class.html#__init__,Method cnavg.preprocess.cnv.CNV.__init__()=cnavg.preprocess.cnv.CNV-class.html#__init__,Method cnavg.simulator.simulator.Deletion.__init__()=cnavg.simulator.simulator.Deletion-class.html#__init__,Method cnavg.simulator.simulator.Duplication.__init__()=cnavg.simulator.simulator.Duplication-class.html#__init__,Method cnavg.simulator.simulator.History.__init__()=cnavg.simulator.simulator.History-class.html#__init__,Method cnavg.simulator.simulator.HistoryBranch.__init__()=cnavg.simulator.simulator.HistoryBranch-class.html#__init__,Method cnavg.simulator.simulator.Identity.__init__()=cnavg.simulator.simulator.Identity-class.html#__init__,Method cnavg.simulator.simulator.InitialBranch.__init__()=cnavg.simulator.simulator.InitialBranch-class.html#__init__,Method cnavg.simulator.simulator.Inversion.__init__()=cnavg.simulator.simulator.Inversion-class.html#__init__,Method cnavg.simulator.simulator.Operation.__init__()=cnavg.simulator.simulator.Operation-class.html#__init__,Method cnavg.simulator.simulator.RandomHistory.__init__()=cnavg.simulator.simulator.RandomHistory-class.html#__init__,Method cnavg.simulator.simulator.RandomWeightedHistory.__init__()=cnavg.simulator.simulator.RandomWeightedHistory-class.html#__init__,Method cnavg.simulator.simulator.WeightedHistory.__init__()=cnavg.simulator.simulator.WeightedHistory-class.html#__init__"><a title="cnavg.avg.balanced.BalancedAVG.__init__
+cnavg.avg.balanced.LPProblem.__init__
+cnavg.avg.balanced.Mapping.__init__
+cnavg.avg.graph.Graph.__init__
+cnavg.avg.module.Module.__init__
+cnavg.avg.node.Node.__init__
+cnavg.avg.node.StubNode.__init__
+cnavg.avg.nodeFlow.NodeFlow.__init__
+cnavg.basics.coords.OrientedPosition.__init__
+cnavg.basics.coords.OrientedRegion.__init__
+cnavg.basics.coords.Position.__init__
+cnavg.basics.coords.Region.__init__
+cnavg.basics.partialOrderSet.PartialOrderSet.__init__
+cnavg.cactus.balanced.BalancedCactus.__init__
+cnavg.cactus.balanced.LPProblem.__init__
+cnavg.cactus.balanced.Mapping.__init__
+cnavg.cactus.block.Block.__init__
+cnavg.cactus.graph.Cactus.__init__
+cnavg.cactus.group.Group.__init__
+cnavg.cactus.net.Net.__init__
+cnavg.cactus.oriented.OrientedCactus.__init__
+cnavg.cactusSampling.sampling.NormalizedCactus.__init__
+cnavg.cactusTree.cactusTree.MyParser.__init__
+cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareBreakendGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCBSGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs.__init__
+cnavg.cactusTree.cactusTree.PrepareCycleGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareIndex.__init__
+cnavg.cactusTree.cactusTree.Process.__init__
+cnavg.cactusTree.cactusTree.Reduce.__init__
+cnavg.cactusTree.cactusTree.SampleCycles.__init__
+cnavg.cactusTree.cactusTree.SetupPhase.__init__
+cnavg.clock.cnvTree.CNVNode.__init__
+cnavg.clock.cnvTree.CNVSlice.__init__
+cnavg.clock.cnvTree.CNVSliceTree.__init__
+cnavg.clock.cnvTree.CNVTree.__init__
+cnavg.clock.timeEvents.SNV.__init__
+cnavg.flows.cycle.Cycle.__init__
+cnavg.flows.edge.Edge.__init__
+cnavg.flows.flows.Event.__init__
+cnavg.history.euclidian.EuclidianHistory.__init__
+cnavg.history.euclidian.Mapping.__init__
+cnavg.history.flattened.FlattenedHistory.__init__
+cnavg.history.history.CactusHistory.__init__
+cnavg.history.history.History.__init__
+cnavg.history.ordered.OrderedHistory.__init__
+cnavg.history.overlap.Overlap.__init__
+cnavg.history.overlap.OverlapHistory.__init__
+cnavg.history.scheduled.ScheduledHistory.__init__
+cnavg.preprocess.breakend.Breakend.__init__
+cnavg.preprocess.cnv.CNV.__init__
+cnavg.simulator.simulator.Deletion.__init__
+cnavg.simulator.simulator.Duplication.__init__
+cnavg.simulator.simulator.History.__init__
+cnavg.simulator.simulator.HistoryBranch.__init__
+cnavg.simulator.simulator.Identity.__init__
+cnavg.simulator.simulator.InitialBranch.__init__
+cnavg.simulator.simulator.Inversion.__init__
+cnavg.simulator.simulator.Operation.__init__
+cnavg.simulator.simulator.RandomHistory.__init__
+cnavg.simulator.simulator.RandomWeightedHistory.__init__
+cnavg.simulator.simulator.WeightedHistory.__init__" class="py-name" href="#" onclick="return doclink('link-3', '__init__', 'link-3');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">'--vcf'</tt><tt class="py-op">,</tt> <tt class="py-string">'-v'</tt><tt class="py-op">,</tt> <tt class="py-name">dest</tt><tt class="py-op">=</tt><tt class="py-string">'vcffile'</tt><tt class="py-op">,</tt> <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">'A VCF (ver &gt;= 4.1) file'</tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">'--bambam'</tt><tt class="py-op">,</tt> <tt class="py-string">'-b'</tt><tt class="py-op">,</tt> <tt class="py-name">dest</tt><tt class="py-op">=</tt><tt class="py-string">'bambam'</tt><tt class="py-op">,</tt> <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">'Common BamBam file string'</tt><tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">'--snpsfile'</tt><tt class="py-op">,</tt> <tt class="py-string">'-p'</tt><tt class="py-op">,</tt> <tt class="py-name">dest</tt><tt class="py-op">=</tt><tt class="py-string">'snpsfiles'</tt><tt class="py-op">,</tt> <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">'Common BamBam file string'</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">'--breaks'</tt><tt class="py-op">,</tt> <tt class="py-string">'-k'</tt><tt class="py-op">,</tt> <tt class="py-name">dest</tt><tt class="py-op">=</tt><tt class="py-string">'breaks'</tt><tt class="py-op">,</tt> <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">'A BamBam breaks file'</tt><tt class="py-op">)</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">'--bam'</tt><tt class="py-op">,</tt> <tt class="py-string">'-B'</tt><tt class="py-op">,</tt> <tt class="py-name">dest</tt><tt class="py-op">=</tt><tt class="py-string">'bam'</tt><tt class="py-op">,</tt> <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">'Bam file'</tt><tt class="py-op">)</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">'--lengths'</tt><tt class="py-op">,</tt> <tt class="py-string">'-l'</tt><tt class="py-op">,</tt> <tt class="py-name">dest</tt><tt class="py-op">=</tt><tt class="py-string">'chromLengths'</tt><tt class="py-op">,</tt> <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">'Chromosome lengths'</tt><tt class="py-op">)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">'--dir'</tt><tt class="py-op">,</tt> <tt class="py-string">'-d'</tt><tt class="py-op">,</tt> <tt class="py-name">dest</tt><tt class="py-op">=</tt><tt class="py-string">'dir'</tt><tt class="py-op">,</tt> <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">'Working directory'</tt><tt class="py-op">)</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">'--size'</tt><tt class="py-op">,</tt> <tt class="py-string">'-s'</tt><tt class="py-op">,</tt> <tt class="py-name">dest</tt><tt class="py-op">=</tt><tt class="py-string">'size'</tt><tt class="py-op">,</tt> <tt class="py-name">type</tt><tt class="py-op">=</tt><tt class="py-name">int</tt><tt class="py-op">,</tt> <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">'Histories per job'</tt><tt class="py-op">,</tt> <tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-number">300</tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">'--number'</tt><tt class="py-op">,</tt> <tt class="py-string">'-n'</tt><tt class="py-op">,</tt> <tt class="py-name">dest</tt><tt class="py-op">=</tt><tt class="py-string">'number'</tt><tt class="py-op">,</tt> <tt class="py-name">type</tt><tt class="py-op">=</tt><tt class="py-name">int</tt><tt class="py-op">,</tt> <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">'Number of jobs'</tt><tt class="py-op">,</tt> <tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-number">500</tt><tt class="py-op">)</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">'--debug'</tt><tt class="py-op">,</tt> <tt class="py-string">'-g'</tt><tt class="py-op">,</tt> <tt class="py-name">dest</tt><tt class="py-op">=</tt><tt class="py-string">'debug'</tt><tt class="py-op">,</tt> <tt class="py-name">action</tt><tt class="py-op">=</tt><tt class="py-string">'store_true'</tt><tt class="py-op">,</tt> <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">'Debug switch for whatever'</tt><tt class="py-op">)</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">'--url'</tt><tt class="py-op">,</tt> <tt class="py-string">'-u'</tt><tt class="py-op">,</tt> <tt class="py-name">dest</tt><tt class="py-op">=</tt><tt class="py-string">'url'</tt><tt class="py-op">,</tt> <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">'URL prefix of home directory'</tt><tt class="py-op">,</tt> <tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-string">"https://tcga1.kilokluster.ucsc.edu/~dzerbino/"</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">                <tt class="py-name">Stack</tt><tt class="py-op">.</tt><tt class="py-name">addJobTreeOptions</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"> </tt>
+<a name="do"></a><div id="do-def"><a name="L79"></a><tt class="py-lineno"> 79</tt> <a class="py-toggle" href="#" id="do-toggle" onclick="return toggle('do');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree-module.html#do">do</a><tt class="py-op">(</tt><tt class="py-param">command</tt><tt class="py-op">,</tt> <tt class="py-param">outf</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">inf</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">append</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="do-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="do-expanded"><a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-docstring">""" Convience wrapper around subprocess.call """</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">outf</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">append</tt><tt class="py-op">:</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">                        <tt class="py-name">output</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">outf</tt><tt class="py-op">,</tt><tt class="py-string">"w+"</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">                        <tt class="py-name">output</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">outf</tt><tt class="py-op">,</tt><tt class="py-string">"a+"</tt><tt class="py-op">)</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">                <tt class="py-name">output</tt> <tt class="py-op">=</tt> <tt class="py-name">tempfile</tt><tt class="py-op">.</tt><tt class="py-name">TemporaryFile</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-name">error</tt> <tt class="py-op">=</tt> <tt class="py-name">tempfile</tt><tt class="py-op">.</tt><tt class="py-name">TemporaryFile</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">inf</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">                <tt class="py-name">input</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">inf</tt><tt class="py-op">)</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">                <tt class="py-name">input</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">subprocess</tt><tt class="py-op">.</tt><tt class="py-name">call</tt><tt class="py-op">(</tt><tt class="py-name">command</tt><tt class="py-op">,</tt> <tt class="py-name">stdout</tt><tt class="py-op">=</tt><tt class="py-name">output</tt><tt class="py-op">,</tt> <tt class="py-name">stderr</tt><tt class="py-op">=</tt><tt class="py-name">error</tt><tt class="py-op">,</tt> <tt class="py-name">stdin</tt><tt class="py-op">=</tt><tt class="py-name">input</tt><tt class="py-op">,</tt> <tt class="py-name">shell</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">ret</tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-name">inf</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-name">command</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-name">outf</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">                <tt class="py-name">output</tt><tt class="py-op">.</tt><tt class="py-name">seek</tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">line</tt> <tt class="py-keyword">in</tt> <tt class="py-name">output</tt><tt class="py-op">:</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">                        <tt class="py-keyword">print</tt> <tt class="py-name">line</tt><tt class="py-op">,</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">                <tt class="py-name">error</tt><tt class="py-op">.</tt><tt class="py-name">seek</tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">line</tt> <tt class="py-keyword">in</tt> <tt class="py-name">error</tt><tt class="py-op">:</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">                        <tt class="py-keyword">print</tt> <tt class="py-name">line</tt><tt class="py-op">,</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">                <tt class="py-name">error</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Method cnavg.avg.module.Module.close()=cnavg.avg.module.Module-class.html#close"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-4', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">                <tt class="py-name">output</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-5', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">                <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">exit</tt><tt class="py-op">(</tt><tt class="py-name">ret</tt><tt class="py-op">)</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-name">error</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-6', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-name">output</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-7', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">input</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">                <tt class="py-name">input</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-8', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="buildGraph"></a><div id="buildGraph-def"><a name="L112"></a><tt class="py-lineno">112</tt> <a class="py-toggle" href="#" id="buildGraph-toggle" onclick="return toggle('buildGraph');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree-module.html#buildGraph">buildGraph</a><tt class="py-op">(</tt><tt class="py-param">options</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="buildGraph-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="buildGraph-expanded"><a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">        <tt class="py-docstring">""" Builds initial Cactus graph """</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">        <tt class="py-name">command</tt> <tt class="py-op">=</tt> <tt class="py-string">"cn-avg.py --dir "</tt> <tt class="py-op">+</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">dir</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">        <tt class="py-name">command</tt> <tt class="py-op">+=</tt> <tt class="py-string">" --bambam "</tt> <tt class="py-op">+</tt> <tt class="py-string">" "</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Module cnavg.preprocess.bambam=cnavg.preprocess.bambam-module.html"><a title="cnavg.preprocess.bambam" class="py-name" href="#" onclick="return doclink('link-9', 'bambam', 'link-9');">bambam</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">snpsfiles</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">                <tt class="py-name">command</tt> <tt class="py-op">+=</tt> <tt class="py-string">" --snps"</tt> <tt class="py-op">+</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">snpsfiles</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">        <tt class="py-name">command</tt> <tt class="py-op">+=</tt> <tt class="py-string">" --breaks "</tt> <tt class="py-op">+</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">breaks</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">        <tt class="py-name">command</tt> <tt class="py-op">+=</tt> <tt class="py-string">" --lengths "</tt> <tt class="py-op">+</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">chromLengths</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">        <tt id="link-10" class="py-name" targets="Function cnavg.cactusTree.cactusTree.do()=cnavg.cactusTree.cactusTree-module.html#do"><a title="cnavg.cactusTree.cactusTree.do" class="py-name" href="#" onclick="return doclink('link-10', 'do', 'link-10');">do</a></tt><tt class="py-op">(</tt><tt class="py-name">command</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line"> </tt>
+<a name="SetupPhase"></a><div id="SetupPhase-def"><a name="L122"></a><tt class="py-lineno">122</tt> <a class="py-toggle" href="#" id="SetupPhase-toggle" onclick="return toggle('SetupPhase');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.SetupPhase-class.html">SetupPhase</a><tt class="py-op">(</tt><tt class="py-base-class">Target</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SetupPhase-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="SetupPhase-expanded"><a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">    <tt class="py-docstring">""" Beginning of pipeline, builds cactus, launches parallel samplers """</tt> </tt>
+<a name="SetupPhase.__init__"></a><div id="SetupPhase.__init__-def"><a name="L124"></a><tt class="py-lineno">124</tt> <a class="py-toggle" href="#" id="SetupPhase.__init__-toggle" onclick="return toggle('SetupPhase.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.SetupPhase-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">options</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SetupPhase.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SetupPhase.__init__-expanded"><a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-name">Target</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="cnavg.avg.balanced.BalancedAVG.__init__
+cnavg.avg.balanced.LPProblem.__init__
+cnavg.avg.balanced.Mapping.__init__
+cnavg.avg.graph.Graph.__init__
+cnavg.avg.module.Module.__init__
+cnavg.avg.node.Node.__init__
+cnavg.avg.node.StubNode.__init__
+cnavg.avg.nodeFlow.NodeFlow.__init__
+cnavg.basics.coords.OrientedPosition.__init__
+cnavg.basics.coords.OrientedRegion.__init__
+cnavg.basics.coords.Position.__init__
+cnavg.basics.coords.Region.__init__
+cnavg.basics.partialOrderSet.PartialOrderSet.__init__
+cnavg.cactus.balanced.BalancedCactus.__init__
+cnavg.cactus.balanced.LPProblem.__init__
+cnavg.cactus.balanced.Mapping.__init__
+cnavg.cactus.block.Block.__init__
+cnavg.cactus.graph.Cactus.__init__
+cnavg.cactus.group.Group.__init__
+cnavg.cactus.net.Net.__init__
+cnavg.cactus.oriented.OrientedCactus.__init__
+cnavg.cactusSampling.sampling.NormalizedCactus.__init__
+cnavg.cactusTree.cactusTree.MyParser.__init__
+cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareBreakendGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCBSGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs.__init__
+cnavg.cactusTree.cactusTree.PrepareCycleGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareIndex.__init__
+cnavg.cactusTree.cactusTree.Process.__init__
+cnavg.cactusTree.cactusTree.Reduce.__init__
+cnavg.cactusTree.cactusTree.SampleCycles.__init__
+cnavg.cactusTree.cactusTree.SetupPhase.__init__
+cnavg.clock.cnvTree.CNVNode.__init__
+cnavg.clock.cnvTree.CNVSlice.__init__
+cnavg.clock.cnvTree.CNVSliceTree.__init__
+cnavg.clock.cnvTree.CNVTree.__init__
+cnavg.clock.timeEvents.SNV.__init__
+cnavg.flows.cycle.Cycle.__init__
+cnavg.flows.edge.Edge.__init__
+cnavg.flows.flows.Event.__init__
+cnavg.history.euclidian.EuclidianHistory.__init__
+cnavg.history.euclidian.Mapping.__init__
+cnavg.history.flattened.FlattenedHistory.__init__
+cnavg.history.history.CactusHistory.__init__
+cnavg.history.history.History.__init__
+cnavg.history.ordered.OrderedHistory.__init__
+cnavg.history.overlap.Overlap.__init__
+cnavg.history.overlap.OverlapHistory.__init__
+cnavg.history.scheduled.ScheduledHistory.__init__
+cnavg.preprocess.breakend.Breakend.__init__
+cnavg.preprocess.cnv.CNV.__init__
+cnavg.simulator.simulator.Deletion.__init__
+cnavg.simulator.simulator.Duplication.__init__
+cnavg.simulator.simulator.History.__init__
+cnavg.simulator.simulator.HistoryBranch.__init__
+cnavg.simulator.simulator.Identity.__init__
+cnavg.simulator.simulator.InitialBranch.__init__
+cnavg.simulator.simulator.Inversion.__init__
+cnavg.simulator.simulator.Operation.__init__
+cnavg.simulator.simulator.RandomHistory.__init__
+cnavg.simulator.simulator.RandomWeightedHistory.__init__
+cnavg.simulator.simulator.WeightedHistory.__init__" class="py-name" href="#" onclick="return doclink('link-11', '__init__', 'link-3');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">time</tt><tt class="py-op">=</tt><tt class="py-number">10</tt><tt class="py-op">,</tt> <tt class="py-name">memory</tt> <tt class="py-op">=</tt> <tt id="link-12" class="py-name"><a title="cnavg.cactusTree.cactusTree.MEM2G" class="py-name" href="#" onclick="return doclink('link-12', 'MEM2G', 'link-2');">MEM2G</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt> <tt class="py-op">=</tt> <tt class="py-name">options</tt> </tt>
+</div><a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">         </tt>
+<a name="SetupPhase.run"></a><div id="SetupPhase.run-def"><a name="L128"></a><tt class="py-lineno">128</tt> <a class="py-toggle" href="#" id="SetupPhase.run-toggle" onclick="return toggle('SetupPhase.run');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.SetupPhase-class.html#run">run</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SetupPhase.run-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SetupPhase.run-expanded"><a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt id="link-13" class="py-name" targets="Function cnavg.cactusTree.cactusTree.buildGraph()=cnavg.cactusTree.cactusTree-module.html#buildGraph"><a title="cnavg.cactusTree.cactusTree.buildGraph" class="py-name" href="#" onclick="return doclink('link-13', 'buildGraph', 'link-13');">buildGraph</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">)</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">index</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">number</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">addChildTarget</tt><tt class="py-op">(</tt><tt id="link-14" class="py-name" targets="Class cnavg.cactusTree.cactusTree.SampleCycles=cnavg.cactusTree.cactusTree.SampleCycles-class.html"><a title="cnavg.cactusTree.cactusTree.SampleCycles" class="py-name" href="#" onclick="return doclink('link-14', 'SampleCycles', 'link-14');">SampleCycles</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">,</tt> <tt class="py-name">index</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">setFollowOnTarget</tt><tt class="py-op">(</tt><tt id="link-15" class="py-name" targets="Class cnavg.cactusTree.cactusTree.Reduce=cnavg.cactusTree.cactusTree.Reduce-class.html"><a title="cnavg.cactusTree.cactusTree.Reduce" class="py-name" href="#" onclick="return doclink('link-15', 'Reduce', 'link-15');">Reduce</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"> </tt>
+<a name="SampleCycles"></a><div id="SampleCycles-def"><a name="L134"></a><tt class="py-lineno">134</tt> <a class="py-toggle" href="#" id="SampleCycles-toggle" onclick="return toggle('SampleCycles');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.SampleCycles-class.html">SampleCycles</a><tt class="py-op">(</tt><tt class="py-base-class">Target</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SampleCycles-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="SampleCycles-expanded"><a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">    <tt class="py-docstring">""" Sampler: normalizes the cactus graph randomly, then performs MCMC search through possible histories. """</tt> </tt>
+<a name="SampleCycles.__init__"></a><div id="SampleCycles.__init__-def"><a name="L136"></a><tt class="py-lineno">136</tt> <a class="py-toggle" href="#" id="SampleCycles.__init__-toggle" onclick="return toggle('SampleCycles.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.SampleCycles-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">options</tt><tt class="py-op">,</tt> <tt class="py-param">index</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SampleCycles.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SampleCycles.__init__-expanded"><a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">        <tt class="py-name">Target</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="cnavg.avg.balanced.BalancedAVG.__init__
+cnavg.avg.balanced.LPProblem.__init__
+cnavg.avg.balanced.Mapping.__init__
+cnavg.avg.graph.Graph.__init__
+cnavg.avg.module.Module.__init__
+cnavg.avg.node.Node.__init__
+cnavg.avg.node.StubNode.__init__
+cnavg.avg.nodeFlow.NodeFlow.__init__
+cnavg.basics.coords.OrientedPosition.__init__
+cnavg.basics.coords.OrientedRegion.__init__
+cnavg.basics.coords.Position.__init__
+cnavg.basics.coords.Region.__init__
+cnavg.basics.partialOrderSet.PartialOrderSet.__init__
+cnavg.cactus.balanced.BalancedCactus.__init__
+cnavg.cactus.balanced.LPProblem.__init__
+cnavg.cactus.balanced.Mapping.__init__
+cnavg.cactus.block.Block.__init__
+cnavg.cactus.graph.Cactus.__init__
+cnavg.cactus.group.Group.__init__
+cnavg.cactus.net.Net.__init__
+cnavg.cactus.oriented.OrientedCactus.__init__
+cnavg.cactusSampling.sampling.NormalizedCactus.__init__
+cnavg.cactusTree.cactusTree.MyParser.__init__
+cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareBreakendGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCBSGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs.__init__
+cnavg.cactusTree.cactusTree.PrepareCycleGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareIndex.__init__
+cnavg.cactusTree.cactusTree.Process.__init__
+cnavg.cactusTree.cactusTree.Reduce.__init__
+cnavg.cactusTree.cactusTree.SampleCycles.__init__
+cnavg.cactusTree.cactusTree.SetupPhase.__init__
+cnavg.clock.cnvTree.CNVNode.__init__
+cnavg.clock.cnvTree.CNVSlice.__init__
+cnavg.clock.cnvTree.CNVSliceTree.__init__
+cnavg.clock.cnvTree.CNVTree.__init__
+cnavg.clock.timeEvents.SNV.__init__
+cnavg.flows.cycle.Cycle.__init__
+cnavg.flows.edge.Edge.__init__
+cnavg.flows.flows.Event.__init__
+cnavg.history.euclidian.EuclidianHistory.__init__
+cnavg.history.euclidian.Mapping.__init__
+cnavg.history.flattened.FlattenedHistory.__init__
+cnavg.history.history.CactusHistory.__init__
+cnavg.history.history.History.__init__
+cnavg.history.ordered.OrderedHistory.__init__
+cnavg.history.overlap.Overlap.__init__
+cnavg.history.overlap.OverlapHistory.__init__
+cnavg.history.scheduled.ScheduledHistory.__init__
+cnavg.preprocess.breakend.Breakend.__init__
+cnavg.preprocess.cnv.CNV.__init__
+cnavg.simulator.simulator.Deletion.__init__
+cnavg.simulator.simulator.Duplication.__init__
+cnavg.simulator.simulator.History.__init__
+cnavg.simulator.simulator.HistoryBranch.__init__
+cnavg.simulator.simulator.Identity.__init__
+cnavg.simulator.simulator.InitialBranch.__init__
+cnavg.simulator.simulator.Inversion.__init__
+cnavg.simulator.simulator.Operation.__init__
+cnavg.simulator.simulator.RandomHistory.__init__
+cnavg.simulator.simulator.RandomWeightedHistory.__init__
+cnavg.simulator.simulator.WeightedHistory.__init__" class="py-name" href="#" onclick="return doclink('link-16', '__init__', 'link-3');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">time</tt><tt class="py-op">=</tt><tt class="py-number">600</tt><tt class="py-op">,</tt> <tt class="py-name">memory</tt><tt class="py-op">=</tt><tt id="link-17" class="py-name"><a title="cnavg.cactusTree.cactusTree.MEM4G" class="py-name" href="#" onclick="return doclink('link-17', 'MEM4G', 'link-1');">MEM4G</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt> <tt class="py-op">=</tt> <tt class="py-name">options</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">index</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">index</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"> </tt>
+<a name="SampleCycles.run"></a><div id="SampleCycles.run-def"><a name="L141"></a><tt class="py-lineno">141</tt> <a class="py-toggle" href="#" id="SampleCycles.run-toggle" onclick="return toggle('SampleCycles.run');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.SampleCycles-class.html#run">run</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SampleCycles.run-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SampleCycles.run-expanded"><a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">        <tt id="link-18" class="py-name"><a title="cnavg.cactusTree.cactusTree.do" class="py-name" href="#" onclick="return doclink('link-18', 'do', 'link-10');">do</a></tt><tt class="py-op">(</tt><tt class="py-string">"cn-avg.py -d "</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">dir</tt> <tt class="py-op">+</tt> <tt class="py-string">" -i "</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">index</tt> <tt class="py-op">+</tt> <tt class="py-string">" -s "</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">size</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"> </tt>
+<a name="Reduce"></a><div id="Reduce-def"><a name="L144"></a><tt class="py-lineno">144</tt> <a class="py-toggle" href="#" id="Reduce-toggle" onclick="return toggle('Reduce');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.Reduce-class.html">Reduce</a><tt class="py-op">(</tt><tt class="py-base-class">Target</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Reduce-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Reduce-expanded"><a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">    <tt class="py-docstring">""" Collects sampled histories and selects optimal ones for a separate file """</tt> </tt>
+<a name="Reduce.__init__"></a><div id="Reduce.__init__-def"><a name="L146"></a><tt class="py-lineno">146</tt> <a class="py-toggle" href="#" id="Reduce.__init__-toggle" onclick="return toggle('Reduce.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.Reduce-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">options</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Reduce.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Reduce.__init__-expanded"><a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">        <tt class="py-name">Target</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="cnavg.avg.balanced.BalancedAVG.__init__
+cnavg.avg.balanced.LPProblem.__init__
+cnavg.avg.balanced.Mapping.__init__
+cnavg.avg.graph.Graph.__init__
+cnavg.avg.module.Module.__init__
+cnavg.avg.node.Node.__init__
+cnavg.avg.node.StubNode.__init__
+cnavg.avg.nodeFlow.NodeFlow.__init__
+cnavg.basics.coords.OrientedPosition.__init__
+cnavg.basics.coords.OrientedRegion.__init__
+cnavg.basics.coords.Position.__init__
+cnavg.basics.coords.Region.__init__
+cnavg.basics.partialOrderSet.PartialOrderSet.__init__
+cnavg.cactus.balanced.BalancedCactus.__init__
+cnavg.cactus.balanced.LPProblem.__init__
+cnavg.cactus.balanced.Mapping.__init__
+cnavg.cactus.block.Block.__init__
+cnavg.cactus.graph.Cactus.__init__
+cnavg.cactus.group.Group.__init__
+cnavg.cactus.net.Net.__init__
+cnavg.cactus.oriented.OrientedCactus.__init__
+cnavg.cactusSampling.sampling.NormalizedCactus.__init__
+cnavg.cactusTree.cactusTree.MyParser.__init__
+cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareBreakendGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCBSGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs.__init__
+cnavg.cactusTree.cactusTree.PrepareCycleGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareIndex.__init__
+cnavg.cactusTree.cactusTree.Process.__init__
+cnavg.cactusTree.cactusTree.Reduce.__init__
+cnavg.cactusTree.cactusTree.SampleCycles.__init__
+cnavg.cactusTree.cactusTree.SetupPhase.__init__
+cnavg.clock.cnvTree.CNVNode.__init__
+cnavg.clock.cnvTree.CNVSlice.__init__
+cnavg.clock.cnvTree.CNVSliceTree.__init__
+cnavg.clock.cnvTree.CNVTree.__init__
+cnavg.clock.timeEvents.SNV.__init__
+cnavg.flows.cycle.Cycle.__init__
+cnavg.flows.edge.Edge.__init__
+cnavg.flows.flows.Event.__init__
+cnavg.history.euclidian.EuclidianHistory.__init__
+cnavg.history.euclidian.Mapping.__init__
+cnavg.history.flattened.FlattenedHistory.__init__
+cnavg.history.history.CactusHistory.__init__
+cnavg.history.history.History.__init__
+cnavg.history.ordered.OrderedHistory.__init__
+cnavg.history.overlap.Overlap.__init__
+cnavg.history.overlap.OverlapHistory.__init__
+cnavg.history.scheduled.ScheduledHistory.__init__
+cnavg.preprocess.breakend.Breakend.__init__
+cnavg.preprocess.cnv.CNV.__init__
+cnavg.simulator.simulator.Deletion.__init__
+cnavg.simulator.simulator.Duplication.__init__
+cnavg.simulator.simulator.History.__init__
+cnavg.simulator.simulator.HistoryBranch.__init__
+cnavg.simulator.simulator.Identity.__init__
+cnavg.simulator.simulator.InitialBranch.__init__
+cnavg.simulator.simulator.Inversion.__init__
+cnavg.simulator.simulator.Operation.__init__
+cnavg.simulator.simulator.RandomHistory.__init__
+cnavg.simulator.simulator.RandomWeightedHistory.__init__
+cnavg.simulator.simulator.WeightedHistory.__init__" class="py-name" href="#" onclick="return doclink('link-19', '__init__', 'link-3');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">time</tt><tt class="py-op">=</tt><tt class="py-number">600</tt><tt class="py-op">,</tt> <tt class="py-name">memory</tt><tt class="py-op">=</tt><tt id="link-20" class="py-name"><a title="cnavg.cactusTree.cactusTree.MEM2G" class="py-name" href="#" onclick="return doclink('link-20', 'MEM2G', 'link-2');">MEM2G</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt> <tt class="py-op">=</tt> <tt class="py-name">options</tt> </tt>
+</div><a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line"> </tt>
+<a name="Reduce.run"></a><div id="Reduce.run-def"><a name="L150"></a><tt class="py-lineno">150</tt> <a class="py-toggle" href="#" id="Reduce.run-toggle" onclick="return toggle('Reduce.run');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.Reduce-class.html#run">run</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Reduce.run-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Reduce.run-expanded"><a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">size</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt> <tt class="py-keyword">and</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">number</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">                <tt class="py-name">temp</tt> <tt class="py-op">=</tt> <tt class="py-name">tempfile</tt><tt class="py-op">.</tt><tt class="py-name">mkstemp</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">                <tt id="link-21" class="py-name"><a title="cnavg.cactusTree.cactusTree.do" class="py-name" href="#" onclick="return doclink('link-21', 'do', 'link-10');">do</a></tt><tt class="py-op">(</tt><tt class="py-string">"gzip -dc %s/HISTORIES_*.braney | awk '/^A/ {if ($14 &lt; min || ! min) min = $14} END {print min}'"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">dir</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">outf</tt><tt class="py-op">=</tt><tt class="py-name">temp</tt><tt class="py-op">)</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">                <tt class="py-name">score</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">temp</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">readline</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">strip</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">                <tt class="py-name">files</tt> <tt class="py-op">=</tt> <tt class="py-name">glob</tt><tt class="py-op">.</tt><tt class="py-name">glob</tt><tt class="py-op">(</tt><tt class="py-string">"%s/HISTORIES_*.braney"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">dir</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">                <tt class="py-name">out</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-string">"%s/OPTIMAL_HISTORIES.braney"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">dir</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">"w"</tt><tt class="py-op">)</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">                <tt class="py-name">counter</tt> <tt class="py-op">=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">                <tt class="py-name">lastID</tt> <tt class="py-op">=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">                <tt class="py-name">lastFile</tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt>  </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">file</tt> <tt class="py-keyword">in</tt> <tt class="py-name">files</tt><tt class="py-op">:</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">                        <tt class="py-name">input</tt> <tt class="py-op">=</tt> <tt class="py-name">gzip</tt><tt class="py-op">.</tt><tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">file</tt><tt class="py-op">)</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">                        <tt class="py-keyword">for</tt> <tt class="py-name">line</tt> <tt class="py-keyword">in</tt> <tt class="py-name">input</tt><tt class="py-op">:</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">                                <tt class="py-name">items</tt> <tt class="py-op">=</tt> <tt class="py-name">line</tt><tt class="py-op">.</tt><tt class="py-name">strip</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">                                <tt class="py-keyword">if</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"A"</tt> <tt class="py-keyword">and</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">13</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">score</tt><tt class="py-op">:</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">                                        <tt class="py-keyword">if</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">8</tt><tt class="py-op">]</tt> <tt class="py-op">!=</tt> <tt class="py-name">lastID</tt> <tt class="py-keyword">or</tt> <tt class="py-name">file</tt> <tt class="py-op">!=</tt> <tt class="py-name">lastFile</tt><tt class="py-op">:</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">                                                <tt class="py-name">counter</tt> <tt class="py-op">+=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">                                        <tt class="py-name">lastID</tt> <tt class="py-op">=</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">8</tt><tt class="py-op">]</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">                                        <tt class="py-name">lastFile</tt> <tt class="py-op">=</tt> <tt class="py-name">file</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">                                        <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">8</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">counter</tt><tt class="py-op">)</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">                                        <tt class="py-name">out</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-string">"\t"</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">items</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">"\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">                                <tt class="py-keyword">elif</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">!=</tt> <tt class="py-string">"A"</tt> <tt class="py-keyword">and</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">9</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">score</tt><tt class="py-op">:</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">                                        <tt class="py-keyword">if</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">4</tt><tt class="py-op">]</tt> <tt class="py-op">!=</tt> <tt class="py-name">lastID</tt> <tt class="py-keyword">or</tt> <tt class="py-name">file</tt> <tt class="py-op">!=</tt> <tt class="py-name">lastFile</tt><tt class="py-op">:</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">                                                <tt class="py-name">counter</tt> <tt class="py-op">+=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">                                        <tt class="py-name">lastID</tt> <tt class="py-op">=</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">4</tt><tt class="py-op">]</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">                                        <tt class="py-name">lastFile</tt> <tt class="py-op">=</tt> <tt class="py-name">file</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">                                        <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">4</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">counter</tt><tt class="py-op">)</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">                                        <tt class="py-name">out</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-string">"\t"</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">items</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">"\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">                        <tt class="py-name">input</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-22', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">                <tt class="py-name">out</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-23', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line"> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">setFollowOnTarget</tt><tt class="py-op">(</tt><tt id="link-24" class="py-name" targets="Class cnavg.cactusTree.cactusTree.Process=cnavg.cactusTree.cactusTree.Process-class.html"><a title="cnavg.cactusTree.cactusTree.Process" class="py-name" href="#" onclick="return doclink('link-24', 'Process', 'link-24');">Process</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line"> </tt>
+<a name="Process"></a><div id="Process-def"><a name="L183"></a><tt class="py-lineno">183</tt> <a class="py-toggle" href="#" id="Process-toggle" onclick="return toggle('Process');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.Process-class.html">Process</a><tt class="py-op">(</tt><tt class="py-base-class">Target</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Process-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Process-expanded"><a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">    <tt class="py-docstring">""" Prepares different tracks for visual inspection on the browser """</tt> </tt>
+<a name="Process.__init__"></a><div id="Process.__init__-def"><a name="L185"></a><tt class="py-lineno">185</tt> <a class="py-toggle" href="#" id="Process.__init__-toggle" onclick="return toggle('Process.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.Process-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">options</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Process.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Process.__init__-expanded"><a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">        <tt class="py-name">Target</tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="cnavg.avg.balanced.BalancedAVG.__init__
+cnavg.avg.balanced.LPProblem.__init__
+cnavg.avg.balanced.Mapping.__init__
+cnavg.avg.graph.Graph.__init__
+cnavg.avg.module.Module.__init__
+cnavg.avg.node.Node.__init__
+cnavg.avg.node.StubNode.__init__
+cnavg.avg.nodeFlow.NodeFlow.__init__
+cnavg.basics.coords.OrientedPosition.__init__
+cnavg.basics.coords.OrientedRegion.__init__
+cnavg.basics.coords.Position.__init__
+cnavg.basics.coords.Region.__init__
+cnavg.basics.partialOrderSet.PartialOrderSet.__init__
+cnavg.cactus.balanced.BalancedCactus.__init__
+cnavg.cactus.balanced.LPProblem.__init__
+cnavg.cactus.balanced.Mapping.__init__
+cnavg.cactus.block.Block.__init__
+cnavg.cactus.graph.Cactus.__init__
+cnavg.cactus.group.Group.__init__
+cnavg.cactus.net.Net.__init__
+cnavg.cactus.oriented.OrientedCactus.__init__
+cnavg.cactusSampling.sampling.NormalizedCactus.__init__
+cnavg.cactusTree.cactusTree.MyParser.__init__
+cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareBreakendGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCBSGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs.__init__
+cnavg.cactusTree.cactusTree.PrepareCycleGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareIndex.__init__
+cnavg.cactusTree.cactusTree.Process.__init__
+cnavg.cactusTree.cactusTree.Reduce.__init__
+cnavg.cactusTree.cactusTree.SampleCycles.__init__
+cnavg.cactusTree.cactusTree.SetupPhase.__init__
+cnavg.clock.cnvTree.CNVNode.__init__
+cnavg.clock.cnvTree.CNVSlice.__init__
+cnavg.clock.cnvTree.CNVSliceTree.__init__
+cnavg.clock.cnvTree.CNVTree.__init__
+cnavg.clock.timeEvents.SNV.__init__
+cnavg.flows.cycle.Cycle.__init__
+cnavg.flows.edge.Edge.__init__
+cnavg.flows.flows.Event.__init__
+cnavg.history.euclidian.EuclidianHistory.__init__
+cnavg.history.euclidian.Mapping.__init__
+cnavg.history.flattened.FlattenedHistory.__init__
+cnavg.history.history.CactusHistory.__init__
+cnavg.history.history.History.__init__
+cnavg.history.ordered.OrderedHistory.__init__
+cnavg.history.overlap.Overlap.__init__
+cnavg.history.overlap.OverlapHistory.__init__
+cnavg.history.scheduled.ScheduledHistory.__init__
+cnavg.preprocess.breakend.Breakend.__init__
+cnavg.preprocess.cnv.CNV.__init__
+cnavg.simulator.simulator.Deletion.__init__
+cnavg.simulator.simulator.Duplication.__init__
+cnavg.simulator.simulator.History.__init__
+cnavg.simulator.simulator.HistoryBranch.__init__
+cnavg.simulator.simulator.Identity.__init__
+cnavg.simulator.simulator.InitialBranch.__init__
+cnavg.simulator.simulator.Inversion.__init__
+cnavg.simulator.simulator.Operation.__init__
+cnavg.simulator.simulator.RandomHistory.__init__
+cnavg.simulator.simulator.RandomWeightedHistory.__init__
+cnavg.simulator.simulator.WeightedHistory.__init__" class="py-name" href="#" onclick="return doclink('link-25', '__init__', 'link-3');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">time</tt><tt class="py-op">=</tt><tt class="py-number">10</tt><tt class="py-op">,</tt> <tt class="py-name">memory</tt><tt class="py-op">=</tt><tt id="link-26" class="py-name"><a title="cnavg.cactusTree.cactusTree.MEM2G" class="py-name" href="#" onclick="return doclink('link-26', 'MEM2G', 'link-2');">MEM2G</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt> <tt class="py-op">=</tt> <tt class="py-name">options</tt> </tt>
+</div><a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line"> </tt>
+<a name="Process.run"></a><div id="Process.run-def"><a name="L189"></a><tt class="py-lineno">189</tt> <a class="py-toggle" href="#" id="Process.run-toggle" onclick="return toggle('Process.run');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.Process-class.html#run">run</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Process.run-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Process.run-expanded"><a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">tracks</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">dir</tt><tt class="py-op">,</tt> <tt class="py-string">"tracks"</tt><tt class="py-op">)</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">exists</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">tracks</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">                <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">mkdir</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">tracks</tt><tt class="py-op">)</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">addChildTarget</tt><tt class="py-op">(</tt><tt id="link-27" class="py-name" targets="Class cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph=cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph-class.html"><a title="cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph" class="py-name" href="#" onclick="return doclink('link-27', 'PrepareBAMBAMGraph', 'link-27');">PrepareBAMBAMGraph</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">addChildTarget</tt><tt class="py-op">(</tt><tt id="link-28" class="py-name" targets="Class cnavg.cactusTree.cactusTree.PrepareCBSGraph=cnavg.cactusTree.cactusTree.PrepareCBSGraph-class.html"><a title="cnavg.cactusTree.cactusTree.PrepareCBSGraph" class="py-name" href="#" onclick="return doclink('link-28', 'PrepareCBSGraph', 'link-28');">PrepareCBSGraph</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">addChildTarget</tt><tt class="py-op">(</tt><tt id="link-29" class="py-name" targets="Class cnavg.cactusTree.cactusTree.PrepareBreakendGraph=cnavg.cactusTree.cactusTree.PrepareBreakendGraph-class.html"><a title="cnavg.cactusTree.cactusTree.PrepareBreakendGraph" class="py-name" href="#" onclick="return doclink('link-29', 'PrepareBreakendGraph', 'link-29');">PrepareBreakendGraph</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">addChildTarget</tt><tt class="py-op">(</tt><tt id="link-30" class="py-name" targets="Class cnavg.cactusTree.cactusTree.PrepareCycleGraph=cnavg.cactusTree.cactusTree.PrepareCycleGraph-class.html"><a title="cnavg.cactusTree.cactusTree.PrepareCycleGraph" class="py-name" href="#" onclick="return doclink('link-30', 'PrepareCycleGraph', 'link-30');">PrepareCycleGraph</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">addChildTarget</tt><tt class="py-op">(</tt><tt id="link-31" class="py-name" targets="Class cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs=cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs-class.html"><a title="cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs" class="py-name" href="#" onclick="return doclink('link-31', 'PrepareCactusCoverageGraphs', 'link-31');">PrepareCactusCoverageGraphs</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line"> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">chdir</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">tracks</tt><tt class="py-op">)</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">        <tt class="py-name">logger</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name" targets="Module cnavg.history.debug=cnavg.history.debug-module.html"><a title="cnavg.history.debug" class="py-name" href="#" onclick="return doclink('link-32', 'debug', 'link-32');">debug</a></tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">basename</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">bam</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">exists</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">basename</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">bam</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">".bai"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">                <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name" targets="Method cnavg.clock.cnvTree.CNVSlice.remove()=cnavg.clock.cnvTree.CNVSlice-class.html#remove"><a title="cnavg.clock.cnvTree.CNVSlice.remove" class="py-name" href="#" onclick="return doclink('link-33', 'remove', 'link-33');">remove</a></tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">basename</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">bam</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">".bai"</tt><tt class="py-op">)</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">exists</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">basename</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">bam</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">                <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="cnavg.clock.cnvTree.CNVSlice.remove" class="py-name" href="#" onclick="return doclink('link-34', 'remove', 'link-33');">remove</a></tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">basename</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">bam</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">        <tt id="link-35" class="py-name"><a title="cnavg.cactusTree.cactusTree.do" class="py-name" href="#" onclick="return doclink('link-35', 'do', 'link-10');">do</a></tt><tt class="py-op">(</tt><tt class="py-string">"ln -s %s"</tt> <tt class="py-op">%</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">bam</tt><tt class="py-op">)</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">        <tt id="link-36" class="py-name"><a title="cnavg.cactusTree.cactusTree.do" class="py-name" href="#" onclick="return doclink('link-36', 'do', 'link-10');">do</a></tt><tt class="py-op">(</tt><tt class="py-string">"ln -s %s.bai"</tt> <tt class="py-op">%</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">bam</tt><tt class="py-op">)</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">setFollowOnTarget</tt><tt class="py-op">(</tt><tt id="link-37" class="py-name" targets="Class cnavg.cactusTree.cactusTree.PrepareIndex=cnavg.cactusTree.cactusTree.PrepareIndex-class.html"><a title="cnavg.cactusTree.cactusTree.PrepareIndex" class="py-name" href="#" onclick="return doclink('link-37', 'PrepareIndex', 'link-37');">PrepareIndex</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line"> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line"><tt id="link-38" class="py-name" targets="Variable cnavg.cactusTree.cactusTree.chroms=cnavg.cactusTree.cactusTree-module.html#chroms"><a title="cnavg.cactusTree.cactusTree.chroms" class="py-name" href="#" onclick="return doclink('link-38', 'chroms', 'link-38');">chroms</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">"chr1"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr2"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr3"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr4"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr5"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr6"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr7"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr8"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr9"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr10"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr11"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr12"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr13"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr14"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr15"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr16"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr17"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr18"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr19"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr20"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr21"</tt><tt class="py-op">,</tt> <tt class="py-string">"chr22"</tt><tt class="py-op">,</tt> <tt class="py-string">"chrX"</tt><tt class="py-op">,</tt> <tt class="py-string">"chrY"</tt><tt class="py-op">]</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line"> </tt>
+<a name="PrepareBAMBAMGraph"></a><div id="PrepareBAMBAMGraph-def"><a name="L211"></a><tt class="py-lineno">211</tt> <a class="py-toggle" href="#" id="PrepareBAMBAMGraph-toggle" onclick="return toggle('PrepareBAMBAMGraph');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph-class.html">PrepareBAMBAMGraph</a><tt class="py-op">(</tt><tt class="py-base-class">Target</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareBAMBAMGraph-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="PrepareBAMBAMGraph-expanded"><a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">    <tt class="py-docstring">""" Prepares wiggle file of Bambam coverage bins """</tt> </tt>
+<a name="PrepareBAMBAMGraph.__init__"></a><div id="PrepareBAMBAMGraph.__init__-def"><a name="L213"></a><tt class="py-lineno">213</tt> <a class="py-toggle" href="#" id="PrepareBAMBAMGraph.__init__-toggle" onclick="return toggle('PrepareBAMBAMGraph.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">options</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareBAMBAMGraph.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PrepareBAMBAMGraph.__init__-expanded"><a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line">        <tt class="py-name">Target</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="cnavg.avg.balanced.BalancedAVG.__init__
+cnavg.avg.balanced.LPProblem.__init__
+cnavg.avg.balanced.Mapping.__init__
+cnavg.avg.graph.Graph.__init__
+cnavg.avg.module.Module.__init__
+cnavg.avg.node.Node.__init__
+cnavg.avg.node.StubNode.__init__
+cnavg.avg.nodeFlow.NodeFlow.__init__
+cnavg.basics.coords.OrientedPosition.__init__
+cnavg.basics.coords.OrientedRegion.__init__
+cnavg.basics.coords.Position.__init__
+cnavg.basics.coords.Region.__init__
+cnavg.basics.partialOrderSet.PartialOrderSet.__init__
+cnavg.cactus.balanced.BalancedCactus.__init__
+cnavg.cactus.balanced.LPProblem.__init__
+cnavg.cactus.balanced.Mapping.__init__
+cnavg.cactus.block.Block.__init__
+cnavg.cactus.graph.Cactus.__init__
+cnavg.cactus.group.Group.__init__
+cnavg.cactus.net.Net.__init__
+cnavg.cactus.oriented.OrientedCactus.__init__
+cnavg.cactusSampling.sampling.NormalizedCactus.__init__
+cnavg.cactusTree.cactusTree.MyParser.__init__
+cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareBreakendGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCBSGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs.__init__
+cnavg.cactusTree.cactusTree.PrepareCycleGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareIndex.__init__
+cnavg.cactusTree.cactusTree.Process.__init__
+cnavg.cactusTree.cactusTree.Reduce.__init__
+cnavg.cactusTree.cactusTree.SampleCycles.__init__
+cnavg.cactusTree.cactusTree.SetupPhase.__init__
+cnavg.clock.cnvTree.CNVNode.__init__
+cnavg.clock.cnvTree.CNVSlice.__init__
+cnavg.clock.cnvTree.CNVSliceTree.__init__
+cnavg.clock.cnvTree.CNVTree.__init__
+cnavg.clock.timeEvents.SNV.__init__
+cnavg.flows.cycle.Cycle.__init__
+cnavg.flows.edge.Edge.__init__
+cnavg.flows.flows.Event.__init__
+cnavg.history.euclidian.EuclidianHistory.__init__
+cnavg.history.euclidian.Mapping.__init__
+cnavg.history.flattened.FlattenedHistory.__init__
+cnavg.history.history.CactusHistory.__init__
+cnavg.history.history.History.__init__
+cnavg.history.ordered.OrderedHistory.__init__
+cnavg.history.overlap.Overlap.__init__
+cnavg.history.overlap.OverlapHistory.__init__
+cnavg.history.scheduled.ScheduledHistory.__init__
+cnavg.preprocess.breakend.Breakend.__init__
+cnavg.preprocess.cnv.CNV.__init__
+cnavg.simulator.simulator.Deletion.__init__
+cnavg.simulator.simulator.Duplication.__init__
+cnavg.simulator.simulator.History.__init__
+cnavg.simulator.simulator.HistoryBranch.__init__
+cnavg.simulator.simulator.Identity.__init__
+cnavg.simulator.simulator.InitialBranch.__init__
+cnavg.simulator.simulator.Inversion.__init__
+cnavg.simulator.simulator.Operation.__init__
+cnavg.simulator.simulator.RandomHistory.__init__
+cnavg.simulator.simulator.RandomWeightedHistory.__init__
+cnavg.simulator.simulator.WeightedHistory.__init__" class="py-name" href="#" onclick="return doclink('link-39', '__init__', 'link-3');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">time</tt><tt class="py-op">=</tt><tt class="py-number">1800</tt><tt class="py-op">,</tt> <tt class="py-name">memory</tt><tt class="py-op">=</tt><tt id="link-40" class="py-name"><a title="cnavg.cactusTree.cactusTree.MEM2G" class="py-name" href="#" onclick="return doclink('link-40', 'MEM2G', 'link-2');">MEM2G</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt> <tt class="py-op">=</tt> <tt class="py-name">options</tt> </tt>
+</div><a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line"> </tt>
+<a name="PrepareBAMBAMGraph.run"></a><div id="PrepareBAMBAMGraph.run-def"><a name="L217"></a><tt class="py-lineno">217</tt> <a class="py-toggle" href="#" id="PrepareBAMBAMGraph.run-toggle" onclick="return toggle('PrepareBAMBAMGraph.run');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph-class.html#run">run</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareBAMBAMGraph.run-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PrepareBAMBAMGraph.run-expanded"><a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">chdir</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">tracks</tt><tt class="py-op">)</tt> </tt>
+<a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">        <tt class="py-name">out</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-string">"bambam.cov.bg"</tt><tt class="py-op">,</tt> <tt class="py-string">"w"</tt><tt class="py-op">)</tt> </tt>
+<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">        <tt class="py-name">lastChr</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line">        <tt class="py-name">lastPos</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">file</tt> <tt class="py-keyword">in</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">open</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name"><a title="cnavg.preprocess.bambam" class="py-name" href="#" onclick="return doclink('link-41', 'bambam', 'link-9');">bambam</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">line</tt> <tt class="py-keyword">in</tt> <tt class="py-name">file</tt><tt class="py-op">:</tt> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line">                        <tt class="py-name">items</tt> <tt class="py-op">=</tt> <tt class="py-name">line</tt><tt class="py-op">.</tt><tt class="py-name">strip</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"CNV"</tt><tt class="py-op">:</tt> </tt>
+<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line">                                <tt class="py-keyword">if</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-number">3</tt><tt class="py-op">]</tt> <tt class="py-op">!=</tt> <tt class="py-string">"chr"</tt><tt class="py-op">:</tt> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line">                                        <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">"chr"</tt> <tt class="py-op">+</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line">                                <tt class="py-keyword">if</tt> <tt class="py-name">lastChr</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt> <tt class="py-keyword">and</tt> <tt class="py-name">lastChr</tt> <tt class="py-op">==</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-keyword">and</tt> <tt class="py-name">lastPos</tt> <tt class="py-op">&gt;=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line">                                        <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">lastPos</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line">                                <tt class="py-name">out</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-string">"\t"</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">str</tt><tt class="py-op">,</tt><tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-number">5</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">"\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">                                <tt class="py-name">lastChr</tt> <tt class="py-op">=</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line">                                <tt class="py-name">lastPos</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">3</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">                <tt class="py-name">file</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-42', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line">        <tt class="py-name">out</tt><tt class="py-op">.</tt><tt id="link-43" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-43', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line">        <tt id="link-44" class="py-name"><a title="cnavg.cactusTree.cactusTree.do" class="py-name" href="#" onclick="return doclink('link-44', 'do', 'link-10');">do</a></tt><tt class="py-op">(</tt><tt class="py-string">"bedGraphToBigWig bambam.cov.bg "</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">chromLengths</tt> <tt class="py-op">+</tt> <tt class="py-string">" bambam.cov.bw"</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line"> </tt>
+<a name="PrepareCBSGraph"></a><div id="PrepareCBSGraph-def"><a name="L237"></a><tt class="py-lineno">237</tt> <a class="py-toggle" href="#" id="PrepareCBSGraph-toggle" onclick="return toggle('PrepareCBSGraph');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareCBSGraph-class.html">PrepareCBSGraph</a><tt class="py-op">(</tt><tt class="py-base-class">Target</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareCBSGraph-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="PrepareCBSGraph-expanded"><a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line">    <tt class="py-docstring">""" Prepares wiggle file of CBS coverage segments """</tt> </tt>
+<a name="PrepareCBSGraph.__init__"></a><div id="PrepareCBSGraph.__init__-def"><a name="L239"></a><tt class="py-lineno">239</tt> <a class="py-toggle" href="#" id="PrepareCBSGraph.__init__-toggle" onclick="return toggle('PrepareCBSGraph.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareCBSGraph-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">options</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareCBSGraph.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PrepareCBSGraph.__init__-expanded"><a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line">        <tt class="py-name">Target</tt><tt class="py-op">.</tt><tt id="link-45" class="py-name"><a title="cnavg.avg.balanced.BalancedAVG.__init__
+cnavg.avg.balanced.LPProblem.__init__
+cnavg.avg.balanced.Mapping.__init__
+cnavg.avg.graph.Graph.__init__
+cnavg.avg.module.Module.__init__
+cnavg.avg.node.Node.__init__
+cnavg.avg.node.StubNode.__init__
+cnavg.avg.nodeFlow.NodeFlow.__init__
+cnavg.basics.coords.OrientedPosition.__init__
+cnavg.basics.coords.OrientedRegion.__init__
+cnavg.basics.coords.Position.__init__
+cnavg.basics.coords.Region.__init__
+cnavg.basics.partialOrderSet.PartialOrderSet.__init__
+cnavg.cactus.balanced.BalancedCactus.__init__
+cnavg.cactus.balanced.LPProblem.__init__
+cnavg.cactus.balanced.Mapping.__init__
+cnavg.cactus.block.Block.__init__
+cnavg.cactus.graph.Cactus.__init__
+cnavg.cactus.group.Group.__init__
+cnavg.cactus.net.Net.__init__
+cnavg.cactus.oriented.OrientedCactus.__init__
+cnavg.cactusSampling.sampling.NormalizedCactus.__init__
+cnavg.cactusTree.cactusTree.MyParser.__init__
+cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareBreakendGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCBSGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs.__init__
+cnavg.cactusTree.cactusTree.PrepareCycleGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareIndex.__init__
+cnavg.cactusTree.cactusTree.Process.__init__
+cnavg.cactusTree.cactusTree.Reduce.__init__
+cnavg.cactusTree.cactusTree.SampleCycles.__init__
+cnavg.cactusTree.cactusTree.SetupPhase.__init__
+cnavg.clock.cnvTree.CNVNode.__init__
+cnavg.clock.cnvTree.CNVSlice.__init__
+cnavg.clock.cnvTree.CNVSliceTree.__init__
+cnavg.clock.cnvTree.CNVTree.__init__
+cnavg.clock.timeEvents.SNV.__init__
+cnavg.flows.cycle.Cycle.__init__
+cnavg.flows.edge.Edge.__init__
+cnavg.flows.flows.Event.__init__
+cnavg.history.euclidian.EuclidianHistory.__init__
+cnavg.history.euclidian.Mapping.__init__
+cnavg.history.flattened.FlattenedHistory.__init__
+cnavg.history.history.CactusHistory.__init__
+cnavg.history.history.History.__init__
+cnavg.history.ordered.OrderedHistory.__init__
+cnavg.history.overlap.Overlap.__init__
+cnavg.history.overlap.OverlapHistory.__init__
+cnavg.history.scheduled.ScheduledHistory.__init__
+cnavg.preprocess.breakend.Breakend.__init__
+cnavg.preprocess.cnv.CNV.__init__
+cnavg.simulator.simulator.Deletion.__init__
+cnavg.simulator.simulator.Duplication.__init__
+cnavg.simulator.simulator.History.__init__
+cnavg.simulator.simulator.HistoryBranch.__init__
+cnavg.simulator.simulator.Identity.__init__
+cnavg.simulator.simulator.InitialBranch.__init__
+cnavg.simulator.simulator.Inversion.__init__
+cnavg.simulator.simulator.Operation.__init__
+cnavg.simulator.simulator.RandomHistory.__init__
+cnavg.simulator.simulator.RandomWeightedHistory.__init__
+cnavg.simulator.simulator.WeightedHistory.__init__" class="py-name" href="#" onclick="return doclink('link-45', '__init__', 'link-3');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">time</tt><tt class="py-op">=</tt><tt class="py-number">1800</tt><tt class="py-op">,</tt> <tt class="py-name">memory</tt><tt class="py-op">=</tt><tt id="link-46" class="py-name"><a title="cnavg.cactusTree.cactusTree.MEM2G" class="py-name" href="#" onclick="return doclink('link-46', 'MEM2G', 'link-2');">MEM2G</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt> <tt class="py-op">=</tt> <tt class="py-name">options</tt> </tt>
+</div><a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line"> </tt>
+<a name="PrepareCBSGraph.run"></a><div id="PrepareCBSGraph.run-def"><a name="L243"></a><tt class="py-lineno">243</tt> <a class="py-toggle" href="#" id="PrepareCBSGraph.run-toggle" onclick="return toggle('PrepareCBSGraph.run');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareCBSGraph-class.html#run">run</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareCBSGraph.run-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PrepareCBSGraph.run-expanded"><a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">chdir</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">tracks</tt><tt class="py-op">)</tt> </tt>
+<a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">dir</tt><tt class="py-op">,</tt> <tt class="py-string">"CBS_OUT"</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line">        <tt class="py-name">out</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-string">"cbs.cov.bg"</tt><tt class="py-op">,</tt> <tt class="py-string">"w"</tt><tt class="py-op">)</tt> </tt>
+<a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">line</tt> <tt class="py-keyword">in</tt> <tt class="py-name">file</tt><tt class="py-op">:</tt> </tt>
+<a name="L248"></a><tt class="py-lineno">248</tt>  <tt class="py-line">                <tt class="py-name">items</tt> <tt class="py-op">=</tt> <tt class="py-name">line</tt><tt class="py-op">.</tt><tt class="py-name">strip</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">]</tt> <tt class="py-op">!=</tt> <tt class="py-string">"loc.start"</tt><tt class="py-op">:</tt> </tt>
+<a name="L250"></a><tt class="py-lineno">250</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"23"</tt><tt class="py-op">:</tt> </tt>
+<a name="L251"></a><tt class="py-lineno">251</tt>  <tt class="py-line">                                <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">"chrX"</tt> </tt>
+<a name="L252"></a><tt class="py-lineno">252</tt>  <tt class="py-line">                        <tt class="py-keyword">elif</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"24"</tt><tt class="py-op">:</tt> </tt>
+<a name="L253"></a><tt class="py-lineno">253</tt>  <tt class="py-line">                                <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">"chrY"</tt> </tt>
+<a name="L254"></a><tt class="py-lineno">254</tt>  <tt class="py-line">                        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line">                                <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">"chr"</tt> <tt class="py-op">+</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L256"></a><tt class="py-lineno">256</tt>  <tt class="py-line">                        <tt class="py-name">out</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-string">"\t"</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">str</tt><tt class="py-op">,</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-number">4</tt><tt class="py-op">]</tt> <tt class="py-op">+</tt> <tt class="py-op">[</tt><tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">5</tt><tt class="py-op">]</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">"\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt id="link-47" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-47', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line">        <tt class="py-name">out</tt><tt class="py-op">.</tt><tt id="link-48" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-48', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L259"></a><tt class="py-lineno">259</tt>  <tt class="py-line">        <tt id="link-49" class="py-name"><a title="cnavg.cactusTree.cactusTree.do" class="py-name" href="#" onclick="return doclink('link-49', 'do', 'link-10');">do</a></tt><tt class="py-op">(</tt><tt class="py-string">"bedGraphToBigWig cbs.cov.bg "</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">chromLengths</tt> <tt class="py-op">+</tt> <tt class="py-string">" cbs.cov.bw"</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L260"></a><tt class="py-lineno">260</tt>  <tt class="py-line"> </tt>
+<a name="PrepareCactusCoverageGraphs"></a><div id="PrepareCactusCoverageGraphs-def"><a name="L261"></a><tt class="py-lineno">261</tt> <a class="py-toggle" href="#" id="PrepareCactusCoverageGraphs-toggle" onclick="return toggle('PrepareCactusCoverageGraphs');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs-class.html">PrepareCactusCoverageGraphs</a><tt class="py-op">(</tt><tt class="py-base-class">Target</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareCactusCoverageGraphs-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="PrepareCactusCoverageGraphs-expanded"><a name="L262"></a><tt class="py-lineno">262</tt>  <tt class="py-line">    <tt class="py-docstring">""" Prepares wiggle file of normalized and balanced flow change on cactus """</tt> </tt>
+<a name="PrepareCactusCoverageGraphs.__init__"></a><div id="PrepareCactusCoverageGraphs.__init__-def"><a name="L263"></a><tt class="py-lineno">263</tt> <a class="py-toggle" href="#" id="PrepareCactusCoverageGraphs.__init__-toggle" onclick="return toggle('PrepareCactusCoverageGraphs.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">options</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareCactusCoverageGraphs.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PrepareCactusCoverageGraphs.__init__-expanded"><a name="L264"></a><tt class="py-lineno">264</tt>  <tt class="py-line">        <tt class="py-name">Target</tt><tt class="py-op">.</tt><tt id="link-50" class="py-name"><a title="cnavg.avg.balanced.BalancedAVG.__init__
+cnavg.avg.balanced.LPProblem.__init__
+cnavg.avg.balanced.Mapping.__init__
+cnavg.avg.graph.Graph.__init__
+cnavg.avg.module.Module.__init__
+cnavg.avg.node.Node.__init__
+cnavg.avg.node.StubNode.__init__
+cnavg.avg.nodeFlow.NodeFlow.__init__
+cnavg.basics.coords.OrientedPosition.__init__
+cnavg.basics.coords.OrientedRegion.__init__
+cnavg.basics.coords.Position.__init__
+cnavg.basics.coords.Region.__init__
+cnavg.basics.partialOrderSet.PartialOrderSet.__init__
+cnavg.cactus.balanced.BalancedCactus.__init__
+cnavg.cactus.balanced.LPProblem.__init__
+cnavg.cactus.balanced.Mapping.__init__
+cnavg.cactus.block.Block.__init__
+cnavg.cactus.graph.Cactus.__init__
+cnavg.cactus.group.Group.__init__
+cnavg.cactus.net.Net.__init__
+cnavg.cactus.oriented.OrientedCactus.__init__
+cnavg.cactusSampling.sampling.NormalizedCactus.__init__
+cnavg.cactusTree.cactusTree.MyParser.__init__
+cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareBreakendGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCBSGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs.__init__
+cnavg.cactusTree.cactusTree.PrepareCycleGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareIndex.__init__
+cnavg.cactusTree.cactusTree.Process.__init__
+cnavg.cactusTree.cactusTree.Reduce.__init__
+cnavg.cactusTree.cactusTree.SampleCycles.__init__
+cnavg.cactusTree.cactusTree.SetupPhase.__init__
+cnavg.clock.cnvTree.CNVNode.__init__
+cnavg.clock.cnvTree.CNVSlice.__init__
+cnavg.clock.cnvTree.CNVSliceTree.__init__
+cnavg.clock.cnvTree.CNVTree.__init__
+cnavg.clock.timeEvents.SNV.__init__
+cnavg.flows.cycle.Cycle.__init__
+cnavg.flows.edge.Edge.__init__
+cnavg.flows.flows.Event.__init__
+cnavg.history.euclidian.EuclidianHistory.__init__
+cnavg.history.euclidian.Mapping.__init__
+cnavg.history.flattened.FlattenedHistory.__init__
+cnavg.history.history.CactusHistory.__init__
+cnavg.history.history.History.__init__
+cnavg.history.ordered.OrderedHistory.__init__
+cnavg.history.overlap.Overlap.__init__
+cnavg.history.overlap.OverlapHistory.__init__
+cnavg.history.scheduled.ScheduledHistory.__init__
+cnavg.preprocess.breakend.Breakend.__init__
+cnavg.preprocess.cnv.CNV.__init__
+cnavg.simulator.simulator.Deletion.__init__
+cnavg.simulator.simulator.Duplication.__init__
+cnavg.simulator.simulator.History.__init__
+cnavg.simulator.simulator.HistoryBranch.__init__
+cnavg.simulator.simulator.Identity.__init__
+cnavg.simulator.simulator.InitialBranch.__init__
+cnavg.simulator.simulator.Inversion.__init__
+cnavg.simulator.simulator.Operation.__init__
+cnavg.simulator.simulator.RandomHistory.__init__
+cnavg.simulator.simulator.RandomWeightedHistory.__init__
+cnavg.simulator.simulator.WeightedHistory.__init__" class="py-name" href="#" onclick="return doclink('link-50', '__init__', 'link-3');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">time</tt><tt class="py-op">=</tt><tt class="py-number">1800</tt><tt class="py-op">,</tt> <tt class="py-name">memory</tt><tt class="py-op">=</tt><tt id="link-51" class="py-name"><a title="cnavg.cactusTree.cactusTree.MEM2G" class="py-name" href="#" onclick="return doclink('link-51', 'MEM2G', 'link-2');">MEM2G</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L265"></a><tt class="py-lineno">265</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt> <tt class="py-op">=</tt> <tt class="py-name">options</tt> </tt>
+</div><a name="L266"></a><tt class="py-lineno">266</tt>  <tt class="py-line"> </tt>
+<a name="PrepareCactusCoverageGraphs.run"></a><div id="PrepareCactusCoverageGraphs.run-def"><a name="L267"></a><tt class="py-lineno">267</tt> <a class="py-toggle" href="#" id="PrepareCactusCoverageGraphs.run-toggle" onclick="return toggle('PrepareCactusCoverageGraphs.run');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs-class.html#run">run</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareCactusCoverageGraphs.run-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PrepareCactusCoverageGraphs.run-expanded"><a name="L268"></a><tt class="py-lineno">268</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">chdir</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">tracks</tt><tt class="py-op">)</tt> </tt>
+<a name="L269"></a><tt class="py-lineno">269</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">dir</tt><tt class="py-op">,</tt> <tt class="py-string">"CACTUS_0"</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L270"></a><tt class="py-lineno">270</tt>  <tt class="py-line">        <tt class="py-name">C</tt> <tt class="py-op">=</tt> <tt class="py-name">pickle</tt><tt class="py-op">.</tt><tt class="py-name">load</tt><tt class="py-op">(</tt><tt class="py-name">file</tt><tt class="py-op">)</tt> </tt>
+<a name="L271"></a><tt class="py-lineno">271</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-string">"cactus.cnv.bg"</tt><tt class="py-op">,</tt> <tt class="py-string">"w"</tt><tt class="py-op">)</tt> </tt>
+<a name="L272"></a><tt class="py-lineno">272</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-name">C</tt><tt class="py-op">.</tt><tt id="link-52" class="py-name" targets="Method cnavg.avg.graph.Graph.printCNVs()=cnavg.avg.graph.Graph-class.html#printCNVs,Method cnavg.avg.nodeFlow.NodeFlow.printCNVs()=cnavg.avg.nodeFlow.NodeFlow-class.html#printCNVs"><a title="cnavg.avg.graph.Graph.printCNVs
+cnavg.avg.nodeFlow.NodeFlow.printCNVs" class="py-name" href="#" onclick="return doclink('link-52', 'printCNVs', 'link-52');">printCNVs</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L273"></a><tt class="py-lineno">273</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt id="link-53" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-53', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L274"></a><tt class="py-lineno">274</tt>  <tt class="py-line">        <tt id="link-54" class="py-name"><a title="cnavg.cactusTree.cactusTree.do" class="py-name" href="#" onclick="return doclink('link-54', 'do', 'link-10');">do</a></tt><tt class="py-op">(</tt><tt class="py-string">"bedGraphToBigWig cactus.cnv.bg "</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">chromLengths</tt> <tt class="py-op">+</tt> <tt class="py-string">" cactus.cnv.bw"</tt><tt class="py-op">)</tt> </tt>
+<a name="L275"></a><tt class="py-lineno">275</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-string">"majority.cnv.bg"</tt><tt class="py-op">,</tt> <tt class="py-string">"w"</tt><tt class="py-op">)</tt> </tt>
+<a name="L276"></a><tt class="py-lineno">276</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-name">C</tt><tt class="py-op">.</tt><tt id="link-55" class="py-name" targets="Method cnavg.avg.graph.Graph.printMajority()=cnavg.avg.graph.Graph-class.html#printMajority,Method cnavg.avg.nodeFlow.NodeFlow.printMajority()=cnavg.avg.nodeFlow.NodeFlow-class.html#printMajority"><a title="cnavg.avg.graph.Graph.printMajority
+cnavg.avg.nodeFlow.NodeFlow.printMajority" class="py-name" href="#" onclick="return doclink('link-55', 'printMajority', 'link-55');">printMajority</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L277"></a><tt class="py-lineno">277</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt id="link-56" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-56', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L278"></a><tt class="py-lineno">278</tt>  <tt class="py-line">        <tt id="link-57" class="py-name"><a title="cnavg.cactusTree.cactusTree.do" class="py-name" href="#" onclick="return doclink('link-57', 'do', 'link-10');">do</a></tt><tt class="py-op">(</tt><tt class="py-string">"bedGraphToBigWig majority.cnv.bg "</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">chromLengths</tt> <tt class="py-op">+</tt> <tt class="py-string">" majority.cnv.bw"</tt><tt class="py-op">)</tt> </tt>
+<a name="L279"></a><tt class="py-lineno">279</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-string">"minority.cnv.bg"</tt><tt class="py-op">,</tt> <tt class="py-string">"w"</tt><tt class="py-op">)</tt> </tt>
+<a name="L280"></a><tt class="py-lineno">280</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-name">C</tt><tt class="py-op">.</tt><tt id="link-58" class="py-name" targets="Method cnavg.avg.graph.Graph.printMinority()=cnavg.avg.graph.Graph-class.html#printMinority,Method cnavg.avg.nodeFlow.NodeFlow.printMinority()=cnavg.avg.nodeFlow.NodeFlow-class.html#printMinority"><a title="cnavg.avg.graph.Graph.printMinority
+cnavg.avg.nodeFlow.NodeFlow.printMinority" class="py-name" href="#" onclick="return doclink('link-58', 'printMinority', 'link-58');">printMinority</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L281"></a><tt class="py-lineno">281</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt id="link-59" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-59', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L282"></a><tt class="py-lineno">282</tt>  <tt class="py-line">        <tt id="link-60" class="py-name"><a title="cnavg.cactusTree.cactusTree.do" class="py-name" href="#" onclick="return doclink('link-60', 'do', 'link-10');">do</a></tt><tt class="py-op">(</tt><tt class="py-string">"bedGraphToBigWig minority.cnv.bg "</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">chromLengths</tt> <tt class="py-op">+</tt> <tt class="py-string">" minority.cnv.bw"</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L283"></a><tt class="py-lineno">283</tt>  <tt class="py-line"> </tt>
+<a name="PrepareBreakendGraph"></a><div id="PrepareBreakendGraph-def"><a name="L284"></a><tt class="py-lineno">284</tt> <a class="py-toggle" href="#" id="PrepareBreakendGraph-toggle" onclick="return toggle('PrepareBreakendGraph');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareBreakendGraph-class.html">PrepareBreakendGraph</a><tt class="py-op">(</tt><tt class="py-base-class">Target</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareBreakendGraph-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="PrepareBreakendGraph-expanded"><a name="L285"></a><tt class="py-lineno">285</tt>  <tt class="py-line">    <tt class="py-docstring">""" Prepares adjacency file of Bambam breakend calls """</tt>  </tt>
+<a name="PrepareBreakendGraph.__init__"></a><div id="PrepareBreakendGraph.__init__-def"><a name="L286"></a><tt class="py-lineno">286</tt> <a class="py-toggle" href="#" id="PrepareBreakendGraph.__init__-toggle" onclick="return toggle('PrepareBreakendGraph.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareBreakendGraph-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">options</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareBreakendGraph.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PrepareBreakendGraph.__init__-expanded"><a name="L287"></a><tt class="py-lineno">287</tt>  <tt class="py-line">        <tt class="py-name">Target</tt><tt class="py-op">.</tt><tt id="link-61" class="py-name"><a title="cnavg.avg.balanced.BalancedAVG.__init__
+cnavg.avg.balanced.LPProblem.__init__
+cnavg.avg.balanced.Mapping.__init__
+cnavg.avg.graph.Graph.__init__
+cnavg.avg.module.Module.__init__
+cnavg.avg.node.Node.__init__
+cnavg.avg.node.StubNode.__init__
+cnavg.avg.nodeFlow.NodeFlow.__init__
+cnavg.basics.coords.OrientedPosition.__init__
+cnavg.basics.coords.OrientedRegion.__init__
+cnavg.basics.coords.Position.__init__
+cnavg.basics.coords.Region.__init__
+cnavg.basics.partialOrderSet.PartialOrderSet.__init__
+cnavg.cactus.balanced.BalancedCactus.__init__
+cnavg.cactus.balanced.LPProblem.__init__
+cnavg.cactus.balanced.Mapping.__init__
+cnavg.cactus.block.Block.__init__
+cnavg.cactus.graph.Cactus.__init__
+cnavg.cactus.group.Group.__init__
+cnavg.cactus.net.Net.__init__
+cnavg.cactus.oriented.OrientedCactus.__init__
+cnavg.cactusSampling.sampling.NormalizedCactus.__init__
+cnavg.cactusTree.cactusTree.MyParser.__init__
+cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareBreakendGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCBSGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs.__init__
+cnavg.cactusTree.cactusTree.PrepareCycleGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareIndex.__init__
+cnavg.cactusTree.cactusTree.Process.__init__
+cnavg.cactusTree.cactusTree.Reduce.__init__
+cnavg.cactusTree.cactusTree.SampleCycles.__init__
+cnavg.cactusTree.cactusTree.SetupPhase.__init__
+cnavg.clock.cnvTree.CNVNode.__init__
+cnavg.clock.cnvTree.CNVSlice.__init__
+cnavg.clock.cnvTree.CNVSliceTree.__init__
+cnavg.clock.cnvTree.CNVTree.__init__
+cnavg.clock.timeEvents.SNV.__init__
+cnavg.flows.cycle.Cycle.__init__
+cnavg.flows.edge.Edge.__init__
+cnavg.flows.flows.Event.__init__
+cnavg.history.euclidian.EuclidianHistory.__init__
+cnavg.history.euclidian.Mapping.__init__
+cnavg.history.flattened.FlattenedHistory.__init__
+cnavg.history.history.CactusHistory.__init__
+cnavg.history.history.History.__init__
+cnavg.history.ordered.OrderedHistory.__init__
+cnavg.history.overlap.Overlap.__init__
+cnavg.history.overlap.OverlapHistory.__init__
+cnavg.history.scheduled.ScheduledHistory.__init__
+cnavg.preprocess.breakend.Breakend.__init__
+cnavg.preprocess.cnv.CNV.__init__
+cnavg.simulator.simulator.Deletion.__init__
+cnavg.simulator.simulator.Duplication.__init__
+cnavg.simulator.simulator.History.__init__
+cnavg.simulator.simulator.HistoryBranch.__init__
+cnavg.simulator.simulator.Identity.__init__
+cnavg.simulator.simulator.InitialBranch.__init__
+cnavg.simulator.simulator.Inversion.__init__
+cnavg.simulator.simulator.Operation.__init__
+cnavg.simulator.simulator.RandomHistory.__init__
+cnavg.simulator.simulator.RandomWeightedHistory.__init__
+cnavg.simulator.simulator.WeightedHistory.__init__" class="py-name" href="#" onclick="return doclink('link-61', '__init__', 'link-3');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">time</tt><tt class="py-op">=</tt><tt class="py-number">100</tt><tt class="py-op">,</tt> <tt class="py-name">memory</tt><tt class="py-op">=</tt><tt id="link-62" class="py-name"><a title="cnavg.cactusTree.cactusTree.MEM2G" class="py-name" href="#" onclick="return doclink('link-62', 'MEM2G', 'link-2');">MEM2G</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L288"></a><tt class="py-lineno">288</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt> <tt class="py-op">=</tt> <tt class="py-name">options</tt> </tt>
+</div><a name="L289"></a><tt class="py-lineno">289</tt>  <tt class="py-line"> </tt>
+<a name="PrepareBreakendGraph.run"></a><div id="PrepareBreakendGraph.run-def"><a name="L290"></a><tt class="py-lineno">290</tt> <a class="py-toggle" href="#" id="PrepareBreakendGraph.run-toggle" onclick="return toggle('PrepareBreakendGraph.run');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareBreakendGraph-class.html#run">run</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareBreakendGraph.run-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PrepareBreakendGraph.run-expanded"><a name="L291"></a><tt class="py-lineno">291</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">chdir</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">tracks</tt><tt class="py-op">)</tt> </tt>
+<a name="L292"></a><tt class="py-lineno">292</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">breaks</tt><tt class="py-op">)</tt> </tt>
+<a name="L293"></a><tt class="py-lineno">293</tt>  <tt class="py-line">        <tt class="py-name">out</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-string">"breaks.braney"</tt><tt class="py-op">,</tt> <tt class="py-string">"w"</tt><tt class="py-op">)</tt> </tt>
+<a name="L294"></a><tt class="py-lineno">294</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">line</tt> <tt class="py-keyword">in</tt> <tt class="py-name">file</tt><tt class="py-op">:</tt> </tt>
+<a name="L295"></a><tt class="py-lineno">295</tt>  <tt class="py-line">                <tt class="py-name">items</tt> <tt class="py-op">=</tt> <tt class="py-name">line</tt><tt class="py-op">.</tt><tt class="py-name">strip</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L296"></a><tt class="py-lineno">296</tt>  <tt class="py-line"> </tt>
+<a name="L297"></a><tt class="py-lineno">297</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">3</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"-"</tt><tt class="py-op">:</tt> </tt>
+<a name="L298"></a><tt class="py-lineno">298</tt>  <tt class="py-line">                        <tt class="py-name">sgnA</tt> <tt class="py-op">=</tt> <tt class="py-string">"+"</tt> </tt>
+<a name="L299"></a><tt class="py-lineno">299</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L300"></a><tt class="py-lineno">300</tt>  <tt class="py-line">                        <tt class="py-name">sgnA</tt> <tt class="py-op">=</tt> <tt class="py-string">"-"</tt> </tt>
+<a name="L301"></a><tt class="py-lineno">301</tt>  <tt class="py-line"> </tt>
+<a name="L302"></a><tt class="py-lineno">302</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">7</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"-"</tt><tt class="py-op">:</tt> </tt>
+<a name="L303"></a><tt class="py-lineno">303</tt>  <tt class="py-line">                        <tt class="py-name">sgnB</tt> <tt class="py-op">=</tt> <tt class="py-string">"+"</tt> </tt>
+<a name="L304"></a><tt class="py-lineno">304</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L305"></a><tt class="py-lineno">305</tt>  <tt class="py-line">                        <tt class="py-name">sgnB</tt> <tt class="py-op">=</tt> <tt class="py-string">"-"</tt> </tt>
+<a name="L306"></a><tt class="py-lineno">306</tt>  <tt class="py-line"> </tt>
+<a name="L307"></a><tt class="py-lineno">307</tt>  <tt class="py-line">                <tt class="py-name">out</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-string">"\t"</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">str</tt><tt class="py-op">,</tt><tt class="py-op">[</tt><tt class="py-string">"A"</tt><tt class="py-op">,</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">sgnA</tt><tt class="py-op">,</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">4</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">items</tt><tt class="py-op">[</tt><tt class="py-number">5</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">sgnB</tt><tt class="py-op">,</tt> <tt class="py-number">1000</tt><tt class="py-op">,</tt> <tt class="py-string">'0'</tt><tt class="py-op">,</tt> <tt class="py-string">'0'</tt><tt class="py-op">,</tt><tt class="py-string">'0'</tt><tt class="py-op">,</tt><tt class="py-string">'0'</tt><tt class="py-op">,</tt><tt class="py-string">'0'</tt><tt class="py-op">,</tt><tt class="py-string">'0'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">"\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L308"></a><tt class="py-lineno">308</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt id="link-63" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-63', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L309"></a><tt class="py-lineno">309</tt>  <tt class="py-line">        <tt class="py-name">out</tt><tt class="py-op">.</tt><tt id="link-64" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-64', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L310"></a><tt class="py-lineno">310</tt>  <tt class="py-line">        <tt id="link-65" class="py-name"><a title="cnavg.cactusTree.cactusTree.do" class="py-name" href="#" onclick="return doclink('link-65', 'do', 'link-10');">do</a></tt><tt class="py-op">(</tt><tt class="py-string">"braneyConversion.py %s 0"</tt> <tt class="py-op">%</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">chromLengths</tt><tt class="py-op">,</tt> <tt class="py-name">inf</tt><tt class="py-op">=</tt><tt class="py-string">"breaks.braney"</tt><tt class="py-op">,</tt> <tt class="py-name">outf</tt><tt class="py-op">=</tt><tt class="py-string">"breaks.adj"</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L311"></a><tt class="py-lineno">311</tt>  <tt class="py-line"> </tt>
+<a name="PrepareCycleGraph"></a><div id="PrepareCycleGraph-def"><a name="L312"></a><tt class="py-lineno">312</tt> <a class="py-toggle" href="#" id="PrepareCycleGraph-toggle" onclick="return toggle('PrepareCycleGraph');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareCycleGraph-class.html">PrepareCycleGraph</a><tt class="py-op">(</tt><tt class="py-base-class">Target</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareCycleGraph-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="PrepareCycleGraph-expanded"><a name="L313"></a><tt class="py-lineno">313</tt>  <tt class="py-line">    <tt class="py-docstring">""" Prepares adjacency file of an optimal history """</tt> </tt>
+<a name="PrepareCycleGraph.__init__"></a><div id="PrepareCycleGraph.__init__-def"><a name="L314"></a><tt class="py-lineno">314</tt> <a class="py-toggle" href="#" id="PrepareCycleGraph.__init__-toggle" onclick="return toggle('PrepareCycleGraph.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareCycleGraph-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">options</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareCycleGraph.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PrepareCycleGraph.__init__-expanded"><a name="L315"></a><tt class="py-lineno">315</tt>  <tt class="py-line">        <tt class="py-name">Target</tt><tt class="py-op">.</tt><tt id="link-66" class="py-name"><a title="cnavg.avg.balanced.BalancedAVG.__init__
+cnavg.avg.balanced.LPProblem.__init__
+cnavg.avg.balanced.Mapping.__init__
+cnavg.avg.graph.Graph.__init__
+cnavg.avg.module.Module.__init__
+cnavg.avg.node.Node.__init__
+cnavg.avg.node.StubNode.__init__
+cnavg.avg.nodeFlow.NodeFlow.__init__
+cnavg.basics.coords.OrientedPosition.__init__
+cnavg.basics.coords.OrientedRegion.__init__
+cnavg.basics.coords.Position.__init__
+cnavg.basics.coords.Region.__init__
+cnavg.basics.partialOrderSet.PartialOrderSet.__init__
+cnavg.cactus.balanced.BalancedCactus.__init__
+cnavg.cactus.balanced.LPProblem.__init__
+cnavg.cactus.balanced.Mapping.__init__
+cnavg.cactus.block.Block.__init__
+cnavg.cactus.graph.Cactus.__init__
+cnavg.cactus.group.Group.__init__
+cnavg.cactus.net.Net.__init__
+cnavg.cactus.oriented.OrientedCactus.__init__
+cnavg.cactusSampling.sampling.NormalizedCactus.__init__
+cnavg.cactusTree.cactusTree.MyParser.__init__
+cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareBreakendGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCBSGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs.__init__
+cnavg.cactusTree.cactusTree.PrepareCycleGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareIndex.__init__
+cnavg.cactusTree.cactusTree.Process.__init__
+cnavg.cactusTree.cactusTree.Reduce.__init__
+cnavg.cactusTree.cactusTree.SampleCycles.__init__
+cnavg.cactusTree.cactusTree.SetupPhase.__init__
+cnavg.clock.cnvTree.CNVNode.__init__
+cnavg.clock.cnvTree.CNVSlice.__init__
+cnavg.clock.cnvTree.CNVSliceTree.__init__
+cnavg.clock.cnvTree.CNVTree.__init__
+cnavg.clock.timeEvents.SNV.__init__
+cnavg.flows.cycle.Cycle.__init__
+cnavg.flows.edge.Edge.__init__
+cnavg.flows.flows.Event.__init__
+cnavg.history.euclidian.EuclidianHistory.__init__
+cnavg.history.euclidian.Mapping.__init__
+cnavg.history.flattened.FlattenedHistory.__init__
+cnavg.history.history.CactusHistory.__init__
+cnavg.history.history.History.__init__
+cnavg.history.ordered.OrderedHistory.__init__
+cnavg.history.overlap.Overlap.__init__
+cnavg.history.overlap.OverlapHistory.__init__
+cnavg.history.scheduled.ScheduledHistory.__init__
+cnavg.preprocess.breakend.Breakend.__init__
+cnavg.preprocess.cnv.CNV.__init__
+cnavg.simulator.simulator.Deletion.__init__
+cnavg.simulator.simulator.Duplication.__init__
+cnavg.simulator.simulator.History.__init__
+cnavg.simulator.simulator.HistoryBranch.__init__
+cnavg.simulator.simulator.Identity.__init__
+cnavg.simulator.simulator.InitialBranch.__init__
+cnavg.simulator.simulator.Inversion.__init__
+cnavg.simulator.simulator.Operation.__init__
+cnavg.simulator.simulator.RandomHistory.__init__
+cnavg.simulator.simulator.RandomWeightedHistory.__init__
+cnavg.simulator.simulator.WeightedHistory.__init__" class="py-name" href="#" onclick="return doclink('link-66', '__init__', 'link-3');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">time</tt><tt class="py-op">=</tt><tt class="py-number">100</tt><tt class="py-op">,</tt> <tt class="py-name">memory</tt><tt class="py-op">=</tt><tt id="link-67" class="py-name"><a title="cnavg.cactusTree.cactusTree.MEM2G" class="py-name" href="#" onclick="return doclink('link-67', 'MEM2G', 'link-2');">MEM2G</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L316"></a><tt class="py-lineno">316</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt> <tt class="py-op">=</tt> <tt class="py-name">options</tt> </tt>
+</div><a name="L317"></a><tt class="py-lineno">317</tt>  <tt class="py-line"> </tt>
+<a name="PrepareCycleGraph.run"></a><div id="PrepareCycleGraph.run-def"><a name="L318"></a><tt class="py-lineno">318</tt> <a class="py-toggle" href="#" id="PrepareCycleGraph.run-toggle" onclick="return toggle('PrepareCycleGraph.run');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareCycleGraph-class.html#run">run</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareCycleGraph.run-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PrepareCycleGraph.run-expanded"><a name="L319"></a><tt class="py-lineno">319</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">chdir</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">tracks</tt><tt class="py-op">)</tt> </tt>
+<a name="L320"></a><tt class="py-lineno">320</tt>  <tt class="py-line">        <tt id="link-68" class="py-name"><a title="cnavg.cactusTree.cactusTree.do" class="py-name" href="#" onclick="return doclink('link-68', 'do', 'link-10');">do</a></tt><tt class="py-op">(</tt><tt class="py-string">"braneyConversion.py %s %i"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">chromLengths</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">inf</tt><tt class="py-op">=</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">dir</tt><tt class="py-op">,</tt> <tt class="py-string">"OPTIMAL_HISTORIES.braney"</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">outf</tt><tt class="py-op">=</tt><tt class="py-string">"cnavg.adj"</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L321"></a><tt class="py-lineno">321</tt>  <tt class="py-line"> </tt>
+<a name="PrepareIndex"></a><div id="PrepareIndex-def"><a name="L322"></a><tt class="py-lineno">322</tt> <a class="py-toggle" href="#" id="PrepareIndex-toggle" onclick="return toggle('PrepareIndex');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareIndex-class.html">PrepareIndex</a><tt class="py-op">(</tt><tt class="py-base-class">Target</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareIndex-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="PrepareIndex-expanded"><a name="L323"></a><tt class="py-lineno">323</tt>  <tt class="py-line">    <tt class="py-docstring">""" Prepares text file with UCSC browser track options """</tt> </tt>
+<a name="PrepareIndex.__init__"></a><div id="PrepareIndex.__init__-def"><a name="L324"></a><tt class="py-lineno">324</tt> <a class="py-toggle" href="#" id="PrepareIndex.__init__-toggle" onclick="return toggle('PrepareIndex.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareIndex-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">options</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareIndex.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PrepareIndex.__init__-expanded"><a name="L325"></a><tt class="py-lineno">325</tt>  <tt class="py-line">        <tt class="py-name">Target</tt><tt class="py-op">.</tt><tt id="link-69" class="py-name"><a title="cnavg.avg.balanced.BalancedAVG.__init__
+cnavg.avg.balanced.LPProblem.__init__
+cnavg.avg.balanced.Mapping.__init__
+cnavg.avg.graph.Graph.__init__
+cnavg.avg.module.Module.__init__
+cnavg.avg.node.Node.__init__
+cnavg.avg.node.StubNode.__init__
+cnavg.avg.nodeFlow.NodeFlow.__init__
+cnavg.basics.coords.OrientedPosition.__init__
+cnavg.basics.coords.OrientedRegion.__init__
+cnavg.basics.coords.Position.__init__
+cnavg.basics.coords.Region.__init__
+cnavg.basics.partialOrderSet.PartialOrderSet.__init__
+cnavg.cactus.balanced.BalancedCactus.__init__
+cnavg.cactus.balanced.LPProblem.__init__
+cnavg.cactus.balanced.Mapping.__init__
+cnavg.cactus.block.Block.__init__
+cnavg.cactus.graph.Cactus.__init__
+cnavg.cactus.group.Group.__init__
+cnavg.cactus.net.Net.__init__
+cnavg.cactus.oriented.OrientedCactus.__init__
+cnavg.cactusSampling.sampling.NormalizedCactus.__init__
+cnavg.cactusTree.cactusTree.MyParser.__init__
+cnavg.cactusTree.cactusTree.PrepareBAMBAMGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareBreakendGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCBSGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareCactusCoverageGraphs.__init__
+cnavg.cactusTree.cactusTree.PrepareCycleGraph.__init__
+cnavg.cactusTree.cactusTree.PrepareIndex.__init__
+cnavg.cactusTree.cactusTree.Process.__init__
+cnavg.cactusTree.cactusTree.Reduce.__init__
+cnavg.cactusTree.cactusTree.SampleCycles.__init__
+cnavg.cactusTree.cactusTree.SetupPhase.__init__
+cnavg.clock.cnvTree.CNVNode.__init__
+cnavg.clock.cnvTree.CNVSlice.__init__
+cnavg.clock.cnvTree.CNVSliceTree.__init__
+cnavg.clock.cnvTree.CNVTree.__init__
+cnavg.clock.timeEvents.SNV.__init__
+cnavg.flows.cycle.Cycle.__init__
+cnavg.flows.edge.Edge.__init__
+cnavg.flows.flows.Event.__init__
+cnavg.history.euclidian.EuclidianHistory.__init__
+cnavg.history.euclidian.Mapping.__init__
+cnavg.history.flattened.FlattenedHistory.__init__
+cnavg.history.history.CactusHistory.__init__
+cnavg.history.history.History.__init__
+cnavg.history.ordered.OrderedHistory.__init__
+cnavg.history.overlap.Overlap.__init__
+cnavg.history.overlap.OverlapHistory.__init__
+cnavg.history.scheduled.ScheduledHistory.__init__
+cnavg.preprocess.breakend.Breakend.__init__
+cnavg.preprocess.cnv.CNV.__init__
+cnavg.simulator.simulator.Deletion.__init__
+cnavg.simulator.simulator.Duplication.__init__
+cnavg.simulator.simulator.History.__init__
+cnavg.simulator.simulator.HistoryBranch.__init__
+cnavg.simulator.simulator.Identity.__init__
+cnavg.simulator.simulator.InitialBranch.__init__
+cnavg.simulator.simulator.Inversion.__init__
+cnavg.simulator.simulator.Operation.__init__
+cnavg.simulator.simulator.RandomHistory.__init__
+cnavg.simulator.simulator.RandomWeightedHistory.__init__
+cnavg.simulator.simulator.WeightedHistory.__init__" class="py-name" href="#" onclick="return doclink('link-69', '__init__', 'link-3');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">time</tt><tt class="py-op">=</tt><tt class="py-number">10</tt><tt class="py-op">,</tt> <tt class="py-name">memory</tt><tt class="py-op">=</tt><tt id="link-70" class="py-name"><a title="cnavg.cactusTree.cactusTree.MEM2G" class="py-name" href="#" onclick="return doclink('link-70', 'MEM2G', 'link-2');">MEM2G</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L326"></a><tt class="py-lineno">326</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt> <tt class="py-op">=</tt> <tt class="py-name">options</tt> </tt>
+</div><a name="L327"></a><tt class="py-lineno">327</tt>  <tt class="py-line"> </tt>
+<a name="PrepareIndex.run"></a><div id="PrepareIndex.run-def"><a name="L328"></a><tt class="py-lineno">328</tt> <a class="py-toggle" href="#" id="PrepareIndex.run-toggle" onclick="return toggle('PrepareIndex.run');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree.PrepareIndex-class.html#run">run</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PrepareIndex.run-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PrepareIndex.run-expanded"><a name="L329"></a><tt class="py-lineno">329</tt>  <tt class="py-line">        <tt class="py-name">home</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">url</tt> <tt class="py-op">+</tt> <tt class="py-string">"/"</tt> <tt class="py-op">+</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">basename</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">dir</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">"/"</tt> </tt>
+<a name="L330"></a><tt class="py-lineno">330</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">chdir</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">tracks</tt><tt class="py-op">)</tt> </tt>
+<a name="L331"></a><tt class="py-lineno">331</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-string">"index.txt"</tt><tt class="py-op">,</tt> <tt class="py-string">"w"</tt><tt class="py-op">)</tt> </tt>
+<a name="L332"></a><tt class="py-lineno">332</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-string">"track name=cnavg type=adjacency visibility=hide\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L333"></a><tt class="py-lineno">333</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-name">home</tt> <tt class="py-op">+</tt> <tt class="py-string">"cnavg.adj\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L334"></a><tt class="py-lineno">334</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-string">"track name=bambamadj type=adjacency visibility=hide\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L335"></a><tt class="py-lineno">335</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-name">home</tt> <tt class="py-op">+</tt> <tt class="py-string">"breaks.adj\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L336"></a><tt class="py-lineno">336</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-string">"track name=minority.cnv type=bigWig alwaysZero=on visibility=hide bigDataUrl="</tt> <tt class="py-op">+</tt> <tt class="py-name">home</tt> <tt class="py-op">+</tt> <tt class="py-string">"minority.cnv.bw\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L337"></a><tt class="py-lineno">337</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-string">"track name=majority.cnv type=bigWig alwaysZero=on visibility=hide bigDataUrl="</tt> <tt class="py-op">+</tt> <tt class="py-name">home</tt> <tt class="py-op">+</tt> <tt class="py-string">"majority.cnv.bw\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L338"></a><tt class="py-lineno">338</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-string">"track name=cactus.cnv type=bigWig alwaysZero=on visibility=hide bigDataUrl="</tt> <tt class="py-op">+</tt> <tt class="py-name">home</tt> <tt class="py-op">+</tt> <tt class="py-string">"cactus.cnv.bw\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L339"></a><tt class="py-lineno">339</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-string">"track name=cbs.cov type=bigWig alwaysZero=on yLineMark=1 yLineOnOff=on visibility=hide bigDataUrl="</tt> <tt class="py-op">+</tt> <tt class="py-name">home</tt> <tt class="py-op">+</tt> <tt class="py-string">"cbs.cov.bw\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L340"></a><tt class="py-lineno">340</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-string">"track name=bambam.cov type=bigWig alwaysZero=on yLineMark=1 yLineOnOff=on visibility=hide bigDataUrl="</tt> <tt class="py-op">+</tt> <tt class="py-name">home</tt> <tt class="py-op">+</tt> <tt class="py-string">"bambam.cov.bw\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L341"></a><tt class="py-lineno">341</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-string">"track name=bam type=bam visibility=hide pairEndsByName=true bigDataUrl="</tt> <tt class="py-op">+</tt> <tt class="py-name">home</tt> <tt class="py-op">+</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">basename</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">bam</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">"\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L342"></a><tt class="py-lineno">342</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt id="link-71" class="py-name"><a title="cnavg.avg.module.Module.close" class="py-name" href="#" onclick="return doclink('link-71', 'close', 'link-4');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L343"></a><tt class="py-lineno">343</tt>  <tt class="py-line"> </tt>
+<a name="L344"></a><tt class="py-lineno">344</tt>  <tt class="py-line"><tt class="py-comment">############################################################</tt> </tt>
+<a name="L345"></a><tt class="py-lineno">345</tt>  <tt class="py-line"><tt class="py-comment"># Main script</tt> </tt>
+<a name="L346"></a><tt class="py-lineno">346</tt>  <tt class="py-line"><tt class="py-comment">############################################################</tt> </tt>
+<a name="main"></a><div id="main-def"><a name="L347"></a><tt class="py-lineno">347</tt> <a class="py-toggle" href="#" id="main-toggle" onclick="return toggle('main');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.cactusTree.cactusTree-module.html#main">main</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="main-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="main-expanded"><a name="L348"></a><tt class="py-lineno">348</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L349"></a><tt class="py-lineno">349</tt>  <tt class="py-line"><tt class="py-docstring">    Runs the integrated pipeline.</tt> </tt>
+<a name="L350"></a><tt class="py-lineno">350</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L351"></a><tt class="py-lineno">351</tt>  <tt class="py-line">    <tt class="py-name">options</tt><tt class="py-op">,</tt> <tt class="py-name">args</tt> <tt class="py-op">=</tt> <tt id="link-72" class="py-name" targets="Class cnavg.cactusTree.cactusTree.MyParser=cnavg.cactusTree.cactusTree.MyParser-class.html"><a title="cnavg.cactusTree.cactusTree.MyParser" class="py-name" href="#" onclick="return doclink('link-72', 'MyParser', 'link-72');">MyParser</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">parse_args</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L352"></a><tt class="py-lineno">352</tt>  <tt class="py-line"> </tt>
+<a name="L353"></a><tt class="py-lineno">353</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">bam</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L354"></a><tt class="py-lineno">354</tt>  <tt class="py-line">            <tt class="py-keyword">assert</tt> <tt class="py-name">False</tt><tt class="py-op">,</tt> <tt class="py-string">"No Bam file!"</tt> </tt>
+<a name="L355"></a><tt class="py-lineno">355</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L356"></a><tt class="py-lineno">356</tt>  <tt class="py-line">            <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">bam</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">abspath</tt><tt class="py-op">(</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">bam</tt><tt class="py-op">)</tt> </tt>
+<a name="L357"></a><tt class="py-lineno">357</tt>  <tt class="py-line"> </tt>
+<a name="L358"></a><tt class="py-lineno">358</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">dir</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L359"></a><tt class="py-lineno">359</tt>  <tt class="py-line">            <tt class="py-keyword">assert</tt> <tt class="py-name">False</tt><tt class="py-op">,</tt> <tt class="py-string">"No working directory!"</tt> </tt>
+<a name="L360"></a><tt class="py-lineno">360</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L361"></a><tt class="py-lineno">361</tt>  <tt class="py-line">            <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">dir</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">abspath</tt><tt class="py-op">(</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">dir</tt><tt class="py-op">)</tt> </tt>
+<a name="L362"></a><tt class="py-lineno">362</tt>  <tt class="py-line"> </tt>
+<a name="L363"></a><tt class="py-lineno">363</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">jobTree</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L364"></a><tt class="py-lineno">364</tt>  <tt class="py-line">            <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">jobTree</tt> <tt class="py-op">=</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">dir</tt> <tt class="py-op">+</tt> <tt class="py-string">"jobTree"</tt> </tt>
+<a name="L365"></a><tt class="py-lineno">365</tt>  <tt class="py-line"> </tt>
+<a name="L366"></a><tt class="py-lineno">366</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">chromLengths</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L367"></a><tt class="py-lineno">367</tt>  <tt class="py-line">            <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">chromLengths</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">abspath</tt><tt class="py-op">(</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">chromLengths</tt><tt class="py-op">)</tt> </tt>
+<a name="L368"></a><tt class="py-lineno">368</tt>  <tt class="py-line"> </tt>
+<a name="L369"></a><tt class="py-lineno">369</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt id="link-73" class="py-name"><a title="cnavg.preprocess.bambam" class="py-name" href="#" onclick="return doclink('link-73', 'bambam', 'link-9');">bambam</a></tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L370"></a><tt class="py-lineno">370</tt>  <tt class="py-line">            <tt class="py-name">options</tt><tt class="py-op">.</tt><tt id="link-74" class="py-name"><a title="cnavg.preprocess.bambam" class="py-name" href="#" onclick="return doclink('link-74', 'bambam', 'link-9');">bambam</a></tt> <tt class="py-op">=</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">abspath</tt><tt class="py-op">,</tt> <tt class="py-name">glob</tt><tt class="py-op">.</tt><tt class="py-name">glob</tt><tt class="py-op">(</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt id="link-75" class="py-name"><a title="cnavg.preprocess.bambam" class="py-name" href="#" onclick="return doclink('link-75', 'bambam', 'link-9');">bambam</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L371"></a><tt class="py-lineno">371</tt>  <tt class="py-line">     </tt>
+<a name="L372"></a><tt class="py-lineno">372</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">breaks</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L373"></a><tt class="py-lineno">373</tt>  <tt class="py-line">            <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">breaks</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">abspath</tt><tt class="py-op">(</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">breaks</tt><tt class="py-op">)</tt> </tt>
+<a name="L374"></a><tt class="py-lineno">374</tt>  <tt class="py-line">     </tt>
+<a name="L375"></a><tt class="py-lineno">375</tt>  <tt class="py-line">    <tt class="py-comment">##########################################</tt> </tt>
+<a name="L376"></a><tt class="py-lineno">376</tt>  <tt class="py-line">    <tt class="py-comment"># Off we go...</tt> </tt>
+<a name="L377"></a><tt class="py-lineno">377</tt>  <tt class="py-line">    <tt class="py-comment">##########################################</tt> </tt>
+<a name="L378"></a><tt class="py-lineno">378</tt>  <tt class="py-line">    <tt class="py-name">i</tt> <tt class="py-op">=</tt> <tt class="py-name">Stack</tt><tt class="py-op">(</tt><tt id="link-76" class="py-name" targets="Class cnavg.cactusTree.cactusTree.SetupPhase=cnavg.cactusTree.cactusTree.SetupPhase-class.html"><a title="cnavg.cactusTree.cactusTree.SetupPhase" class="py-name" href="#" onclick="return doclink('link-76', 'SetupPhase', 'link-76');">SetupPhase</a></tt><tt class="py-op">(</tt><tt class="py-name">options</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">startJobTree</tt><tt class="py-op">(</tt><tt class="py-name">options</tt><tt class="py-op">)</tt> </tt>
+<a name="L379"></a><tt class="py-lineno">379</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">i</tt><tt class="py-op">:</tt> </tt>
+<a name="L380"></a><tt class="py-lineno">380</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">RuntimeError</tt><tt class="py-op">(</tt><tt class="py-string">"The jobTree contained %i failed jobs"</tt> <tt class="py-op">%</tt> <tt class="py-name">i</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L381"></a><tt class="py-lineno">381</tt>  <tt class="py-line"> </tt>
+<a name="L382"></a><tt class="py-lineno">382</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">'__main__'</tt><tt class="py-op">:</tt> </tt>
+<a name="L383"></a><tt class="py-lineno">383</tt>  <tt class="py-line">    <tt class="py-keyword">from</tt> <tt id="link-77" class="py-name" targets="Package cnavg=cnavg-module.html"><a title="cnavg" class="py-name" href="#" onclick="return doclink('link-77', 'cnavg', 'link-77');">cnavg</a></tt><tt class="py-op">.</tt><tt id="link-78" class="py-name" targets="Package cnavg.cactusTree=cnavg.cactusTree-module.html,Module cnavg.cactusTree.cactusTree=cnavg.cactusTree.cactusTree-module.html"><a title="cnavg.cactusTree
+cnavg.cactusTree.cactusTree" class="py-name" href="#" onclick="return doclink('link-78', 'cactusTree', 'link-78');">cactusTree</a></tt><tt class="py-op">.</tt><tt id="link-79" class="py-name"><a title="cnavg.cactusTree
+cnavg.cactusTree.cactusTree" class="py-name" href="#" onclick="return doclink('link-79', 'cactusTree', 'link-78');">cactusTree</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L384"></a><tt class="py-lineno">384</tt>  <tt class="py-line">    <tt id="link-80" class="py-name" targets="Function cnavg.avg.balanced.main()=cnavg.avg.balanced-module.html#main,Function cnavg.avg.gabp.gabp.main()=cnavg.avg.gabp.gabp-module.html#main,Function cnavg.avg.module.main()=cnavg.avg.module-module.html#main,Function cnavg.cactus.balanced.main()=cnavg.cactus.balanced-module.html#main,Function cnavg.cactus.graph.main()=cnavg.cactus.graph-module.html#main,Function cnavg.cactus.oriented.main()=cnavg.cactus.oriented-module.html#main,Function cnavg.cactus.threeWay.components.main()=cnavg.cactus.threeWay.components-module.html#main,Function cnavg.cactusSampling.sampling.main()=cnavg.cactusSampling.sampling-module.html#main,Function cnavg.cactusTree.cactusTree.main()=cnavg.cactusTree.cactusTree-module.html#main,Function cnavg.clock.EM.main()=cnavg.clock.EM-module.html#main,Function cnavg.clock.cnvTree.main()=cnavg.clock.cnvTree-module.html#main,Function cnavg.clock.timeEvents.main()=cnavg.clock.timeEvents-module.html#main,Function cnavg.flows.unitFlows.main()=cnavg.flows.unitFlows-module.html#main,Function cnavg.history.euclidian.main()=cnavg.history.euclidian-module.html#main,Function cnavg.history.scheduled.main()=cnavg.history.scheduled-module.html#main,Function cnavg.historySampling.cycleCover.main()=cnavg.historySampling.cycleCover-module.html#main,Function cnavg.historySampling.sampleGraphCycles.main()=cnavg.historySampling.sampleGraphCycles-module.html#main,Function cnavg.historySampling.sampleModuleCycles.main()=cnavg.historySampling.sampleModuleCycles-module.html#main,Function cnavg.preprocess.bambam.main()=cnavg.preprocess.bambam-module.html#main,Function cnavg.preprocess.breakendGraph.main()=cnavg.preprocess.breakendGraph-module.html#main,Function cnavg.preprocess.cbs.cbs.main()=cnavg.preprocess.cbs.cbs-module.html#main,Function cnavg.preprocess.discrepancies.main()=cnavg.preprocess.discrepancies-module.html#main,Function cnavg.preprocess.segmentCNVs.main()=cnavg.preprocess.segmentCNVs-module.html#main,Function cnavg.preprocess.vcf.main()=cnavg.preprocess.vcf-module.html#main,Function cnavg.simulator.simulator.main()=cnavg.simulator.simulator-module.html#main"><a title="cnavg.avg.balanced.main
+cnavg.avg.gabp.gabp.main
+cnavg.avg.module.main
+cnavg.cactus.balanced.main
+cnavg.cactus.graph.main
+cnavg.cactus.oriented.main
+cnavg.cactus.threeWay.components.main
+cnavg.cactusSampling.sampling.main
+cnavg.cactusTree.cactusTree.main
+cnavg.clock.EM.main
+cnavg.clock.cnvTree.main
+cnavg.clock.timeEvents.main
+cnavg.flows.unitFlows.main
+cnavg.history.euclidian.main
+cnavg.history.scheduled.main
+cnavg.historySampling.cycleCover.main
+cnavg.historySampling.sampleGraphCycles.main
+cnavg.historySampling.sampleModuleCycles.main
+cnavg.preprocess.bambam.main
+cnavg.preprocess.breakendGraph.main
+cnavg.preprocess.cbs.cbs.main
+cnavg.preprocess.discrepancies.main
+cnavg.preprocess.segmentCNVs.main
+cnavg.preprocess.vcf.main
+cnavg.simulator.simulator.main" class="py-name" href="#" onclick="return doclink('link-80', 'main', 'link-80');">main</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L385"></a><tt class="py-lineno">385</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 12 12:56:44 2013
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

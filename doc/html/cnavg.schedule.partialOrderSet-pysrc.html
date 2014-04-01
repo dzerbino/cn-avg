@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>cnavg.schedule.partialOrderSet</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="cnavg-module.html">Package&nbsp;cnavg</a> ::
+        <a href="cnavg.schedule-module.html">Package&nbsp;schedule</a> ::
+        Module&nbsp;partialOrderSet
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="cnavg.schedule.partialOrderSet-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="cnavg.schedule.partialOrderSet-module.html">Module cnavg.schedule.partialOrderSet</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/sur/bin/env python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring">"""Definition of Partial Order Set"""</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"> </tt>
+<a name="PartialOrderSet"></a><div id="PartialOrderSet-def"><a name="L5"></a><tt class="py-lineno">  5</tt> <a class="py-toggle" href="#" id="PartialOrderSet-toggle" onclick="return toggle('PartialOrderSet');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html">PartialOrderSet</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="PartialOrderSet-expanded"><a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line">        <tt class="py-docstring">"""Partially ordered set (poset) with online global ordering of its elements"""</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line">        <tt class="py-comment">###################################</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line">        <tt class="py-comment">## Basics</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line">        <tt class="py-comment">###################################</tt> </tt>
+<a name="PartialOrderSet.__init__"></a><div id="PartialOrderSet.__init__-def"><a name="L11"></a><tt class="py-lineno"> 11</tt> <a class="py-toggle" href="#" id="PartialOrderSet.__init__-toggle" onclick="return toggle('PartialOrderSet.__init__');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">iter</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet.__init__-expanded"><a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line">                <tt class="py-docstring">""" Creates an unconstrained Poset with the elements of iter (if provided) """</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">roots</tt> <tt class="py-op">=</tt> <tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">elements</tt> <tt class="py-op">=</tt> <tt class="py-name">list</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt> <tt class="py-op">=</tt> <tt class="py-name">dict</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">children</tt> <tt class="py-op">=</tt> <tt class="py-name">dict</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt> <tt class="py-op">=</tt> <tt class="py-name">dict</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">iter</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line">                        <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">X</tt><tt class="py-op">:</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Method cnavg.schedule.partialOrderSet.PartialOrderSet.addElement()=cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#addElement"><a title="cnavg.schedule.partialOrderSet.PartialOrderSet.addElement" class="py-name" href="#" onclick="return doclink('link-0', 'addElement', 'link-0');">addElement</a></tt><tt class="py-op">(</tt><tt class="py-name">X</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">iter</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line">         </tt>
+<a name="PartialOrderSet.__copy__"></a><div id="PartialOrderSet.__copy__-def"><a name="L21"></a><tt class="py-lineno"> 21</tt> <a class="py-toggle" href="#" id="PartialOrderSet.__copy__-toggle" onclick="return toggle('PartialOrderSet.__copy__');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#__copy__">__copy__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet.__copy__-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet.__copy__-expanded"><a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line">                <tt class="py-name">new</tt> <tt class="py-op">=</tt> <tt id="link-1" class="py-name" targets="Class cnavg.schedule.partialOrderSet.PartialOrderSet=cnavg.schedule.partialOrderSet.PartialOrderSet-class.html"><a title="cnavg.schedule.partialOrderSet.PartialOrderSet" class="py-name" href="#" onclick="return doclink('link-1', 'PartialOrderSet', 'link-1');">PartialOrderSet</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">elements</tt><tt class="py-op">)</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">                <tt class="py-name">new</tt><tt class="py-op">.</tt><tt class="py-name">roots</tt> <tt class="py-op">=</tt> <tt id="link-2" class="py-name" targets="Method cnavg.avg.graph.Graph.copy()=cnavg.avg.graph.Graph-class.html#copy,Method cnavg.avg.module.Module.copy()=cnavg.avg.module.Module-class.html#copy,Method cnavg.cactus.graph.Cactus.copy()=cnavg.cactus.graph.Cactus-class.html#copy,Method cnavg.cactus.oriented.OrientedCactus.copy()=cnavg.cactus.oriented.OrientedCactus-class.html#copy,Method cnavg.history.euclidian.EuclidianHistory.copy()=cnavg.history.euclidian.EuclidianHistory-class.html#copy,Method cnavg.history.history.CactusHistory.copy()=cnavg.history.history.CactusHistory-class.html#copy,Method cnavg.history.history.History.copy()=cnavg.history.history.History-class.html#copy,Method cnavg.history.overlap.OverlapHistory.copy()=cnavg.history.overlap.OverlapHistory-class.html#copy,Method cnavg.history.scheduled.ScheduledHistory.copy()=cnavg.history.scheduled.ScheduledHistory-class.html#copy"><a title="cnavg.avg.graph.Graph.copy
+cnavg.avg.module.Module.copy
+cnavg.cactus.graph.Cactus.copy
+cnavg.cactus.oriented.OrientedCactus.copy
+cnavg.history.euclidian.EuclidianHistory.copy
+cnavg.history.history.CactusHistory.copy
+cnavg.history.history.History.copy
+cnavg.history.overlap.OverlapHistory.copy
+cnavg.history.scheduled.ScheduledHistory.copy" class="py-name" href="#" onclick="return doclink('link-2', 'copy', 'link-2');">copy</a></tt><tt class="py-op">.</tt><tt id="link-3" class="py-name"><a title="cnavg.avg.graph.Graph.copy
+cnavg.avg.module.Module.copy
+cnavg.cactus.graph.Cactus.copy
+cnavg.cactus.oriented.OrientedCactus.copy
+cnavg.history.euclidian.EuclidianHistory.copy
+cnavg.history.history.CactusHistory.copy
+cnavg.history.history.History.copy
+cnavg.history.overlap.OverlapHistory.copy
+cnavg.history.scheduled.ScheduledHistory.copy" class="py-name" href="#" onclick="return doclink('link-3', 'copy', 'link-2');">copy</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">roots</tt><tt class="py-op">)</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">                <tt class="py-name">new</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt> <tt class="py-op">=</tt> <tt id="link-4" class="py-name"><a title="cnavg.avg.graph.Graph.copy
+cnavg.avg.module.Module.copy
+cnavg.cactus.graph.Cactus.copy
+cnavg.cactus.oriented.OrientedCactus.copy
+cnavg.history.euclidian.EuclidianHistory.copy
+cnavg.history.history.CactusHistory.copy
+cnavg.history.history.History.copy
+cnavg.history.overlap.OverlapHistory.copy
+cnavg.history.scheduled.ScheduledHistory.copy" class="py-name" href="#" onclick="return doclink('link-4', 'copy', 'link-2');">copy</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name"><a title="cnavg.avg.graph.Graph.copy
+cnavg.avg.module.Module.copy
+cnavg.cactus.graph.Cactus.copy
+cnavg.cactus.oriented.OrientedCactus.copy
+cnavg.history.euclidian.EuclidianHistory.copy
+cnavg.history.history.CactusHistory.copy
+cnavg.history.history.History.copy
+cnavg.history.overlap.OverlapHistory.copy
+cnavg.history.scheduled.ScheduledHistory.copy" class="py-name" href="#" onclick="return doclink('link-5', 'copy', 'link-2');">copy</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt><tt class="py-op">)</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">                <tt class="py-name">new</tt><tt class="py-op">.</tt><tt class="py-name">children</tt> <tt class="py-op">=</tt> <tt id="link-6" class="py-name"><a title="cnavg.avg.graph.Graph.copy
+cnavg.avg.module.Module.copy
+cnavg.cactus.graph.Cactus.copy
+cnavg.cactus.oriented.OrientedCactus.copy
+cnavg.history.euclidian.EuclidianHistory.copy
+cnavg.history.history.CactusHistory.copy
+cnavg.history.history.History.copy
+cnavg.history.overlap.OverlapHistory.copy
+cnavg.history.scheduled.ScheduledHistory.copy" class="py-name" href="#" onclick="return doclink('link-6', 'copy', 'link-2');">copy</a></tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="cnavg.avg.graph.Graph.copy
+cnavg.avg.module.Module.copy
+cnavg.cactus.graph.Cactus.copy
+cnavg.cactus.oriented.OrientedCactus.copy
+cnavg.history.euclidian.EuclidianHistory.copy
+cnavg.history.history.CactusHistory.copy
+cnavg.history.history.History.copy
+cnavg.history.overlap.OverlapHistory.copy
+cnavg.history.scheduled.ScheduledHistory.copy" class="py-name" href="#" onclick="return doclink('link-7', 'copy', 'link-2');">copy</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">children</tt><tt class="py-op">)</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name"><a title="cnavg.avg.graph.Graph.copy
+cnavg.avg.module.Module.copy
+cnavg.cactus.graph.Cactus.copy
+cnavg.cactus.oriented.OrientedCactus.copy
+cnavg.history.euclidian.EuclidianHistory.copy
+cnavg.history.history.CactusHistory.copy
+cnavg.history.history.History.copy
+cnavg.history.overlap.OverlapHistory.copy
+cnavg.history.scheduled.ScheduledHistory.copy" class="py-name" href="#" onclick="return doclink('link-8', 'copy', 'link-2');">copy</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name"><a title="cnavg.avg.graph.Graph.copy
+cnavg.avg.module.Module.copy
+cnavg.cactus.graph.Cactus.copy
+cnavg.cactus.oriented.OrientedCactus.copy
+cnavg.history.euclidian.EuclidianHistory.copy
+cnavg.history.history.CactusHistory.copy
+cnavg.history.history.History.copy
+cnavg.history.overlap.OverlapHistory.copy
+cnavg.history.scheduled.ScheduledHistory.copy" class="py-name" href="#" onclick="return doclink('link-9', 'copy', 'link-2');">copy</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">)</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">new</tt> </tt>
+</div><a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">        <tt class="py-comment">###################################</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">        <tt class="py-comment">## Adding stuff</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">        <tt class="py-comment">###################################</tt> </tt>
+<a name="PartialOrderSet.addElement"></a><div id="PartialOrderSet.addElement-def"><a name="L32"></a><tt class="py-lineno"> 32</tt> <a class="py-toggle" href="#" id="PartialOrderSet.addElement-toggle" onclick="return toggle('PartialOrderSet.addElement');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#addElement">addElement</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">element</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet.addElement-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet.addElement-expanded"><a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">                <tt class="py-docstring">"""Adds an unconstrained element to the set"""</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">elements</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">element</tt><tt class="py-op">)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">roots</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method cnavg.clock.cnvTree.CNVSlice.add()=cnavg.clock.cnvTree.CNVSlice-class.html#add"><a title="cnavg.clock.cnvTree.CNVSlice.add" class="py-name" href="#" onclick="return doclink('link-10', 'add', 'link-10');">add</a></tt><tt class="py-op">(</tt><tt class="py-name">element</tt><tt class="py-op">)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt><tt class="py-op">[</tt><tt class="py-name">element</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">children</tt><tt class="py-op">[</tt><tt class="py-name">element</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">element</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">elements</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"> </tt>
+<a name="PartialOrderSet._addEdge"></a><div id="PartialOrderSet._addEdge-def"><a name="L40"></a><tt class="py-lineno"> 40</tt> <a class="py-toggle" href="#" id="PartialOrderSet._addEdge-toggle" onclick="return toggle('PartialOrderSet._addEdge');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#_addEdge">_addEdge</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">ancestral</tt><tt class="py-op">,</tt> <tt class="py-param">derived</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet._addEdge-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet._addEdge-expanded"><a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">                <tt class="py-docstring">"""Adds an order constraint between two elements (low level)"""</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">ancestral</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt> <tt class="py-keyword">or</tt> <tt class="py-name">derived</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">                        <tt class="py-keyword">return</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">                        <tt class="py-keyword">assert</tt> <tt class="py-name">ancestral</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">elements</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">                        <tt class="py-keyword">assert</tt> <tt class="py-name">derived</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">elements</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt> <tt class="py-name">derived</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">roots</tt><tt class="py-op">:</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">                                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">roots</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method cnavg.clock.cnvTree.CNVSlice.remove()=cnavg.clock.cnvTree.CNVSlice-class.html#remove"><a title="cnavg.clock.cnvTree.CNVSlice.remove" class="py-name" href="#" onclick="return doclink('link-11', 'remove', 'link-11');">remove</a></tt><tt class="py-op">(</tt><tt class="py-name">derived</tt><tt class="py-op">)</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt><tt class="py-op">[</tt><tt class="py-name">derived</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="cnavg.clock.cnvTree.CNVSlice.add" class="py-name" href="#" onclick="return doclink('link-12', 'add', 'link-10');">add</a></tt><tt class="py-op">(</tt><tt class="py-name">ancestral</tt><tt class="py-op">)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">children</tt><tt class="py-op">[</tt><tt class="py-name">ancestral</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="cnavg.clock.cnvTree.CNVSlice.add" class="py-name" href="#" onclick="return doclink('link-13', 'add', 'link-10');">add</a></tt><tt class="py-op">(</tt><tt class="py-name">derived</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-comment">###################################</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">        <tt class="py-comment">## Removing an element</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-comment">###################################</tt> </tt>
+<a name="PartialOrderSet._correctedDepth"></a><div id="PartialOrderSet._correctedDepth-def"><a name="L55"></a><tt class="py-lineno"> 55</tt> <a class="py-toggle" href="#" id="PartialOrderSet._correctedDepth-toggle" onclick="return toggle('PartialOrderSet._correctedDepth');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#_correctedDepth">_correctedDepth</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">elem</tt><tt class="py-op">,</tt> <tt class="py-param">depth</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet._correctedDepth-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet._correctedDepth-expanded"><a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">                <tt class="py-name">oldDepth</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">elem</tt><tt class="py-op">]</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">oldDepth</tt> <tt class="py-op">&lt;=</tt> <tt class="py-name">depth</tt><tt class="py-op">:</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">                        <tt class="py-keyword">return</tt> <tt class="py-name">oldDepth</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">                        <tt class="py-keyword">return</tt> <tt class="py-name">oldDepth</tt> <tt class="py-op">-</tt> <tt class="py-number">1</tt> </tt>
+</div><a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"> </tt>
+<a name="PartialOrderSet.pop"></a><div id="PartialOrderSet.pop-def"><a name="L62"></a><tt class="py-lineno"> 62</tt> <a class="py-toggle" href="#" id="PartialOrderSet.pop-toggle" onclick="return toggle('PartialOrderSet.pop');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#pop">pop</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">elem</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet.pop-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet.pop-expanded"><a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">                <tt class="py-docstring">"""Removes element from a poset and all the incident constraints"""</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">elem</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">roots</tt><tt class="py-op">:</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">roots</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="cnavg.clock.cnvTree.CNVSlice.remove" class="py-name" href="#" onclick="return doclink('link-14', 'remove', 'link-11');">remove</a></tt><tt class="py-op">(</tt><tt class="py-name">elem</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">                        <tt class="py-keyword">assert</tt> <tt class="py-name">elem</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">                        <tt class="py-keyword">for</tt> <tt class="py-name">parent</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt><tt class="py-op">[</tt><tt class="py-name">elem</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">                                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">children</tt><tt class="py-op">[</tt><tt class="py-name">parent</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="cnavg.clock.cnvTree.CNVSlice.remove" class="py-name" href="#" onclick="return doclink('link-15', 'remove', 'link-11');">remove</a></tt><tt class="py-op">(</tt><tt class="py-name">elem</tt><tt class="py-op">)</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">elem</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">children</tt><tt class="py-op">:</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">                        <tt class="py-keyword">for</tt> <tt class="py-name">child</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">children</tt><tt class="py-op">[</tt><tt class="py-name">elem</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">                                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt><tt class="py-op">[</tt><tt class="py-name">child</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="cnavg.clock.cnvTree.CNVSlice.remove" class="py-name" href="#" onclick="return doclink('link-16', 'remove', 'link-11');">remove</a></tt><tt class="py-op">(</tt><tt class="py-name">elem</tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">                <tt class="py-name">depth</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">elem</tt><tt class="py-op">]</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">                <tt class="py-keyword">del</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">elem</tt><tt class="py-op">]</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depths</tt> <tt class="py-op">=</tt> <tt class="py-name">dict</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-name">X</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_correctedDepth</tt><tt class="py-op">(</tt><tt class="py-name">X</tt><tt class="py-op">,</tt> <tt class="py-name">depth</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">elements</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="cnavg.clock.cnvTree.CNVSlice.remove" class="py-name" href="#" onclick="return doclink('link-17', 'remove', 'link-11');">remove</a></tt><tt class="py-op">(</tt><tt class="py-name">elem</tt><tt class="py-op">)</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">elem</tt> </tt>
+</div><a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-comment">####################################################</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-comment">## Adding a constraint</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-comment">####################################################</tt> </tt>
+<a name="PartialOrderSet._dfsForward"></a><div id="PartialOrderSet._dfsForward-def"><a name="L84"></a><tt class="py-lineno"> 84</tt> <a class="py-toggle" href="#" id="PartialOrderSet._dfsForward-toggle" onclick="return toggle('PartialOrderSet._dfsForward');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#_dfsForward">_dfsForward</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">x</tt><tt class="py-op">,</tt> <tt class="py-param">upper</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet._dfsForward-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet._dfsForward-expanded"><a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">                <tt class="py-name">RForward</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">x</tt><tt class="py-op">]</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">y</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">children</tt><tt class="py-op">[</tt><tt class="py-name">x</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">y</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">upper</tt><tt class="py-op">:</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">                                <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">                        <tt class="py-keyword">elif</tt> <tt class="py-name">y</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-name">RForward</tt> <tt class="py-keyword">and</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">y</tt><tt class="py-op">]</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">upper</tt><tt class="py-op">:</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">                                <tt class="py-name">recursion</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_dfsForward</tt><tt class="py-op">(</tt><tt class="py-name">y</tt><tt class="py-op">,</tt> <tt class="py-name">upper</tt><tt class="py-op">)</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">                                <tt class="py-keyword">if</tt> <tt class="py-name">recursion</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">                                        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">                                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">                                        <tt class="py-name">RForward</tt> <tt class="py-op">+=</tt> <tt class="py-name">recursion</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">RForward</tt> </tt>
+</div><a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"> </tt>
+<a name="PartialOrderSet._dfsBackward"></a><div id="PartialOrderSet._dfsBackward-def"><a name="L97"></a><tt class="py-lineno"> 97</tt> <a class="py-toggle" href="#" id="PartialOrderSet._dfsBackward-toggle" onclick="return toggle('PartialOrderSet._dfsBackward');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#_dfsBackward">_dfsBackward</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">x</tt><tt class="py-op">,</tt> <tt class="py-param">lower</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet._dfsBackward-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet._dfsBackward-expanded"><a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">                <tt class="py-name">RBackward</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">x</tt><tt class="py-op">]</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">y</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt><tt class="py-op">[</tt><tt class="py-name">x</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">y</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">lower</tt><tt class="py-op">:</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">                                <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">                        <tt class="py-keyword">elif</tt> <tt class="py-name">y</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-name">RBackward</tt> <tt class="py-keyword">and</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">y</tt><tt class="py-op">]</tt> <tt class="py-op">&gt;</tt> <tt class="py-name">lower</tt><tt class="py-op">:</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">                                <tt class="py-name">recursion</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_dfsBackward</tt><tt class="py-op">(</tt><tt class="py-name">y</tt><tt class="py-op">,</tt> <tt class="py-name">lower</tt><tt class="py-op">)</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">                                <tt class="py-keyword">if</tt> <tt class="py-name">recursion</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">                                        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">                                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">                                        <tt class="py-name">RBackward</tt> <tt class="py-op">+=</tt> <tt class="py-name">recursion</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">RBackward</tt> </tt>
+</div><a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">         </tt>
+<a name="PartialOrderSet._sortF"></a><div id="PartialOrderSet._sortF-def"><a name="L110"></a><tt class="py-lineno">110</tt> <a class="py-toggle" href="#" id="PartialOrderSet._sortF-toggle" onclick="return toggle('PartialOrderSet._sortF');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#_sortF">_sortF</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">list</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet._sortF-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet._sortF-expanded"><a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">sorted</tt><tt class="py-op">(</tt><tt class="py-name">list</tt><tt class="py-op">,</tt> <tt class="py-name">key</tt> <tt class="py-op">=</tt> <tt class="py-keyword">lambda</tt> <tt class="py-name">X</tt><tt class="py-op">:</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">X</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"> </tt>
+<a name="PartialOrderSet._reassign"></a><div id="PartialOrderSet._reassign-def"><a name="L113"></a><tt class="py-lineno">113</tt> <a class="py-toggle" href="#" id="PartialOrderSet._reassign-toggle" onclick="return toggle('PartialOrderSet._reassign');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#_reassign">_reassign</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">RForward</tt><tt class="py-op">,</tt> <tt class="py-param">RBackward</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet._reassign-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet._reassign-expanded"><a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">                <tt class="py-name">Lnodes</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sortF</tt><tt class="py-op">(</tt><tt class="py-name">RBackward</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sortF</tt><tt class="py-op">(</tt><tt class="py-name">RForward</tt><tt class="py-op">)</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">                <tt class="py-name">Ldepths</tt> <tt class="py-op">=</tt> <tt class="py-name">sorted</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">X</tt><tt class="py-op">]</tt> <tt class="py-keyword">for</tt> <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">Lnodes</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">index</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">Lnodes</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">Lnodes</tt><tt class="py-op">[</tt><tt class="py-name">index</tt><tt class="py-op">]</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">Ldepths</tt><tt class="py-op">[</tt><tt class="py-name">index</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line"> </tt>
+<a name="PartialOrderSet.addConstraint"></a><div id="PartialOrderSet.addConstraint-def"><a name="L119"></a><tt class="py-lineno">119</tt> <a class="py-toggle" href="#" id="PartialOrderSet.addConstraint-toggle" onclick="return toggle('PartialOrderSet.addConstraint');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#addConstraint">addConstraint</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">ancestral</tt><tt class="py-op">,</tt> <tt class="py-param">derived</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet.addConstraint-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet.addConstraint-expanded"><a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">                <tt class="py-docstring">"""Adds an ordering constraint between two elements in the set, updating the ordering if necessary. Refuses the addition and returns False if a contradiction would be created by the addition."""</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">ancestral</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">elements</tt><tt class="py-op">:</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="cnavg.schedule.partialOrderSet.PartialOrderSet.addElement" class="py-name" href="#" onclick="return doclink('link-18', 'addElement', 'link-0');">addElement</a></tt><tt class="py-op">(</tt><tt class="py-name">ancestral</tt><tt class="py-op">)</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">derived</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">elements</tt><tt class="py-op">:</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="cnavg.schedule.partialOrderSet.PartialOrderSet.addElement" class="py-name" href="#" onclick="return doclink('link-19', 'addElement', 'link-0');">addElement</a></tt><tt class="py-op">(</tt><tt class="py-name">derived</tt><tt class="py-op">)</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">                <tt class="py-name">lower</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">derived</tt><tt class="py-op">]</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">                <tt class="py-name">upper</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">ancestral</tt><tt class="py-op">]</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">lower</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">upper</tt><tt class="py-op">:</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">                        <tt class="py-comment"># Apparent contradiction</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">                        <tt class="py-name">RForward</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_dfsForward</tt><tt class="py-op">(</tt><tt class="py-name">derived</tt><tt class="py-op">,</tt> <tt class="py-name">upper</tt><tt class="py-op">)</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt> <tt class="py-name">RForward</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">                                <tt class="py-comment"># Oops, just created a self loop</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">                                <tt class="py-keyword">return</tt> <tt class="py-name">False</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">                        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">                                <tt class="py-name">RBackward</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_dfsBackward</tt><tt class="py-op">(</tt><tt class="py-name">ancestral</tt><tt class="py-op">,</tt> <tt class="py-name">lower</tt><tt class="py-op">)</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">                                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_reassign</tt><tt class="py-op">(</tt><tt class="py-name">RForward</tt><tt class="py-op">,</tt> <tt class="py-name">RBackward</tt><tt class="py-op">)</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">                                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_addEdge</tt><tt class="py-op">(</tt><tt class="py-name">ancestral</tt><tt class="py-op">,</tt> <tt class="py-name">derived</tt><tt class="py-op">)</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">                                <tt class="py-keyword">return</tt> <tt class="py-name">True</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">                        <tt class="py-comment"># No need to change anything</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_addEdge</tt><tt class="py-op">(</tt><tt class="py-name">ancestral</tt><tt class="py-op">,</tt> <tt class="py-name">derived</tt><tt class="py-op">)</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">                        <tt class="py-keyword">return</tt> <tt class="py-name">True</tt> </tt>
+</div><a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">        <tt class="py-comment">################################################</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">        <tt class="py-comment">## Removal of constraint</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-comment">################################################</tt> </tt>
+<a name="PartialOrderSet.removeConstraint"></a><div id="PartialOrderSet.removeConstraint-def"><a name="L147"></a><tt class="py-lineno">147</tt> <a class="py-toggle" href="#" id="PartialOrderSet.removeConstraint-toggle" onclick="return toggle('PartialOrderSet.removeConstraint');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#removeConstraint">removeConstraint</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">parent</tt><tt class="py-op">,</tt> <tt class="py-param">child</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet.removeConstraint-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet.removeConstraint-expanded"><a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">                <tt class="py-docstring">"""Removes an ordering constraint between two elements in the set"""</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt><tt class="py-op">[</tt><tt class="py-name">child</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="cnavg.clock.cnvTree.CNVSlice.remove" class="py-name" href="#" onclick="return doclink('link-20', 'remove', 'link-11');">remove</a></tt><tt class="py-op">(</tt><tt class="py-name">parent</tt><tt class="py-op">)</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">children</tt><tt class="py-op">[</tt><tt class="py-name">child</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt> <tt class="py-keyword">and</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt><tt class="py-op">[</tt><tt class="py-name">child</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name" targets="Method cnavg.history.euclidian.EuclidianHistory.pop()=cnavg.history.euclidian.EuclidianHistory-class.html#pop,Method cnavg.history.history.CactusHistory.pop()=cnavg.history.history.CactusHistory-class.html#pop,Method cnavg.history.history.History.pop()=cnavg.history.history.History-class.html#pop,Method cnavg.history.overlap.OverlapHistory.pop()=cnavg.history.overlap.OverlapHistory-class.html#pop,Method cnavg.history.scheduled.ScheduledHistory.pop()=cnavg.history.scheduled.ScheduledHistory-class.html#pop,Method cnavg.schedule.partialOrderSet.PartialOrderSet.pop()=cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#pop"><a title="cnavg.history.euclidian.EuclidianHistory.pop
+cnavg.history.history.CactusHistory.pop
+cnavg.history.history.History.pop
+cnavg.history.overlap.OverlapHistory.pop
+cnavg.history.scheduled.ScheduledHistory.pop
+cnavg.schedule.partialOrderSet.PartialOrderSet.pop" class="py-name" href="#" onclick="return doclink('link-21', 'pop', 'link-21');">pop</a></tt><tt class="py-op">(</tt><tt class="py-name">child</tt><tt class="py-op">)</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">                <tt class="py-keyword">elif</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt><tt class="py-op">[</tt><tt class="py-name">child</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">roots</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="cnavg.clock.cnvTree.CNVSlice.add" class="py-name" href="#" onclick="return doclink('link-22', 'add', 'link-10');">add</a></tt><tt class="py-op">(</tt><tt class="py-name">child</tt><tt class="py-op">)</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">children</tt><tt class="py-op">[</tt><tt class="py-name">parent</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt> <tt class="py-keyword">and</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt><tt class="py-op">[</tt><tt class="py-name">parent</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="cnavg.history.euclidian.EuclidianHistory.pop
+cnavg.history.history.CactusHistory.pop
+cnavg.history.history.History.pop
+cnavg.history.overlap.OverlapHistory.pop
+cnavg.history.scheduled.ScheduledHistory.pop
+cnavg.schedule.partialOrderSet.PartialOrderSet.pop" class="py-name" href="#" onclick="return doclink('link-23', 'pop', 'link-21');">pop</a></tt><tt class="py-op">(</tt><tt class="py-name">parent</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line"> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">        <tt class="py-comment">################################################</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">        <tt class="py-comment">## Validate</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">        <tt class="py-comment">################################################</tt> </tt>
+<a name="PartialOrderSet._validateChildren"></a><div id="PartialOrderSet._validateChildren-def"><a name="L161"></a><tt class="py-lineno">161</tt> <a class="py-toggle" href="#" id="PartialOrderSet._validateChildren-toggle" onclick="return toggle('PartialOrderSet._validateChildren');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#_validateChildren">_validateChildren</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet._validateChildren-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet._validateChildren-expanded"><a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">                <tt class="py-keyword">assert</tt> <tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">elements</tt> <tt class="py-keyword">for</tt> <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">children</tt><tt class="py-op">)</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">children</tt><tt class="py-op">:</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">                        <tt class="py-keyword">for</tt> <tt class="py-name">Y</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">children</tt><tt class="py-op">[</tt><tt class="py-name">X</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">                                <tt class="py-name">Y</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">elements</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">                                <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt><tt class="py-op">[</tt><tt class="py-name">Y</tt><tt class="py-op">]</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">                                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">Y</tt><tt class="py-op">]</tt> <tt class="py-op">&gt;</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">X</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line"> </tt>
+<a name="PartialOrderSet._validateParents"></a><div id="PartialOrderSet._validateParents-def"><a name="L169"></a><tt class="py-lineno">169</tt> <a class="py-toggle" href="#" id="PartialOrderSet._validateParents-toggle" onclick="return toggle('PartialOrderSet._validateParents');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#_validateParents">_validateParents</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet._validateParents-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet._validateParents-expanded"><a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">                <tt class="py-keyword">assert</tt> <tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">elements</tt> <tt class="py-keyword">for</tt> <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt><tt class="py-op">)</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt><tt class="py-op">:</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">                        <tt class="py-keyword">for</tt> <tt class="py-name">Y</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt><tt class="py-op">[</tt><tt class="py-name">X</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">                                <tt class="py-name">Y</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">elements</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">                                <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">children</tt><tt class="py-op">[</tt><tt class="py-name">Y</tt><tt class="py-op">]</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">                                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">Y</tt><tt class="py-op">]</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">[</tt><tt class="py-name">X</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line"> </tt>
+<a name="PartialOrderSet._validateRoots"></a><div id="PartialOrderSet._validateRoots-def"><a name="L177"></a><tt class="py-lineno">177</tt> <a class="py-toggle" href="#" id="PartialOrderSet._validateRoots-toggle" onclick="return toggle('PartialOrderSet._validateRoots');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#_validateRoots">_validateRoots</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet._validateRoots-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet._validateRoots-expanded"><a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">                <tt class="py-keyword">assert</tt> <tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">elements</tt> <tt class="py-keyword">for</tt> <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">roots</tt><tt class="py-op">)</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">                <tt class="py-keyword">assert</tt> <tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parents</tt><tt class="py-op">[</tt><tt class="py-name">X</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt> <tt class="py-keyword">for</tt> <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">roots</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line"> </tt>
+<a name="PartialOrderSet._validateDepth"></a><div id="PartialOrderSet._validateDepth-def"><a name="L181"></a><tt class="py-lineno">181</tt> <a class="py-toggle" href="#" id="PartialOrderSet._validateDepth-toggle" onclick="return toggle('PartialOrderSet._validateDepth');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#_validateDepth">_validateDepth</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet._validateDepth-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet._validateDepth-expanded"><a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">                <tt class="py-keyword">assert</tt> <tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">elements</tt> <tt class="py-keyword">for</tt> <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">depth</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line"> </tt>
+<a name="PartialOrderSet.validate"></a><div id="PartialOrderSet.validate-def"><a name="L184"></a><tt class="py-lineno">184</tt> <a class="py-toggle" href="#" id="PartialOrderSet.validate-toggle" onclick="return toggle('PartialOrderSet.validate');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#validate">validate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PartialOrderSet.validate-collapsed" style="display:none;" pad="+++" indent="++++++++++++"></div><div id="PartialOrderSet.validate-expanded"><a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">                <tt class="py-docstring">"""</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line"><tt class="py-docstring">                Validation</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line"><tt class="py-docstring">                """</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_validateChildren</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_validateParents</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_validateDepth</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_validateRoots</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">True</tt> </tt>
+</div></div><a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line"> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line"><tt class="py-comment">###########################################</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line"><tt class="py-comment">## Unit test</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line"><tt class="py-comment">###########################################</tt> </tt>
+<a name="test_main"></a><div id="test_main-def"><a name="L197"></a><tt class="py-lineno">197</tt> <a class="py-toggle" href="#" id="test_main-toggle" onclick="return toggle('test_main');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.schedule.partialOrderSet-module.html#test_main">test_main</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="test_main-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="test_main-expanded"><a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">        <tt class="py-name">pos</tt> <tt class="py-op">=</tt> <tt id="link-24" class="py-name"><a title="cnavg.schedule.partialOrderSet.PartialOrderSet" class="py-name" href="#" onclick="return doclink('link-24', 'PartialOrderSet', 'link-1');">PartialOrderSet</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">        <tt class="py-name">pos</tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="cnavg.schedule.partialOrderSet.PartialOrderSet.addElement" class="py-name" href="#" onclick="return doclink('link-25', 'addElement', 'link-0');">addElement</a></tt><tt class="py-op">(</tt><tt class="py-number">2</tt><tt class="py-op">)</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">        <tt class="py-name">pos</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="cnavg.schedule.partialOrderSet.PartialOrderSet.addElement" class="py-name" href="#" onclick="return doclink('link-26', 'addElement', 'link-0');">addElement</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt class="py-name">pos</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="cnavg.schedule.partialOrderSet.PartialOrderSet.addElement" class="py-name" href="#" onclick="return doclink('link-27', 'addElement', 'link-0');">addElement</a></tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt class="py-name">pos</tt><tt class="py-op">.</tt><tt id="link-28" class="py-name" targets="Method cnavg.avg.balanced.LPProblem.addConstraint()=cnavg.avg.balanced.LPProblem-class.html#addConstraint,Method cnavg.cactus.balanced.LPProblem.addConstraint()=cnavg.cactus.balanced.LPProblem-class.html#addConstraint,Method cnavg.schedule.partialOrderSet.PartialOrderSet.addConstraint()=cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#addConstraint"><a title="cnavg.avg.balanced.LPProblem.addConstraint
+cnavg.cactus.balanced.LPProblem.addConstraint
+cnavg.schedule.partialOrderSet.PartialOrderSet.addConstraint" class="py-name" href="#" onclick="return doclink('link-28', 'addConstraint', 'link-28');">addConstraint</a></tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">,</tt><tt class="py-number">2</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-name">True</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt class="py-name">pos</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="cnavg.avg.balanced.LPProblem.addConstraint
+cnavg.cactus.balanced.LPProblem.addConstraint
+cnavg.schedule.partialOrderSet.PartialOrderSet.addConstraint" class="py-name" href="#" onclick="return doclink('link-29', 'addConstraint', 'link-28');">addConstraint</a></tt><tt class="py-op">(</tt><tt class="py-number">2</tt><tt class="py-op">,</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-name">True</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt class="py-name">pos</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name"><a title="cnavg.avg.balanced.LPProblem.addConstraint
+cnavg.cactus.balanced.LPProblem.addConstraint
+cnavg.schedule.partialOrderSet.PartialOrderSet.addConstraint" class="py-name" href="#" onclick="return doclink('link-30', 'addConstraint', 'link-28');">addConstraint</a></tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">,</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-name">True</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt class="py-name">pos</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name"><a title="cnavg.avg.balanced.LPProblem.addConstraint
+cnavg.cactus.balanced.LPProblem.addConstraint
+cnavg.schedule.partialOrderSet.PartialOrderSet.addConstraint" class="py-name" href="#" onclick="return doclink('link-31', 'addConstraint', 'link-28');">addConstraint</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">,</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-name">False</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt class="py-name">pos</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name" targets="Method cnavg.avg.balanced.BalancedAVG.validate()=cnavg.avg.balanced.BalancedAVG-class.html#validate,Method cnavg.avg.graph.Graph.validate()=cnavg.avg.graph.Graph-class.html#validate,Method cnavg.cactus.block.Block.validate()=cnavg.cactus.block.Block-class.html#validate,Method cnavg.cactus.chain.Chain.validate()=cnavg.cactus.chain.Chain-class.html#validate,Method cnavg.cactus.graph.Cactus.validate()=cnavg.cactus.graph.Cactus-class.html#validate,Method cnavg.cactus.group.Group.validate()=cnavg.cactus.group.Group-class.html#validate,Method cnavg.cactus.net.Net.validate()=cnavg.cactus.net.Net-class.html#validate,Method cnavg.coordinates.coords.Region.validate()=cnavg.coordinates.coords.Region-class.html#validate,Method cnavg.flows.cycle.Cycle.validate()=cnavg.flows.cycle.Cycle-class.html#validate,Method cnavg.flows.flows.Event.validate()=cnavg.flows.flows.Event-class.html#validate,Method cnavg.history.euclidian.EuclidianHistory.validate()=cnavg.history.euclidian.EuclidianHistory-class.html#validate,Method cnavg.history.history.CactusHistory.validate()=cnavg.history.history.CactusHistory-class.html#validate,Method cnavg.history.history.History.validate()=cnavg.history.history.History-class.html#validate,Method cnavg.history.overlap.OverlapHistory.validate()=cnavg.history.overlap.OverlapHistory-class.html#validate,Method cnavg.history.scheduled.ScheduledHistory.validate()=cnavg.history.scheduled.ScheduledHistory-class.html#validate,Method cnavg.preprocess.breakend.Breakend.validate()=cnavg.preprocess.breakend.Breakend-class.html#validate,Method cnavg.preprocess.breakendGraph.BreakendGraph.validate()=cnavg.preprocess.breakendGraph.BreakendGraph-class.html#validate,Method cnavg.preprocess.cnv.CNV.validate()=cnavg.preprocess.cnv.CNV-class.html#validate,Method cnavg.schedule.partialOrderSet.PartialOrderSet.validate()=cnavg.schedule.partialOrderSet.PartialOrderSet-class.html#validate"><a title="cnavg.avg.balanced.BalancedAVG.validate
+cnavg.avg.graph.Graph.validate
+cnavg.cactus.block.Block.validate
+cnavg.cactus.chain.Chain.validate
+cnavg.cactus.graph.Cactus.validate
+cnavg.cactus.group.Group.validate
+cnavg.cactus.net.Net.validate
+cnavg.coordinates.coords.Region.validate
+cnavg.flows.cycle.Cycle.validate
+cnavg.flows.flows.Event.validate
+cnavg.history.euclidian.EuclidianHistory.validate
+cnavg.history.history.CactusHistory.validate
+cnavg.history.history.History.validate
+cnavg.history.overlap.OverlapHistory.validate
+cnavg.history.scheduled.ScheduledHistory.validate
+cnavg.preprocess.breakend.Breakend.validate
+cnavg.preprocess.breakendGraph.BreakendGraph.validate
+cnavg.preprocess.cnv.CNV.validate
+cnavg.schedule.partialOrderSet.PartialOrderSet.validate" class="py-name" href="#" onclick="return doclink('link-32', 'validate', 'link-32');">validate</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">         </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">"__main__"</tt><tt class="py-op">:</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">        <tt id="link-33" class="py-name" targets="Function cnavg.avg.balanced.main()=cnavg.avg.balanced-module.html#main,Function cnavg.avg.gabp.gabp.main()=cnavg.avg.gabp.gabp-module.html#main,Function cnavg.avg.module.main()=cnavg.avg.module-module.html#main,Function cnavg.cactus.balanced.main()=cnavg.cactus.balanced-module.html#main,Function cnavg.cactus.graph.main()=cnavg.cactus.graph-module.html#main,Function cnavg.cactus.oriented.main()=cnavg.cactus.oriented-module.html#main,Function cnavg.cactus.threeWay.components.main()=cnavg.cactus.threeWay.components-module.html#main,Function cnavg.cactusSampling.sampling.main()=cnavg.cactusSampling.sampling-module.html#main,Function cnavg.cactusTree.cactusTree.main()=cnavg.cactusTree.cactusTree-module.html#main,Function cnavg.clock.EM.main()=cnavg.clock.EM-module.html#main,Function cnavg.clock.cnvTree.main()=cnavg.clock.cnvTree-module.html#main,Function cnavg.clock.timeEvents.main()=cnavg.clock.timeEvents-module.html#main,Function cnavg.flows.unitFlows.main()=cnavg.flows.unitFlows-module.html#main,Function cnavg.history.euclidian.main()=cnavg.history.euclidian-module.html#main,Function cnavg.history.scheduled.main()=cnavg.history.scheduled-module.html#main,Function cnavg.historySampling.cycleCover.main()=cnavg.historySampling.cycleCover-module.html#main,Function cnavg.historySampling.sampleGraphCycles.main()=cnavg.historySampling.sampleGraphCycles-module.html#main,Function cnavg.historySampling.sampleModuleCycles.main()=cnavg.historySampling.sampleModuleCycles-module.html#main,Function cnavg.preprocess.bambam.main()=cnavg.preprocess.bambam-module.html#main,Function cnavg.preprocess.breakendGraph.main()=cnavg.preprocess.breakendGraph-module.html#main,Function cnavg.preprocess.cbs.cbs.main()=cnavg.preprocess.cbs.cbs-module.html#main,Function cnavg.preprocess.discrepancies.main()=cnavg.preprocess.discrepancies-module.html#main,Function cnavg.preprocess.segmentCNVs.main()=cnavg.preprocess.segmentCNVs-module.html#main,Function cnavg.preprocess.vcf.main()=cnavg.preprocess.vcf-module.html#main,Function cnavg.simulator.simulator.main()=cnavg.simulator.simulator-module.html#main,Function cnavg.simulator.testor.main()=cnavg.simulator.testor-module.html#main"><a title="cnavg.avg.balanced.main
+cnavg.avg.gabp.gabp.main
+cnavg.avg.module.main
+cnavg.cactus.balanced.main
+cnavg.cactus.graph.main
+cnavg.cactus.oriented.main
+cnavg.cactus.threeWay.components.main
+cnavg.cactusSampling.sampling.main
+cnavg.cactusTree.cactusTree.main
+cnavg.clock.EM.main
+cnavg.clock.cnvTree.main
+cnavg.clock.timeEvents.main
+cnavg.flows.unitFlows.main
+cnavg.history.euclidian.main
+cnavg.history.scheduled.main
+cnavg.historySampling.cycleCover.main
+cnavg.historySampling.sampleGraphCycles.main
+cnavg.historySampling.sampleModuleCycles.main
+cnavg.preprocess.bambam.main
+cnavg.preprocess.breakendGraph.main
+cnavg.preprocess.cbs.cbs.main
+cnavg.preprocess.discrepancies.main
+cnavg.preprocess.segmentCNVs.main
+cnavg.preprocess.vcf.main
+cnavg.simulator.simulator.main
+cnavg.simulator.testor.main" class="py-name" href="#" onclick="return doclink('link-33', 'main', 'link-33');">main</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Nov 14 16:31:57 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

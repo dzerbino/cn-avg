@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>cnavg.simulator.testor</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="cnavg-module.html">Package&nbsp;cnavg</a> ::
+        <a href="cnavg.simulator-module.html">Package&nbsp;simulator</a> ::
+        Module&nbsp;testor
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="cnavg.simulator.testor-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="cnavg.simulator.testor-module.html">Module cnavg.simulator.testor</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/env python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Package cnavg=cnavg-module.html"><a title="cnavg" class="py-name" href="#" onclick="return doclink('link-0', 'cnavg', 'link-0');">cnavg</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Package cnavg.simulator=cnavg.simulator-module.html,Module cnavg.simulator.simulator=cnavg.simulator.simulator-module.html"><a title="cnavg.simulator
+cnavg.simulator.simulator" class="py-name" href="#" onclick="return doclink('link-1', 'simulator', 'link-1');">simulator</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name"><a title="cnavg.simulator
+cnavg.simulator.simulator" class="py-name" href="#" onclick="return doclink('link-2', 'simulator', 'link-1');">simulator</a></tt> <tt class="py-keyword">as</tt> <tt id="link-3" class="py-name"><a title="cnavg.simulator
+cnavg.simulator.simulator" class="py-name" href="#" onclick="return doclink('link-3', 'simulator', 'link-1');">simulator</a></tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-4" class="py-name"><a title="cnavg" class="py-name" href="#" onclick="return doclink('link-4', 'cnavg', 'link-0');">cnavg</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Package cnavg.avg=cnavg.avg-module.html,Method cnavg.preprocess.breakendGraph.BreakendGraph.avg()=cnavg.preprocess.breakendGraph.BreakendGraph-class.html#avg,Method cnavg.simulator.simulator.WeightedHistory.avg()=cnavg.simulator.simulator.WeightedHistory-class.html#avg"><a title="cnavg.avg
+cnavg.preprocess.breakendGraph.BreakendGraph.avg
+cnavg.simulator.simulator.WeightedHistory.avg" class="py-name" href="#" onclick="return doclink('link-5', 'avg', 'link-5');">avg</a></tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Module cnavg.avg.balanced=cnavg.avg.balanced-module.html,Method cnavg.avg.graph.Graph.balanced()=cnavg.avg.graph.Graph-class.html#balanced,Method cnavg.avg.module.Module.balanced()=cnavg.avg.module.Module-class.html#balanced,Method cnavg.avg.nodeFlow.NodeFlow.balanced()=cnavg.avg.nodeFlow.NodeFlow-class.html#balanced,Module cnavg.cactus.balanced=cnavg.cactus.balanced-module.html"><a title="cnavg.avg.balanced
+cnavg.avg.graph.Graph.balanced
+cnavg.avg.module.Module.balanced
+cnavg.avg.nodeFlow.NodeFlow.balanced
+cnavg.cactus.balanced" class="py-name" href="#" onclick="return doclink('link-6', 'balanced', 'link-6');">balanced</a></tt> <tt class="py-keyword">as</tt> <tt class="py-name">balancedAVG</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-7" class="py-name"><a title="cnavg" class="py-name" href="#" onclick="return doclink('link-7', 'cnavg', 'link-0');">cnavg</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Package cnavg.cactus=cnavg.cactus-module.html"><a title="cnavg.cactus" class="py-name" href="#" onclick="return doclink('link-8', 'cactus', 'link-8');">cactus</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Module cnavg.avg.graph=cnavg.avg.graph-module.html,Module cnavg.cactus.graph=cnavg.cactus.graph-module.html"><a title="cnavg.avg.graph
+cnavg.cactus.graph" class="py-name" href="#" onclick="return doclink('link-9', 'graph', 'link-9');">graph</a></tt> <tt class="py-keyword">as</tt> <tt id="link-10" class="py-name"><a title="cnavg.cactus" class="py-name" href="#" onclick="return doclink('link-10', 'cactus', 'link-8');">cactus</a></tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-11" class="py-name"><a title="cnavg" class="py-name" href="#" onclick="return doclink('link-11', 'cnavg', 'link-0');">cnavg</a></tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Package cnavg.cactusSampling=cnavg.cactusSampling-module.html"><a title="cnavg.cactusSampling" class="py-name" href="#" onclick="return doclink('link-12', 'cactusSampling', 'link-12');">cactusSampling</a></tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Module cnavg.cactusSampling.sampling=cnavg.cactusSampling.sampling-module.html"><a title="cnavg.cactusSampling.sampling" class="py-name" href="#" onclick="return doclink('link-13', 'sampling', 'link-13');">sampling</a></tt> <tt class="py-keyword">as</tt> <tt id="link-14" class="py-name" targets="Function cnavg.clock.EM.normalized()=cnavg.clock.EM-module.html#normalized"><a title="cnavg.clock.EM.normalized" class="py-name" href="#" onclick="return doclink('link-14', 'normalized', 'link-14');">normalized</a></tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-15" class="py-name"><a title="cnavg" class="py-name" href="#" onclick="return doclink('link-15', 'cnavg', 'link-0');">cnavg</a></tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="cnavg.cactus" class="py-name" href="#" onclick="return doclink('link-16', 'cactus', 'link-8');">cactus</a></tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Module cnavg.cactus.oriented=cnavg.cactus.oriented-module.html"><a title="cnavg.cactus.oriented" class="py-name" href="#" onclick="return doclink('link-17', 'oriented', 'link-17');">oriented</a></tt> <tt class="py-keyword">as</tt> <tt id="link-18" class="py-name"><a title="cnavg.cactus.oriented" class="py-name" href="#" onclick="return doclink('link-18', 'oriented', 'link-17');">oriented</a></tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-19" class="py-name"><a title="cnavg" class="py-name" href="#" onclick="return doclink('link-19', 'cnavg', 'link-0');">cnavg</a></tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="cnavg.cactus" class="py-name" href="#" onclick="return doclink('link-20', 'cactus', 'link-8');">cactus</a></tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="cnavg.avg.balanced
+cnavg.avg.graph.Graph.balanced
+cnavg.avg.module.Module.balanced
+cnavg.avg.nodeFlow.NodeFlow.balanced
+cnavg.cactus.balanced" class="py-name" href="#" onclick="return doclink('link-21', 'balanced', 'link-6');">balanced</a></tt> <tt class="py-keyword">as</tt> <tt class="py-name">balancedCactus</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-22" class="py-name"><a title="cnavg" class="py-name" href="#" onclick="return doclink('link-22', 'cnavg', 'link-0');">cnavg</a></tt><tt class="py-op">.</tt><tt id="link-23" class="py-name" targets="Package cnavg.historySampling=cnavg.historySampling-module.html"><a title="cnavg.historySampling" class="py-name" href="#" onclick="return doclink('link-23', 'historySampling', 'link-23');">historySampling</a></tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Module cnavg.historySampling.cycleCover=cnavg.historySampling.cycleCover-module.html"><a title="cnavg.historySampling.cycleCover" class="py-name" href="#" onclick="return doclink('link-24', 'cycleCover', 'link-24');">cycleCover</a></tt> <tt class="py-keyword">as</tt> <tt id="link-25" class="py-name"><a title="cnavg.historySampling.cycleCover" class="py-name" href="#" onclick="return doclink('link-25', 'cycleCover', 'link-24');">cycleCover</a></tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-26" class="py-name"><a title="cnavg" class="py-name" href="#" onclick="return doclink('link-26', 'cnavg', 'link-0');">cnavg</a></tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="cnavg.historySampling" class="py-name" href="#" onclick="return doclink('link-27', 'historySampling', 'link-23');">historySampling</a></tt><tt class="py-op">.</tt><tt id="link-28" class="py-name" targets="Module cnavg.historySampling.sampleGraphCycles=cnavg.historySampling.sampleGraphCycles-module.html"><a title="cnavg.historySampling.sampleGraphCycles" class="py-name" href="#" onclick="return doclink('link-28', 'sampleGraphCycles', 'link-28');">sampleGraphCycles</a></tt> <tt class="py-keyword">as</tt> <tt id="link-29" class="py-name"><a title="cnavg.historySampling.sampleGraphCycles" class="py-name" href="#" onclick="return doclink('link-29', 'sampleGraphCycles', 'link-28');">sampleGraphCycles</a></tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-30" class="py-name"><a title="cnavg" class="py-name" href="#" onclick="return doclink('link-30', 'cnavg', 'link-0');">cnavg</a></tt><tt class="py-op">.</tt><tt id="link-31" class="py-name" targets="Package cnavg.history=cnavg.history-module.html,Module cnavg.history.history=cnavg.history.history-module.html"><a title="cnavg.history
+cnavg.history.history" class="py-name" href="#" onclick="return doclink('link-31', 'history', 'link-31');">history</a></tt><tt class="py-op">.</tt><tt id="link-32" class="py-name" targets="Module cnavg.history.debug=cnavg.history.debug-module.html,Method cnavg.history.scheduled.ScheduledHistory.debug()=cnavg.history.scheduled.ScheduledHistory-class.html#debug"><a title="cnavg.history.debug
+cnavg.history.scheduled.ScheduledHistory.debug" class="py-name" href="#" onclick="return doclink('link-32', 'debug', 'link-32');">debug</a></tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt id="link-33" class="py-name"><a title="cnavg" class="py-name" href="#" onclick="return doclink('link-33', 'cnavg', 'link-0');">cnavg</a></tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="cnavg.history
+cnavg.history.history" class="py-name" href="#" onclick="return doclink('link-34', 'history', 'link-31');">history</a></tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="cnavg.history.debug
+cnavg.history.scheduled.ScheduledHistory.debug" class="py-name" href="#" onclick="return doclink('link-35', 'debug', 'link-32');">debug</a></tt><tt class="py-op">.</tt><tt id="link-36" class="py-name" targets="Variable cnavg.history.debug.DEBUG=cnavg.history.debug-module.html#DEBUG"><a title="cnavg.history.debug.DEBUG" class="py-name" href="#" onclick="return doclink('link-36', 'DEBUG', 'link-36');">DEBUG</a></tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt id="link-37" class="py-name"><a title="cnavg" class="py-name" href="#" onclick="return doclink('link-37', 'cnavg', 'link-0');">cnavg</a></tt><tt class="py-op">.</tt><tt id="link-38" class="py-name"><a title="cnavg.history
+cnavg.history.history" class="py-name" href="#" onclick="return doclink('link-38', 'history', 'link-31');">history</a></tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="cnavg.history.debug
+cnavg.history.scheduled.ScheduledHistory.debug" class="py-name" href="#" onclick="return doclink('link-39', 'debug', 'link-32');">debug</a></tt><tt class="py-op">.</tt><tt id="link-40" class="py-name" targets="Variable cnavg.history.debug.PLOIDY=cnavg.history.debug-module.html#PLOIDY"><a title="cnavg.history.debug.PLOIDY" class="py-name" href="#" onclick="return doclink('link-40', 'PLOIDY', 'link-40');">PLOIDY</a></tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"> </tt>
+<a name="_sampleAVG"></a><div id="_sampleAVG-def"><a name="L20"></a><tt class="py-lineno">20</tt> <a class="py-toggle" href="#" id="_sampleAVG-toggle" onclick="return toggle('_sampleAVG');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.simulator.testor-module.html#_sampleAVG">_sampleAVG</a><tt class="py-op">(</tt><tt class="py-param">avg</tt><tt class="py-op">,</tt> <tt class="py-param">size</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_sampleAVG-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="_sampleAVG-expanded"><a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">        <tt class="py-docstring">""" Simplified pipeline """</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line">        <tt class="py-name">C</tt> <tt class="py-op">=</tt> <tt id="link-41" class="py-name"><a title="cnavg.cactus" class="py-name" href="#" onclick="return doclink('link-41', 'cactus', 'link-8');">cactus</a></tt><tt class="py-op">.</tt><tt id="link-42" class="py-name" targets="Class cnavg.cactus.graph.Cactus=cnavg.cactus.graph.Cactus-class.html"><a title="cnavg.cactus.graph.Cactus" class="py-name" href="#" onclick="return doclink('link-42', 'Cactus', 'link-42');">Cactus</a></tt><tt class="py-op">(</tt><tt id="link-43" class="py-name"><a title="cnavg.avg
+cnavg.preprocess.breakendGraph.BreakendGraph.avg
+cnavg.simulator.simulator.WeightedHistory.avg" class="py-name" href="#" onclick="return doclink('link-43', 'avg', 'link-5');">avg</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">        <tt class="py-name">NC</tt> <tt class="py-op">=</tt> <tt id="link-44" class="py-name"><a title="cnavg.clock.EM.normalized" class="py-name" href="#" onclick="return doclink('link-44', 'normalized', 'link-14');">normalized</a></tt><tt class="py-op">.</tt><tt id="link-45" class="py-name" targets="Class cnavg.cactusSampling.sampling.NormalizedCactus=cnavg.cactusSampling.sampling.NormalizedCactus-class.html"><a title="cnavg.cactusSampling.sampling.NormalizedCactus" class="py-name" href="#" onclick="return doclink('link-45', 'NormalizedCactus', 'link-45');">NormalizedCactus</a></tt><tt class="py-op">(</tt><tt class="py-name">C</tt><tt class="py-op">)</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">        <tt class="py-name">OC</tt> <tt class="py-op">=</tt> <tt id="link-46" class="py-name"><a title="cnavg.cactus.oriented" class="py-name" href="#" onclick="return doclink('link-46', 'oriented', 'link-17');">oriented</a></tt><tt class="py-op">.</tt><tt id="link-47" class="py-name" targets="Class cnavg.cactus.oriented.OrientedCactus=cnavg.cactus.oriented.OrientedCactus-class.html"><a title="cnavg.cactus.oriented.OrientedCactus" class="py-name" href="#" onclick="return doclink('link-47', 'OrientedCactus', 'link-47');">OrientedCactus</a></tt><tt class="py-op">(</tt><tt class="py-name">NC</tt><tt class="py-op">)</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">        <tt class="py-name">H</tt> <tt class="py-op">=</tt> <tt id="link-48" class="py-name"><a title="cnavg.historySampling.cycleCover" class="py-name" href="#" onclick="return doclink('link-48', 'cycleCover', 'link-24');">cycleCover</a></tt><tt class="py-op">.</tt><tt id="link-49" class="py-name" targets="Function cnavg.historySampling.cycleCover.initialHistory()=cnavg.historySampling.cycleCover-module.html#initialHistory"><a title="cnavg.historySampling.cycleCover.initialHistory" class="py-name" href="#" onclick="return doclink('link-49', 'initialHistory', 'link-49');">initialHistory</a></tt><tt class="py-op">(</tt><tt class="py-name">OC</tt><tt class="py-op">)</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-50" class="py-name"><a title="cnavg.historySampling.sampleGraphCycles" class="py-name" href="#" onclick="return doclink('link-50', 'sampleGraphCycles', 'link-28');">sampleGraphCycles</a></tt><tt class="py-op">.</tt><tt id="link-51" class="py-name" targets="Function cnavg.historySampling.sampleGraphCycles.sample()=cnavg.historySampling.sampleGraphCycles-module.html#sample"><a title="cnavg.historySampling.sampleGraphCycles.sample" class="py-name" href="#" onclick="return doclink('link-51', 'sample', 'link-51');">sample</a></tt><tt class="py-op">(</tt><tt class="py-name">H</tt><tt class="py-op">,</tt> <tt class="py-name">size</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"> </tt>
+<a name="_compareHistories"></a><div id="_compareHistories-def"><a name="L28"></a><tt class="py-lineno">28</tt> <a class="py-toggle" href="#" id="_compareHistories-toggle" onclick="return toggle('_compareHistories');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.simulator.testor-module.html#_compareHistories">_compareHistories</a><tt class="py-op">(</tt><tt class="py-param">realHistory</tt><tt class="py-op">,</tt> <tt class="py-param">sampledHistories</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_compareHistories-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="_compareHistories-expanded"><a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">        <tt class="py-docstring">""" Reporting """</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">        <tt class="py-name">X</tt> <tt class="py-op">=</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">X</tt><tt class="py-op">:</tt> <tt class="py-name">X</tt><tt class="py-op">.</tt><tt id="link-52" class="py-name" targets="Method cnavg.history.constrained.ConstrainedHistory.rearrangementCost()=cnavg.history.constrained.ConstrainedHistory-class.html#rearrangementCost,Method cnavg.history.history.CactusHistory.rearrangementCost()=cnavg.history.history.CactusHistory-class.html#rearrangementCost"><a title="cnavg.history.constrained.ConstrainedHistory.rearrangementCost
+cnavg.history.history.CactusHistory.rearrangementCost" class="py-name" href="#" onclick="return doclink('link-52', 'rearrangementCost', 'link-52');">rearrangementCost</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">sampledHistories</tt><tt class="py-op">)</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">        <tt class="py-name">m</tt> <tt class="py-op">=</tt> <tt class="py-name">min</tt><tt class="py-op">(</tt><tt class="py-name">X</tt><tt class="py-op">)</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">realHistory</tt><tt class="py-op">.</tt><tt id="link-53" class="py-name" targets="Method cnavg.simulator.simulator.History.cost()=cnavg.simulator.simulator.History-class.html#cost"><a title="cnavg.simulator.simulator.History.cost" class="py-name" href="#" onclick="return doclink('link-53', 'cost', 'link-53');">cost</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">m</tt><tt class="py-op">,</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">filter</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt> <tt class="py-op">:</tt> <tt class="py-name">x</tt> <tt class="py-op">==</tt> <tt class="py-name">m</tt><tt class="py-op">,</tt> <tt class="py-name">X</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">X</tt> </tt>
+</div><a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"> </tt>
+<a name="testHistory"></a><div id="testHistory-def"><a name="L34"></a><tt class="py-lineno">34</tt> <a class="py-toggle" href="#" id="testHistory-toggle" onclick="return toggle('testHistory');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.simulator.testor-module.html#testHistory">testHistory</a><tt class="py-op">(</tt><tt class="py-param">length</tt><tt class="py-op">,</tt> <tt class="py-param">maxDepth</tt><tt class="py-op">,</tt> <tt class="py-param">iterations</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="testHistory-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="testHistory-expanded"><a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">        <tt class="py-docstring">"""Tests the efficiency of the CN-AVG pipeline on random evolutionary histories"""</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">        <tt class="py-name">realHistory</tt> <tt class="py-op">=</tt> <tt id="link-54" class="py-name"><a title="cnavg.simulator
+cnavg.simulator.simulator" class="py-name" href="#" onclick="return doclink('link-54', 'simulator', 'link-1');">simulator</a></tt><tt class="py-op">.</tt><tt id="link-55" class="py-name" targets="Class cnavg.simulator.simulator.RandomWeightedHistory=cnavg.simulator.simulator.RandomWeightedHistory-class.html"><a title="cnavg.simulator.simulator.RandomWeightedHistory" class="py-name" href="#" onclick="return doclink('link-55', 'RandomWeightedHistory', 'link-55');">RandomWeightedHistory</a></tt><tt class="py-op">(</tt><tt id="link-56" class="py-name" targets="Method cnavg.cactus.block.Block.length()=cnavg.cactus.block.Block-class.html#length,Method cnavg.cactus.chain.Chain.length()=cnavg.cactus.chain.Chain-class.html#length,Method cnavg.coordinates.coords.Region.length()=cnavg.coordinates.coords.Region-class.html#length,Method cnavg.flows.flows.Event.length()=cnavg.flows.flows.Event-class.html#length,Method cnavg.history.history.CactusHistory.length()=cnavg.history.history.CactusHistory-class.html#length,Method cnavg.history.history.History.length()=cnavg.history.history.History-class.html#length"><a title="cnavg.cactus.block.Block.length
+cnavg.cactus.chain.Chain.length
+cnavg.coordinates.coords.Region.length
+cnavg.flows.flows.Event.length
+cnavg.history.history.CactusHistory.length
+cnavg.history.history.History.length" class="py-name" href="#" onclick="return doclink('link-56', 'length', 'link-56');">length</a></tt><tt class="py-op">,</tt> <tt id="link-57" class="py-name" targets="Method cnavg.cactus.oriented.OrientedCactus.maxDepth()=cnavg.cactus.oriented.OrientedCactus-class.html#maxDepth"><a title="cnavg.cactus.oriented.OrientedCactus.maxDepth" class="py-name" href="#" onclick="return doclink('link-57', 'maxDepth', 'link-57');">maxDepth</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">        <tt class="py-name">sampledHistories</tt> <tt class="py-op">=</tt> <tt class="py-name">_sampleAVG</tt><tt class="py-op">(</tt><tt class="py-name">realHistory</tt><tt class="py-op">.</tt><tt id="link-58" class="py-name"><a title="cnavg.avg
+cnavg.preprocess.breakendGraph.BreakendGraph.avg
+cnavg.simulator.simulator.WeightedHistory.avg" class="py-name" href="#" onclick="return doclink('link-58', 'avg', 'link-5');">avg</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">iterations</tt><tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">"\t"</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">str</tt><tt class="py-op">,</tt> <tt class="py-name">_compareHistories</tt><tt class="py-op">(</tt><tt class="py-name">realHistory</tt><tt class="py-op">,</tt> <tt class="py-name">sampledHistories</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"> </tt>
+<a name="main"></a><div id="main-def"><a name="L40"></a><tt class="py-lineno">40</tt> <a class="py-toggle" href="#" id="main-toggle" onclick="return toggle('main');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="cnavg.simulator.testor-module.html#main">main</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="main-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="main-expanded"><a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"\n"</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt id="link-59" class="py-name" targets="Function cnavg.simulator.testor.testHistory()=cnavg.simulator.testor-module.html#testHistory"><a title="cnavg.simulator.testor.testHistory" class="py-name" href="#" onclick="return doclink('link-59', 'testHistory', 'link-59');">testHistory</a></tt><tt class="py-op">(</tt><tt class="py-number">100</tt><tt class="py-op">,</tt> <tt class="py-number">10</tt><tt class="py-op">,</tt> <tt class="py-number">100</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">X</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-number">100</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">        <tt class="py-comment">#print "\n".join([testHistory(4, 1, 10) for X in range(1)])</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line"> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">"__main__"</tt><tt class="py-op">:</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">        <tt id="link-60" class="py-name" targets="Function cnavg.avg.balanced.main()=cnavg.avg.balanced-module.html#main,Function cnavg.avg.gabp.gabp.main()=cnavg.avg.gabp.gabp-module.html#main,Function cnavg.avg.module.main()=cnavg.avg.module-module.html#main,Function cnavg.cactus.balanced.main()=cnavg.cactus.balanced-module.html#main,Function cnavg.cactus.graph.main()=cnavg.cactus.graph-module.html#main,Function cnavg.cactus.oriented.main()=cnavg.cactus.oriented-module.html#main,Function cnavg.cactus.threeWay.components.main()=cnavg.cactus.threeWay.components-module.html#main,Function cnavg.cactusSampling.sampling.main()=cnavg.cactusSampling.sampling-module.html#main,Function cnavg.cactusTree.cactusTree.main()=cnavg.cactusTree.cactusTree-module.html#main,Function cnavg.clock.EM.main()=cnavg.clock.EM-module.html#main,Function cnavg.clock.cnvTree.main()=cnavg.clock.cnvTree-module.html#main,Function cnavg.clock.timeEvents.main()=cnavg.clock.timeEvents-module.html#main,Function cnavg.flows.unitFlows.main()=cnavg.flows.unitFlows-module.html#main,Function cnavg.history.euclidian.main()=cnavg.history.euclidian-module.html#main,Function cnavg.history.scheduled.main()=cnavg.history.scheduled-module.html#main,Function cnavg.historySampling.cycleCover.main()=cnavg.historySampling.cycleCover-module.html#main,Function cnavg.historySampling.sampleGraphCycles.main()=cnavg.historySampling.sampleGraphCycles-module.html#main,Function cnavg.historySampling.sampleModuleCycles.main()=cnavg.historySampling.sampleModuleCycles-module.html#main,Function cnavg.preprocess.bambam.main()=cnavg.preprocess.bambam-module.html#main,Function cnavg.preprocess.breakendGraph.main()=cnavg.preprocess.breakendGraph-module.html#main,Function cnavg.preprocess.cbs.cbs.main()=cnavg.preprocess.cbs.cbs-module.html#main,Function cnavg.preprocess.discrepancies.main()=cnavg.preprocess.discrepancies-module.html#main,Function cnavg.preprocess.segmentCNVs.main()=cnavg.preprocess.segmentCNVs-module.html#main,Function cnavg.preprocess.vcf.main()=cnavg.preprocess.vcf-module.html#main,Function cnavg.simulator.simulator.main()=cnavg.simulator.simulator-module.html#main,Function cnavg.simulator.testor.main()=cnavg.simulator.testor-module.html#main"><a title="cnavg.avg.balanced.main
+cnavg.avg.gabp.gabp.main
+cnavg.avg.module.main
+cnavg.cactus.balanced.main
+cnavg.cactus.graph.main
+cnavg.cactus.oriented.main
+cnavg.cactus.threeWay.components.main
+cnavg.cactusSampling.sampling.main
+cnavg.cactusTree.cactusTree.main
+cnavg.clock.EM.main
+cnavg.clock.cnvTree.main
+cnavg.clock.timeEvents.main
+cnavg.flows.unitFlows.main
+cnavg.history.euclidian.main
+cnavg.history.scheduled.main
+cnavg.historySampling.cycleCover.main
+cnavg.historySampling.sampleGraphCycles.main
+cnavg.historySampling.sampleModuleCycles.main
+cnavg.preprocess.bambam.main
+cnavg.preprocess.breakendGraph.main
+cnavg.preprocess.cbs.cbs.main
+cnavg.preprocess.discrepancies.main
+cnavg.preprocess.segmentCNVs.main
+cnavg.preprocess.vcf.main
+cnavg.simulator.simulator.main
+cnavg.simulator.testor.main" class="py-name" href="#" onclick="return doclink('link-60', 'main', 'link-60');">main</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="cnavg-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Nov 14 16:31:56 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
