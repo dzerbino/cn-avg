@@ -116,7 +116,7 @@ def splitCycles(cycleA, indexA, cycleB, indexB, stub):
 	else:
 		residue = -(cycleB[0].value + cycleA[0].value)
 	if abs(residue) > ROUNDING_ERROR:
-		newCycles.append(Event(Cycle(cycleA[a1:] + shortCut.reverse(), residue)))
+		newCycles.append(Event(Cycle(cycleA[a1:] + shortCut.reverse()), residue))
 	return newCycles
 
 #########################################

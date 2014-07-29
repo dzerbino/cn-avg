@@ -128,8 +128,8 @@ class Cycle(list):
 	def dot(self):
 		return "\n".join(X.dot() for X in self)
 
-	def braneyText(self, historyID, netID, cycleID, order, complexity, ptr, prevalence):
-		return "\n".join(self[X].braneyText(historyID, netID, cycleID, X, order, complexity, ptr, prevalence) for X in range(len(self)))
+	def braneyText(self, historyID, netID, cycleID, order, complexity, upper, lower, ptr, prevalence):
+		return "\n".join(self[X].braneyText(historyID, netID, cycleID, X, order, complexity, upper, lower, ptr, prevalence) for X in range(len(self)))
 
 	def simplifyStubsAndTrivials(self, cactus):
 		nodes = [X.start for X in self]

@@ -38,13 +38,25 @@ def solve(x, precision_x, matrix, y, precision_y):
 	"""Direct resolution of the problem using weighted least squares algorithm"""
 	"""See http://en.wikipedia.org/wiki/Least_squares#Weighted_least_squares"""
 	# Likelihoods: X = x +/- sigma_x = 0 +/- sigma_x
-	# Constraints: A.X = y +/- sigma_y
+	# Constraints: M.X = y +/- sigma_y
 	# precision = 1 / variance = 1 / sigma^2
 
 	# Weighted least squares, we merge everything into one equation
-	M = np.vstack([np.identity(len(x)), matrix])
+
+	# One of my cunning plans: some of the X's have no estimate, they are assigned 
+	# negative precision (in the outside code). When negative precisions are detected
+	# they are turned into positive precisions, but applied to a null equation 0 = 0
+	# hence the likelihood is necessarily maximal for that variable
+	# Note, you could do it by removing rows in the identity matrix, but then you 
+	# have to remove the same values from the precision vector... too much trouble
+	GappedIdentity = np.identity(len(x))
+	for index in range(len(x)):
+		if precision_x[index] < 0:
+			GappedIdentity[index] = 0
+
+	M = np.vstack([GappedIdentity, matrix])
 	Y = np.concatenate((x, y))
-	W = np.concatenate((precision_x, precision_y))
+	W = np.concatenate((np.abs(precision_x), precision_y))
 	
 	# We now have: M^T.diag(W).M.X = M^T.W.Y, we factorize the scaling matrix W
 	# Note: W should be a diagonal matrix, but I only convert it after 

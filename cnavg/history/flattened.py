@@ -53,8 +53,11 @@ import cnavg.historySampling.cycleCover as cycleCover
 
 def flattenGraph(cactusHistory):
 	""" Returns a flattened copy of the CactusHistory """
+	c = cactusHistory.rearrangementCost()
 	new = FlattenedHistory(cactusHistory.cactus)
 	new.copy(cactusHistory)
+	assert cactusHistory.eventCosts is not None
+	new.eventCosts = copy.copy(cactusHistory.eventCosts)
 	oldHistories = new.netHistories.values()
 	new.netHistories = new._unifyCactusHistory()
 	for history in oldHistories:
@@ -120,7 +123,7 @@ class FlattenedHistory(ConstrainedHistory):
 		net = self.cactus.nodeNet(node)		
 		if net == self.cactus.rootNet:
 			assert node in self.netHistories[net].module
-			assert False
+			assert False, "\n".join(map(str, [self.netHistories[net].module, node]))
 		chain = self.cactus.headChain[net]
 		chainCNVs = self.chainCNVs[chain]
 		module = self.netHistories[net].module
@@ -213,6 +216,7 @@ class FlattenedHistory(ConstrainedHistory):
 			if not _pseudotelomeric(event, module):
 				newEvent = self._unifyEvent(event)
 				newEvent.setRatio(event.cycle[0].value)
+				self.eventCosts[newEvent] = self.eventCosts[event]
 				self.slideIn_Event(event, newEvent)
 				self.popEvent(event)
 				new.absorbEvent(newEvent)

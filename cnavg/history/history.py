@@ -141,7 +141,7 @@ class History(object):
 		if abs(total + self.module[node].edges[node2]) > 1e-1:
 			print self.module
 			print self
-			print node, twin, index
+			print node, node2
 			print total
 			print len(edges)
 			print [edge.value for edge in edges]
@@ -191,9 +191,9 @@ class History(object):
 		""" GraphViz representation """
 		return "\n".join(X.dot() for X in self.events)
 
-	def braneyText(self, historyID, netID, ordering, complexity):
+	def braneyText(self, historyID, netID, ordering, complexity, eventCosts=None):
 		""" Braney representation """
-		return "\n".join(X[1].braneyText(historyID, netID, str(X[0]), ordering, complexity) for X in enumerate(set(self.events) - set(self.untouchables)))
+		return "\n".join(X[1].braneyText(historyID, netID, str(X[0]), ordering, complexity, eventCosts) for X in enumerate(set(self.events) - set(self.untouchables)))
 
 	def simplifyStubsAndTrivials(self, cactusHistory):
 		new = History(self.module)
@@ -203,6 +203,7 @@ class History(object):
 				new.absorbEvent(newEvent)
 				cactusHistory.slideIn_Event(event, newEvent)
 				cactusHistory.popEvent(event)
+                                cactusHistory.eventCosts[newEvent] = cactusHistory.eventCosts[event]
 		return new
 
 	def removeLowRatioEvents(self, ratio, cactusHistory):
@@ -232,6 +233,7 @@ class CactusHistory(object):
 		self.netHistories = dict()
 		self.chainCNVs = dict()
 		self.complexity = None
+		self.error = None
 
 	def __copy__(self):
 		result = CactusHistory(self.cactus)
@@ -242,6 +244,7 @@ class CactusHistory(object):
 		self.netHistories = copy.copy(origin.netHistories)
 		self.chainCNVs = copy.copy(origin.chainCNVs)
 		self.complexity = None
+		self.error = None
 
 	#############################################
 	## Main Operations

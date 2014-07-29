@@ -42,7 +42,6 @@ TOL = 1e2
 FUDGE_FACTOR = 1
 SEG_FACTOR = FUDGE_FACTOR / 10
 EDGE_FACTOR = FUDGE_FACTOR * 10
-MAX_NOISE = 1e3
 MIN_NOISE = 1e-3
 
 ##############################################
@@ -156,7 +155,7 @@ def addEdgePrecision(precisions, A, B, graph, mapping):
 	if graph[A].edges[B] >= 0:
 		precisions[mapping.getEdge(A, B)] = precision(float(max([graph[A].edges[B], EDGE_FACTOR, MIN_NOISE])))
 	else:
-		precisions[mapping.getEdge(A, B)] = precision(float(MAX_NOISE))
+		precisions[mapping.getEdge(A, B)] = -1.0
 	assert type(precisions[mapping.getEdge(A, B)]) is float
 	return precisions
 

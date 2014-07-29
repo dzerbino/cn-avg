@@ -51,7 +51,7 @@ import cnavg.history.debug as debug
 
 TEMPERATURE = 1
 TIMER_END = None
-MAX_TIMER_LENGTH = 36000 #10 hours
+MAX_TIMER_LENGTH = 3600 * 24
 
 #############################################
 ## Select optimal solutions
@@ -134,20 +134,18 @@ def MCTest(newScore, oldScore, temperature):
 	return newScore <= oldScore or random.random() < math.exp((oldScore - newScore) / temperature)
 
 def chooseNewHistory(history, temperature, depth=0, index=0):
-	newHistory = modifyCactusHistory(history)
-	if newHistory is None:
-		return None
-	elif MCTest(newHistory.rearrangementCost(), history.rearrangementCost(), temperature):
-		print 'HISTORY ', index, depth, len(history.parent), newHistory.rearrangementCost(), newHistory.errorCost(), time.asctime()
-		# Memory optimization trick -> Frees unused matrices and overlap tables
-		history.embalmDeadHistories(newHistory)
-		return newHistory
-	else:
-		print 'REFUSE'
-		# I toyed with the idea of raising the temperature when too many solutions were refused...
-		# Maybe not a good idea?
-		#return chooseNewHistory(history, temperature * 1.1, depth=depth+1, index=index)
-		return chooseNewHistory(history, temperature, depth=depth+1, index=index)
+	while True:
+		newHistory = modifyCactusHistory(history)
+		if newHistory is None:
+			return None
+		elif MCTest(sum(newHistory.rearrangementCost())/2, sum(history.rearrangementCost())/2, temperature):
+			print 'HISTORY ', index, depth, len(history.parent), newHistory.rearrangementCost(), newHistory.errorCost(), time.asctime()
+			return newHistory
+		else:
+			print 'REFUSE'
+			# Little trick to relax search if gets stuck
+			temperature *= 1.01
+			depth += 1
 
 def addNewHistory(histories, index, file=None, stats=None, braney=None, tree=None):
 	# Just do not process if run time > MAX_TIMER_LENGTH
@@ -157,7 +155,9 @@ def addNewHistory(histories, index, file=None, stats=None, braney=None, tree=Non
 	# Generate new history from the last one
 	newHistory = chooseNewHistory(histories[-1], TEMPERATURE, depth=1, index=index)
 	# DEBUG
-	newHistory.validate()
+	#if debug.TRIGGER_TEST:
+	#	newHistory.validate()
+	#	debug.TRIGGER_TEST = False
 
 	c = newHistory.rearrangementCost()
 	FH = flattened.flattenGraph(newHistory)
@@ -180,7 +180,9 @@ def addNewHistory(histories, index, file=None, stats=None, braney=None, tree=Non
 		# Really, who need to pickle files when there's a perfectly good zipped braney file next to it?
 		#pickle.dump(newHistory, file)
 		# Cheap trick: only store minimal and latest histories
-		if c < histories[0].rearrangementCost():
+		if sum(c)/2 < sum(histories[0].rearrangementCost())/2:
+			# Memory optimization trick -> Frees unused matrices and overlap tables
+			histories[0].embalmDeadHistories(newHistory)
 			return [newHistory]
 		else:
 			return [histories[0], newHistory]
@@ -191,7 +193,7 @@ def addNewHistory(histories, index, file=None, stats=None, braney=None, tree=Non
 
 def sample(cactusHistory, size, file=None, stats=None, braney=None, tree=None):
 	# DEBUG
-	cactusHistory.validate()
+	#cactusHistory.validate()
 	print 'Sampling history space of Cactus graph'
 	global TIMER_END
 	TIMER_END = time.time() + MAX_TIMER_LENGTH

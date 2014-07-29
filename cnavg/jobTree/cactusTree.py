@@ -58,7 +58,8 @@ from jobTree.scriptTree.stack import Stack
 IDEAL_JOB_RUNTIME = 500
 MEM6G=6290000000
 MEM4G=4290000000
-MEM2G=3000000000
+MEM2G=3e9
+MEM1G=1e9
 
 class MyParser(OptionParser):
 	""" Command line options """
@@ -145,13 +146,13 @@ class SampleCycles(Target):
 class Reduce(Target):
     """ Collects sampled histories and selects optimal ones for a separate file """
     def __init__(self, options):
-    	Target.__init__(self, time=600, memory=MEM2G)
+    	Target.__init__(self, time=600, memory=MEM1G)
 	self.options = options
 
     def run(self):
         if self.options.size > 0 and self.options.number > 0:
 		temp = tempfile.mkstemp()[1]
-		do("gzip -dc %s/HISTORIES_*.braney | awk '/^A/ {if ($14 < min || ! min) min = $14} END {print min}'" % (self.options.dir), outf=temp)
+		do("gzip -dc %s/HISTORIES_*.braney | awk '/^A/ {if ($15 < min || ! min) min = $15} END {print min}'" % (self.options.dir), outf=temp)
 		score = open(temp).readline().strip()
 		files = glob.glob("%s/HISTORIES_*.braney" % (self.options.dir))
 		out = open("%s/OPTIMAL_HISTORIES.braney" % (self.options.dir), "w")
@@ -164,19 +165,19 @@ class Reduce(Target):
 				items = line.strip().split()
 				if len(items) == 0:
 					continue
-				if items[0] == "A" and items[13] == score:
-					if items[8] != lastID or file != lastFile:
+				if items[0] == "A" and items[14] == score:
+					if items[9] != lastID or file != lastFile:
 						counter += 1
-					lastID = items[8]
+					lastID = items[9]
 					lastFile = file
-					items[8] = str(counter)
+					items[9] = str(counter)
 					out.write("\t".join(items) + "\n")
-				elif items[0] != "A" and items[9] == score:
-					if items[4] != lastID or file != lastFile:
+				elif items[0] != "A" and items[10] == score:
+					if items[5] != lastID or file != lastFile:
 						counter += 1
-					lastID = items[4]
+					lastID = items[5]
 					lastFile = file
-					items[4] = str(counter)
+					items[5] = str(counter)
 					out.write("\t".join(items) + "\n")
 			input.close()
 		out.close()
@@ -186,7 +187,7 @@ class Reduce(Target):
 class Process(Target):
     """ Prepares different tracks for visual inspection on the browser """
     def __init__(self, options):
-    	Target.__init__(self, time=10, memory=MEM2G)
+    	Target.__init__(self, time=10, memory=MEM1G)
 	self.options = options
 
     def run(self):
@@ -199,14 +200,15 @@ class Process(Target):
         self.addChildTarget(PrepareCycleGraph(self.options))
 	self.addChildTarget(PrepareCactusCoverageGraphs(self.options))
 
-	os.chdir(self.options.tracks)
-	logger.debug(os.path.basename(self.options.bam))
-	if os.path.lexists(os.path.basename(self.options.bam) + ".bai"):
-		os.remove(os.path.basename(self.options.bam) + ".bai")
-	if os.path.lexists(os.path.basename(self.options.bam)):
-		os.remove(os.path.basename(self.options.bam))
-	do("ln -s %s" % self.options.bam)
-	do("ln -s %s.bai" % self.options.bam)
+	if self.options.bam is not None:
+		os.chdir(self.options.tracks)
+		logger.debug(os.path.basename(self.options.bam))
+		if os.path.lexists(os.path.basename(self.options.bam) + ".bai"):
+			os.remove(os.path.basename(self.options.bam) + ".bai")
+		if os.path.lexists(os.path.basename(self.options.bam)):
+			os.remove(os.path.basename(self.options.bam))
+		do("ln -s %s" % self.options.bam)
+		do("ln -s %s.bai" % self.options.bam)
         self.setFollowOnTarget(PrepareIndex(self.options))
 
 chroms = ["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", "chr17", "chr18", "chr19", "chr20", "chr21", "chr22", "chrX", "chrY"]
@@ -214,27 +216,53 @@ chroms = ["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9"
 class PrepareBAMBAMGraph(Target):
     """ Prepares wiggle file of Bambam coverage bins """
     def __init__(self, options):
-    	Target.__init__(self, time=1800, memory=MEM2G)
+    	Target.__init__(self, time=1800, memory=MEM4G)
 	self.options = options
+
+    def BBToBG_File(self, input, output):
+	lastChr = None
+	lastPos = None
+
+	file = open(input)
+
+	for line in file:
+		items = line.strip().split()
+		if items[0] == "CNV":
+			if items[1][:3] != "chr":
+				items[1] = "chr" + items[1]
+			if lastChr is not None and lastChr == items[1] and lastPos >= int(items[2]):
+				items[2] = str(lastPos + 1)
+			out.write("\t".join(map(str,items[1:5])) + "\n")
+			lastChr = items[1]
+			lastPos = int(items[3])
+	file.close()
+
+    def BBToBG_File_New(self, input, output):
+	lastChr = None
+	lastPos = None
+
+	file = open(input)
+
+	for line in file:
+		items = line.strip().split()
+		if items[0][:3] != "chr":
+			items[0] = "chr" + items[0]
+		if lastChr is not None and lastChr == items[0] and lastPos >= int(items[1]):
+			items[1] = str(lastPos + 1)
+		output.write("\t".join(map(str,items[0:4])) + "\n")
+		lastChr = items[0]
+		lastPos = int(items[2])
+	file.close()
+
+    def BBToBG(self, inputs, output):
+	out = open("bambam.cov.bg", "w")
+	for input in inputs:
+		self.BBToBG_File_New(input, out)
+	out.close()
 
     def run(self):
     	os.chdir(self.options.tracks)
-	out = open("bambam.cov.bg", "w")
-	lastChr = None
-	lastPos = None
-	for file in map(open, self.options.bambam):
-		for line in file:
-			items = line.strip().split()
-			if items[0] == "CNV":
-				if items[1][:3] != "chr":
-					items[1] = "chr" + items[1]
-				if lastChr is not None and lastChr == items[1] and lastPos >= int(items[2]):
-					items[2] = str(lastPos + 1)
-				out.write("\t".join(map(str,items[1:5])) + "\n")
-				lastChr = items[1]
-				lastPos = int(items[3])
-		file.close()
-	out.close()
+	self.BBToBG(self.options.bambam, "bambam.cov.bg")
 	do("bedGraphToBigWig bambam.cov.bg " + self.options.chromLengths + " bambam.cov.bw")
 
 class PrepareCBSGraph(Target):
@@ -243,10 +271,9 @@ class PrepareCBSGraph(Target):
     	Target.__init__(self, time=1800, memory=MEM4G)
 	self.options = options
 
-    def run(self):
-    	os.chdir(self.options.tracks)
-    	file = open(os.path.join(self.options.dir, "CBS_OUT"))
-	out = open("cbs.cov.bg", "w")
+    def CBSToBG(self, input, output):
+    	file = open(input)
+	out = open(output, "w")
     	for line in file:
 		items = line.strip().split()
 		if items[2] != "loc.start":
@@ -259,13 +286,25 @@ class PrepareCBSGraph(Target):
 			out.write("\t".join(map(str, items[1:4] + [items[5]])) + "\n")
 	file.close()
 	out.close()
+
+    def run(self):
+    	os.chdir(self.options.tracks)
+	self.CBSToBG(os.path.join(self.options.dir, "CBS_OUT"), "cbs.cov.bg")
 	do("bedGraphToBigWig cbs.cov.bg " + self.options.chromLengths + " cbs.cov.bw")
 
 class PrepareCactusCoverageGraphs(Target):
     """ Prepares wiggle file of normalized and balanced flow change on cactus """
     def __init__(self, options):
-    	Target.__init__(self, time=1800, memory=MEM2G)
+    	Target.__init__(self, time=1800, memory=MEM4G)
 	self.options = options
+
+    def bedGraphToBigWig(self, input, output):
+        if os.stat(input).st_size != 0:
+		do("bedGraphToBigWig %s %s %s" % (input, self.options.chromLengths, output))
+	else:
+		# Empty input, creating  empty output
+		file = open(output, "w")
+		file.close()
 
     def run(self):
     	os.chdir(self.options.tracks)
@@ -274,48 +313,77 @@ class PrepareCactusCoverageGraphs(Target):
 	file = open("cactus.cnv.bg", "w")
 	file.write(C.printCNVs())
 	file.close()
-	do("bedGraphToBigWig cactus.cnv.bg " + self.options.chromLengths + " cactus.cnv.bw")
+	self.bedGraphToBigWig("cactus.cnv.bg", "cactus.cnv.bw")
 	file = open("majority.cnv.bg", "w")
 	file.write(C.printMajority())
 	file.close()
-	do("bedGraphToBigWig majority.cnv.bg " + self.options.chromLengths + " majority.cnv.bw")
+	self.bedGraphToBigWig("majority.cnv.bg", "majority.cnv.bw")
 	file = open("minority.cnv.bg", "w")
 	file.write(C.printMinority())
 	file.close()
-	do("bedGraphToBigWig minority.cnv.bg " + self.options.chromLengths + " minority.cnv.bw")
+	self.bedGraphToBigWig("minority.cnv.bg", "minority.cnv.bw")
 
 class PrepareBreakendGraph(Target):
     """ Prepares adjacency file of Bambam breakend calls """ 
     def __init__(self, options):
-    	Target.__init__(self, time=100, memory=MEM2G)
+    	Target.__init__(self, time=100, memory=MEM1G)
 	self.options = options
+
+    def convertToBraney_Line(self, line):
+	items = line.strip().split()
+
+	if items[3] == "-":
+		sgnA = "+"
+	else:
+		sgnA = "-"
+
+	if items[7] == "-":
+		sgnB = "+"
+	else:
+		sgnB = "-"
+
+	return "\t".join(map(str,["A", items[0], items[1], sgnA, items[4], items[5], sgnB, 1000, '0', '0','0','0','0','0'])) + "\n"
+
+    def convertToBraney_Line_New(self, line):
+	items = line.strip().split()
+
+	coords = items[0].split(':')
+	chr = coords[0]
+	pos = sum(map(int, coords[1].split('-'))) / 2
+
+	if items[3] == "-":
+		sgnA = "+"
+	else:
+		sgnA = "-"
+
+	coords2 = items[1].split(':')
+	chr2 = coords2[0]
+	pos2 = sum(map(int, coords2[1].split('-'))) / 2
+
+	if items[7] == "-":
+		sgnB = "+"
+	else:
+		sgnB = "-"
+
+	return "\t".join(map(str,["A", chr, pos, sgnA, chr2, pos2, sgnB, 1000, '0', '0','0','0','0','0'])) + "\n"
+
+    def convertToBraney(self, input, output):
+    	file = open(input)
+	out = open(output, "w")
+    	for line in file:
+		out.write(self.convertToBraney_Line_New(line))
+	file.close()
+	out.close()
 
     def run(self):
     	os.chdir(self.options.tracks)
-    	file = open(self.options.breaks)
-	out = open("breaks.braney", "w")
-    	for line in file:
-		items = line.strip().split()
-
-		if items[3] == "-":
-			sgnA = "+"
-		else:
-			sgnA = "-"
-
-		if items[7] == "-":
-			sgnB = "+"
-		else:
-			sgnB = "-"
-
-		out.write("\t".join(map(str,["A", items[0], items[1], sgnA, items[4], items[5], sgnB, 1000, '0', '0','0','0','0','0'])) + "\n")
-	file.close()
-	out.close()
+	self.convertToBraney(self.options.breaks, "breaks.braney")
     	do("braneyConversion.py %s 0" % self.options.chromLengths, inf="breaks.braney", outf="breaks.adj")
 
 class PrepareCycleGraph(Target):
     """ Prepares adjacency file of an optimal history """
     def __init__(self, options):
-    	Target.__init__(self, time=100, memory=MEM2G)
+    	Target.__init__(self, time=100, memory=MEM1G)
 	self.options = options
 
     def run(self):
@@ -325,7 +393,7 @@ class PrepareCycleGraph(Target):
 class PrepareIndex(Target):
     """ Prepares text file with UCSC browser track options """
     def __init__(self, options):
-    	Target.__init__(self, time=10, memory=MEM2G)
+    	Target.__init__(self, time=10, memory=MEM1G)
 	self.options = options
 
     def run(self):
@@ -341,7 +409,8 @@ class PrepareIndex(Target):
 	file.write("track name=cactus.cnv type=bigWig alwaysZero=on visibility=hide bigDataUrl=" + home + "cactus.cnv.bw\n")
 	file.write("track name=cbs.cov type=bigWig alwaysZero=on yLineMark=1 yLineOnOff=on visibility=hide bigDataUrl=" + home + "cbs.cov.bw\n")
 	file.write("track name=bambam.cov type=bigWig alwaysZero=on yLineMark=1 yLineOnOff=on visibility=hide bigDataUrl=" + home + "bambam.cov.bw\n")
-	file.write("track name=bam type=bam visibility=hide pairEndsByName=true bigDataUrl=" + home + os.path.basename(self.options.bam) + "\n")
+	if self.options.bam is not None:
+		file.write("track name=bam type=bam visibility=hide pairEndsByName=true bigDataUrl=" + home + os.path.basename(self.options.bam) + "\n")
 	file.close()
 
 ############################################################
@@ -353,9 +422,7 @@ def main():
     """
     options, args = MyParser().parse_args()
 
-    if options.bam is None:
-	    assert False, "No Bam file!"
-    else:
+    if options.bam is not None:
 	    options.bam = os.path.abspath(options.bam)
 
     if options.dir is None:

@@ -121,9 +121,9 @@ class Breakend(coords.OrientedRegion):
 
 		self.partner = partner
 		if self.orientation:
-			assert self > self.partner
+			assert self > self.partner, "\n".join(map(str, [self, self.partner]))
 		else:
-			assert self < self.partner
+			assert self < self.partner, "\n".join(map(str, [self, self.partner]))
 		graph.addBreakend(partner)
 
 	def createMate(self, index, graph):
@@ -174,6 +174,28 @@ class Breakend(coords.OrientedRegion):
 		for counter in range(len(self.mates)):
 			if self.mates[counter] is None:
 				self.createMate(counter, breakendGraph)
+
+	########################################################
+	## Absorbing another breakend (typically in case of overlaps) 
+	########################################################
+
+	def _stealMates(self, other):
+		print 'Stealing from %i to %i' % (id(other), id(self))
+		for index in range(len(other.mates)):
+			mate = other.mates[index]
+			if mate not in self.mates:
+				self.mates.append(mate)
+				for index2 in range(len(mate.mates)):
+					if mate.mates[index2] == other:
+						mate.mates[index2] = self
+				self.adjacency_cov.append(other.adjacency_cov[index])
+		other.mates = []
+
+	def absorb(self, other):
+		print 'A'
+		self._stealMates(other)
+		print 'B'
+		self.partner._stealMates(other.partner)
 
 	########################################################
 	## Conversion to AVG

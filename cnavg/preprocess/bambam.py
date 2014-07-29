@@ -93,18 +93,18 @@ def parseBreaksLineNew(line, breakends):
 	chr = coords[0]
 	if chr[:3] != "chr":
 		chr = "chr" + chr
-	pos = coords[1].split('-')
-	breakend = Breakend(chr, pos[0], items[2] == '-', "BND" + str(len(breakends)) + ":" + items[0] + ":" + items[1], finish=int(pos[1]))
+	pos = map(int, coords[1].split('-'))
+	breakend = Breakend(chr, min(pos), items[2] == '-', "BND" + str(len(breakends)) + ":" + items[0] + ":" + items[1], finish=max(pos))
 	breakend.mates = [None]
 
 	coords2 = items[1].split(':')
 	chr2 = coords2[0]
 	if chr2[:3] != "chr":
 		chr2 = "chr" + chr2
-	pos2 = coords2[1].split('-')
+	pos2 = map(int, coords2[1].split('-'))
 	breakend.remoteChr = [chr2]
-	breakend.remoteStart = [int(pos2[0])]
-	breakend.remoteFinish = [int(pos2[1])]
+	breakend.remoteStart = [min(pos2)]
+	breakend.remoteFinish = [max(pos2)]
 
 	breakend.remoteOrientation = [items[3] == '-']
 	breakend.adjacency_cov = [-1, float(items[5])]
@@ -135,7 +135,7 @@ def parseBreaksFile(file):
 	print "\tParsing breakends"
 	breakends = BreakendGraph()
 	for line in file:
-		parseBreaksLine(line, breakends)
+		parseBreaksLineNew(line, breakends)
 	breakends.sort()
 	filtered = removeGermlineBreakends(breakends)
 	return BreakendGraph(filtered)
@@ -173,18 +173,16 @@ def parseNewCNVLine(line):
 	items = line.strip().split()
 	if items[0][:3] != "chr":
 		items[0] = "chr" + items[0]
-	cnvs.append(CNV(items[0], items[1], items[2], [float(items[3])], ""))
-	return cnvs
+	return CNV(items[0], items[1], items[2], [float(items[3])], "")
 
 def parseNewBBFile(file):
 	fh = open(file)
-	res = map(parseNewBBLine, fh)
+	res = map(parseNewCNVLine, fh)
 	fh.close()
 	return res
 
 def parseNewCNVData(files):
 	print "\tParsing CNV data"
-	assert len(files) > 1
 	return sorted(sum(map(parseNewBBFile, files), []))
 
 #############################################
@@ -313,11 +311,12 @@ def parse(bbfiles, breaksfile, lengthsfile, snpsfiles=None):
 	breakends = parseBreaksFile(breaksfile)
 	breakends = removeNonChromosomalBreakpoints(breakends, lengths)
 	breakends.consolidate()
+	breakends = breakends.mergeOverlapping()
 	breakends.lengths = lengths
 	print "Found %i breakends" % len(breakends) 
 
 	# CNV data
-	cnvs = segmentCNVs(parseCNVData(bbfiles))
+	cnvs = segmentCNVs(parseNewCNVData(bbfiles))
 	print "Found %i cnv regions" % len(cnvs) 
 
 	# Quick normalization
@@ -326,10 +325,9 @@ def parse(bbfiles, breaksfile, lengthsfile, snpsfiles=None):
 		breakend.adjacency_cov = [X / meanCov for X in breakend.adjacency_cov]
 
 	# Putting it all together
-	if snpsfiles is None:
-		cnvs = phaseCNVs(bbfiles, cnvs, lengths.keys())
-	else:
+	if snpsfiles is not None:
 		cnvs = phaseCNVs(snpsfiles, cnvs, lengths.keys())
+
 	breakends.incorporateCNVs(cnvs)
 	return breakends
 		

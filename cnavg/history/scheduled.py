@@ -82,14 +82,15 @@ class ScheduledHistory(history.CactusHistory):
 			self.descendants[ancestor] |= descendants
 
 	def addDescent(self, parent, child, singleParent=False, singleChild=False):
+		assert parent is not child
 		if child is None:
 			return
 		elif parent is None:
 			self.rootify(child)
 			return
 		if child in self.ancestors[parent]:
-			print child.ratio
-			print parent.ratio
+			print child.ratio, id(child)
+			print parent.ratio, id(parent)
 			print self.descentTreeString()
 			assert False
 		self.parent[child] = parent
@@ -110,7 +111,7 @@ class ScheduledHistory(history.CactusHistory):
 
 	def swapUnder(self, event, parent):
 		if parent is not None:
-			todo = [X for X in self.children[parent]]
+			todo = list(self.children[parent])
 			if event not in self.children[parent]:
 				self.addDescent(parent, event, singleChild=True)
 			for child in todo:
@@ -304,8 +305,8 @@ class ScheduledHistory(history.CactusHistory):
 		return True
 
 	def validate(self):
-		assert all(self.validateTree(event) for event in self.parent)
 		assert super(ScheduledHistory, self).validate()
+		assert all(self.validateTree(event) for event in self.parent)
 		assert all(self.validateHistory(history) for history in self.netHistories.values())
 		events  = set(E for H in self.netHistories.values() for E in H.events)
 		for X in self.parent:

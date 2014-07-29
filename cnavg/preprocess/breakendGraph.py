@@ -36,6 +36,21 @@ import sys
 import vcf
 import cnavg.avg.graph as avg
 
+def mergeOverlappingBreakends(list, breakend):
+	if len(list) == 0 or list[-1] < breakend:
+		list.append(breakend)
+	elif all(X is not breakend.partner for X in list):
+		list[-1].absorb(breakend)
+	elif all(X is not list[-1].partner for X in list):
+		reject = list.pop()
+		breakend.absorb(reject)  
+		list.append(breakend)
+	else:
+		list.remove(breakend.partner)
+		list[-1].absorb(breakend)
+
+	return list
+
 #########################################################
 ## Graph Structure
 #########################################################
@@ -44,6 +59,8 @@ class BreakendGraph(list):
 	""" A collection of breakends organized into a graph """
 	def validate(self):
 		assert all(map(lambda X: X.validate(), self))
+		assert all(X.partner is None or X.partner in self for X in self)
+		assert all(mate is None or mate in self for X in self for mate in X.mates)
 
 	def searchBreakend(self, region):
 		""" Search for breakend which covers a given region """ 
@@ -57,7 +74,6 @@ class BreakendGraph(list):
 
 	def addBreakend(self, breakend):
 		""" Insert breakend """
-		breakend.validate()
 		self.insert(self._insertionPoint(breakend), breakend)
 
 	#########################################################
@@ -77,6 +93,18 @@ class BreakendGraph(list):
 		""" Ensuring all breakends in the graph have a mate and a partner """
 		print "\tConsolidating breakends"
 		map(lambda X: self._consolidateEmptyBreakend(X), self)
+
+	#########################################################
+	## Merge Overlapping breakends 
+	#########################################################
+
+	def mergeOverlapping(self):
+		new = BreakendGraph(reduce(mergeOverlappingBreakends, sorted(self), []))
+		for X in list(new):
+			if X.partner not in new:
+				assert len(X.mates) == 0, id(X)
+				new.remove(X)
+		return new
 
 	#########################################################
 	## Merging CNV info 

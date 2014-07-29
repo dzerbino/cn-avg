@@ -34,6 +34,8 @@
 
 import random
 import copy
+import math
+from collections import Counter
 from cnavg.flows.edge import Edge
 from cnavg.flows.cycle import Cycle
 from cnavg.flows.flows import Event
@@ -132,12 +134,6 @@ def adjacencies():
 	return sum(nodeEdgesTable.values(), [])
 
 def minimumEdge(module):
-	hairpins = filter(lambda X: X[0] == X[1] and abs(X[2]) > MIN_FLOW, nodeEdgesTable[module.stub])
-	outlets = filter(lambda X: X[0] != X[1] and abs(X[2]) > MIN_FLOW, nodeEdgesTable[module.stub])
-	if len(hairpins) == 1 and len(outlets) == 1:
-		res = hairpins[0]
-		return Edge(res[1], res[0], res[2]/2, res[3])
-
 	edges = filter(lambda X: X[0] != X[1] and abs(X[2]) > MIN_FLOW, adjacencies())
 	if len(edges) == 0:
 		return None
@@ -223,7 +219,6 @@ def extendCycle(edgeList, module, distances, sign):
 		return edgeList, module, False
 	edge = Edge(edgeData[0], edgeData[1], edgeData[2], edgeData[3])
 	edge.value = edgeList[0].value * sign
-	module.removeEdgeFlow(edge)
 	edgeList.append(edge)
 
 	if len(edgeList) % 2 == 0 and edge.finish == edgeList[0].start:	
@@ -231,16 +226,27 @@ def extendCycle(edgeList, module, distances, sign):
 	else:
 		return extendCycle(edgeList, module, distances, -sign)
 
+def getAbsEdgeValue(adjacencyIndex, module):
+	start, end, index = adjacencyIndex
+	if index < 0:
+		return abs(module[start].edges[end])
+	else:
+		return abs(module[start].segment[index])
+
 def extractCycle(edge, module):
-	module.removeEdgeFlow(edge)
 	distances = dijkstra(edge.start, edge.value, module, blockTwin=(edge.index >= 0))
 	edgeList, module, success = extendCycle([edge], module, distances, -1)
 	if success:
-		return Event(Cycle(edgeList)), module
+		edge_counts = Counter(E.adjacencyIndex() for E in edgeList)
+		if max(edge_counts.values()) == 1:
+			cycle = Cycle(edgeList)
+		else:
+			value = min(getAbsEdgeValue(E, module) / edge_counts[E] for E in edge_counts)
+			cycle = Cycle(edgeList, value=math.copysign(value, edge.value))
+
+		return Event(cycle)
 	else:
-		# Undo edits to the module
-		map(module.addEdgeFlow, edgeList[1:])
-		return None, module
+		return None
 
 
 def pickOutCycle(module):
@@ -249,18 +255,19 @@ def pickOutCycle(module):
 	edge = minimumEdge(module) 
 	if edge is None:
 		# Job finished
-		return None, None
+		return None
 	else:
 		return extractCycle(edge, module)
 
 def pickOutCycles(module, history):
 	while True:
-		event, module = pickOutCycle(module)
+		event = pickOutCycle(module)
 		if event is not None:
 			if len(history.events) % 100 == 0:
 				print 'CYCLE', len(history.events)
+		        map(module.removeEdgeFlow, event.cycle)
 			history.absorbEvent(event)
-		elif module is None:
+		else:
 			return history
 
 ########################################

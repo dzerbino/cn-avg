@@ -368,7 +368,8 @@ class BalancedCactus(cactus.Cactus):
 		problem = prepareGraphProblem(graph, mapping, problem)
 		values = leastSquares.solve([0 for X in problem.estimatedValues], problem.estimatePrecisions, problem.matrix, problem.constraints, problem.constraintPrecisions)
 		updateGraph(self, values, mapping)
-		computeOffsets(self)
+		if debug.RATIO_TO_OFFSET:
+			computeOffsets(self)
 		correctIncongruities(self)
 
 	##############################################

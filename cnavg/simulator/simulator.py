@@ -35,18 +35,12 @@
 import sys
 import random
 import cnavg.avg.graph
-import cnavg.history.debug as debug
+import cnavg.basics.partialOrderSet
 
-import cnavg.cactus.graph as cactus
-import cnavg.cactus.oriented as oriented 
-import cnavg.historySampling.cycleCover as cycleCover
-import cnavg.history.euclidian as euclidian
-import cnavg.history.constrained as constrained
-
-
-# DEBUG
-#BRANCHPROB = 0.1
 BRANCHPROB = 0
+MEAN_INDEL_LENGTH = 10
+MEAN_TANDEMS = 1
+
 """ Probability that a branch point occurs at a given node """
 
 class HistoryBranch(object):
@@ -99,6 +93,17 @@ class HistoryBranch(object):
         def _dotEdge(self, child):
                 return '%i -> %i [label="%s"]' % (id(self), id(child), child._dotBlurb())
 
+        #########################################
+        ## Braney representation 
+        #########################################
+
+	def _braneyText(self, history, avg, cost, poset):
+		for child in self.children:
+			poset.addElement(child)
+			poset.addConstraint(self, child)
+
+		return "\n".join([self._braneyBlurb(history, avg, cost, poset)] + [X._braneyText(history, avg, cost, poset) for X in self.children])
+
 #########################################
 ## Top Branch
 #########################################
@@ -115,6 +120,9 @@ class InitialBranch(HistoryBranch):
 
         def _operationCost(self):
                 return 0
+
+	def _braneyBlurb(self, history, avg, cost, poset):
+		return ""
 
 #########################################
 ## Transformation branches
@@ -135,6 +143,10 @@ class Operation(HistoryBranch):
                 else:
                         return 0
 
+	def followsAncestralSequence(self, history, index):
+		return (self.parent.genome[index % len(self.parent.genome)] % len(history.root.genome) == (self.parent.genome[(index - 1) % len(self.parent.genome)] + 1) % len(history.root.genome)
+		       and self.parent.genome[index % len(self.parent.genome)] * self.parent.genome[(index - 1) % len(self.parent.genome)] > 0)
+
 class Identity(Operation):
         """Nothing happens"""
         def __init__(self, parent):
@@ -149,11 +161,44 @@ class Identity(Operation):
         def _dotBlurb(self):
                 return "ID"
 
+	def _braneyBlurb(self, history, avg, cost, poset):
+		return ""
+
         def _operationCost(self):
                 return 0
 
         def _persists(self):
                 return True
+
+def signChar(value, revComp = False):
+	if revComp:
+		if value > 0:
+			return '-'
+		else:
+			return '+'
+	else:
+		if value > 0:
+			return '+'
+		else:
+			return '-'
+
+def getNode(nodes, index, _3prime):
+	if index > 0:
+		if _3prime:
+			return nodes[2 * index - 1]
+		else:
+			return nodes[2 * index - 2]
+	if index < 0:
+		if _3prime:
+			return nodes[-2 * index - 2]
+		else:
+			return nodes[-2 * index - 1]
+
+def orientString(node):
+	if node.orientation:
+		return '+'
+	else:
+		return '-'
 
 class Inversion(Operation):
         """Inversion branch"""
@@ -192,24 +237,42 @@ class Inversion(Operation):
         def _persists(self):
                 return (self._testPosition(self.start) and self._testPosition(self.start + self.length)) or (self._testPosition(self.start - 1) and self._testPosition(self.start + self.length - 1))
 
+	def _braneyBlurb(self, history, avg, cost, poset):
+		nodes = sorted(avg.nodes())
+		rank = poset.depth[self]
+
+		startA = getNode(nodes, self.parent.genome[(self.start - 1) % len(self.parent.genome)], True)
+		startB = getNode(nodes, self.parent.genome[(self.start) % len(self.parent.genome)], False) 
+		finishB = getNode(nodes, self.parent.genome[(self.start + self.length - 1) % len(self.parent.genome)], True)
+		finishA = getNode(nodes, self.parent.genome[(self.start + self.length) % len(self.parent.genome)], False)
+		prevalence = history.weights[self]
+
+		return "\n".join([
+		       "\t".join(map(str, ['A', startA.chr, startA.pos, orientString(startA), startB.chr, startB.pos, orientString(startB),-prevalence,prevalence, 0,0,rank,0,rank,cost,cost,1,1,id(self)])),
+		       "\t".join(map(str, ['A', startB.chr, startB.pos, orientString(startB), finishA.chr, finishA.pos, orientString(finishA),prevalence,prevalence, 0,0,rank,1,rank,cost,cost,1,1,id(self)])),
+		       "\t".join(map(str, ['A', finishA.chr, finishA.pos, orientString(finishA), finishB.chr, finishB.pos, orientString(finishB),-prevalence,prevalence, 0,0,rank,2,rank,cost,cost,1,1,id(self)])),
+		       "\t".join(map(str, ['A', finishB.chr, finishB.pos, orientString(finishB), startA.chr, startA.pos, orientString(startA),prevalence,prevalence, 0,0,rank,3,rank,cost,cost,1,1,id(self)])),
+		       ])
+
 class Duplication(Operation):
         """Duplication branch"""
-        def __init__(self, parent, start, length):
+        def __init__(self, parent, start, length, count):
                 self.start = start
                 self.length = length
+		self.count = count
                 super(Duplication, self).__init__(parent)
 
         def _product(self, genome):
                 if self.start + self.length < len(genome):
-                        return genome[:self.start] + genome[self.start:self.start+self.length] + genome[self.start:]
+                        return genome[:self.start] + sum((genome[self.start:self.start+self.length] for X in range(self.count)), [])  + genome[self.start:]
                 else:
-                        return genome[:self.start] + genome[self.start:] + genome[:self.start+self.length-len(genome)] + genome[self.start:]
+                        return genome + sum((genome[:self.start+self.length-len(genome)] + genome[self.start:] for X in range(self.count)), [])
 
         def _label(self):
-                return "DUP\t%i\t%i\n%s" % (self.start, self.length, str(self.genome))
+                return "DUP\t%i\t%i\t%i\n%s" % (self.start, self.length, self.count, str(self.genome))
 
         def _dotBlurb(self):
-                str = "DUP %i,%i" % (self.start, self.length)
+                str = "DUP %i,%i,%i" % (self.start, self.length, self.count)
                 if self._persists():
                         return str
                 else:
@@ -229,6 +292,29 @@ class Duplication(Operation):
 
         def _persists(self):
                 return any(self._testPosition(X) for X in range(self.start, self.start + self.length))
+
+	def _braneyBlurb(self, history, avg, cost, poset):
+		nodes = sorted(avg.nodes())
+		prevalence = history.weights[self] * self.count
+		lines = []
+		edgeIndex = 0
+		rank = poset.depth[self]
+
+		previous = getNode(nodes, self.parent.genome[(self.start + self.length - 1) % len(self.parent.genome)], True)
+		i = 0
+		while i < self.length:
+			start = getNode(nodes, self.parent.genome[(self.start + i) % len(self.parent.genome)], False)
+			shift = 1;
+			while i + shift < self.length and self.followsAncestralSequence(history, self.start + i + shift):
+				shift += 1
+			finish = getNode(nodes, self.parent.genome[(self.start + i + shift - 1) % len(self.parent.genome)], True)
+			lines.append("\t".join(map(str, ['A', previous.chr, previous.pos, orientString(previous), start.chr, start.pos, orientString(start),prevalence,prevalence, 0,0,rank,edgeIndex,rank,cost,cost,1,1,id(self)])))
+			lines.append("\t".join(map(str, [start.chr, start.pos, finish.pos, -prevalence,prevalence, 0,0,rank,edgeIndex+1,rank,cost,cost,1,1,id(self)])))
+			previous = finish
+			edgeIndex += 2
+			i += shift
+
+		return "\n".join(lines)
 
 class Deletion(Operation):
         """Deletion branch"""
@@ -271,6 +357,35 @@ class Deletion(Operation):
         def _persists(self):
                 return self._testPosition(self.start - 1) or self._testPosition(self.start + self.length)
 
+	def _braneyBlurb(self, history, avg, cost, poset):
+		nodes = sorted(avg.nodes())
+		prevalence = history.weights[self]
+		edgeIndex = 0
+		lines = []
+		rank = poset.depth[self]
+
+		leftFlank = getNode(nodes, self.parent.genome[(self.start - 1) % len(self.parent.genome)], True)
+		previous = leftFlank
+		i = 0
+		while i < self.length:
+			start = getNode(nodes, self.parent.genome[(self.start + i) % len(self.parent.genome)], False)
+			shift = 1;
+			while i + shift < self.length and self.followsAncestralSequence(history, self.start + i + shift):
+				shift += 1
+
+			finish = getNode(nodes, self.parent.genome[(self.start + i + shift - 1) % len(self.parent.genome)], True)
+			lines.append("\t".join(map(str, ['A', previous.chr, previous.pos, orientString(previous), start.chr, start.pos, orientString(start),-prevalence,prevalence, 0,0,rank,edgeIndex,rank,cost,cost,1,1,id(self)])))
+			lines.append("\t".join(map(str, [start.chr, start.pos, finish.pos, prevalence,prevalence, 0,0,rank,edgeIndex + 1,rank,cost,cost,1,1,id(self)])))
+			previous = finish
+			edgeIndex += 2
+			i += shift
+
+		rightFlank = getNode(nodes, self.parent.genome[(self.start + self.length) % len(self.parent.genome)], False)
+		lines.append("\t".join(map(str, ['A', previous.chr, previous.pos, orientString(previous), rightFlank.chr, rightFlank.pos, orientString(rightFlank),-prevalence,prevalence, 0,0,rank,edgeIndex,rank,cost,cost,1,1,id(self)])))
+		lines.append("\t".join(map(str, ['A', rightFlank.chr, rightFlank.pos, orientString(rightFlank), leftFlank.chr, leftFlank.pos, orientString(leftFlank),prevalence,prevalence, 0,0,rank,edgeIndex+1,rank,cost,cost,1,1,id(self)])))
+
+		return "\n".join(lines)
+
 #########################################
 ## Evolutionary History
 #########################################
@@ -293,6 +408,9 @@ class History(object):
                 """ GraphViz output """
                 return self.root._dot(self.weights)
 
+	def braneyText(self, avg):
+		return self.root._braneyText(self, avg, self.cost(), cnavg.basics.partialOrderSet.PartialOrderSet([self.root]))
+
 #########################################
 ## Weighted Evolutionary History
 #########################################
@@ -313,6 +431,19 @@ class WeightedHistory(History):
         def __init__(self, root, weights):
                 super(WeightedHistory, self).__init__(root)
                 self.weights = weights
+
+        def _normalizeBranches(self, weights):
+                total = float(sum(weights.values()))
+                return dict((X, weights[X]/total) for X in weights)
+
+        def _weightBranches(self):
+                return self._normalizeBranches(self._weightBranchesAtRandom())
+
+	def _weightAllBranches(self, branch):
+		if branch in self.weights:
+			return self.weights[branch]
+		else:
+			return sum(map(self._weightAllBranches, branch.children))
 
         def _avg_Branch(self, avg, branch):
                 if len(branch.children) == 0 and len(branch.genome) > 0:
@@ -342,31 +473,31 @@ class WeightedHistory(History):
 #########################################
 ## Random Evolutionary History
 #########################################
-def _addChildBranch(branch):
-        choice = random.random()
+def _addChildBranch(branch, inv_prob = .7, dup_prob = .1, del_prob = .1, id_prob = .1):
+	if len(branch.genome) > 1:
+		choice = random.random()
+	else:
+		choice = 1
         start = random.randrange(len(branch.genome))
-        # DEBUG
-        choice = .0
 
-        if len(branch.genome) > 1 and choice < 0.7:
+        if choice < inv_prob:
                 length = random.randrange(1, len(branch.genome))
                 Inversion(branch, start, length)
-        elif len(branch.genome) > 1 and choice < 0.8:
+        elif choice < inv_prob + dup_prob:
                 # Separate length prob for different operations (e.g. long distance duplications followed by deletions make things moot)
-                length = int(random.expovariate(0.1))
+                length = int(random.expovariate(1/float(MEAN_INDEL_LENGTH)))
                 if length >= len(branch.genome):
                         length = len(branch.genome) - 1
                 if length == 0:
                         length = 1
-                Duplication(branch, start, length)
-        elif len(branch.genome) > 1 and choice < 0.9:
-                length = int(random.expovariate(0.1))
+		count = max(1, int(random.expovariate(1/float(MEAN_TANDEMS))))
+		Duplication(branch, start, length, count)
+        elif choice < inv_prob + dup_prob + del_prob:
+                length = int(random.expovariate(1/float(MEAN_INDEL_LENGTH)))
                 if length >= len(branch.genome):
                         length = len(branch.genome) - 1
                 if length == 0:
                         length = 1
-                # DEBUG
-                length = 1
                 Deletion(branch, start, length)
         else:
                 Identity(branch)
@@ -399,22 +530,39 @@ class RandomHistory(WeightedHistory):
 ## Random Weighted Evolutionary History
 #########################################
 
-class RandomWeightedHistory(RandomHistory):
+class RandomIntegerHistory(RandomHistory):
         def _weightBranchesAtRandom(self):
-                #return dict((X, random.randrange(1,1e6)) for X in self.enumerate() if len(X.children) == 0)
                 return dict((X,1) for X in self.enumerate() if len(X.children) == 0)
 
-        def _normalizeBranches(self, weights):
-                total = float(sum(weights.values()))
-                return dict((X, weights[X]/total) for X in weights)
-
-        def _weightBranches(self):
-                return self._normalizeBranches(self._weightBranchesAtRandom())
-
-        def __init__(self, length, maxDepth):
-                super(RandomWeightedHistory, self).__init__(length, maxDepth)
-                # Ugly side effect needed to get around linear chain of inheritance
+        def __init__(self, length, maxDepth, indel_length=MEAN_INDEL_LENGTH):
+		global MEAN_INDEL_LENGTH
+		MEAN_INDEL_LENGTH = indel_length
+		global BRANCHPROB
+		BRANCHPROB = 0
+                super(RandomIntegerHistory, self).__init__(length, maxDepth)
                 self.weights = self._weightBranches()
+		self.weights = dict((X, self._weightAllBranches(X)) for X in self.enumerate())
+
+#########################################
+## Random Cancer History
+#########################################
+
+class RandomCancerHistory(RandomHistory):
+	def __init__(self, length, maxDepth, indel_length=MEAN_INDEL_LENGTH):
+		global MEAN_INDEL_LENGTH
+		MEAN_INDEL_LENGTH = indel_length
+		global BRANCHPROB
+		BRANCHPROB = 0
+                super(RandomCancerHistory, self).__init__(length, maxDepth)
+		germline = Identity(self.root)
+		somatic = filter(lambda X:len(X.children) == 0, self.enumerate())[0]
+                _extendHistory(somatic, maxDepth)
+		somatic2 = filter(lambda X:len(X.children) == 0, self.enumerate())[0]
+                _extendHistory(somatic2, maxDepth)
+		somatic3 = filter(lambda X:len(X.children) == 0, self.enumerate())[0]
+
+		self.weights = dict([(somatic3, .60), (Identity(somatic2), .10), (Identity(somatic), .10), (germline, .20)])
+		self.weights = dict((X, self._weightAllBranches(X)) for X in self.enumerate())
 
 #########################################
 ## Unit test
@@ -422,7 +570,8 @@ class RandomWeightedHistory(RandomHistory):
 def main():
         debug.DEBUG = True
         debug.PLOIDY = 1
-        history = RandomWeightedHistory(3, 1)
+        #history = RandomCancerHistory(3, 4, 1)
+        history = RandomIntegerHistory(10, 1)
         G = history.avg()
         C = cactus.Cactus(G)
         O = oriented.OrientedCactus(C)
@@ -431,10 +580,18 @@ def main():
         print history
         print history.dot()
         print history.cost()
+	print history.braneyText(G)
+	return
         print H
         print H.rearrangementCost()
         for NH in H.netHistories.values():
                 print NH.dot()
 
 if __name__ == '__main__':
+	import cnavg.cactus.graph as cactus
+	import cnavg.cactus.oriented as oriented 
+	import cnavg.historySampling.cycleCover as cycleCover
+	import cnavg.history.euclidian as euclidian
+	import cnavg.history.constrained as constrained
+	import cnavg.history.debug as debug
         main()

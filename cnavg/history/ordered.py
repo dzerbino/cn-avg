@@ -44,6 +44,7 @@ class OrderedHistory(ScheduledHistory):
 	def __init__(self, cactusHistory):
 		super(OrderedHistory, self).__init__(cactusHistory.cactus)
 		self.copy(cactusHistory)
+		self.eventCosts = cactusHistory.eventCosts
 		self.ordering = PartialOrderSet(X for X in self.parent)
 		for event in self.parent:
 			if self.parent[event] is not None and (debug.DEBUG or event.ratio > debug.RATIO_CUTOFF): 
@@ -52,7 +53,7 @@ class OrderedHistory(ScheduledHistory):
 	def braneyText(self, ID, cost=None):
 		if cost is None:
 			cost = self.rearrangementCost()
-		return "\n".join(filter(lambda X: len(X) > 0, (X[1].braneyText(ID, X[0], self.ordering, cost) for X in enumerate(self.netHistories.values()))))
+		return "\n".join(filter(lambda X: len(X) > 0, (X[1].braneyText(ID, X[0], self.ordering, cost, self.eventCosts) for X in enumerate(self.netHistories.values()))))
 
 def prettify(H, i=0):
 	""" Transform CactusHistory into BraneyText """

@@ -44,9 +44,12 @@ class Event(object):
 	#############################################
 	## Basic
 	#############################################
-	def __init__(self, cycle):
+	def __init__(self, cycle, ratio=None):
 		self.cycle = cycle 
-		self.ratio = abs(self.cycle[0].value) / math.ceil(abs(self.cycle[0].value))
+		if ratio is None:
+			self.ratio = abs(self.cycle[0].value) / math.ceil(abs(self.cycle[0].value))
+		else:
+			self.setRatio(ratio)
 
 	def __copy__(self):
 		return Event(copy.copy(self.cycle))
@@ -79,8 +82,11 @@ class Event(object):
 	def dot(self):
 		return "\n".join(["digraph G {","\trankdir=LR",self.cycle.dot(),"}"])
 
-	def braneyText(self, historyID, netID, cycleID, ordering, complexity):
-		return self.cycle.braneyText(historyID, netID, cycleID, ordering.depth[self], complexity, id(self), self.ratio)
+	def braneyText(self, historyID, netID, cycleID, ordering, complexity, eventCosts=None):
+		if eventCosts is not None and self in eventCosts:
+			return self.cycle.braneyText(historyID, netID, cycleID, ordering.depth[self], complexity, eventCosts[self][0], eventCosts[self][1], id(self), self.ratio)
+		else:
+			return self.cycle.braneyText(historyID, netID, cycleID, ordering.depth[self], complexity, '.', '.', id(self), self.ratio)
 
 	def simplifyStubsAndTrivials(self, cactus):
 		cycle = self.cycle.simplifyStubsAndTrivials(cactus)

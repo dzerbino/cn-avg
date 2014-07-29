@@ -1,4 +1,5 @@
 # Copyright (c) 2012, Daniel Zerbino
+
 # All rights reserved.
 # 
 # Redistribution and use in source and binary forms, with or without
@@ -32,17 +33,13 @@
 
 """ Linear algebra representation of a history """
 
-import overlap
-
 import math
 import random
 import numpy as np
 import copy
+
 import debug
-
-import scipy.sparse
-
-from cnavg.avg.node import StubNode
+import overlap
 
 ROUNDING_ERROR=1e-10
 """ Amount by which a coefficient is considered to be equal to 0 after linear simplification """ 
@@ -147,6 +144,23 @@ class Mapping(dict):
 		return reduce(lambda V,E: self._updateVector(V, E, event.ratio), event.cycle, self.nullVector())
 
 	##############################################
+	## Producing the unitary vector associated to a cycle
+	##############################################
+
+	def _updateUnitaryVector(self, vector, edge):
+		if edge.value > 0:
+			vector[self.getEdge(edge.start, edge.finish, edge.index)] += 1
+		else:
+			vector[self.getEdge(edge.start, edge.finish, edge.index)] -= 1
+		return vector
+
+	def unitaryVector(self, event):
+		""" Returns a vector which corresponds to an Event Cycle """
+		# Record all the edges once in case one of them is new, thus affecting the length of nullVector
+		map(lambda X: self.getEdge(X.start, X.finish, X.index), event.cycle)
+		return reduce(lambda V,E: self._updateUnitaryVector(V, E), event.cycle, self.nullVector())
+
+	##############################################
 	## Producing the vector associated to the original genome flow
 	##############################################
 
@@ -220,8 +234,8 @@ class Mapping(dict):
 ##############################################
 
 def _argmax(vector):
-	# Had to reimplement because the numpy argmax returns the first occurence of the max value....
-	return map(lambda X: X[0], filter(lambda X: X[1] == max(vector), enumerate(vector)))
+	max = np.amax(vector)
+	return np.where(vector == max)[0]
 
 def _normalized(vector):
 	return vector / np.linalg.norm(vector)
@@ -282,7 +296,7 @@ class EuclidianHistory(overlap.OverlapHistory):
 			newDims = self.mappings.length() - np.size(self.vectors, 0)
 			self.vectors = np.concatenate((self.vectors, np.zeros((newDims, np.size(self.vectors, axis=1)))), axis=0)
 			self.q_base = np.concatenate((self.q_base, np.zeros((newDims, np.size(self.vectors, axis=1)))), axis=0)
-		return self.vectors[:,self.eventIndex[event]]
+		return self.vectors[:,self.eventIndex[event]] * abs(int(1 / event.cycle[0].value))
 
 	def bondIndices(self):
 		""" Returns vector which indicates which indices correspond to bond edges """
@@ -307,7 +321,7 @@ class EuclidianHistory(overlap.OverlapHistory):
 		""" Remove event from history """
 		i = self.eventIndex[event]
 		self.vectors = np.delete(self.vectors, i, 1)
-		if np.size(self.vectors) == 0:
+		if len(np.shape(self.vectors)) == 0:
 			self.vectors = None
 			self.q_base = None
 			self.r_triangle = None
@@ -320,14 +334,29 @@ class EuclidianHistory(overlap.OverlapHistory):
 		super(EuclidianHistory, self).pop(event)
 
 	def _ratios(self):
-		return np.array([X.ratio for X in self.events])
+		return np.array([X.cycle[0].value for X in self.events])
 
-        def _imposeNewRatios(self, ratios, cactusHistory):
+        def _imposeNewRatios(self, ratios, cactusHistory, oldratios, rhos, weights, maxRho, corrections):
 		badeggs = []
 		for event, ratio in zip(self.events, ratios):
 			if abs(ratio) <= ROUNDING_ERROR:
+				print 'POPPING OUT'
+				print event
+				print 'MAX RHO', maxRho
+				print 'OLD RATIO', oldratios[self.eventIndex[event]]
+				print 'RHO', rhos[self.eventIndex[event]]
+				print 'WEIGHTS', weights[self.eventIndex[event]]
+				print 'CORRECTION', corrections[self.eventIndex[event]]
 				badeggs.append(event)
 			else:
+				if abs(ratio - event.cycle[0].value) > 1e-2:
+					print 'REWEIGHTING %f' % ratio
+					print event
+					print 'MAX RHO', maxRho
+					print 'OLD RATIO', oldratios[self.eventIndex[event]]
+					print 'RHO', rhos[self.eventIndex[event]]
+					print 'WEIGHTS', weights[self.eventIndex[event]]
+					print 'CORRECTION', corrections[self.eventIndex[event]]
 				event.setRatio(ratio)
 
                 for X in badeggs:
@@ -338,7 +367,9 @@ class EuclidianHistory(overlap.OverlapHistory):
 	def absorbEvent(self, cactusHistory, event):
 		""" Add event to history """
 		## Represent as Euclidian vector
-		vector = self.mappings.vector(event)
+		if self.mappings is None:
+			self.mappings = Mapping(self.module)
+		vector = self.mappings.unitaryVector(event)
 
 		## If empty matrix
 		if self.vectors is None:
@@ -348,20 +379,33 @@ class EuclidianHistory(overlap.OverlapHistory):
 			super(EuclidianHistory, self).absorbEvent(event)
 			return
 
+		#assert np.size(self.vectors, axis=1) == np.size(self.q_base, axis=1)
+
 		## If new dimensions were added to the mapping
 		if np.size(vector) > np.size(self.vectors, 0):
 			newDims = np.size(vector) - np.size(self.vectors, 0)
 			self.vectors = np.concatenate((self.vectors, np.zeros((newDims, np.size(self.vectors, axis=1)))), axis=0)
-			self.q_base = np.concatenate((self.q_base, np.zeros((newDims, np.size(self.vectors, axis=1)))), axis=0)
+			self.q_base = np.concatenate((self.q_base, np.zeros((newDims, np.size(self.q_base, axis=1)))), axis=0)
 
-		## Project onto pre-existing vectors base
+		## Project onto pre-existing vectors base you can do this on the orthonormal matrix
 		projections = self.q_base.T.dot(vector)
 		residual = vector - self.q_base.dot(projections)
+		if np.linalg.norm(residual) < ROUNDING_ERROR * np.linalg.norm(vector):
+			## Note: solving Mx = y is equivalent to solving Rx = Q.Ty
+			if not debug.INTEGER_HISTORY:
+				solution = np.linalg.solve(self.r_triangle, projections)
+			else:
+				# If we're working exclusively with integer coefficients
+				# then non-independent vectors will be allowed, i.e. 
+				# the equation system is not singular. 
+				solution = np.linalg.lstsq(self.r_triangle, projections)[0]
+			weights = np.append(solution, [-1])
 
-		if np.linalg.norm(residual) < ROUNDING_ERROR * np.linalg.norm(vector): 
+		if np.linalg.norm(residual) < ROUNDING_ERROR * np.linalg.norm(vector) and (not debug.INTEGER_HISTORY or all(abs(X - round(X)) < ROUNDING_ERROR for X in weights)): 
 			## Linear combination! 
 			## One or more vectors need to be removed...
-			weights = np.append(np.linalg.solve(self.r_triangle, projections), [-1])
+			if debug.INTEGER_HISTORY:
+				weights = map(round, weights)
 
 			# Add the vector to the mix
 			self.vectors = np.append(self.vectors, np.array([vector]).T, axis=1)
@@ -370,14 +414,18 @@ class EuclidianHistory(overlap.OverlapHistory):
 
 			## Choose which vector(s) should be eliminated
 			ratios = self._ratios()
-			rhos = weights / ratios
+			rhos = weights / np.abs(ratios)
 			lameDuckIndex = random.choice(_argmax(np.absolute(rhos)))
 
 			## Operate the shift
 			maxRho = -rhos[lameDuckIndex]
 			corrections = weights / maxRho
-			newRatios = ratios + corrections
-			self._imposeNewRatios(newRatios, cactusHistory)
+			# So this is really weird an deserves to be better done, but essentially the ratio 
+			# encodes for two things: norm and marker of the sign of the first edge.
+			# therefore sometimes we work with only norm, sometimes we heed both.
+			newRatios = np.where(ratios > 0, ratios + corrections, ratios - corrections)
+			self._imposeNewRatios(newRatios, cactusHistory, ratios, rhos, weights, maxRho, corrections)
+			#debug.TRIGGER_TEST = True
 		else:
 			## Independent vectors, congratulations!
 			normal = _normalized(residual)
@@ -432,7 +480,47 @@ class EuclidianHistory(overlap.OverlapHistory):
 ###############################################
 
 def main():
-	pass
+	G = avg.randomNearEulerianGraph(10)
+	B = balanced.BalancedAVG(G)
+	C = cactus.Cactus(B)
+	N = normalized.NormalizedCactus(C)
+	O = oriented.OrientedCactus(N)
+	H = cycleCover.initialHistory(O)
+	h = random.choice(H.netHistories.values())
+	e = random.choice(h.events)
+	e1 = copy.copy(e)
+	e1.setRatio(e.cycle[0].value / 2)
+	e2 = copy.copy(e)
+	e2.setRatio(-e.cycle[0].value / 2)
+	e3 = copy.copy(e)
+	e3.setRatio(e.cycle[0].value / 2)
+	e4 = copy.copy(e)
+	e4.setRatio(e.cycle[0].value / 2)
+	e5 = copy.copy(e)
+	e5.setRatio(e.cycle[0].value * 7)
+	e6 = copy.copy(e)
+	e6.setRatio(-e.cycle[0].value * 7)
+
+	h.validate()
+	h.pop(e)
+	h.absorbEvent(H, e2)
+	h.absorbEvent(H, e1)
+	h.absorbEvent(H, e)
+	h.validate()
+	h.pop(e)
+	h.absorbEvent(H, e3)
+	h.absorbEvent(H, e4)
+	h.validate()
+	h.absorbEvent(H, e5)
+	h.absorbEvent(H, e6)
+	h.validate()
 
 if __name__ == "__main__":
+	import cnavg.cactus.graph as cactus
+	import cnavg.cactus.oriented as oriented
+	import cnavg.cactusSampling.sampling as normalized
+	import cnavg.avg.graph as avg
+	import cnavg.avg.balanced as balanced
+	import cnavg.historySampling.cycleCover as cycleCover
+	debug.DEBUG = True
 	main()

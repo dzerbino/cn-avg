@@ -101,7 +101,7 @@ class Edge(object):
 				return str(self.finish) + '\n\t%s -> %s [color=red, label="DUP:%f"]' % (self.finish.ID, self.start.ID, self.value)
 
 
-	def braneyText(self, historyID, netID, cycleID, edgeIndex, order, complexity, ptr, prevalence):
+	def braneyText(self, historyID, netID, cycleID, edgeIndex, order, complexity, upper, lower, ptr, prevalence):
 		if self.start.orientation:
 			startOString = '+'
 		else:
@@ -114,13 +114,13 @@ class Edge(object):
 
 		# Note the Braney format was defined before the switch in sign of conjugate flows, hence the general - in front of all edge values
 		if self.index == -1:
-			str1 = "\t".join(map(str, ['A', self.start.chr, self.start.pos, startOString, self.finish.chr, self.finish.pos, finishOString, -self.value, prevalence, historyID, netID, cycleID, edgeIndex, order, complexity, ptr]))
-			str2 = "\t".join(map(str, ['A', self.finish.chr, self.finish.pos, finishOString, self.start.chr, self.start.pos, startOString, -self.value, prevalence, historyID, netID, cycleID, edgeIndex, order, complexity, ptr]))
+			str1 = "\t".join(map(str, ['A', self.start.chr, self.start.pos, startOString, self.finish.chr, self.finish.pos, finishOString, -self.value, prevalence, historyID, netID, cycleID, edgeIndex, order, complexity[0], complexity[1], upper, lower, ptr]))
+			str2 = "\t".join(map(str, ['A', self.finish.chr, self.finish.pos, finishOString, self.start.chr, self.start.pos, startOString, -self.value, prevalence, historyID, netID, cycleID, edgeIndex, order, complexity[0], complexity[1], upper, lower, ptr]))
 			return "\n".join([str1, str2])
 		else:
 			start = min(self.start.pos, self.finish.pos)
 			finish = max(self.start.pos, self.finish.pos)
-			return "\t".join(map(str, [self.start.chr, start, finish, -self.value, prevalence, historyID, netID, cycleID, edgeIndex, order, complexity, ptr]))
+			return "\t".join(map(str, [self.start.chr, start, finish, -self.value, prevalence, historyID, netID, cycleID, edgeIndex, order, complexity[0], complexity[1], upper, lower, ptr]))
 
 	def doesNotContainNodes(self, nodes):
 		return self.start not in nodes and self.finish not in nodes
