@@ -296,7 +296,10 @@ class EuclidianHistory(overlap.OverlapHistory):
 			newDims = self.mappings.length() - np.size(self.vectors, 0)
 			self.vectors = np.concatenate((self.vectors, np.zeros((newDims, np.size(self.vectors, axis=1)))), axis=0)
 			self.q_base = np.concatenate((self.q_base, np.zeros((newDims, np.size(self.vectors, axis=1)))), axis=0)
-		return self.vectors[:,self.eventIndex[event]] * abs(int(1 / event.cycle[0].value))
+		normalizedVector = self.vectors[:,self.eventIndex[event]]
+		values = np.abs(normalizedVector)
+		correction = 1.0 / np.min(values[values > 0])
+		return np.round(normalizedVector * correction)
 
 	def bondIndices(self):
 		""" Returns vector which indicates which indices correspond to bond edges """
