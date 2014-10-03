@@ -40,8 +40,7 @@ def main():
 		except:
 			continue
 			
-		H.complexity = None
-		print H.rearrangementCost()
+		print H
 
 if __name__ == "__main__":
 	main()

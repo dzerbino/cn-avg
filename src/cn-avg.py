@@ -62,7 +62,10 @@ def _parseOptions():
 	parser.add_argument('--lengths', '-l', dest='chromLengths', type=file, help='Chromosome lengths')
 	parser.add_argument('--dir', '-d', dest='dir', help='Working directory')
 	parser.add_argument('--debug', '-g', dest='debug', action='store_true', help='Debug switch for whatever')
+	parser.add_argument('--continue', '-c', dest='cont', action='store_true', help='Continue sampling for 24 hours')
+	parser.add_argument('--integer', '-n', dest='integer', action='store_true', help='Integer switch for idealized integer histories')
 	parser.add_argument('--size', '-s', dest='size', type=int, default=100, help='Number of sampled histories')
+	parser.add_argument('--temp', '-t', dest='temp', type=float, default=1, help='Starting temperature of MCMC sampling')
 	return parser.parse_args()
 
 def _parseGraph(options):
@@ -102,6 +105,9 @@ def _parseGraph(options):
 
 def main():
 	options = _parseOptions()
+
+	sampleGraphCycles.TEMPERATURE = options.temp
+
 	if options.dir is not None:
 		if not os.path.exists(options.dir):
 			os.mkdir(options.dir)
@@ -114,26 +120,45 @@ def main():
 		C = cactus.Cactus(B)
 		pickle.dump(C, open('CACTUS', "wb"))
 	else:
-		if not options.debug:
+		H = None
+
+		if options.debug:
+			## Picking up from where we started
+			OC = pickle.load(open('CACTUS_%i' % options.index))
+			random.setstate(pickle.load(open("STATE_%i" % options.index)))
+		elif options.cont:
+			## Picking up from where we stopped
+			OC = pickle.load(open('CACTUS_%i' % options.index))
+			## Going through all the histories to the last in file 
+			file= open('HISTORIES_%i' % (options.index))
+			while True:
+				try:
+					H = pickle.load(file)
+				except:
+					break
+			file.close()
+		else:
 			## Just moving from there 
 			pickle.dump(random.getstate(), open("STATE_%i" % options.index, "wb"))
 			C = pickle.load(open('CACTUS'))
 
 			## Sampling possible cactus
 			NC = normalized.NormalizedCactus(C)
-			BC = balancedCactus.BalancedCactus(NC)
+			if debug.RATIO_TO_OFFSET:
+				BC = balancedCactus.BalancedCactus(NC)
+			else:
+				BC = NC
 			OC = oriented.OrientedCactus(BC)
 
 			## Saving sampled cactus
 			pickle.dump(OC, open('CACTUS_%i' % options.index, "wb"))
-		else:
-			## Picking up from where we started
-			OC = pickle.load(open('CACTUS_%i' % options.index))
-			random.setstate(pickle.load(open("STATE_%i" % options.index)))
+		
 
 		# Moving into historical space
-		H = cycleCover.initialHistory(OC)
-		c = H.rearrangementCost()
+		if options.integer:
+			debug.INTEGER_HISTORY = True
+		if H is None:
+			H = cycleCover.initialHistory(OC)
 		FH = flattened.flattenGraph(H)
 		S = FH.simplifyStubsAndTrivials()
 		F = S.removeLowRatioEvents(debug.RATIO_CUTOFF)
@@ -145,9 +170,10 @@ def main():
 		pickle_file = open('HISTORIES_%i' % options.index, "wb")
 		#pickle.dump(H, pickle_file)
 		braney_file = gzip.open("HISTORIES_%i.braney" % options.index, "w")
-		braney_file.write("%s\n" % O.braneyText(0, c))
-		tree_file = open("HISTORY_TREES_%li" % options.index, "w")
-		tree_file.write("%s\n" % O.newick())
+		braney_file.write("%s\n" % O.braneyText(0, H.rearrangementCost()))
+		#tree_file = open("HISTORY_TREES_%li" % options.index, "w")
+		#tree_file.write("%s\n" % O.newick())
+		tree_file = None
 
 		# Sampling
 		SH = sampleGraphCycles.sample(H, options.size, pickle_file, stats_file, braney_file, tree_file)
@@ -156,7 +182,7 @@ def main():
 		stats_file.close()
 		pickle_file.close()
 		braney_file.close()
-		tree_file.close()
+		#tree_file.close()
 
 		## Removing temp file
 		if os.path.exists("STATE_%i" % options.index):

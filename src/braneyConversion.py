@@ -43,8 +43,10 @@ index = sys.argv[2]
 
 for line in sys.stdin:
     items = line.strip().split()
+    if len(items) == 0:
+	    continue
     if items[0] == "A":
-	    if items[8] != index:
+	    if items[9] != index:
 		    continue
 
 	    val = str(abs(float(items[7])))[:5]
@@ -85,15 +87,15 @@ for line in sys.stdin:
 	    if items[2] <= 0:
 		    items[2] = 1
 
-	    name = "_".join([val] + items[8:11])
+	    name = "_".join([val] + items[9:12])
 	    
 	    if items[1] == items[4] and items[2] < items[5]:
-		    print "\t".join(map(str, [items[1],items[2],items[5],items[4],items[7],items[3],items[6],name,items[12]]))
+		    print "\t".join(map(str, [items[1],items[2],items[5],items[4],items[7],items[3],items[6],name,items[13]]))
 	    elif items[1] != items[4]:
-		    print "\t".join(map(str, [items[1],items[2],items[2],items[4],items[7],items[3],items[6],name,items[12]]))
+		    print "\t".join(map(str, [items[1],items[2],items[2],items[4],items[7],items[3],items[6],name,items[13]]))
 
-    elif len(items) == 10: 
-    	    if items[4] != index:
+    elif len(items) > 0: 
+    	    if items[5] != index:
 		    continue
 
 	    val = str(abs(float(items[3])))[:5]
@@ -120,6 +122,6 @@ for line in sys.stdin:
 	    if items[1] <= 0:
 		    items[1] = 1
 
-	    name = "_".join([val] + items[4:7])
+	    name = "_".join([val] + items[5:8])
 
-	    print "\t".join(map(str, [items[0],items[1],items[2],"SEGMENT",items[3],"+","+",name,items[8]]))
+	    print "\t".join(map(str, [items[0],items[1],items[2],"SEGMENT",items[3],"+","+",name,items[9]]))
