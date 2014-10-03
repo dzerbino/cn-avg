@@ -5,7 +5,7 @@
 #include "sonLib.h"
 #include "3_Absorb3edge2x.h"
 
-static int LINE_MAX = 5000;
+static int THREE_WAY_LINE_MAX = 5000;
 
 // Parsing
 static void parseLine(char * line, stList * vertices) {
@@ -15,7 +15,7 @@ static void parseLine(char * line, stList * vertices) {
 
 	token = strtok(line, "\t");
 	while (token != NULL) {
-		sscanf(token, "%i", &val);
+		sscanf(token, "%li", &val);
 		stList_append(vertex, stIntTuple_constructN(1, &val));
 		token = strtok(NULL, "\t");
 	}
@@ -29,8 +29,8 @@ static stList * parseFile(char* filename) {
 		abort();
 	
 	stList * vertices = stList_construct();
-	char line[LINE_MAX];
-	while(fgets(line, LINE_MAX, file)) 
+	char line[THREE_WAY_LINE_MAX];
+	while(fgets(line, THREE_WAY_LINE_MAX, file)) 
 		parseLine(line, vertices);	
 
 	close(file);
@@ -43,9 +43,9 @@ static void exportNet(FILE * file, stList * net) {
 	if (stList_length(net) == 0)
 		return;
 
-	fprintf(file, "%i", stIntTuple_get(stList_pop(net),0));
+	fprintf(file, "%li", stIntTuple_get(stList_pop(net),0));
 	while(stList_length(net) > 0)
-		fprintf(file, "\t%i", stIntTuple_get(stList_pop(net),0));
+		fprintf(file, "\t%li", stIntTuple_get(stList_pop(net),0));
 	
 	fprintf(file, "\n");
 }
