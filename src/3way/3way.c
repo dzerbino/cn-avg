@@ -10,13 +10,13 @@ static int LINE_MAX = 5000;
 // Parsing
 static void parseLine(char * line, stList * vertices) {
 	char * token;
-	int val;
+	int64_t val;
 	stList * vertex = stList_construct();
 
 	token = strtok(line, "\t");
 	while (token != NULL) {
 		sscanf(token, "%i", &val);
-		stList_append(vertex, stIntTuple_construct(1, val));
+		stList_append(vertex, stIntTuple_constructN(1, &val));
 		token = strtok(NULL, "\t");
 	}
 
@@ -43,9 +43,9 @@ static void exportNet(FILE * file, stList * net) {
 	if (stList_length(net) == 0)
 		return;
 
-	fprintf(file, "%i", stIntTuple_getPosition(stList_pop(net),0));
+	fprintf(file, "%i", stIntTuple_get(stList_pop(net),0));
 	while(stList_length(net) > 0)
-		fprintf(file, "\t%i", stIntTuple_getPosition(stList_pop(net),0));
+		fprintf(file, "\t%i", stIntTuple_get(stList_pop(net),0));
 	
 	fprintf(file, "\n");
 }
