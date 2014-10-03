@@ -260,6 +260,28 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
         def computeLower(self, cycle, netHistory, previousBonds, createdBonds):
                 return reduce(lambda X,Y: self.computeLower_Node(X, Y, netHistory, previousBonds, createdBonds, len(cycle)), (X.start for X in cycle), (set(), 0))[1]
 
+	def sumIncidents(self, node, vector):
+		return sum(lambda X: vector[netHistory.mappings.getBond(node, X)], netHistory.module[node].edges) 
+
+	def computeImbalance_Segment(self, node, twin, duplication, denovo):
+		Dnode = self.sumIncidents(node, duplication)
+		Dtwin = self.sumIncidents(node, duplication)
+		Cnode = self.sumIncidents(node, denovo)
+		Ctwin = self.sumIncidents(node, denovo)
+		return max([Dnode - Dtwin - Ctwin, Dtwin - Dnode - Cnode, 0])
+
+	def computeImbalance_Edge(self, data, edge, netHistory, duplication, denovo):
+		visited, cost = data
+		node = edge.start
+		twin = netHistory.module[node].twin
+		if node.ID in visited or twin in visited:
+			return data
+		else:
+			return visited | set([node]), cost + self.computeImbalance_Segment(node, twin, duplication, denovo)
+
+	def computeImbalances(self, cycle, netHistory, duplication, denovo):
+		return reduce(lambda X, Y: self.computeImbalance_Edge(X, Y, netHistory, duplication, denovo), cycle, (set(), 0))[1]
+
         def rearrangementCost_Net(self, net):
                 netHistory = self.netHistories[net]
                 originalVector = netHistory.originalVector()
@@ -284,21 +306,24 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 
                         if event in localEvents:
                                 localEvent = localEvents[event]
-				# Removing pointers for GC to start
-				del localEvents[event]
                                 eventVector = netHistory.eventVector(localEvent) 
                                 newVector = previousVector + eventVector
+
                                 previousBonds = bond & (previousVector < 0)
                                 deletedBonds = bond & (newVector > 0) & (previousVector >= 0)
 				pseudoPreviousBonds = previousBonds | deletedBonds
-
                                 createdBonds = bond & (newVector < 0) & (previousVector >= 0)
-				
                                 lower = self.computeLower(localEvent.cycle, netHistory, pseudoPreviousBonds, createdBonds)
-				upper = - int(np.sum(eventVector[np.where(createdBonds)]))
+
+				duplication = np.minimum(-previousVector, -eventVector)
+				denovo = np.where(previousVector >= 0, -eventVector, 0) 
+				supraduplications = np.sum(np.where(bond, np.maximum(2 * previousVector - newVector, 0), 0))
+				imbalances = self.computeImbalances(localEvent.cycle, netHistory, duplication, denovo)
+				upper = supraduplications + imbalances
 				# If all the edges of the event cycle are bonds, then the flow is bond cycle 
 				if np.sum((eventVector != 0) & bond) == len(localEvent.cycle) and np.sum(createdBonds) == len(localEvent.cycle) / 2:
 					upper -= 1
+
 				assert lower <= upper, "%i > %i = %i - 1\n%i bonds\n%i created\n%i ancestral\n%s" % (lower, upper, upper + 1, np.sum((eventVector != 0) & bond), np.sum(createdBonds), np.sum((eventVector != 0) & previousBonds), localEvent)
 				self.eventCosts[event][0] += upper
 				self.eventCosts[event][1] += lower
