@@ -260,14 +260,14 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
         def computeLower(self, cycle, netHistory, previousBonds, createdBonds):
                 return reduce(lambda X,Y: self.computeLower_Node(X, Y, netHistory, previousBonds, createdBonds, len(cycle)), (X.start for X in cycle), (set(), 0))[1]
 
-	def sumIncidents(self, node, vector):
+	def sumIncidents(self, netHistory, node, vector):
 		return sum(lambda X: vector[netHistory.mappings.getBond(node, X)], netHistory.module[node].edges) 
 
-	def computeImbalance_Segment(self, node, twin, duplication, denovo):
-		Dnode = self.sumIncidents(node, duplication)
-		Dtwin = self.sumIncidents(node, duplication)
-		Cnode = self.sumIncidents(node, denovo)
-		Ctwin = self.sumIncidents(node, denovo)
+	def computeImbalance_Segment(self, netHistory, node, twin, duplication, denovo):
+		Dnode = self.sumIncidents(netHistory, node, duplication)
+		Dtwin = self.sumIncidents(netHistory, node, duplication)
+		Cnode = self.sumIncidents(netHistory, node, denovo)
+		Ctwin = self.sumIncidents(netHistory, node, denovo)
 		return max([Dnode - Dtwin - Ctwin, Dtwin - Dnode - Cnode, 0])
 
 	def computeImbalance_Edge(self, data, edge, netHistory, duplication, denovo):
@@ -277,7 +277,7 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 		if node.ID in visited or twin in visited:
 			return data
 		else:
-			return visited | set([node]), cost + self.computeImbalance_Segment(node, twin, duplication, denovo)
+			return visited | set([node]), cost + self.computeImbalance_Segment(netHistory, node, twin, duplication, denovo)
 
 	def computeImbalances(self, cycle, netHistory, duplication, denovo):
 		return reduce(lambda X, Y: self.computeImbalance_Edge(X, Y, netHistory, duplication, denovo), cycle, (set(), 0))[1]
