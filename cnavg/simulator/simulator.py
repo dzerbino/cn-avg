@@ -581,9 +581,9 @@ def main():
         print history.dot()
         print history.cost()
 	print history.braneyText(G)
-	return
         print H
         print H.rearrangementCost()
+	return
         for NH in H.netHistories.values():
                 print NH.dot()
 
