@@ -261,7 +261,7 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
                 return reduce(lambda X,Y: self.computeLower_Node(X, Y, netHistory, previousBonds, createdBonds, len(cycle)), (X.start for X in cycle), (set(), 0))[1]
 
 	def sumIncidents(self, netHistory, node, vector):
-		return sum(lambda X: vector[netHistory.mappings.getBond(node, X)], netHistory.module[node].edges) 
+		return sum(vector[netHistory.mappings.getBond(node, X)] for X in netHistory.module[node].edges) 
 
 	def computeImbalance_Segment(self, netHistory, node, twin, duplication, denovo):
 		Dnode = self.sumIncidents(netHistory, node, duplication)
