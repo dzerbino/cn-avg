@@ -318,7 +318,8 @@ class CactusHistory(object):
 		return median(sum((X.eventLengths() for X in self.netHistories.values()),[]))
 
 	def stats(self):
-		return "\t".join(map(str, [self.rearrangementCost(), self.errorCost(), self.length(), self.medianLength(), self.maxLength()]))
+		upper, lower = self.rearrangementCost()
+		return "\t".join(map(str, [upper, lower, self.errorCost(), self.length(), self.medianLength(), self.maxLength()]))
 
 	def dot(self):
 		""" GraphViz representation """

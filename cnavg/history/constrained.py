@@ -319,7 +319,7 @@ class ConstrainedHistory(scheduled.ScheduledHistory):
 				denovo = np.where(previousVector >= 0, -eventVector, 0) 
 				supraduplications = np.sum(np.where(bond, np.maximum(2 * previousVector - newVector, 0), 0))
 				imbalances = self.computeImbalances(localEvent.cycle, netHistory, duplication, denovo)
-				upper = supraduplications + imbalances
+				upper = int(supraduplications + imbalances)
 				# If all the edges of the event cycle are bonds, then the flow is bond cycle 
 				if np.sum((eventVector != 0) & bond) == len(localEvent.cycle) and np.sum(createdBonds) == len(localEvent.cycle) / 2:
 					upper -= 1
