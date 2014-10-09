@@ -241,7 +241,7 @@ def extractCycle(edge, module):
 		if max(edge_counts.values()) == 1:
 			cycle = Cycle(edgeList)
 		else:
-			value = min(getAbsEdgeValue(E, module) / edge_counts[E] for E in edge_counts)
+			value = min(float(getAbsEdgeValue(E, module)) / edge_counts[E] for E in edge_counts)
 			cycle = Cycle(edgeList, value=math.copysign(value, edge.value))
 
 		return Event(cycle)
