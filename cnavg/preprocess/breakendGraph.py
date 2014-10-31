@@ -37,7 +37,10 @@ import vcf
 import cnavg.avg.graph as avg
 
 def mergeOverlappingBreakends(list, breakend):
-	if len(list) == 0 or list[-1] < breakend:
+        if breakend.orientation and all(X is not breakend.partner for X in list):
+		# Partner was already rejected and absorbed
+		pass
+	elif len(list) == 0 or list[-1] < breakend or list[-1].partner is breakend:
 		list.append(breakend)
 	elif all(X is not breakend.partner for X in list):
 		list[-1].absorb(breakend)
