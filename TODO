@@ -1,4 +1,5 @@
 Simplify embalm function to free up Garbage Collection
+Set R_LIBS_USER instead of hard coding path
 
 To think about:
 	CycleCover is forceful in creating untouchable cycle... unavoidable?
