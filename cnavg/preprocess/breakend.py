@@ -132,21 +132,20 @@ class Breakend(coords.OrientedRegion):
 		hits = graph.searchBreakend(mate)
 		if len(hits) > 0:
 			if len(hits) >= 2:
-				hits = filter(lambda X: id(X) != id(self), hits)
+				hits = filter(lambda X: X is not self, hits)
 				assert len(hits) > 0
 			if len(hits) >= 2:
 				hitDistances = sorted((abs(X.position() - self.position()), X) for X in hits)
 				hits = [hitDistances[0][1]]
 			assert len(hits) < 2
 			mate = hits[0]
-			self.mate = mate 
 			self.mates[index] = mate
 
-			remoteIndex = filter(lambda X: mate.remoteChr[X] == self.chr and mate.remoteOrientation[X] == self.orientation and mate.remoteStart[X] < self.finish and mate.remoteFinish[X] > self.start, range(len(mate.mates)))
+			remoteIndex = filter(lambda X: mate.mates[X] is None and mate.remoteChr[X] == self.chr and mate.remoteOrientation[X] == self.orientation and mate.remoteStart[X] < self.finish and mate.remoteFinish[X] > self.start, range(len(mate.mates)))
 			assert len(remoteIndex) < 2
 			if len(remoteIndex) == 1:
 				mate.mates[remoteIndex[0]] = self
-				mate.adjacency_cov[remoteIndex[0]] = self.adjacency_cov[index]
+				mate.adjacency_cov[remoteIndex[0]+1] = self.adjacency_cov[index]
 			else:
 				mate.mates.append(self)
 				mate.remoteChr.append(self.chr)
@@ -181,20 +180,29 @@ class Breakend(coords.OrientedRegion):
 
 	def _stealMates(self, other):
 		print 'Stealing from %i to %i' % (id(other), id(self))
-		for index in range(len(other.mates)):
-			mate = other.mates[index]
-			if mate not in self.mates:
+		for mate, coverage in zip(other.mates, other.adjacency_cov[1:]):
+			if all(X is not mate for X in self.mates):
 				self.mates.append(mate)
-				for index2 in range(len(mate.mates)):
-					if mate.mates[index2] == other:
-						mate.mates[index2] = self
-				self.adjacency_cov.append(other.adjacency_cov[index])
+				self.adjacency_cov.append(coverage)
+				for index in range(len(mate.mates)):
+					if mate.mates[index] is other:
+						mate.mates[index] = self
+			else:
+				for index in range(len(mate.mates)):
+					if mate.mates[index] is other:
+						mate.mates.pop(index)
+						mate.adjacency_cov.pop(index + 1)
+				for index in range(len(mate.mates)):
+					if mate.mates[index] is self:
+						mate.adjacency_cov[index + 1] += coverage
+				for index in range(len(self.mates)):
+					if self.mates[index] is mate:
+						self.adjacency_cov[index + 1] += coverage
+					
 		other.mates = []
 
 	def absorb(self, other):
-		print 'A'
 		self._stealMates(other)
-		print 'B'
 		self.partner._stealMates(other.partner)
 
 	########################################################
@@ -221,7 +229,7 @@ class Breakend(coords.OrientedRegion):
 			else:
 				assert self.orientation == True and self.partner.orientation == False
 		if self.mates is not None:
-			assert all(self in mate.mates for mate in self.mates if mate is not None)
+			assert all(any(X is self for X in mate.mates) for mate in self.mates if mate is not None)
 		assert self.finish >= self.start
 		assert sum(self.segment) >= 0
 		return True
