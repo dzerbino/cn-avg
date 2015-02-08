@@ -38,16 +38,16 @@ ROUNDING_ERROR=1e-10
 
 class Mapping(dict):
 	def __init__(self, cycles):
-		for index, element in enumerate(list(set(sum(cycles, [])))):
-			self[element] = index
+		for index, (edge, sign) in enumerate(list(set(sum(cycles, [])))):
+			self[edge] = index
 
 	def unitaryVector(self, cycle):
 		vector = np.zeros(len(self))
-		for index in range(len(cycle)):
-			if index % 2 == 0:
-				vector[self[cycle[index]]] += 1
+		for edge, sign in cycle:
+			if sign > 0:
+				vector[self[edge]] += 1
 			else:
-				vector[self[cycle[index]]] -= 1
+				vector[self[edge]] -= 1
 		return vector
  
 class ReferenceVectors(object):
@@ -58,7 +58,7 @@ class ReferenceVectors(object):
 
 	def canExplain(self, cycle):
 		## If new dimensions present
-		if any(X not in self.mappings for X in cycle):
+		if any(X not in self.mappings for X,Y in cycle):
 			return False
 
 		## Represent as Euclidian vector
@@ -77,14 +77,13 @@ class ReferenceVectors(object):
 			return False
 
 def main():
-	A = range(6)
-	B = range(6,12)
+	A = [(X,1) for X in range(6)]
+	B = [(X,1) for X in range(6,12)]
 	RV = ReferenceVectors([A,B])
-	assert RV.canExplain(range(6)) == True
-	assert RV.canExplain(range(12)) == True
-	assert RV.canExplain(range(1,12) + [0]) == False
-	assert RV.canExplain(range(2,12)) == False
-	assert RV.canExplain(range(14)) == False
+	assert RV.canExplain(A) == True
+	assert RV.canExplain(A+B) == True
+	assert RV.canExplain(A[2:]) == False
+	assert RV.canExplain(A + [(13,1)]) == False
 
 if __name__ == "__main__":
 	main()
