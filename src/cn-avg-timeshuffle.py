@@ -189,7 +189,7 @@ def main():
 				H2.correctSchedulingError(event)
 			H = H2
 			stats_file.write("%s\n" % H.stats())
-			braney_file.write("%s\n" % O.braneyText(0, H.rearrangementCost()))
+			braney_file.write("%s\n" % O.braneyText(i+1, H.rearrangementCost()))
 
 		# Cleaning up
 		stats_file.close()
