@@ -189,6 +189,10 @@ def main():
 				H2.correctSchedulingError(event)
 			H = H2
 			stats_file.write("%s\n" % H.stats())
+			FH = flattened.flattenGraph(H)
+			S = FH.simplifyStubsAndTrivials()
+			F = S.removeLowRatioEvents(debug.RATIO_CUTOFF)
+			O = ordered.OrderedHistory(F)
 			braney_file.write("%s\n" % O.braneyText(i+1, H.rearrangementCost()))
 
 		# Cleaning up
