@@ -56,6 +56,8 @@ class ReferenceVectors(object):
 		self.mappings = Mapping(cycles) 
 		vectors = np.array([self.mappings.unitaryVector(cycle) for cycle in cycles])
 		self.q_base, self.r_triangle = np.linalg.qr(vectors.T, mode='full')
+		self.sources = cycles
+		self.used_elements = []
 
 	def canExplain(self, cycle):
 		## If new dimensions present
@@ -73,6 +75,9 @@ class ReferenceVectors(object):
 		weights = np.linalg.lstsq(self.r_triangle, projections)[0]
 
 		if all(abs(X - round(X)) < ROUNDING_ERROR for X in weights) and all(round(X) >= 0 for X in weights): 
+			for element in (self.sources[i] for i in filter(lambda X: round(weights[X]) > 0, range(len(weights)))):
+				if element not in self.used_elements:
+					self.used_elements.append(element)
 			return True
 		else:
 			return False
@@ -85,6 +90,8 @@ def main():
 	assert RV.canExplain(A+B) == True
 	assert RV.canExplain(A[2:]) == False
 	assert RV.canExplain(A + [(13,1)]) == False
+	assert A in RV.used_elements
+	assert B in RV.used_elements
 
 if __name__ == "__main__":
 	main()
