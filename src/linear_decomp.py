@@ -38,7 +38,8 @@ ROUNDING_ERROR=1e-10
 
 class Mapping(dict):
 	def __init__(self, cycles):
-		for index, (edge, sign) in enumerate(list(set(sum(cycles, [])))):
+		edgelist=[x[0] for x in sum(cycles, [])]
+		for index, edge in enumerate(list(set(edgelist))):
 			self[edge] = index
 
 	def unitaryVector(self, cycle):
