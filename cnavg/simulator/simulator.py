@@ -295,7 +295,8 @@ class Duplication(Operation):
 
 	def _braneyBlurb(self, history, avg, cost, poset):
 		nodes = sorted(avg.nodes())
-		prevalence = history.weights[self] * self.count
+		prevalence = history.weights[self]
+		flow = prevalence * self.count
 		lines = []
 		edgeIndex = 0
 		rank = poset.depth[self]
@@ -308,8 +309,8 @@ class Duplication(Operation):
 			while i + shift < self.length and self.followsAncestralSequence(history, self.start + i + shift):
 				shift += 1
 			finish = getNode(nodes, self.parent.genome[(self.start + i + shift - 1) % len(self.parent.genome)], True)
-			lines.append("\t".join(map(str, ['A', previous.chr, previous.pos, orientString(previous), start.chr, start.pos, orientString(start),prevalence,prevalence, 0,0,rank,edgeIndex,rank,cost,cost,1,1,id(self)])))
-			lines.append("\t".join(map(str, [start.chr, start.pos, finish.pos, -prevalence,prevalence, 0,0,rank,edgeIndex+1,rank,cost,cost,1,1,id(self)])))
+			lines.append("\t".join(map(str, ['A', previous.chr, previous.pos, orientString(previous), start.chr, start.pos, orientString(start),flow,prevalence, 0,0,rank,edgeIndex,rank,cost,cost,1,1,id(self)])))
+			lines.append("\t".join(map(str, [start.chr, start.pos, finish.pos, -flow,prevalence, 0,0,rank,edgeIndex+1,rank,cost,cost,1,1,id(self)])))
 			previous = finish
 			edgeIndex += 2
 			i += shift
