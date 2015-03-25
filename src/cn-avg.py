@@ -64,6 +64,7 @@ def _parseOptions():
 	parser.add_argument('--debug', '-g', dest='debug', action='store_true', help='Debug switch for whatever')
 	parser.add_argument('--continue', '-c', dest='cont', action='store_true', help='Continue sampling for 24 hours')
 	parser.add_argument('--integer', '-n', dest='integer', action='store_true', help='Integer switch for idealized integer histories')
+	parser.add_argument('--simulation', dest='simulation', action='store_true', help='Simuated histories')
 	parser.add_argument('--size', '-s', dest='size', type=int, default=100, help='Number of sampled histories')
 	parser.add_argument('--temp', '-t', dest='temp', type=float, default=1, help='Starting temperature of MCMC sampling')
 	parser.add_argument('--simulation', dest='simulation', action='store_true', help='Simuated histories')
