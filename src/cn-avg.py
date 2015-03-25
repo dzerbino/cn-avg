@@ -66,6 +66,7 @@ def _parseOptions():
 	parser.add_argument('--integer', '-n', dest='integer', action='store_true', help='Integer switch for idealized integer histories')
 	parser.add_argument('--size', '-s', dest='size', type=int, default=100, help='Number of sampled histories')
 	parser.add_argument('--temp', '-t', dest='temp', type=float, default=1, help='Starting temperature of MCMC sampling')
+	parser.add_argument('--simulation', dest='simulation', action='store_true', help='Simuated histories')
 	return parser.parse_args()
 
 def _parseGraph(options):
@@ -112,6 +113,9 @@ def main():
 		if not os.path.exists(options.dir):
 			os.mkdir(options.dir)
 		os.chdir(options.dir)
+
+	if options.simulation:
+		debug.RATIO_TO_OFFSET = False
 
 	if options.index is None:
 		## Initial graph construction
