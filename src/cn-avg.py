@@ -65,6 +65,7 @@ def _parseOptions():
 	parser.add_argument('--continue', '-c', dest='cont', action='store_true', help='Continue sampling for 24 hours')
 	parser.add_argument('--integer', '-n', dest='integer', action='store_true', help='Integer switch for idealized integer histories')
 	parser.add_argument('--simulation', dest='simulation', action='store_true', help='Simuated histories')
+	parser.add_argument('--tabbed', dest='tabbed', action='store_true', help='Tabbed BamBam breakend file')
 	parser.add_argument('--size', '-s', dest='size', type=int, default=100, help='Number of sampled histories')
 	parser.add_argument('--temp', '-t', dest='temp', type=float, default=1, help='Starting temperature of MCMC sampling')
 	parser.add_argument('--simulation', dest='simulation', action='store_true', help='Simuated histories')
@@ -76,7 +77,7 @@ def _parseGraph(options):
 	if options.bambam is not None and options.breaks is not None and options.chromLengths is not None:
 		options.bambam = sum(map(glob.glob, options.bambam), [])
 		assert len(options.bambam) > 0, options.bambam
-		breakends = bambam.parse(options.bambam, options.breaks, options.chromLengths, options.snpsfiles)
+		breakends = bambam.parse(options.bambam, options.breaks, options.chromLengths, snpsfiles=options.snpsfiles, tabbed=options.tabbed)
 	elif options.vcffile is not None and options.chromLengths is not None:
 		breakends = vcf.parse(options.vcffile, options.chromLengths)
 	else:

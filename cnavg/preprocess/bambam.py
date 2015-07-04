@@ -111,6 +111,42 @@ def parseBreaksLineNew(line, breakends):
 	breakend.germline = (items[4] == 'germline')
 	breakends.append(breakend)
 
+def parseBreaksLineTabbed(line, breakends):
+	items = line.strip().split()
+	if float(items[8]) < 0:
+		return
+
+	# Breakends are duplicated in tabbed file, only select cases where index coords == left coords 
+	if items[:3] != items[3:6]:
+		return
+
+	chr = items[0]
+	if chr[:3] != "chr":
+		chr = "chr" + chr
+	leftCoords = chr + ":" + items[1] + "-" + items[2]
+
+	chr2 = items[6]
+	if chr2[:3] != "chr":
+		chr2 = "chr" + chr2
+	rightCoords = chr2 + ":" + items[7] + "-" + items[8]
+
+	breakend = Breakend(chr, int(items[1]), items[9] == '-', "BND" + str(len(breakends)) + ":" + leftCoords + ":" + rightCoords, finish=int(items[2]))
+	breakend.mates = [None]
+
+	breakend.remoteChr = [chr2]
+	breakend.remoteStart = [int(items[7])]
+	breakend.remoteFinish = [int(items[8])]
+	breakend.remoteOrientation = [items[10] == '-']
+	breakend.adjacency_cov = [-1, float(items[11])]
+	breakend.germline = False
+	breakends.append(breakend)
+
+def parseBreaksLineNew(line, breakends, tabbed):
+	if tabbed:
+		parseBreaksFileTabbed(file, breakends)
+	else:
+		parseBreaksFileNew(file, breakends)
+
 def overlappingGermlineSomatic(A, B):
 	return (A is not None and B is not None and A == B and A.remoteChr[0] == B.remoteChr[0] and A.remoteStart[0] < B.remoteFinish[0] and A.remoteFinish[0] > B.remoteStart[0] and A.remoteOrientation[0] == B.remoteOrientation[0] and A.germline != B.germline)
 
@@ -131,11 +167,11 @@ def removeGermlineBreakends(breakends):
 def removeNonChromosomalBreakpoints(graph, lengths):
 	return BreakendGraph(filter(lambda X: X.chr in lengths and X.remoteChr[0] in lengths, graph))
 
-def parseBreaksFile(file):
+def parseBreaksFile(file, tabbed):
 	print "\tParsing breakends"
 	breakends = BreakendGraph()
 	for line in file:
-		parseBreaksLineNew(line, breakends)
+		parseBreaksLineNew(line, breakends, tabbed)
 	breakends.sort()
 	filtered = removeGermlineBreakends(breakends)
 	return BreakendGraph(filtered)
@@ -303,12 +339,12 @@ def phaseCNVs(files, cnvs, chroms):
 ## Master function
 #############################################
 
-def parse(bbfiles, breaksfile, lengthsfile, snpsfiles=None):
+def parse(bbfiles, breaksfile, lengthsfile, tabbed=False, snpsfiles=None):
 	print "Parsing BamBam data"
 
 	# Reading files
 	lengths = parseChromLengths(lengthsfile)
-	breakends = parseBreaksFile(breaksfile)
+	breakends = parseBreaksFile(breaksfile, tabbed)
 	breakends = removeNonChromosomalBreakpoints(breakends, lengths)
 	breakends.consolidate()
 	breakends = breakends.mergeOverlapping()
