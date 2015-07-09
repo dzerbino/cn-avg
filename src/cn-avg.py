@@ -68,7 +68,6 @@ def _parseOptions():
 	parser.add_argument('--tabbed', dest='tabbed', action='store_true', help='Tabbed BamBam breakend file')
 	parser.add_argument('--size', '-s', dest='size', type=int, default=100, help='Number of sampled histories')
 	parser.add_argument('--temp', '-t', dest='temp', type=float, default=1, help='Starting temperature of MCMC sampling')
-	parser.add_argument('--simulation', dest='simulation', action='store_true', help='Simuated histories')
 	return parser.parse_args()
 
 def _parseGraph(options):

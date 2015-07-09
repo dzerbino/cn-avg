@@ -143,9 +143,9 @@ def parseBreaksLineTabbed(line, breakends):
 
 def parseBreaksLineNew(line, breakends, tabbed):
 	if tabbed:
-		parseBreaksFileTabbed(file, breakends)
+		parseBreaksLineTabbed(line, breakends)
 	else:
-		parseBreaksFileNew(file, breakends)
+		parseBreaksLineNew(line, breakends)
 
 def overlappingGermlineSomatic(A, B):
 	return (A is not None and B is not None and A == B and A.remoteChr[0] == B.remoteChr[0] and A.remoteStart[0] < B.remoteFinish[0] and A.remoteFinish[0] > B.remoteStart[0] and A.remoteOrientation[0] == B.remoteOrientation[0] and A.germline != B.germline)
