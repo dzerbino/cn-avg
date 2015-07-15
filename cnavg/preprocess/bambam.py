@@ -57,6 +57,8 @@ def parseChromLengths(file):
 	res = dict()
 	for line in file:
 		items = line.strip().split()
+		if items[0][:3] != "chr":
+			items[0] = "chr" + items[0]
 		res[items[0]] = int(items[1])
 	return res 
 	
@@ -114,23 +116,20 @@ def parseBreaksLineNew(line, breakends):
 def parseBreaksLineTabbed(line, breakends):
 	items = line.strip().split()
 	if float(items[8]) < 0:
-		return
-
-	# Breakends are duplicated in tabbed file, only select cases where index coords == left coords 
-	if items[:3] != items[3:6]:
+		assert False
 		return
 
 	chr = items[0]
 	if chr[:3] != "chr":
 		chr = "chr" + chr
-	leftCoords = chr + ":" + items[1] + "-" + items[2]
+	leftCoords = chr + ":" + items[4] + "-" + items[5]
 
 	chr2 = items[6]
 	if chr2[:3] != "chr":
 		chr2 = "chr" + chr2
 	rightCoords = chr2 + ":" + items[7] + "-" + items[8]
 
-	breakend = Breakend(chr, int(items[1]), items[9] == '-', "BND" + str(len(breakends)) + ":" + leftCoords + ":" + rightCoords, finish=int(items[2]))
+	breakend = Breakend(chr, int(items[4]), items[9] == '-', "BND" + str(len(breakends)) + ":" + leftCoords + ":" + rightCoords, finish=int(items[5]))
 	breakend.mates = [None]
 
 	breakend.remoteChr = [chr2]

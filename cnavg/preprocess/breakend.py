@@ -91,21 +91,17 @@ class Breakend(coords.OrientedRegion):
 			if len(self.adjacency_cov) == 0:
 				self.adjacency_cov.append(-1)
 			partner.adjacency_cov = [self.adjacency_cov[0]]
-			if not max(self.start, self.partner.start) <= min(self.finish, self.partner.finish):
-				print self
-				print self.partner
-				assert False
 			cutpoint = (max(self.start, self.partner.start) + min(self.finish, self.partner.finish)) / 2
 			if self.orientation:
 				self.start = cutpoint + 1
 				self.partner.finish = cutpoint
-				assert cutpoint + 1 < self.finish
-				assert cutpoint > self.partner.start
+				assert cutpoint + 1 <= self.finish
+				assert cutpoint >= self.partner.start
 			else:
+				assert cutpoint + 1 <= self.partner.finish, "\n".join(map(str, [cutpoint, self, self.partner]))
+				assert cutpoint >= self.start, "\n".join(map(str, [cutpoint, self, self.partner]))
 				self.partner.start = cutpoint + 1
 				self.finish = cutpoint
-				assert cutpoint + 1 < self.partner.finish
-				assert cutpoint > self.start
 			self.partner.start = max(self.partner.start, partner.start)
 
 			if (not self.orientation and self.start >= self.partner.start) or (self.orientation and self.start < self.partner.start):
