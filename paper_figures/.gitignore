@@ -1,0 +1,4 @@
+# ignore compiled python files 
+*.pyc
+# also ignore the old directory because these are old useless scripts 
+old/
