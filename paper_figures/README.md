@@ -32,13 +32,13 @@ chmod 744 postjobs.sh
 This will create merged events in cnavgout, again creating one directory for each simulated evolutionary history. 
 
 Each directory has the following files:
-	1. sampleID.pevnts : A pickled file of the merged events (primary flows) 
-	2. sampleID.pedgs : A pickle file of the merged edges (segments and adjacencies that make up the primary flows). 
-	3. historystats.txt : a tsv file containing rearrangement costs (min and max bounds) for each of the histories predicted by the CN-AVG MCMC sampling.  Also, the penalty costs, and length (number of primary cycles or events) in each history.  
-	4. breakpoints.txt 
-	5. events.stats : has the number of TP, etc. events in it. 
-	6. events.dat: an unpickled file with human readable information about the events.  
-	7. edges.dat, edges.stats : same files as 5 and 6, but for the edges. 
+1. sampleID.pevnts : A pickled file of the merged events (primary flows) 
+2. sampleID.pedgs : A pickle file of the merged edges (segments and adjacencies that make up the primary flows). 
+3. historystats.txt : a tsv file containing rearrangement costs (min and max bounds) for each of the histories predicted by the CN-AVG MCMC sampling.  Also, the penalty costs, and length (number of primary cycles or events) in each history.  
+4. breakpoints.txt 
+5. events.stats : has the number of TP, etc. events in it. 
+6. events.dat: an unpickled file with human readable information about the events.  
+7. edges.dat, edges.stats : same files as 5 and 6, but for the edges. 
 
 4. Create merged data files:
 ----------------------------
