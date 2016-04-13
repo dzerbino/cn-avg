@@ -85,6 +85,28 @@ def parseBreaksLine(line, breakends):
 
 	breakends.append(breakend)
 
+def parseBreaksLineNew2(line, breakends):
+	items = line.strip().split()
+	#if float(items[14]) < 0:
+	#	return
+	chr = items[3]
+	if chr[:3] != "chr":
+		chr = "chr" + chr
+	breakend = Breakend(chr, items[4], items[9] == '-', "BND" + str(len(breakends)) + ":" + items[3] + ":" + items[4] + items[9] + ">>" + items[6]+":"+items[7] + items[10], finish=int(items[5]))
+	breakend.mates = [None]
+	
+	chr2=items[6]
+	if chr2[:3] != "chr":
+		chr2 = "chr" + chr2
+	breakend.remoteChr = [chr2]
+	breakend.remoteStart = [int(items[7])]
+	breakend.remoteFinish = [int(items[8])]
+
+	breakend.remoteOrientation = [items[10] == '-']
+	breakend.adjacency_cov = [-1, float(items[11])]
+	breakend.germline = False
+	breakends.append(breakend)
+
 def parseBreaksLineNew(line, breakends):
 	items = line.strip().split()
 	if float(items[8]) < 0:
@@ -135,7 +157,7 @@ def parseBreaksFile(file):
 	print "\tParsing breakends"
 	breakends = BreakendGraph()
 	for line in file:
-		parseBreaksLineNew(line, breakends)
+		parseBreaksLineNew2(line, breakends)
 	breakends.sort()
 	filtered = removeGermlineBreakends(breakends)
 	return BreakendGraph(filtered)
